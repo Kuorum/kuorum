@@ -317,4 +317,19 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
                 outputStream
         )
     }
+
+    boolean checkSignedReport(KuorumUserSession user, Long campaignId) {
+        Map<String, String> params = [surveyId: campaignId.toString(), userId: user.getId().toString()]
+        Map<String, String> query = [viewerUid: user.getId().toString()]
+        try {
+            restKuorumApiService.head(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_REPORT_SIGNED_VOTES,
+                    params,
+                    query
+            )
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

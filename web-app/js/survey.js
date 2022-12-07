@@ -685,7 +685,7 @@ var surveyFunctions = {
         // surveyTotal.textContent = numberQuestions.toString();
         surveyPercentage.textContent = percentage.toString();
 
-        if("100%" === percentage.toString()) {
+        if (surveyFunctions._isFinishSurvey()) {
             surveyFunctions._showDownloadCertificateCard();
         }
     },
@@ -1033,27 +1033,32 @@ var surveyFunctions = {
     _requestVoteCertificate: function () {
         pageLoadingOff();
         var $modal = $("#survey-pdf-modal");
-        surveyFunctions._prepareModal.prepareDownloadPDFModules(false);
+        surveyFunctions._checkPDFReady($modal);
         $modal.modal("show");
     },
 
     _prepareModal: {
-        prepareDownloadPDFModules: function (pdfReady) {
+        prepareDownloadPDFModules: function () {
             const $modal = $("#survey-pdf-modal");
             const isActiveEmail = surveyFunctions._prepareModal._isEmailActive($modal);
+            const $loading = $modal.find(".loading-container");
             const signedVotes = $modal.attr('data-survey-signed-votes') === "true";
-            if (signedVotes && isActiveEmail) {
+            const pdfReady = surveyFunctions._checkPDFReadyHelper.PDF_READY;
+            $loading.show()
+            if (signedVotes && isActiveEmail && !pdfReady) {
                 surveyFunctions._prepareModal._prepareModalEmailActive($modal);
-                surveyFunctions._loadPDFIframe($modal);
+                surveyFunctions._prepareModal._prepareColumnCAsPDFLoading($modal);
+            } else if (signedVotes && isActiveEmail && pdfReady) {
+                surveyFunctions._prepareModal._prepareModalEmailActive($modal);
+                surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
             } else if (signedVotes && !isActiveEmail && !pdfReady) {
                 surveyFunctions._prepareModal._prepareModalNoEmailLoading($modal);
-                surveyFunctions._loadPDFIframe($modal);
+                surveyFunctions._prepareModal._prepareColumnCAsPDFLoading($modal);
             } else if (signedVotes && !isActiveEmail && pdfReady) {
                 surveyFunctions._prepareModal._prepareModalNoEmailReady($modal);
                 surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
             } else {
                 surveyFunctions._prepareModal._prepareModalLoadingUnsigned($modal);
-                surveyFunctions._hidePDFIframe($modal);
             }
         },
         _isEmailActive: function ($modal) {
@@ -1069,14 +1074,14 @@ var surveyFunctions = {
             $closeButton.addClass("hide")
         },
         _prepareModalNoEmailReady: function ($modal) {
-            const $iframe = $modal.find("iframe");
+            const pdfLink = $modal.attr('data-viewPdfUrl');
             const $loading = $modal.find(".loading-container");
             const $downloadButton = $modal.find(".modal-download");
             const $modalMessage = $modal.find(".modal-body > p");
             $modalMessage.html($modalMessage.attr("data-message-noEmail-loaded"));
             $downloadButton.removeClass("disabled");
             $downloadButton.bind("click", surveyFunctions._reportDownloadButtonHandler)
-            $downloadButton.attr("href", $iframe.attr("src"));
+            $downloadButton.attr("href", pdfLink);
             $loading.remove();
         },
         _prepareModalEmailActive: function ($modal) {
@@ -1118,8 +1123,7 @@ var surveyFunctions = {
         },
         _prepareColumnCAsPDFReady: function ($modal) {
             const $downloadReportColumnC = $("#columc-downlaod-report");
-            const $iframe = $modal.find("iframe");
-            const pdfLink = $iframe.attr("src");
+            const pdfLink = $modal.attr('data-viewPdfUrl');
             const $downloadButton = $downloadReportColumnC.find(".download-report-button");
             const $loading = $downloadReportColumnC.find(".loading-container");
             $downloadReportColumnC.removeClass("hide");
@@ -1139,78 +1143,64 @@ var surveyFunctions = {
             $loading.remove();
         }
     },
-    _hidePDFIframe: function ($modal) {
-        const iframe = $modal.find("iframe");
-        const $loading = $modal.find(".loading-container");
-        iframe.hide();
-        $loading.hide();
-    },
 
-    _loadPDFIframe: function ($modal) {
-        const $iframe = $modal.find("iframe");
+    _checkPDFReady: function ($modal) {
         const viewPdfUrl = $modal.attr('data-viewPdfUrl');
-        const $loading = $modal.find(".loading-container");
-        $loading.show()
-        surveyFunctions._prepareModal._prepareColumnCAsPDFLoading($modal);
+        surveyFunctions._prepareModal.prepareDownloadPDFModules();
         const successFunctionPdfLoaded = function () {
-            surveyFunctions._prepareModal.prepareDownloadPDFModules(true);
-            surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
+            console.log("Success PDF Loaded")
+            surveyFunctions._prepareModal.prepareDownloadPDFModules();
         }
         const errorFunctionPdfLoaded = function () {
+            console.log("Error PDF Loaded")
             surveyFunctions._prepareModal._prepareModalError($modal);
             surveyFunctions._prepareModal._prepareColumnCAsError($modal);
         }
-        surveyFunctions._iframeHelp.init($iframe, viewPdfUrl, successFunctionPdfLoaded, errorFunctionPdfLoaded);
+        surveyFunctions._checkPDFReadyHelper.init(viewPdfUrl, successFunctionPdfLoaded, errorFunctionPdfLoaded);
 
     },
-    _iframeHelp: {
+    _checkPDFReadyHelper: {
         NUM_REQUEST_REPORT: 0,
         WAIT_BETWEEN_REQUESTS_MS: 1000,
-        $IFRAME: null,
-        IFRAME_URL: "",
-        NOT_FOUND_TITLE: "File not found",
+        REPORT_URL: undefined,
         SUCCESS_FUNCTION_LOADED: undefined,
         ERROR_FUNCTION_LOADED: undefined,
         MAX_RELOAD_ATTEMPTS: 10,
-        init: function ($iframe, url, successFunction, errorFunction) {
-            if (surveyFunctions._iframeHelp.$IFRAME == undefined) {
-                console.log("IFRAME :: Pdf loading system initialized")
-                surveyFunctions._iframeHelp.$IFRAME = $iframe;
-                surveyFunctions._iframeHelp.IFRAME_URL = url;
-                surveyFunctions._iframeHelp.SUCCESS_FUNCTION_LOADED = successFunction;
-                surveyFunctions._iframeHelp.ERROR_FUNCTION_LOADED = errorFunction;
-                $iframe.attr("src", url);
-                $iframe.hide();
-                $iframe.on("load", surveyFunctions._iframeHelp._reloadUntilCorrectPdf);
+        PDF_READY: false,
+        init: function (url, successFunction, errorFunction) {
+            if (surveyFunctions._checkPDFReadyHelper.REPORT_URL == undefined) {
+                console.log("PDF REPORT :: Pdf loading system initialized")
+                surveyFunctions._checkPDFReadyHelper.REPORT_URL = url;
+                surveyFunctions._checkPDFReadyHelper.SUCCESS_FUNCTION_LOADED = successFunction;
+                surveyFunctions._checkPDFReadyHelper.ERROR_FUNCTION_LOADED = errorFunction;
+                surveyFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts();
             }
         },
-        _resetIframe: function (i, newSource) {
-            console.log("IFRAME :: Reloading " + newSource)
-            return newSource;
-        },
-        _reloadIframe: function ($iframe) {
-            console.log("IFRAME :: Reload Iframe")
-            if (surveyFunctions._iframeHelp.NUM_REQUEST_REPORT < surveyFunctions._iframeHelp.MAX_RELOAD_ATTEMPTS) {
-                $iframe.attr('src', surveyFunctions._iframeHelp._resetIframe); // resets iframe
-                // $iframe.attr('data', surveyFunctions._iframeHelp._resetIframe); // resets iframe
+        _checkPDFSuccessViaAjaxHandlingAttempts: function () {
+            console.log("PDF REPORT :: Checking PDF via ajax")
+            if (surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT < surveyFunctions._checkPDFReadyHelper.MAX_RELOAD_ATTEMPTS) {
+                surveyFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjax();
             } else {
-                console.log("IFRAME :: Error :: Max attempts reloading Iframe")
-                surveyFunctions._iframeHelp.ERROR_FUNCTION_LOADED();
+                console.log("PDF REPORT :: Error :: Max attempts reloading Iframe")
+                surveyFunctions._checkPDFReadyHelper.ERROR_FUNCTION_LOADED();
             }
-            surveyFunctions._iframeHelp.NUM_REQUEST_REPORT++;
+            surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT++;
         },
-        _reloadUntilCorrectPdf: function (e) {
-            const $iframe = surveyFunctions._iframeHelp.$IFRAME;
-            const title = $iframe.contents().find("title").html();
-            console.log("IFRAME :: Reloading until pdf generated. Times= " + surveyFunctions._iframeHelp.NUM_REQUEST_REPORT)
-            if (title == surveyFunctions._iframeHelp.NOT_FOUND_TITLE) { // Title checking
+        _checkPDFSuccessViaAjax: function (e) {
+            console.log("PDF REPORT :: Checking PDF via ajax. Times= " + surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT)
+            $.ajax({
+                type: "HEAD",
+                async: false,
+                url: surveyFunctions._checkPDFReadyHelper.REPORT_URL,
+            }).done(function () {
+                surveyFunctions._checkPDFReadyHelper.PDF_READY = true;
+                surveyFunctions._checkPDFReadyHelper.SUCCESS_FUNCTION_LOADED();
+            }).fail(function () {
                 setTimeout(function () {
-                    surveyFunctions._iframeHelp._reloadIframe($iframe)
-                }, surveyFunctions._iframeHelp.WAIT_BETWEEN_REQUESTS_MS);
-            } else {
-                console.log("IFRAME :: PDF Loaded")
-                surveyFunctions._iframeHelp.SUCCESS_FUNCTION_LOADED();
-            }
+                    surveyFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts()
+                }, surveyFunctions._checkPDFReadyHelper.WAIT_BETWEEN_REQUESTS_MS);
+            }).always(function () {
+            });
         }
     },
 
@@ -1225,10 +1215,8 @@ var surveyFunctions = {
     _showDownloadCertificateCard: function () {
         const $modal = $("#survey-pdf-modal");
         if ($modal.attr('data-survey-signed-votes') === "true") {
-            const $iframe = $modal.find("iframe");
-            const urlPdf = $iframe.attr("src")
-            if (urlPdf !== "#"){
-                surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal)
+            if (surveyFunctions._checkPDFReadyHelper.REPORT_URL != undefined) {
+                surveyFunctions._checkPDFReady($modal);
             }
         }
     }

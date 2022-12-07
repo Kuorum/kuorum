@@ -66,6 +66,20 @@ class RestKuorumApiService {
         return response
     }
 
+    def head(ApiMethod apiMethod, Map<String, String> params, Map<String, String> query, String adminApiKey = null) throws KuorumException {
+        RestClientNoSSL mailKuorumServices = new RestClientNoSSL(kuorumRestServices) // NO NEEDS CUSTOM MAPPINGS
+
+        String apiKey = adminApiKey ?: CustomDomainResolver.apiToken
+        String path = apiMethod.buildUrl(apiPath, params)
+        def response = mailKuorumServices.head(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "Authorization": apiKey],
+                query: query,
+                requestContentType: groovyx.net.http.ContentType.JSON
+        )
+        return response
+    }
+
     def patch(ApiMethod apiMethod, Map<String, String> params, Map<String, String> query, TypeReference typeToMap) throws KuorumException {
         RestClientNoSSL mailKuorumServices = new RestClientNoSSL(kuorumRestServices)
 

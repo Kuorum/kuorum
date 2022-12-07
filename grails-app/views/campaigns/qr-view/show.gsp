@@ -14,10 +14,11 @@
 <content tag="mainContent">
     <div class="container-fluid qr-code-container">
         <div class="row">
-            <div id="qr-code" class="text-center" data-qr-width="800" data-qr-height="800">
+            <div id="qr-code" class="text-center" data-qr-width="500" data-qr-height="500">
                 <!--Aqui va el QR-->
             </div>
         </div>
+
         <div class="row">
             <div class="text-center qr-text-container">
                 <g:link mapping="joinDomainCheck" params="[qrCode: campaign.qrCode]">
