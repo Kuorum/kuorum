@@ -1109,15 +1109,22 @@ var surveyFunctions = {
             const $downloadButton = $modal.find(".modal-download");
             const $closeButton = $modal.find(".modal-download-close");
             const $loading = $modal.find(".loading-container");
-            $downloadButton.html("ERROR")
+            const $modalMessage = $modal.find(".modal-body > p");
+            $modalMessage.html($modalMessage.attr("data-message-maxAttempts"))
+            $downloadButton.hide()
             $closeButton.removeClass("hide")
             $loading.remove();
         },
         _prepareColumnCAsPDFLoading: function ($modal) {
             const $downloadReportColumnC = $("#columc-downlaod-report");
             const $downloadButton = $downloadReportColumnC.find(".download-report-button");
+            const $retryButton = $downloadReportColumnC.find(".download-report-button-retry");
             $downloadReportColumnC.find(".call-subTitle.waiting").show();
             $downloadReportColumnC.find(".call-subTitle.success").hide();
+            $downloadReportColumnC.find(".call-subTitle.max-attempts").hide();
+            const $loading = $downloadReportColumnC.find(".loading-container");
+            $loading.show();
+            $retryButton.hide();
             $downloadReportColumnC.removeClass("hide");
             $downloadButton.addClass("disabled")
         },
@@ -1125,22 +1132,33 @@ var surveyFunctions = {
             const $downloadReportColumnC = $("#columc-downlaod-report");
             const pdfLink = $modal.attr('data-viewPdfUrl');
             const $downloadButton = $downloadReportColumnC.find(".download-report-button");
+            const $retryButton = $downloadReportColumnC.find(".download-report-button-retry");
             const $loading = $downloadReportColumnC.find(".loading-container");
             $downloadReportColumnC.removeClass("hide");
             $downloadReportColumnC.find(".call-subTitle.waiting").hide();
             $downloadReportColumnC.find(".call-subTitle.success").show();
+            $downloadReportColumnC.find(".call-subTitle.max-attempts").hide();
             $downloadButton.attr("href", pdfLink);
             $downloadButton.removeClass("disabled");
-            $loading.remove();
+            $retryButton.hide();
+            $loading.hide();
         },
         _prepareColumnCAsError: function ($modal) {
             const $downloadReportColumnC = $("#columc-downlaod-report");
             const $downloadButton = $downloadReportColumnC.find(".download-report-button");
+            const $retryButton = $downloadReportColumnC.find(".download-report-button-retry");
             const $loading = $downloadReportColumnC.find(".loading-container");
+            $downloadReportColumnC.find(".call-subTitle.waiting").hide();
+            $downloadReportColumnC.find(".call-subTitle.success").hide();
+            $downloadReportColumnC.find(".call-subTitle.max-attempts").show();
             $downloadReportColumnC.removeClass("hide");
-            $downloadButton.addClass("disabled");
-            $downloadButton.html("ERROR")
-            $loading.remove();
+            $downloadButton.hide()
+            $retryButton.unbind("click").bind("click", function (e) {
+                e.preventDefault();
+                surveyFunctions._checkPDFReadyHelper.restart();
+            });
+            $retryButton.show();
+            $loading.hide();
         }
     },
 
@@ -1167,14 +1185,22 @@ var surveyFunctions = {
         ERROR_FUNCTION_LOADED: undefined,
         MAX_RELOAD_ATTEMPTS: 20,
         PDF_READY: false,
+        INITIALIZED: false,
         init: function (url, successFunction, errorFunction) {
-            if (surveyFunctions._checkPDFReadyHelper.REPORT_URL == undefined) {
+            if (!surveyFunctions._checkPDFReadyHelper.INITIALIZED) {
                 console.log("PDF REPORT :: Pdf loading system initialized")
+                surveyFunctions._checkPDFReadyHelper.INITIALIZED = true;
+                surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT = 0;
                 surveyFunctions._checkPDFReadyHelper.REPORT_URL = url;
                 surveyFunctions._checkPDFReadyHelper.SUCCESS_FUNCTION_LOADED = successFunction;
                 surveyFunctions._checkPDFReadyHelper.ERROR_FUNCTION_LOADED = errorFunction;
                 surveyFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts();
             }
+        },
+        restart: function () {
+            surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT = 0;
+            surveyFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts();
+            surveyFunctions._prepareModal.prepareDownloadPDFModules();
         },
         _checkPDFSuccessViaAjaxHandlingAttempts: function () {
             console.log("PDF REPORT :: Checking PDF via ajax")

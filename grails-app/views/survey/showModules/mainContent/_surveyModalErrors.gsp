@@ -17,6 +17,8 @@
                                                            args="[survey.name]"/>"
                    data-message-unsigned="<g:message code="survey.modal.report.body.unsigned" args="[survey.name]"/>"
                    data-message-sentByEmail="<g:message code="survey.modal.report.body.sentByEmail"
+                                                        args="[survey.name]"/>"
+                   data-message-maxAttempts="<g:message code="survey.modal.report.body.maxAttempts"
                                                         args="[survey.name]"/>">
                 </p>
 
