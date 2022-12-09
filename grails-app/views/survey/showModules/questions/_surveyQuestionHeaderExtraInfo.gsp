@@ -17,7 +17,7 @@
                     code="survey.questions.header.extrainfo.multi.QuestionLimitAnswersType.${kuorum.web.commands.payment.survey.QuestionLimitAnswersType.inferType(question)}"
                     args="[question.minAnswers, question.maxAnswers]"/></div>
             <g:render template="/survey/showModules/questions/surveyQuestionContactWeighing"
-                      model="[question: question, oneOptionQuestion: oneOptionQuestion, questionTypeMultiples: questionTypeMultiples, contact: contact]"/>
+                      model="[question: question, oneOptionQuestion: oneOptionQuestion, questionTypeMultiples: questionTypeMultiples]"/>
             <g:if test="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS].contains(question.questionType)}">
                 <div class="survey-question-extra-info-points"><g:message
                         code="survey.questions.header.extrainfo.multi.points" args="[question.points]"/></div>
@@ -35,5 +35,5 @@
 </g:if>
 <g:else>
     <g:render template="/survey/showModules/questions/surveyQuestionContactWeighing"
-              model="[question: question, oneOptionQuestion: oneOptionQuestion, questionTypeMultiples: questionTypeMultiples, contact: contact]"/>
+              model="[question: question, oneOptionQuestion: oneOptionQuestion, questionTypeMultiples: questionTypeMultiples]"/>
 </g:else>
