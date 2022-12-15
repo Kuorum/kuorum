@@ -31,7 +31,22 @@ class PetitionService  extends AbstractCampaignCreatorService<PetitionRSDTO, Pet
         )
     }
 
-    void getSignedReport(KuorumUserSession user, Long campaignId, OutputStream outputStream) {
+    boolean checkPetitionReport(KuorumUserSession user, Long campaignId) {
+        Map<String, String> params = [petitionId: campaignId.toString(), userId: user.getId().toString()]
+        Map<String, String> query = [viewerUid: user.getId().toString()]
+        try {
+            restKuorumApiService.head(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_PETITION_REPORT_SIGN,
+                    params,
+                    query
+            )
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    void getPetitionReport(KuorumUserSession user, Long campaignId, OutputStream outputStream) {
         Map<String, String> params = [petitionId: campaignId.toString(), userId: user.getId().toString()]
         Map<String, String> query = [viewerUid: user.getId().toString()]
         def response = restKuorumApiService.getFile(

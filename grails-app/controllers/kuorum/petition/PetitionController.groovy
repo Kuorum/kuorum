@@ -10,13 +10,15 @@ import kuorum.web.commands.payment.petition.SignPetitionCommand
 import org.kuorum.rest.model.communication.petition.PetitionRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicUserPageRSDTO
 
-class PetitionController extends CampaignController{
+import javax.servlet.http.HttpServletResponse
+
+class PetitionController extends CampaignController {
 
     grails.gsp.PageRenderer groovyPageRenderer
 
     @Secured(['ROLE_CAMPAIGN_PETITION'])
     def create() {
-        return petitionModelSettings(new CampaignSettingsCommand(debatable:false), null)
+        return petitionModelSettings(new CampaignSettingsCommand(debatable: false), null)
     }
 
     @Secured(['ROLE_CAMPAIGN_PETITION'])
@@ -103,10 +105,19 @@ class PetitionController extends CampaignController{
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def checkPdfToSign(Long campaignId) {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        Boolean fileExists = petitionService.checkPetitionReport(loggedUser, campaignId)
+        if (!fileExists) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        } else {
+            render "OK"
+        }
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def downloadPdfToSign(Long campaignId) {
         KuorumUserSession loggedUser = springSecurityService.principal
-        ByteArrayOutputStream outPdf = new ByteArrayOutputStream();
-        petitionService.getSignedReport(loggedUser, campaignId, outPdf)
-        downloadReportPdf({ByteArrayOutputStream arrayOutputStream -> petitionService.getSignedReport(loggedUser, campaignId, outPdf)})
+        downloadReportPdf({ ByteArrayOutputStream arrayOutputStream -> petitionService.getPetitionReport(loggedUser, campaignId, arrayOutputStream) })
     }
 }

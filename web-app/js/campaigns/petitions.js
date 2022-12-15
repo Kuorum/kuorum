@@ -144,30 +144,77 @@ var petitionFunctions = {
             }
         });
     },
-
-    _loadPDFIframe: function ($modal, viewPdfUrl) {
-        var iframe = $modal.find("iframe");
-        var $loading = $modal.find(".loading");
-        $loading.show()
-        iframe.attr("src", viewPdfUrl);
-        iframe.hide();
-        var reloadUntilCorrectPdf = function (e) {
-            var title = iframe.contents().find("title").html();
-            console.log("Reloading until pdf generated. Title = " + title)
-            if (title == "File not found") { // Title checking
-                console.log("Reloading IFRAME")
-                iframe.attr('src', function (i, val) {
-                    return val;
-                }); // resets iframe
-                iframe.attr('data', function (i, val) {
-                    return val;
-                }); // resets iframe
-            } else {
-                console.log("PDF Loaded")
-                petitionFunctions._showIframeWithPdf($modal);
+    _checkPDFReadyHelper: {
+        NUM_REQUEST_REPORT: 0,
+        WAIT_BETWEEN_REQUESTS_MS: 1000,
+        REPORT_URL: undefined,
+        SUCCESS_FUNCTION_LOADED: undefined,
+        ERROR_FUNCTION_LOADED: undefined,
+        MAX_RELOAD_ATTEMPTS: 20,
+        PDF_READY: false,
+        INITIALIZED: false,
+        init: function (url, successFunction, errorFunction) {
+            if (!petitionFunctions._checkPDFReadyHelper.INITIALIZED) {
+                console.log("PDF REPORT :: Pdf loading system initialized")
+                petitionFunctions._checkPDFReadyHelper.INITIALIZED = true;
+                petitionFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT = 0;
+                petitionFunctions._checkPDFReadyHelper.REPORT_URL = url;
+                petitionFunctions._checkPDFReadyHelper.SUCCESS_FUNCTION_LOADED = successFunction;
+                petitionFunctions._checkPDFReadyHelper.ERROR_FUNCTION_LOADED = errorFunction;
+                petitionFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts();
             }
+        },
+        restart: function () {
+            petitionFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT = 0;
+            petitionFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts();
+        },
+        _checkPDFSuccessViaAjaxHandlingAttempts: function () {
+            console.log("PDF REPORT :: Checking PDF via ajax")
+            if (petitionFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT < petitionFunctions._checkPDFReadyHelper.MAX_RELOAD_ATTEMPTS) {
+                petitionFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjax();
+            } else {
+                console.log("PDF REPORT :: Error :: Max attempts reloading Iframe")
+                petitionFunctions._checkPDFReadyHelper.ERROR_FUNCTION_LOADED();
+            }
+            petitionFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT++;
+        },
+        _checkPDFSuccessViaAjax: function (e) {
+            console.log("PDF REPORT :: Checking PDF via ajax. Times= " + petitionFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT)
+            $.ajax({
+                type: "HEAD",
+                async: false,
+                url: petitionFunctions._checkPDFReadyHelper.REPORT_URL,
+            }).done(function () {
+                petitionFunctions._checkPDFReadyHelper.PDF_READY = true;
+                petitionFunctions._checkPDFReadyHelper.SUCCESS_FUNCTION_LOADED();
+            }).fail(function () {
+                setTimeout(function () {
+                    petitionFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts()
+                }, petitionFunctions._checkPDFReadyHelper.WAIT_BETWEEN_REQUESTS_MS);
+            }).always(function () {
+            });
         }
-        iframe.load(reloadUntilCorrectPdf);
+    },
+    _loadPDFIframe: function ($modal, viewPdfUrl) {
+        const iframe = $modal.find("iframe");
+        const $loading = $modal.find(".loading");
+        $loading.show()
+        iframe.hide();
+
+        const successFunction = function () {
+            iframe.attr("src", viewPdfUrl);
+            console.log("PDF Loaded")
+            petitionFunctions._showIframeWithPdf($modal);
+        }
+
+        const errorFunction = function () {
+            console.log("MAX ATTEMPTS ACHIEVE")
+            petitionFunctions._checkPDFReadyHelper.restart();
+        }
+        petitionFunctions._checkPDFReadyHelper.init(viewPdfUrl, successFunction, errorFunction)
+    },
+    _checkPdfReady($modal) {
+
     },
     _showIframeWithPdf: function ($modal) {
         var $iframe = $modal.find("iframe");

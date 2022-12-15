@@ -18,8 +18,7 @@
                 </p>
 
                 <p class="loading"></p>
-                <iframe src="https://materialdeclase.com/wp-content/uploads/descargar.pdf" width="100%"
-                        height="100%"></iframe>
+                <iframe src="" width="100%" height="100%"></iframe>
                 %{--                <object data="your_url_to_pdf" type="application/pdf" width="100%" height="100%">--}%
                 %{--                    <div>Loading PDF </div>--}%
                 %{--                </object>--}%
