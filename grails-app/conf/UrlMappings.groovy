@@ -242,7 +242,7 @@ class UrlMappings {
         name petitionShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "CAMPAIGN" }
         name petitionCopy: "/account/petition/$campaignId/copy"(controller: "petition", action: "copy")
         name petitionPdfRequest: "/ajax/$userAlias/pt/$urlTitle-$campaignId/pdf/request"(controller: "petition", action: "requestPdfToSign"){cacheCampaignEvict="POST"}
-        name petitionPdfView: "/account/$userAlias/pt/$urlTitle-$campaignId/pdf/view"(controller: "petition", action: "downloadPdfToSign"){cacheCampaignEvict="POST"}
+        name petitionPdfView: "/account/$userAlias/pt/$urlTitle-$campaignId/pdf/view"(controller: "petition"){action =[GET:"downloadPdfToSign", HEAD: "checkPdfToSign"]; cacheCampaignEvict="POST"}
 
 
         name contestCreate: "/account/contest/new"(controller: "contest") { action = [GET: "create", POST: "saveSettings"] ; cacheGlobalEvict="POST" }
