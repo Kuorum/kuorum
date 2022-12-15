@@ -20,9 +20,11 @@ class DomainTagLib {
     def customCss={attrs ->
         String domain = CustomDomainResolver.domain
         String urlCustomDomainCss = lessCompilerService.getUrlDomainCss(domain)
+        String urlCustomDomainCssTricks = lessCompilerService.getUrlDomainCssTricks(domain)
         Long version = CustomDomainResolver.domainRSDTO?.version?:0
-        out <<"""
+        out << """
             <link rel="stylesheet" href="${urlCustomDomainCss}?v=${version}" type="text/css"/>
+            <link rel="stylesheet" href="${urlCustomDomainCssTricks}?v=${version}" type="text/css"/>
         """
     }
 

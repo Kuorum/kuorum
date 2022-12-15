@@ -120,15 +120,19 @@ class LessCompilerService implements ApplicationContextAware {
         appendLessProperty(sb,PARAM_STATIC_ROOT_URL,"\"${amazonFileService.getStaticRootDomainPath(domainRSDTO.domain)}\"")
         appendLessProperty(sb,PARAM_MAIN_TITLES_FONT,KuorumWebFont.build(domainRSDTO.webFontCombinationName).titleFontName)
         appendLessProperty(sb,PARAM_MAIN_TITLES_FONT_WEIGHT,KuorumWebFont.build(domainRSDTO.webFontCombinationName).titleFontWeight)
-        appendLessProperty(sb,PARAM_MAIN_TEXT_FONT,KuorumWebFont.build(domainRSDTO.webFontCombinationName).textFontName)
+        appendLessProperty(sb, PARAM_MAIN_TEXT_FONT, KuorumWebFont.build(domainRSDTO.webFontCombinationName).textFontName)
         return sb.toString();
     }
 
-    private void appendLessProperty(StringBuilder sb, String key, String value){
+    private void appendLessProperty(StringBuilder sb, String key, String value) {
         sb.append(key).append(": ").append(value).append(";").append("\n")
     }
 
-    String getUrlDomainCss(String domain){
+    String getUrlDomainCss(String domain) {
         amazonFileService.getDomainCssUrl(domain)
+    }
+
+    String getUrlDomainCssTricks(String domain) {
+        amazonFileService.getDomainCssTricksUrl(domain)
     }
 }
