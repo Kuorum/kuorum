@@ -117,6 +117,8 @@ var surveyFunctions = {
 
         // CONTACT FILES -> Option is selected by default
         $(".survey-question[data-questiontype='CONTACT_UPLOAD_FILES'] .survey-question-answer.ANSWER_FILES").click()
+
+        $("#survey-pdf-modal").modal('hide');
     },
     _nextButtonClick : function(e) {
         e.preventDefault();
@@ -629,25 +631,37 @@ var surveyFunctions = {
             $nextQuestion = $('.survey-question[data-question-id="' + nextQuestionId + '"]')
         }
         $nextQuestion.addClass("active-question")
-        $nextQuestion.prevAll(":not(."+surveyFunctions.ANSWERED_CLASS+")").addClass(surveyFunctions.SKIPPED_CLASS)
-        var nextQuestionCounter = $nextQuestion.prevAll(".survey-question."+surveyFunctions.ANSWERED_CLASS).length +1;
+        $nextQuestion.prevAll(":not(." + surveyFunctions.ANSWERED_CLASS + ")").addClass(surveyFunctions.SKIPPED_CLASS)
+        var nextQuestionCounter = $nextQuestion.prevAll(".survey-question." + surveyFunctions.ANSWERED_CLASS).length + 1;
         $nextQuestion.find(".survery-question-number .survey-quiestion-number-idx").html(nextQuestionCounter)
         $(currentQuestion).removeClass("active-question")
         surveyFunctions._updateSurveyProgressBar();
-        if (currentQuestion.parentElement.classList.contains("survey-vote-secret")){
+        if (currentQuestion.parentElement.classList.contains("survey-vote-secret")) {
             surveyFunctions._clearAnswer(currentQuestion);
         }
         surveyFunctions._updateQuestionStats(currentQuestionId);
+        if (surveyFunctions._isFinishSurvey()) {
+            surveyFunctions._finishSurvey();
+        }
     },
 
-    _clearAnswer: function(question){
+    _isFinishSurvey: function () {
+        const finishedByJsCode = $(".survey-end").is(":visible");
+        const finishedByClassesAddedToSurveyMainParent = $(".campaign-survey").hasClass("survey-closed") && $(".campaign-survey").hasClass("survey-completed")
+        return finishedByJsCode || finishedByClassesAddedToSurveyMainParent;
+    },
+    _finishSurvey: function () {
+        surveyFunctions._requestVoteCertificate();
+    },
+
+    _clearAnswer: function (question) {
         $(question).find(".survey-question-answer.checked .option-extra-content").remove();
         $(question).find(".survey-question-answer.checked").removeClass("checked");
-        $(question).attr("data-answer-selected","")
-        $(question).find(".survey-question-answer").attr("data-question-extra-content","")
+        $(question).attr("data-answer-selected", "")
+        $(question).find(".survey-question-answer").attr("data-question-extra-content", "")
     },
 
-    _switchOffOptionClickEventsOfQuestion : function(questionId){
+    _switchOffOptionClickEventsOfQuestion: function (questionId) {
         var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
         var options = question.querySelectorAll('.survey-question-answer');
         var optionIdx; // IE10 not supports forEach
@@ -670,6 +684,10 @@ var surveyFunctions = {
         // surveyPos.textContent = numberQuestionsAnswered.toString();
         // surveyTotal.textContent = numberQuestions.toString();
         surveyPercentage.textContent = percentage.toString();
+
+        if (surveyFunctions._isFinishSurvey()) {
+            surveyFunctions._showDownloadCertificateCard();
+        }
     },
 
     _setProgressBarsPercentOneOption:function(questionId){
@@ -1010,6 +1028,223 @@ var surveyFunctions = {
             answers.push(answer)
         }
         return answers;
+    },
+
+    _requestVoteCertificate: function () {
+        pageLoadingOff();
+        var $modal = $("#survey-pdf-modal");
+        surveyFunctions._checkPDFReady($modal);
+        $modal.modal("show");
+    },
+
+    _prepareModal: {
+        prepareDownloadPDFModules: function () {
+            const $modal = $("#survey-pdf-modal");
+            const isActiveEmail = surveyFunctions._prepareModal._isEmailActive($modal);
+            const $loading = $modal.find(".loading-container");
+            const signedVotes = $modal.attr('data-survey-signed-votes') === "true";
+            const pdfReady = surveyFunctions._checkPDFReadyHelper.PDF_READY;
+            $loading.show()
+            if (signedVotes && isActiveEmail && !pdfReady) {
+                surveyFunctions._prepareModal._prepareModalEmailActive($modal);
+                surveyFunctions._prepareModal._prepareColumnCAsPDFLoading($modal);
+            } else if (signedVotes && isActiveEmail && pdfReady) {
+                surveyFunctions._prepareModal._prepareModalEmailActive($modal);
+                surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
+            } else if (signedVotes && !isActiveEmail && !pdfReady) {
+                surveyFunctions._prepareModal._prepareModalNoEmailLoading($modal);
+                surveyFunctions._prepareModal._prepareColumnCAsPDFLoading($modal);
+            } else if (signedVotes && !isActiveEmail && pdfReady) {
+                surveyFunctions._prepareModal._prepareModalNoEmailReady($modal);
+                surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
+            } else {
+                surveyFunctions._prepareModal._prepareModalLoadingUnsigned($modal);
+            }
+        },
+        _isEmailActive: function ($modal) {
+            return $modal.attr("data-survey-email-active") != "" && $modal.attr("data-survey-email-active").indexOf("@fake.com") < 0;
+        },
+        _prepareModalNoEmailLoading: function ($modal) {
+            const $downloadButton = $modal.find(".modal-download");
+            const $closeButton = $modal.find(".modal-download-close");
+            const $modalMessage = $modal.find(".modal-body > p");
+
+            $modalMessage.html($modalMessage.attr("data-message-noEmail-loading"))
+            $downloadButton.addClass("disabled")
+            $closeButton.addClass("hide")
+        },
+        _prepareModalNoEmailReady: function ($modal) {
+            const pdfLink = $modal.attr('data-viewPdfUrl');
+            const $loading = $modal.find(".loading-container");
+            const $downloadButton = $modal.find(".modal-download");
+            const $modalMessage = $modal.find(".modal-body > p");
+            $modalMessage.html($modalMessage.attr("data-message-noEmail-loaded"));
+            $downloadButton.removeClass("disabled");
+            $downloadButton.bind("click", surveyFunctions._reportDownloadButtonHandler)
+            $downloadButton.attr("href", pdfLink);
+            $loading.remove();
+        },
+        _prepareModalEmailActive: function ($modal) {
+            const $downloadButton = $modal.find(".modal-download");
+            const $closeButton = $modal.find(".modal-download-close");
+            const $modalMessage = $modal.find(".modal-body > p");
+            const $loading = $modal.find(".loading-container");
+
+            $modalMessage.html($modalMessage.attr("data-message-sentByEmail"))
+            $loading.remove();
+            $downloadButton.remove();
+            $closeButton.removeClass("hide")
+        },
+        _prepareModalLoadingUnsigned: function ($modal) {
+            const $modalMessage = $modal.find(".modal-body > p");
+            const $downloadButton = $modal.find(".modal-download");
+            const $closeButton = $modal.find(".modal-download-close");
+            const $loading = $modal.find(".loading-container");
+            $modalMessage.html($modalMessage.attr("data-message-unsigned"));
+            $loading.remove();
+            $downloadButton.hide();
+            $closeButton.removeClass("hide")
+        },
+        _prepareModalError: function ($modal) {
+            const $downloadButton = $modal.find(".modal-download");
+            const $closeButton = $modal.find(".modal-download-close");
+            const $loading = $modal.find(".loading-container");
+            const $modalMessage = $modal.find(".modal-body > p");
+            $modalMessage.html($modalMessage.attr("data-message-maxAttempts"))
+            $downloadButton.hide()
+            $closeButton.removeClass("hide")
+            $loading.remove();
+        },
+        _prepareColumnCAsPDFLoading: function ($modal) {
+            const $downloadReportColumnC = $("#columc-downlaod-report");
+            const $downloadButton = $downloadReportColumnC.find(".download-report-button");
+            const $retryButton = $downloadReportColumnC.find(".download-report-button-retry");
+            $downloadReportColumnC.find(".call-subTitle.waiting").show();
+            $downloadReportColumnC.find(".call-subTitle.success").hide();
+            $downloadReportColumnC.find(".call-subTitle.max-attempts").hide();
+            const $loading = $downloadReportColumnC.find(".loading-container");
+            $loading.show();
+            $retryButton.hide();
+            $downloadReportColumnC.removeClass("hide");
+            $downloadButton.addClass("disabled")
+        },
+        _prepareColumnCAsPDFReady: function ($modal) {
+            const $downloadReportColumnC = $("#columc-downlaod-report");
+            const pdfLink = $modal.attr('data-viewPdfUrl');
+            const $downloadButton = $downloadReportColumnC.find(".download-report-button");
+            const $retryButton = $downloadReportColumnC.find(".download-report-button-retry");
+            const $loading = $downloadReportColumnC.find(".loading-container");
+            $downloadReportColumnC.removeClass("hide");
+            $downloadReportColumnC.find(".call-subTitle.waiting").hide();
+            $downloadReportColumnC.find(".call-subTitle.success").show();
+            $downloadReportColumnC.find(".call-subTitle.max-attempts").hide();
+            $downloadButton.attr("href", pdfLink);
+            $downloadButton.removeClass("disabled");
+            $retryButton.hide();
+            $loading.hide();
+        },
+        _prepareColumnCAsError: function ($modal) {
+            const $downloadReportColumnC = $("#columc-downlaod-report");
+            const $downloadButton = $downloadReportColumnC.find(".download-report-button");
+            const $retryButton = $downloadReportColumnC.find(".download-report-button-retry");
+            const $loading = $downloadReportColumnC.find(".loading-container");
+            $downloadReportColumnC.find(".call-subTitle.waiting").hide();
+            $downloadReportColumnC.find(".call-subTitle.success").hide();
+            $downloadReportColumnC.find(".call-subTitle.max-attempts").show();
+            $downloadReportColumnC.removeClass("hide");
+            $downloadButton.hide()
+            $retryButton.unbind("click").bind("click", function (e) {
+                e.preventDefault();
+                surveyFunctions._checkPDFReadyHelper.restart();
+            });
+            $retryButton.show();
+            $loading.hide();
+        }
+    },
+
+    _checkPDFReady: function ($modal) {
+        const viewPdfUrl = $modal.attr('data-viewPdfUrl');
+        surveyFunctions._prepareModal.prepareDownloadPDFModules();
+        const successFunctionPdfLoaded = function () {
+            console.log("Success PDF Loaded")
+            surveyFunctions._prepareModal.prepareDownloadPDFModules();
+        }
+        const errorFunctionPdfLoaded = function () {
+            console.log("Error PDF Loaded")
+            surveyFunctions._prepareModal._prepareModalError($modal);
+            surveyFunctions._prepareModal._prepareColumnCAsError($modal);
+        }
+        surveyFunctions._checkPDFReadyHelper.init(viewPdfUrl, successFunctionPdfLoaded, errorFunctionPdfLoaded);
+
+    },
+    _checkPDFReadyHelper: {
+        NUM_REQUEST_REPORT: 0,
+        WAIT_BETWEEN_REQUESTS_MS: 1000,
+        REPORT_URL: undefined,
+        SUCCESS_FUNCTION_LOADED: undefined,
+        ERROR_FUNCTION_LOADED: undefined,
+        MAX_RELOAD_ATTEMPTS: 20,
+        PDF_READY: false,
+        INITIALIZED: false,
+        init: function (url, successFunction, errorFunction) {
+            if (!surveyFunctions._checkPDFReadyHelper.INITIALIZED) {
+                console.log("PDF REPORT :: Pdf loading system initialized")
+                surveyFunctions._checkPDFReadyHelper.INITIALIZED = true;
+                surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT = 0;
+                surveyFunctions._checkPDFReadyHelper.REPORT_URL = url;
+                surveyFunctions._checkPDFReadyHelper.SUCCESS_FUNCTION_LOADED = successFunction;
+                surveyFunctions._checkPDFReadyHelper.ERROR_FUNCTION_LOADED = errorFunction;
+                surveyFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts();
+            }
+        },
+        restart: function () {
+            surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT = 0;
+            surveyFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts();
+            surveyFunctions._prepareModal.prepareDownloadPDFModules();
+        },
+        _checkPDFSuccessViaAjaxHandlingAttempts: function () {
+            console.log("PDF REPORT :: Checking PDF via ajax")
+            if (surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT < surveyFunctions._checkPDFReadyHelper.MAX_RELOAD_ATTEMPTS) {
+                surveyFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjax();
+            } else {
+                console.log("PDF REPORT :: Error :: Max attempts reloading Iframe")
+                surveyFunctions._checkPDFReadyHelper.ERROR_FUNCTION_LOADED();
+            }
+            surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT++;
+        },
+        _checkPDFSuccessViaAjax: function (e) {
+            console.log("PDF REPORT :: Checking PDF via ajax. Times= " + surveyFunctions._checkPDFReadyHelper.NUM_REQUEST_REPORT)
+            $.ajax({
+                type: "HEAD",
+                async: false,
+                url: surveyFunctions._checkPDFReadyHelper.REPORT_URL,
+            }).done(function () {
+                surveyFunctions._checkPDFReadyHelper.PDF_READY = true;
+                surveyFunctions._checkPDFReadyHelper.SUCCESS_FUNCTION_LOADED();
+            }).fail(function () {
+                setTimeout(function () {
+                    surveyFunctions._checkPDFReadyHelper._checkPDFSuccessViaAjaxHandlingAttempts()
+                }, surveyFunctions._checkPDFReadyHelper.WAIT_BETWEEN_REQUESTS_MS);
+            }).always(function () {
+            });
+        }
+    },
+
+    _reportDownloadButtonHandler: function () {
+        const $modal = $("#survey-pdf-modal");
+        const $closeButton = $modal.find(".modal-download-close");
+        surveyFunctions._showDownloadCertificateCard();
+        $closeButton.removeClass("disabled");
+        $modal.modal("hide")
+    },
+
+    _showDownloadCertificateCard: function () {
+        const $modal = $("#survey-pdf-modal");
+        if ($modal.attr('data-survey-signed-votes') === "true") {
+            if (surveyFunctions._checkPDFReadyHelper.REPORT_URL != undefined) {
+                surveyFunctions._checkPDFReady($modal);
+            }
+        }
     }
 }
 

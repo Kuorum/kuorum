@@ -15,7 +15,7 @@ class LandingController {
     CampaignService campaignService
     DomainService domainService
 
-    def index() { }
+    def index() {}
 
     def landingServices() {
         if (springSecurityService.isLoggedIn()) {
@@ -25,9 +25,10 @@ class LandingController {
         }
         List<CampaignRSDTO> campaigns = campaignService.findRelevantDomainCampaigns()
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+
         def model = [
-                slogan             : domainRSDTO.slogan?:g.message(code: "kuorum.web.landing.configuration.default.slogan"),
-                subtitle           : domainRSDTO.subtitle?:g.message(code: "kuorum.web.landing.configuration.default.subtitle"),
+                slogan             : domainRSDTO.slogan ?: g.message(code: "kuorum.web.landing.configuration.default.slogan"),
+                subtitle           : domainRSDTO.subtitle ?: g.message(code: "kuorum.web.landing.configuration.default.subtitle"),
                 domainDescription  : domainRSDTO.domainDescription,
                 landingVisibleRoles: domainRSDTO.landingVisibleRoles,
                 command            : new KuorumRegisterCommand(),
@@ -39,9 +40,9 @@ class LandingController {
         ]
         if (domainService.showPrivateContent()) {
             CampaignRSDTO starredCampaign = campaignService.findStarredCampaign(campaigns, domainRSDTO.getStarredCampaignId())
-            model.put('campaigns',campaigns)
-            model.put('starredCampaign',starredCampaign,)
+            model.put('campaigns', campaigns)
+            model.put('starredCampaign', starredCampaign,)
         }
-        return model;
+        return model
     }
 }

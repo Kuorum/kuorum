@@ -230,6 +230,12 @@ modules = {
         resource url: 'js/campaigns/ranking-list.js'
     }
 
+    qrCodeView{
+        dependsOn("basic")
+        resource url: 'js/jquery.qrcode.min.js'
+        resource url: 'js/campaigns/qr-code-view.js'
+    }
+
     campaignForm{
         dependsOn("basic", "forms", "contacts")
         resource url: 'js/campaign-form.js'

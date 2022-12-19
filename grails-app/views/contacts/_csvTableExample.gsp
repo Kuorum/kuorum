@@ -3,18 +3,21 @@
     <thead>
     <tr>
         <th></th>
-        <th>
-            <select class="form-control" name="columnOption">
-                <option value=""><g:message code="tools.contact.import.table.columnOption.notImported"/> </option>
-                <option value="name"><g:message code="tools.contact.import.table.columnOption.name"/> </option>
-                <option value="email" selected><g:message code="tools.contact.import.table.columnOption.email"/> </option>
-                <option value="tag"><g:message code="tools.contact.import.table.columnOption.tag"/> </option>
-            </select>
-            <input type="hidden" name="realPos" value="${emailPos}"/>
-        </th>
+        <g:if test="${emailPos}">
+            <th>
+                <select class="form-control" name="columnOption">
+                    <option value=""><g:message code="tools.contact.import.table.columnOption.notImported"/></option>
+                    <option value="name"><g:message code="tools.contact.import.table.columnOption.name"/></option>
+                    <option value="email" selected><g:message
+                            code="tools.contact.import.table.columnOption.email"/></option>
+                    <option value="tag"><g:message code="tools.contact.import.table.columnOption.tag"/></option>
+                </select>
+                <input type="hidden" name="realPos" value="${emailPos}"/>
+            </th>
+        </g:if>
         <g:each in="${line.values}" var="val" status="i">
             <g:if test="${i != emailPos}">
-                <th class="${emptyColumns.contains(i)?'hide':''}">
+                <th class="${emptyColumns.contains(i) ? 'hide' : ''}">
                     <select class="form-control" name="columnOption">
                         <option value=""><g:message
                                 code="tools.contact.import.table.columnOption.notImported"/></option>
@@ -46,36 +49,38 @@
         </g:each>
     </tr>
     </thead>
-    <tbody>
-    <g:set var="exampleLinesShowed" value="${0}"/>
-    <g:while test="${line}">
-        <tr>
-            <th scope="row">
-                <span class="csv-row-number">
-                    <g:message code="tools.contact.import.table.row" args="[exampleLinesShowed]"/>
-                </span>
-                <span class="notImport">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="${exampleLinesShowed+1}" name="notImport">
-                        <span class="check-box-icon"></span>
-                        <span class="label-checkbox"><g:message code="tools.contact.import.table.row.notImport"/></span>
-                    </label>
-            </th>
-            <td>${line.values[emailPos]}</td>
-            <g:each in="${line.values}" var="columnValue" status="i">
-                <g:if test="${i != emailPos}">
-                    <td class="${emptyColumns.contains(i)?'hide':''}">${columnValue}</td>
+        <tbody>
+        <g:set var="exampleLinesShowed" value="${0}"/>
+        <g:while test="${line}">
+            <tr>
+                <th scope="row">
+                    <span class="csv-row-number">
+                        <g:message code="tools.contact.import.table.row" args="[exampleLinesShowed]"/>
+                    </span>
+                    <span class="notImport">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="${exampleLinesShowed+1}" name="notImport">
+                            <span class="check-box-icon"></span>
+                            <span class="label-checkbox"><g:message code="tools.contact.import.table.row.notImport"/></span>
+                        </label>
+                </th>
+                <g:if test="${emailPos}">
+                    <td>${line.values[emailPos]}</td>
                 </g:if>
-            </g:each>
-        </tr>
-        <g:if test="${lines.hasNext() && exampleLinesShowed < 6}">
-            <g:set var="line" value="${lines.next()}"/>
-            <%exampleLinesShowed++%>
-        </g:if>
-        <g:else>
-            <g:set var="line" value=""/>
-        </g:else>
-    </g:while>
+                <g:each in="${line.values}" var="columnValue" status="i">
+                    <g:if test="${i != emailPos}">
+                        <td class="${emptyColumns.contains(i)?'hide':''}">${columnValue}</td>
+                    </g:if>
+                </g:each>
+            </tr>
+            <g:if test="${lines.hasNext() && exampleLinesShowed < 6}">
+                <g:set var="line" value="${lines.next()}"/>
+                <%exampleLinesShowed++%>
+            </g:if>
+            <g:else>
+                <g:set var="line" value=""/>
+            </g:else>
+        </g:while>
 
-    </tbody>
+        </tbody>
 </table>

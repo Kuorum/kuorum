@@ -374,11 +374,16 @@ class AmazonFileService extends LocalFileService {
 
     private String DOMAIN_PATH = "domains"
     private String DOMAIN_CUSTOM_CSS_FILE = "custom.css"
+    private String DOMAIN_CUSTOM_TRICKS_CSS_FILE = "custom-tricks.css"
     private String DOMAIN_CUSTOM_LOGO_FILE = "logo.png"
     private String DOMAIN_CUSTOM_FAVICON_FOLDER = "favicon"
 
     String getDomainCssUrl(String domain) {
         buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_CSS_FILE)
+    }
+
+    String getDomainCssTricksUrl(String domain) {
+        buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_TRICKS_CSS_FILE)
     }
 
 
