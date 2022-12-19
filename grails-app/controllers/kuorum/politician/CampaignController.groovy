@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
+import javassist.NotFoundException
 import kuorum.KuorumFile
 import kuorum.core.FileType
 import kuorum.core.customDomain.CustomDomainResolver
@@ -51,8 +52,6 @@ import payment.campaign.*
 import payment.contact.ContactService
 
 import javax.servlet.http.HttpServletResponse
-
-import static kuorum.util.rest.RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_REPORT
 
 class CampaignController {
 
@@ -163,6 +162,13 @@ class CampaignController {
         )
         CampaignLightPageRSDTO adminCampaigns = campaignService.findAllCampaigns(user, searchCampaignRDTO)
         render adminCampaigns.data as JSON
+    }
+
+    def viewQrPage(Long campaignId) {
+        KuorumUserSession loggedUser = springSecurityService.isLoggedIn() ? springSecurityService.principal : null
+        CampaignRSDTO campaign = campaignService.find(WebConstants.FAKE_LANDING_ALIAS_USER, campaignId, loggedUser?.getId()?.toString() ?: null)
+        def model = [campaign: campaign]
+        render view: '/campaigns/qr-view/show', model: model
     }
 
     protected def modelSettings(CampaignSettingsCommand command, CampaignRSDTO campaignRSDTO = null) {
@@ -623,6 +629,20 @@ class CampaignController {
                 codeValidation     : [success: userValidationRSDTO.codeStatus.isGranted(), data: [:]]
 
         ]
+    }
+
+    protected def downloadReportPdf(Closure serviceMethod) {
+        try {
+            ByteArrayOutputStream outPdf = new ByteArrayOutputStream();
+            serviceMethod(outPdf)
+            outPdf.writeTo(response.outputStream);
+            response.setContentType("application/pdf")
+            response.setHeader("Content-disposition", "filename=${fileName}")
+            response.outputStream.flush()
+            return
+        } catch (Exception e) {
+            render "<html><head><title>File not found</title></head><body>File not found</body></html>"
+        }
     }
 
 }

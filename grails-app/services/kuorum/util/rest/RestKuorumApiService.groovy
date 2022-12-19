@@ -66,6 +66,20 @@ class RestKuorumApiService {
         return response
     }
 
+    def head(ApiMethod apiMethod, Map<String, String> params, Map<String, String> query, String adminApiKey = null) throws KuorumException {
+        RestClientNoSSL mailKuorumServices = new RestClientNoSSL(kuorumRestServices) // NO NEEDS CUSTOM MAPPINGS
+
+        String apiKey = adminApiKey ?: CustomDomainResolver.apiToken
+        String path = apiMethod.buildUrl(apiPath, params)
+        def response = mailKuorumServices.head(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "Authorization": apiKey],
+                query: query,
+                requestContentType: groovyx.net.http.ContentType.JSON
+        )
+        return response
+    }
+
     def patch(ApiMethod apiMethod, Map<String, String> params, Map<String, String> query, TypeReference typeToMap) throws KuorumException {
         RestClientNoSSL mailKuorumServices = new RestClientNoSSL(kuorumRestServices)
 
@@ -187,9 +201,12 @@ class RestKuorumApiService {
         USER_CONTACT_SUBSCRIBE("/contacts/{userId}/suscribe"),
         USER_CONTACT_REPORT("/contacts/{userId}/report"),
         USER_CONTACT_SOCIAL_IMPORT("/contacts/social/{provider}/request"),
+        USER_CONTACT_EXTERNAL_ID('/contacts/{ownerId}/external/{externalId}'),
 
         CENSUS_LOGIN("/census/loginByCode/{censusCode}"),
         CENSUS_LOGIN_POST("/census/loginByCode"),
+
+        EXTERNAL_ID_LOGIN_POST("/census/loginByExternalId"),
 
         USER_FOLLOWER("/user/{userId}/follower/"),
         USER_FOLLOWER_FOLLOWING("/user/{userId}/follower/following"),
@@ -242,6 +259,7 @@ class RestKuorumApiService {
         ACCOUNT_CAMPAIGN_PICTURE("/communication/campaign/{userId}/{campaignId}/picture"),
         ACCOUNT_CAMPAIGN_PAUSE("/communication/campaign/{userId}/{campaignId}/pause"),
         ACCOUNT_CAMPAIGN_GROUPS("/communication/campaign/{userId}/{campaignId}/groups/{filterId}"),
+        CAMPAIGN_QR_CODE("/communication/campaign/qr/{qrCode}"),
 
 
         ACCOUNT_DEBATES_ALL("/communication/campaign/debate/"),
@@ -279,6 +297,7 @@ class RestKuorumApiService {
         ACCOUNT_SURVEY_REPORT_STATS("/communication/campaign/survey/{userId}/{surveyId}/report/stats"),
         ACCOUNT_SURVEY_REPORT_RAW("/communication/campaign/survey/{userId}/{surveyId}/report/rawData"),
         ACCOUNT_SURVEY_COPY("/communication/campaign/survey/{userId}/{campaignId}/copy"),
+        ACCOUNT_SURVEY_REPORT_SIGNED_VOTES("/communication/campaign/survey/{userId}/{surveyId}/signed/pdf"),
 
         ACCOUNT_ACTIVE_PARTICIPATORY_BUDGETS("/communication/campaign/participatory-budget/"),
         ACCOUNT_PARTICIPATORY_BUDGETS("/communication/campaign/participatory-budget/{userId}"),

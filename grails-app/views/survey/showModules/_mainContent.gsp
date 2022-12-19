@@ -6,12 +6,15 @@
     </g:if>
 </g:if>
 
-<div class="campaign-survey ${survey.hideResults?'campaign-hide-results':''} ${surveyClosedClasses} ">
-    <g:render template="/survey/showModules/surveyData" model="[survey: survey, campaignUser: campaignUser]" />
+<div class="campaign-survey ${survey.hideResults ? 'campaign-hide-results' : ''} ${surveyClosedClasses} ${survey.completed ? 'survey-completed' : ''}">
+    <g:render template="/survey/showModules/surveyData" model="[survey: survey, campaignUser: campaignUser]"/>
     <g:render template="/campaigns/showModules/campingModalEditScheduled"/>
 
     <div id="survey-questions-tag">
-            <g:render template="/survey/showModules/surveyQuestions" model="[survey:survey,campaignUser:campaignUser, activeQuestionId:activeQuestionId]"/>
+        <g:render template="/survey/showModules/surveyQuestions"
+                  model="[survey: survey, campaignUser: campaignUser, activeQuestionId: activeQuestionId]"/>
     </div>
 
 </div>
+
+<g:render template="/survey/showModules/mainContent/surveyModalErrors" model="[survey: survey]"/>

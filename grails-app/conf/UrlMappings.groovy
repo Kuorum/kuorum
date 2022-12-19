@@ -15,17 +15,22 @@ class UrlMappings {
 
         /**/
         /** NEW LANDIGNS **/
-        name landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
-        name en_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
-        name es_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
-        name de_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
-        name ca_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
+        name landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
+        name en_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
+        name es_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
+        name de_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
+        name ca_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
 
-        name home: "/"(controller: "landing", action: "landingServices") { mappingName = "home"; cacheActive = "LANDING" }
-        name en_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "LANDING" }
-        name es_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "LANDING" }
-        name de_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "LANDING" }
-        name ca_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "LANDING" }
+        name joinDomain: "/join"(controller: "register") {action = [GET: "join", POST: "joinPost"]}
+        name joinDomainCheck: "/join/$qrCode"(controller: "register", action: 'joinCheck', method: 'GET')
+        name joinDomainCheck: "/join/$qrCode"(controller: "campaignValidation", action: 'step0RegisterWithExternalId', method: 'POST')
+        name joinDomainId: "/join/id"(controller: "campaignValidation") { action = [POST: "step0RegisterWithExternalId"] }
+
+        name home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home"; cacheActive = "LANDING" }
+        name en_home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home";cacheActive = "LANDING" }
+        name es_home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home";cacheActive = "LANDING" }
+        name de_home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home";cacheActive = "LANDING" }
+        name ca_home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home";cacheActive = "LANDING" }
 
         name footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
         name en_footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
@@ -201,6 +206,7 @@ class UrlMappings {
         name surveyInitDomainEditSumonContacts: "/start/survey/$campaignId/add-contacts"(controller: "survey") { action = [GET: "editInitialSurveyAddContactsStep", POST: "saveInitialSurveyAddContactsStep"] }
         name surveyInitDomainSuccess: "/start/survey/$campaignId/success"(controller: "survey", action: "editInitialSurveyFinish");
         name surveyCloseNow: "/ajax/survey/$campaignId/close"(controller: "survey", action: "closeSurvey");
+        name surveySignedVotesPdfView: "/account/$userAlias/s/$urlTitle-$campaignId/pdf/view"(controller: "survey"){action =[GET:"downloadSignedVotesPdf", HEAD: "checkSignedVotesPdf"]; cacheCampaignEvict="POST"}
 
 
         name eventCreate: "/account/event/new"(controller: "event") { action = [GET: "create", POST: "saveSettings"] }
@@ -236,7 +242,7 @@ class UrlMappings {
         name petitionShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "CAMPAIGN" }
         name petitionCopy: "/account/petition/$campaignId/copy"(controller: "petition", action: "copy")
         name petitionPdfRequest: "/ajax/$userAlias/pt/$urlTitle-$campaignId/pdf/request"(controller: "petition", action: "requestPdfToSign"){cacheCampaignEvict="POST"}
-        name petitionPdfView: "/account/$userAlias/pt/$urlTitle-$campaignId/pdf/view"(controller: "petition", action: "downloadPdfToSign"){cacheCampaignEvict="POST"}
+        name petitionPdfView: "/account/$userAlias/pt/$urlTitle-$campaignId/pdf/view"(controller: "petition"){action =[GET:"downloadPdfToSign", HEAD: "checkPdfToSign"]; cacheCampaignEvict="POST"}
 
 
         name contestCreate: "/account/contest/new"(controller: "contest") { action = [GET: "create", POST: "saveSettings"] ; cacheGlobalEvict="POST" }
@@ -320,6 +326,7 @@ class UrlMappings {
 
         name campaignValidationInitProcess: "/$userAlias/$urlTitle-$campaignId/validation"(controller: "campaignValidation", action: 'initValidation')
         name campaignValidationLinkCheck: "/sign-up/census"(controller: "campaignValidation") { action = [GET: "step0RegisterWithCensusCode", POST: "step0RegisterWithCensusCodeSave"] }
+        name campaignValidationLinkCheckExternal: "/sign-up/external"(controller: "campaignValidation") { action = [POST: "step0RegisterWithExternalIdSave"] }
         name campaignValidationCensus: "/$userAlias/$urlTitle-$campaignId/validation/census"(controller: "campaignValidation") { action = [GET: "stepCampaignValidationCensus", POST: "stepCampaignValidationCensusSave"] }
         name campaignValidationCode: "/$userAlias/$urlTitle-$campaignId/validation/customCode"(controller: "campaignValidation") { action = [GET: "stepCampaignValidationCustomCode", POST: "stepCampaignValidationCustomCodeSave"] }
         name campaignValidationPhoneNumber: "/$userAlias/$urlTitle-$campaignId/validation/phone/number"(controller: "campaignValidation") { action = [GET: "stepCampaignValidationPhoneNumber"] }
@@ -353,19 +360,19 @@ class UrlMappings {
         name adminSearcherIndex: "/sec/admin/searcher/indexar"(controller: "admin", action: "solrIndex")
         name adminSearcherFullIndex: "/sec/admin/searcher/full-index"(controller: "admin", action: "fullIndex")
         name adminSearcherFullIndex: "/sec/admin/searcher/full-index"(controller: "admin", action: "fullIndex")
-        name adminRecerateAllCss: "/sec/admin/css/recreateAllCss"(controller: "admin") { action = [GET: "updateDomainCss", POST: "updateDomainCssPost"] }
+        name adminRecerateAllCss: "/sec/admin/css/recreateAllCss"(controller: "admin") { action = [GET: "updateDomainCss", POST: "updateDomainCssPost"]; cacheGlobalEvict="POST"; }
         name adminDomainConfig: "/sec/admin/domain"(controller: "admin") { action = [GET: "domainConfig", POST: "domainConfigSave"]; cacheGlobalEvict="POST"; }
-        name adminDomainConfigLanding: "/sec/admin/domain/landing"(controller: "admin") { action = [GET: "editLandingInfo", POST: "editLandingInfoSave"] }
-        name adminDomainConfigLegalInfo: "/sec/admin/domain/editLegalInfo"(controller: "admin") { action = [GET: "editLegalInfo", POST: "updateLegalInfo"] }
+        name adminDomainConfigLanding: "/sec/admin/domain/landing"(controller: "admin") { action = [GET: "editLandingInfo", POST: "editLandingInfoSave"]; cacheGlobalEvict="POST"; }
+        name adminDomainConfigLegalInfo: "/sec/admin/domain/editLegalInfo"(controller: "admin") { action = [GET: "editLegalInfo", POST: "updateLegalInfo"]; cacheGlobalEvict="POST"; }
         name adminAuthorizedCampaigns: "/sec/admin/domain/authorizedCampaigns"(controller: "admin") { action = [GET: "editAuthorizedCampaigns", POST: "updateAuthorizedCampaigns"];  cacheGlobalEvict="POST"; }
         name adminDomainConfigUploadLogo: "/sec/admin/domain/uploadLogo"(controller: "admin") { action = [GET: "editLogo", POST: "uploadLogo"];  cacheGlobalEvict="POST"; }
         name adminDomainConfigUploadCarouselImages: "/sec/admin/domain/editCarousel"(controller: "admin") { action = [GET: "editCarousel", POST: "uploadCarousel"];  cacheGlobalEvict="POST"; }
         name adminDomainConfigRelevantCampagins: "/sec/admin/domain/relevantCampaigns"(controller: "admin") { action = [GET: "editDomainRelevantCampaigns", POST: "updateDomainRelevantCampaigns"]; cacheGlobalEvict="POST";}
-        name adminDomainConfigPlan: "/sec/admin/domain/update-plan"(controller: "admin") { action = [GET: "editDomainPlan", POST: "saveNewDomainPlan"] }
+        name adminDomainConfigPlan: "/sec/admin/domain/update-plan"(controller: "admin") { action = [GET: "editDomainPlan", POST: "saveNewDomainPlan"]; cacheGlobalEvict="POST"; }
         name adminDomainConfigGoogleValidation: "/sec/admin/domain/google-validation"(controller: "admin", action: "validateDomain"){ cacheGlobalEvict="POST";}
-        name adminDomainValidation: "/sec/admin/domain/validation"(controller: "admin") { action = [GET: "domainValidation", POST: "domainValidationSave"] }
-        name adminRequestEmailSender: "/sec/admin/domain/requestSender"(controller: "admin") { action = [GET: "requestedEmailSender", POST: "requestedEmailSenderSend"] }
-        name adminEditDomainEmailSender: "/sec/admin/domain/setSender"(controller: "admin") { action = [GET: "editDomainEmailSender", POST: "updateDomainEmailSender"] }
+        name adminDomainValidation: "/sec/admin/domain/validation"(controller: "admin") { action = [GET: "domainValidation", POST: "domainValidationSave"]; cacheGlobalEvict="POST"; }
+        name adminRequestEmailSender: "/sec/admin/domain/requestSender"(controller: "admin") { action = [GET: "requestedEmailSender", POST: "requestedEmailSenderSend"]; cacheGlobalEvict="POST"; }
+        name adminEditDomainEmailSender: "/sec/admin/domain/setSender"(controller: "admin") { action = [GET: "editDomainEmailSender", POST: "updateDomainEmailSender"]; cacheGlobalEvict="POST"; }
         name adminDomainDelete: "/sec/admin/domain/delete"(controller: "admin") { action = [GET: "deleteDomain", POST: "deleteDomainConfirm"] }
 
         // REMOVE This entries and his actions
@@ -431,6 +438,7 @@ class UrlMappings {
         name politicianMassMailingHtml: "/account/mass-mailing/$campaignId/html"(controller: "newsletter", action: "showMailCampaign")
         name politicianMassMailingSaveTimeZone: "/account/mass-mailing/saveTimeZone"(controller: "newsletter") { action = [POST: "saveTimeZone"] }
         name politicianCampaignStatsShow: "/account/campaign/$campaignId"(controller: "newsletter", action: "showCampaignStats")
+        name politicianCampaignViewQr: "/account/campaign/$campaignId/qr-view"(controller: "campaign", action: "viewQrPage")
         name politicianCampaignDownloadReport: "/account/campaign/$campaignId/report/$fileName"(controller: "newsletter", action: "downloadReport")
         name politicianCampaignDeleteReport: "/account/campaign/$campaignId/report/$fileName/delete"(controller: "newsletter", action: "deleteReport")
         name politicianCampaignRefreshReport: "/ajax/account/campaign/$campaignId/report"(controller: "newsletter", action: "refreshReports")
@@ -453,6 +461,8 @@ class UrlMappings {
         name sitemapSearchs: "/sitemap/searchs"(controller: "siteMap", action: "sitemapSearchs")
         name sitemapUsersIdx: "/sitemap/users"(controller: "siteMap", action: "sitemapUsersIndex")
         name sitemapUsers: "/sitemap/users/$year/$month"(controller: "siteMap", action: "sitemapUsers")
+
+
 
 
         // TODO: REVIEW BASIC URL -> RegisterController:sendConfirmationEmail || Reset password and others

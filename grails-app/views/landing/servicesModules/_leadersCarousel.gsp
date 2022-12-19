@@ -1,5 +1,6 @@
 <!-- ^fade-carousel !-->
-<div id="carousel-landing-main" class="carousel slide fade-carousel ${msgPrefix}" data-ride="carousel" data-interval="7000" data-pause="null">
+<div id="carousel-landing-main" class="carousel slide fade-carousel ${msgPrefix}" data-ride="carousel"
+     data-interval="7000" data-pause="null">
     <!-- Indicators -->
     <div class="container indicators">
         <ol class="carousel-indicators">
@@ -13,6 +14,7 @@
     <div class="content container">
         <hgroup>
             <h1>${slogan}</h1>
+
             <h3 class="hidden-xs">${subtitle}</h3>
         </hgroup>
     <g:if test="${landingVisibleRoles}">
@@ -78,6 +80,7 @@
         </g:if>
     </sec:ifNotLoggedIn>
     </div>
+
     <div class="carousel-inner" role="listbox">
         <!-- leaders !-->
         <div class="item slides active">

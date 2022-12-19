@@ -6,7 +6,12 @@
     <g:if test="${contact.phone}">
         <tr><td><g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.placeholder"/>:</td><td>${contact.phone.encodeAsHiddenPhone()}</td></tr>
     </g:if>
-    <tr><td>email:</td><td>${contact.email}</td></tr>
+    <g:if test="${contact.email}" >
+        <tr><td>email:</td><td>${contact.email}</td></tr>
+    </g:if>
+    <g:if test="${domain.externalIdName && contact.externalId}">
+        <tr><td>${domain.externalIdName}</td><td>${contact.externalId}</td></tr>
+    </g:if>
     <g:if test="${contact.surveyVoteWeight != 1}">
         <tr><td><g:message code="kuorum.web.commands.payment.contact.ContactCommand.surveyVoteWeight.label"/>:</td><td>${contact.surveyVoteWeight}</td></tr>
     </g:if>

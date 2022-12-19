@@ -12,13 +12,13 @@
     <meta itemprop="description"
           content="${g.message(code: "layout.head.meta.description", args: [kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
     <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
-        <r:require modules="campaignList, participatoryBudgetEditableTable"/>
+        <r:require modules="campaignList, qrCodeView, participatoryBudgetEditableTable"/>
     </g:if>
     <g:elseif test="${campaign && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
-        <r:require modules="campaignList, contestApplicationEditableTable"/>
+        <r:require modules="campaignList, qrCodeView, contestApplicationEditableTable"/>
     </g:elseif>
     <g:else>
-        <r:require modules="campaignList, participatoryBudgetEditableTable"/>
+        <r:require modules="campaignList, qrCodeView, participatoryBudgetEditableTable"/>
     </g:else>
 </head>
 
@@ -57,6 +57,10 @@
                 <li role="presentation" class="active"><a href="#applicationLists" data-toggle="tab"><g:message
                         code="tools.massMailing.view.contest.applicationsList"/></a></li>
             </g:if>
+            <g:if test="${campaign && campaign.qrEnabled}">
+                <li role="presentation"><a href="#qr-view" data-toggle="tab"><g:message
+                        code="tools.massMailing.view.qrView"/></a></li>
+            </g:if>
         </ul>
 
         <div id="tabs-stats-campaign" class="tab-content">
@@ -89,6 +93,11 @@
             <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
                 <div class="tab-pane active" id="applicationLists">
                     <g:render template="/newsletter/campaignTabs/contestApplicationList" model="[contest: campaign]"/>
+                </div>
+            </g:if>
+            <g:if test="${campaign && campaign.qrEnabled}">
+                <div class="tab-pane" id="qr-view">
+                    <g:render template="/newsletter/campaignTabs/campaignViewQr" model="[campaign: campaign]"/>
                 </div>
             </g:if>
         </div>
@@ -243,7 +252,7 @@
                 </div>
             </g:if>
 
-    <!-- MODAL CONTEST -->
+        <!-- MODAL CONTEST -->
             <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
                 <div id="export-votesList-modal" class="modal fade in" tabindex="-1" role="dialog"
                      aria-labelledby="exportContestStatsTitle" aria-hidden="true">
