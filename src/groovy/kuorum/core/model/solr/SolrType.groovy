@@ -15,8 +15,8 @@ enum SolrType {
     DEBATE("fa-comments", CampaignTypeRSDTO.DEBATE, true, true),
     EVENT("fa-calendar-star", null, true, true),
     SURVEY("fa-chart-pie", CampaignTypeRSDTO.SURVEY, true, true),
-    PETITION("fa-microphone", CampaignTypeRSDTO.PETITION, true, false),
-    PARTICIPATORY_BUDGET("fa-money-bill-alt", CampaignTypeRSDTO.PARTICIPATORY_BUDGET, true, false),
+    PETITION("fa-microphone", CampaignTypeRSDTO.PETITION, true, true),
+    PARTICIPATORY_BUDGET("fa-money-bill-alt", CampaignTypeRSDTO.PARTICIPATORY_BUDGET, true, true),
     DISTRICT_PROPOSAL("fa-rocket", CampaignTypeRSDTO.DISTRICT_PROPOSAL, false, false),
     CONTEST("fa-trophy", CampaignTypeRSDTO.CONTEST, true, true),
     CONTEST_APPLICATION("fa-scroll", CampaignTypeRSDTO.CONTEST_APPLICATION, true, false);
