@@ -1377,6 +1377,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 .qr-code-container .box-ppal {
+    padding: 48px;
+    border-radius: 2px;
 }
 
 #tabs-stats-campaign .qr-code-container .box-ppal.qr-code-body-image h3,
@@ -1413,7 +1415,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 .qr-text-container {
-    margin-top: 40px;
+
 }
 
 .qr-code-container {

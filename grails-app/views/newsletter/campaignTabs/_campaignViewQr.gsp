@@ -13,7 +13,7 @@
         <div class="box-ppal center qr-code-body-image">
             <h3><g:message code="tools.massMailing.view.qrView.section.image.title"/></h3>
 
-            <div id="qr-code" class="text-center" data-qr-width="250" data-qr-height="250"
+            <div id="qr-code" class="text-center" data-qr-width="240" data-qr-height="240"
                  data-qr-url="${g.createLink(mapping: 'joinDomainCheck', params: [qrCode: campaign.qrCode])}">
                 <!--Aqui va el QR-->
             </div>
