@@ -10164,11 +10164,11 @@ ul.notification-menu > li.see-more {
     color:#ccc;
 }
 
-li.survey-question.answered .survey-question-answer .option-extra-content .charNum,
-li.survey-question.answered .survey-question-answer .option-extra-content input,
-li.survey-question.answered .survey-question-answer .option-extra-content select,
-li.survey-question.answered .survey-question-answer .option-extra-content .input-group.date,
-li.survey-question.answered .survey-question-answer .option-extra-content textarea{
+.survey-question.answered .survey-question-answer .option-extra-content .charNum,
+.survey-question.answered .survey-question-answer .option-extra-content input,
+.survey-question.answered .survey-question-answer .option-extra-content select,
+.survey-question.answered .survey-question-answer .option-extra-content .input-group.date,
+.survey-question.answered .survey-question-answer .option-extra-content textarea {
     display: none;
 }
 
