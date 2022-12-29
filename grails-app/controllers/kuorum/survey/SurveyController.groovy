@@ -2,7 +2,6 @@ package kuorum.survey
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
-import javassist.NotFoundException
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession

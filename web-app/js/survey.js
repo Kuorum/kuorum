@@ -1042,19 +1042,19 @@ var surveyFunctions = {
             const $modal = $("#survey-pdf-modal");
             const isActiveEmail = surveyFunctions._prepareModal._isEmailActive($modal);
             const $loading = $modal.find(".loading-container");
-            const signedVotes = $modal.attr('data-survey-signed-votes') === "true";
+            const pdfDownloadable = surveyFunctions._isPdfDownloadable($modal)
             const pdfReady = surveyFunctions._checkPDFReadyHelper.PDF_READY;
             $loading.show()
-            if (signedVotes && isActiveEmail && !pdfReady) {
+            if (pdfDownloadable && isActiveEmail && !pdfReady) {
                 surveyFunctions._prepareModal._prepareModalEmailActive($modal);
                 surveyFunctions._prepareModal._prepareColumnCAsPDFLoading($modal);
-            } else if (signedVotes && isActiveEmail && pdfReady) {
+            } else if (pdfDownloadable && isActiveEmail && pdfReady) {
                 surveyFunctions._prepareModal._prepareModalEmailActive($modal);
                 surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
-            } else if (signedVotes && !isActiveEmail && !pdfReady) {
+            } else if (pdfDownloadable && !isActiveEmail && !pdfReady) {
                 surveyFunctions._prepareModal._prepareModalNoEmailLoading($modal);
                 surveyFunctions._prepareModal._prepareColumnCAsPDFLoading($modal);
-            } else if (signedVotes && !isActiveEmail && pdfReady) {
+            } else if (pdfDownloadable && !isActiveEmail && pdfReady) {
                 surveyFunctions._prepareModal._prepareModalNoEmailReady($modal);
                 surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
             } else {
@@ -1174,8 +1174,11 @@ var surveyFunctions = {
             surveyFunctions._prepareModal._prepareModalError($modal);
             surveyFunctions._prepareModal._prepareColumnCAsError($modal);
         }
-        surveyFunctions._checkPDFReadyHelper.init(viewPdfUrl, successFunctionPdfLoaded, errorFunctionPdfLoaded);
-
+        if (surveyFunctions._isPdfDownloadable($modal)) {
+            surveyFunctions._checkPDFReadyHelper.init(viewPdfUrl, successFunctionPdfLoaded, errorFunctionPdfLoaded);
+        } else {
+            console.log("PDF Certificate is not signed. So it is not downloadable.")
+        }
     },
     _checkPDFReadyHelper: {
         NUM_REQUEST_REPORT: 0,
@@ -1240,11 +1243,14 @@ var surveyFunctions = {
 
     _showDownloadCertificateCard: function () {
         const $modal = $("#survey-pdf-modal");
-        if ($modal.attr('data-survey-signed-votes') === "true") {
+        if (surveyFunctions._isPdfDownloadable($modal)) {
             if (surveyFunctions._checkPDFReadyHelper.REPORT_URL != undefined) {
                 surveyFunctions._checkPDFReady($modal);
             }
         }
+    },
+    _isPdfDownloadable: function ($modal) {
+        return $modal.attr('data-survey-signed-votes') === "true";
     }
 }
 
