@@ -166,8 +166,12 @@ class AdminController {
             domainRDTO.loginSettings.providerAoc = command.providerAoc ?: false
         }
         domainRDTO.domainPrivacy = command.domainPrivacy
-        domainService.updateConfig(domainRDTO)
+        DomainRSDTO domainRSDTO= domainService.updateConfig(domainRDTO)
+
         flash.message = "Success"
+        if(domainRSDTO.warningDuplicatedExternalId){
+            flash.error = "WARNING: externalId duplications detected"
+        }
         redirect mapping: 'adminDomainValidation'
     }
 
