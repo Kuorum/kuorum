@@ -46,6 +46,7 @@ modules = {
     lang_es{
         dependsOn 'application'
         resource url:'js/timeago/jquery.timeago.es.js'
+        resource url:'js/messages_es.js' //jquery.validate messages i18n
     }
 
     lang_en{
@@ -56,6 +57,7 @@ modules = {
     lang_de{
         dependsOn 'application'
         resource url:'js/timeago/jquery.timeago.de.js'
+        resource url:'js/messages_de.js' //jquery.validate messages i18n
     }
 
     lang_it{
@@ -70,6 +72,7 @@ modules = {
     lang_ca{
         dependsOn 'application'
         resource url:'js/timeago/jquery.timeago.ca.js'
+        resource url:'js/messages_ca.js' //jquery.validate messages i18n
     }
 
     datepicker{

@@ -1362,6 +1362,83 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     font-size: 1.5em;
 }
 
+.qr-code-container > .qr-code-title {
+    margin-bottom: 48px;
+    text-align: center;
+}
+
+.qr-code-container > .qr-code-title h1 {
+    font-size: 36px;
+}
+
+.qr-code-container > .qr-code-title h2 {
+    font-size: 16px;
+    font-size: 1.6rem;
+}
+
+.qr-code-container .box-ppal {
+    padding: 48px;
+    border-radius: 2px;
+}
+
+#tabs-stats-campaign .qr-code-container .box-ppal.qr-code-body-image h3,
+.qr-code-container .box-ppal.qr-code-body-image h3 {
+    margin-bottom: 32px;
+    margin-top: 0px;
+    color: #545454;
+    font-size: 24px;
+}
+
+.qr-code-container .box-ppal.qr-code-body-text .qr-text-container {
+}
+
+.qr-code-container .box-ppal.qr-code-body-text .qr-text-container .qr-text-link {
+    margin-bottom: 48px;
+}
+
+#tabs-stats-campaign .qr-code-container .box-ppal.qr-code-body-text .qr-text-container h3,
+.qr-code-container .box-ppal.qr-code-body-text .qr-text-container .qr-text-link h3 {
+    margin-top: 0px;
+    color: #545454;
+    font-size: 24px;
+}
+
+.qr-code-container .box-ppal.qr-code-body-text .qr-text-container .qr-text-pin > a {
+    font-size: 5.5rem;
+    margin-top: 32px;
+    display: block;
+}
+
+
+.qr-code-text {
+    font-size: 5.5rem;
+}
+
+.qr-text-container {
+
+}
+
+.qr-code-container {
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+@media only screen and (min-width: 640px) {
+    .qr-code-container .box-ppal {
+        width: calc(50% - 20px);
+        display: inline-block;
+        height: 400px;
+    }
+
+    .qr-code-container .box-ppal:nth-child(odd) {
+        margin-right: 10px;
+    }
+
+    .qr-code-container .box-ppal:nth-child(even) {
+        margin-left: 10px;
+        float: right;
+    }
+}
 
 /* TAGS INPUT PLUGIN (08/2016) */
 #mySingleField {
@@ -10087,11 +10164,11 @@ ul.notification-menu > li.see-more {
     color:#ccc;
 }
 
-li.survey-question.answered .survey-question-answer .option-extra-content .charNum,
-li.survey-question.answered .survey-question-answer .option-extra-content input,
-li.survey-question.answered .survey-question-answer .option-extra-content select,
-li.survey-question.answered .survey-question-answer .option-extra-content .input-group.date,
-li.survey-question.answered .survey-question-answer .option-extra-content textarea{
+.survey-question.answered .survey-question-answer .option-extra-content .charNum,
+.survey-question.answered .survey-question-answer .option-extra-content input,
+.survey-question.answered .survey-question-answer .option-extra-content select,
+.survey-question.answered .survey-question-answer .option-extra-content .input-group.date,
+.survey-question.answered .survey-question-answer .option-extra-content textarea {
     display: none;
 }
 
@@ -10530,18 +10607,4 @@ div.horizontal-scroll-cookies {
 
 table.table-cookies td {
     white-space: break-spaces;
-}
-
-
-.qr-code-text {
-    font-size: 5.5rem;
-}
-
-.qr-text-container {
-    margin-top: 40px;
-}
-
-.qr-code-container {
-    margin-top: 50px;
-    margin-bottom: 25px;
 }

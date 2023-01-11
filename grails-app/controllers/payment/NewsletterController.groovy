@@ -29,6 +29,7 @@ import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
+import org.springframework.security.access.AccessDeniedException
 import payment.campaign.BulletinService
 import payment.campaign.NewsletterService
 
@@ -316,6 +317,9 @@ class NewsletterController extends CampaignController{
     def showCampaignStats(Long campaignId) {
         KuorumUserSession loggedUser = springSecurityService.principal
         CampaignRSDTO campaign = campaignService.find(loggedUser, campaignId, loggedUser.getId().toString())
+        if (!campaign.statsEnabled) {
+            throw new AccessDeniedException("This campaign doesn't exist")
+        }
         Long newsletterId = campaign.newsletter.id
         if (campaign.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED) {
             redirect(mapping: 'politicianMassMailingContent', params: [campaignId: campaignId])

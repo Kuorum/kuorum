@@ -56,7 +56,7 @@
                 <formUtil:checkBox
                         command="${command}"
                         field="conditions"
-                        label="${g.message(code: 'register.conditions', args: [g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
+                        label="${g.message(code: 'register.conditions', args: [g.createLink(mapping: 'footerTermsUse')], encodeAs: 'raw')}"/>
             </div>
         </fieldset>
 
