@@ -478,40 +478,8 @@ class UrlMappings {
         "401"(controller: "error", action: "notAuthorized")
 
 
-        Environment.executeForCurrentEnvironment {
-            development {
-                "500"(controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
-                "500"(controller: "error", action: "notAuthorized", exception: AccessDeniedException)
-                "500"(controller: "error", action: "internalError")
-//                "500"(view:'/error')
-            }
-            test {
-                "500"(controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
-                "500"(controller: "error", action: "notAuthorized", exception: AccessDeniedException)
-                "500"(controller: "error", action: "internalError")
-            }
-            production {
-                "500"(controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
-                "500"(controller: "error", action: "notAuthorized", exception: AccessDeniedException)
-                "500"(controller: "error", action: "internalError")
-            }
-
-
-        }
-//        "500"(view:'/error')
-    }
-
-    static exceptionMappings = {
-        "Access is denied" org.springframework.security.access.AccessDeniedException { ex ->
-            controller = "error"
-            action = "notAuthorized"
-            exception = ex
-        }
-
-        "Lost cookie" org.springframework.security.web.authentication.rememberme.CookieTheftException { ex ->
-            controller = "error"
-            action = "cookieLost"
-            exception = ex
-        }
+        "500"(controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
+        "500"(controller: "error", action: "notAuthorized", exception: AccessDeniedException)
+        "500"(controller: "error", action: "internalError")
     }
 }

@@ -3,7 +3,7 @@
     <thead>
     <tr>
         <th></th>
-        <g:if test="${emailPos}">
+        <g:if test="${emailPos != null}">
             <th>
                 <select class="form-control" name="columnOption">
                     <option value=""><g:message code="tools.contact.import.table.columnOption.notImported"/></option>
@@ -64,7 +64,7 @@
                             <span class="label-checkbox"><g:message code="tools.contact.import.table.row.notImport"/></span>
                         </label>
                 </th>
-                <g:if test="${emailPos}">
+                <g:if test="${emailPos != null}">
                     <td>${line.values[emailPos]}</td>
                 </g:if>
                 <g:each in="${line.values}" var="columnValue" status="i">
