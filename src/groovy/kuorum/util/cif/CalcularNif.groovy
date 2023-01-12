@@ -10,7 +10,7 @@ public class CalculaNif {
 
     private final String letrasNif = "TRWAGMYFPDXBNJZSQVHLCKE";
     private final String letrasCif = "ABCDEFGHJKLMNPQRSUVW";
-    private final String letrasCifAsociaciones = "CDEFGP";
+    private final String letrasCifAsociaciones = "CDEFGPV";
     private final String letrasNie = "XYZ";
     private final String digitoControlCif = "JABCDEFGHI";
 //    private final String cifNumero = "ABEH";
