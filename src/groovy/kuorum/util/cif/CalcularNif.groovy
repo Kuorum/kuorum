@@ -10,7 +10,7 @@ public class CalculaNif {
 
     private final String letrasNif = "TRWAGMYFPDXBNJZSQVHLCKE";
     private final String letrasCif = "ABCDEFGHJKLMNPQRSUVW";
-    private final String letrasCifAsociaciones = "CDEFGP";
+    private final String letrasCifNoAutorizadasAsociaciones = "AB";
     private final String letrasNie = "XYZ";
     private final String digitoControlCif = "JABCDEFGHI";
 //    private final String cifNumero = "ABEH";
@@ -73,7 +73,7 @@ public class CalculaNif {
 
 
     boolean isAsociacion() {
-        return letrasCifAsociaciones.indexOf(nif.substring(0, 1)) >= 0;
+        return letrasCifNoAutorizadasAsociaciones.indexOf(nif.substring(0, 1)) < 0;
     }
 
     private String calculaDni(String dni) {
