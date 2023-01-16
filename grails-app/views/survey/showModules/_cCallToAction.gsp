@@ -11,6 +11,13 @@
     <g:set var="callSubtitleMsg" value="${g.message(code: 'survey.callToAction.answered.subtitle')}"/>
     <g:set var="callButtonMsg" value="${g.message(code: 'survey.callToAction.answered.button')}"/>
 </g:if>
+<g:elseif
+        test="${survey.campaignStatusRSDTO.equals(org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE)}">
+    <g:set var="callTitleMsg" value="${g.message(code: 'survey.callToAction.published.title')}"/>
+    <g:set var="callSubtitleMsg" value="${g.message(code: 'survey.callToAction.paused.title')}"/>
+    <g:set var="callButtonMsg" value="${g.message(code: 'survey.callToAction.published.button')}"/>
+</g:elseif>
+
 <g:if test="${survey.closed}">
     <g:set var="callTitleMsg" value="${g.message(code: 'survey.callToAction.closed.title')}"/>
     <g:if test="${survey.endDate?.before(new Date())}">
