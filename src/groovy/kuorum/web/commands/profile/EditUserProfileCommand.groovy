@@ -32,6 +32,7 @@ class EditUserProfileCommand{
     static constraints = {
         gender nullable: true
         birthday nullable:true
-        bio nullable: true, maxSize: 1000
+        /*bio1.length+bio2.length=1300 + title*/
+        bio nullable: true, maxSize: 1500
     }
 }
