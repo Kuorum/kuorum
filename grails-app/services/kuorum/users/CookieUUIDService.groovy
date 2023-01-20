@@ -37,6 +37,7 @@ class CookieUUIDService {
             setUserUUID(userId);
         }
         String uuid = getUserUUID();
+        uuid = uuid ?: userId // First time, no logged user setUserUUID is not set as fast as necessary
         return new KuorumUserSession(
                 uuid,
                 uuid,
@@ -77,13 +78,18 @@ class CookieUUIDService {
         }
     }
 
+    Boolean isUserUUIDSet() {
+        Cookie cookie = cookieService.findCookie(WebConstants.COOKIE_USER_UUID)
+        return cookie != null && cookie.getValue() != DELETED_COOKIE_VALUE
+    }
+
     /**
      * Recovers the UUID of the user from the cookie.
      *
      * If not exits, creates new one and saves it on the cookie
      * @return
      */
-    String buildUserUUID(){
+    String buildUserUUID() {
         String userUUID = getUserUUID();
         if (!userUUID || userUUID == DELETED_COOKIE_VALUE) {
             userUUID = UUID.randomUUID().toString()
