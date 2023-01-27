@@ -42,7 +42,8 @@ class CensusService {
                 ownerId: ownerId,
                 campaignId: campaignId,
                 ip: evidences.getIp(),
-                browserType: evidences.getBrowser())
+                browserType: evidences.getBrowser(),
+                browserId: evidences.getBrowserId())
         def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.EXTERNAL_ID_LOGIN_POST,
                 [:],
@@ -55,7 +56,12 @@ class CensusService {
     KuorumUserRSDTO createUserByCensusCode(String censusCode, Evidences evidences) {
         Map<String, String> params = [censusCode: censusCode]
         Map<String, String> query = [:]
-        CensusTokenValidationDTO censusTokenValidationDTO = new CensusTokenValidationDTO(censusCode: censusCode, ip: evidences.getIp(), browserType: evidences.getBrowser())
+        CensusTokenValidationDTO censusTokenValidationDTO = new CensusTokenValidationDTO(
+                censusCode: censusCode,
+                ip: evidences.getIp(),
+                browserType: evidences.getBrowser(),
+                browserId: evidences.getBrowserId()
+        )
         def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.CENSUS_LOGIN_POST,
                 params,

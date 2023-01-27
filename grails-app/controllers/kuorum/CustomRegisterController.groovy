@@ -2,30 +2,13 @@ package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.core.exception.KuorumException
 import kuorum.core.model.UserType
-import kuorum.payment.contact.outlook.model.Contact
-import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.Step2Command
-import kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand
-import kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand
-import kuorum.web.commands.profile.DomainUserPhoneValidationCommand
-import kuorum.web.commands.profile.DomainValidationCommand
-import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.CensusLoginRDTO
-import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.contact.ContactRSDTO
-import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
-import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
-import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
-import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import payment.contact.CensusService
-import springSecurity.KuorumRegisterCommand
 
 class CustomRegisterController {
 

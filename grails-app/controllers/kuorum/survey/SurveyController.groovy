@@ -332,7 +332,7 @@ class SurveyController extends CampaignController {
         };
         command.validate();
         KuorumUserSession userAnswer = springSecurityService.principal
-        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
         List<QuestionAnswerRDTO> answers = command.answers.collect { convertToRDTO(evidences, it) }
         QuestionRSDTO questionRSDTO
         try {
