@@ -647,7 +647,7 @@ class KuorumUserService {
         Boolean predefinedPhone = false;
         if (!userValidationRSDTO.phoneStatus.isGranted()) {
             KuorumUserSession userSession = cookieUUIDService.buildAnonymousUser()
-            if (userSession) {
+            if (userSession && userSession.isValidMongoUser()) {
                 KuorumUserExtraDataRSDTO extraDataRSDTO = findUserExtendedDataRSDTO(userSession)
                 phone = extraDataRSDTO.phoneNumber?.encodeAsHiddenPhone()
                 predefinedPhone = extraDataRSDTO.phoneNumber ? true : false;

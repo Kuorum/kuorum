@@ -7,6 +7,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.web.constants.WebConstants
 import org.apache.log4j.Logger
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
@@ -41,7 +42,7 @@ class MongoUserDetailsService implements GrailsUserDetailsService {
             throw new UsernameNotFoundException('Empty username', username)
         }
         KuorumUser user
-        if (username.endsWith("@fake.com")) {
+        if (username.endsWith(WebConstants.FAKE_USER_EMAIL_DOMAIN)) {
             user = KuorumUser.findById(new ObjectId(username.substring(0, username.indexOf("@"))))
         } else {
             user = KuorumUser.findByEmailAndDomain(username.toLowerCase(), CustomDomainResolver.domain)
@@ -116,6 +117,14 @@ class KuorumUserSession extends GrailsUser {
 
     String getEmail() {
         username
+    }
+
+    boolean isValidMongoUser() {
+        return ObjectId.isValid(id)
+    }
+
+    boolean isAFakeUser() {
+        return email && (!email.contains("@") || email.endsWith(WebConstants.FAKE_USER_EMAIL_DOMAIN))
     }
 
     KuorumUserSession(String alias, String username, String password, boolean enabled, boolean accountNonExpired,

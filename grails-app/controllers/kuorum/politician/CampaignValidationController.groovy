@@ -469,7 +469,7 @@ class CampaignValidationController {
         } else if (cookieUUIDService.isUserUUIDSet()) {
             return cookieUUIDService.buildAnonymousUser(cookieUUIDService.getUserUUID());
         } else
-            return null
+            return cookieUUIDService.buildAnonymousUser(cookieUUIDService.buildUserUUID())
     }
 
     private CampaignRSDTO getCampaignRSDTO(def params) {
@@ -528,7 +528,7 @@ class CampaignValidationController {
     private def userValidationChecker(Long campaignId) {
         KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
         UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignId)
-        if (userValidationRSDTO.isGranted()) {
+        if (userValidationRSDTO.isGranted() && !userSession.isAFakeUser()) {
             KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(userSession)
             springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
         }
