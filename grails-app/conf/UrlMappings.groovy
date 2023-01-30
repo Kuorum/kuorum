@@ -276,7 +276,7 @@ class UrlMappings {
         name contestApplicationVote: "/ajax/$userAlias/ct/$contestTitle-$contestId/cta/$urlTitle-$campaignId/vote"(controller: "contest", action: "vote"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
 
         name campaignShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "CAMPAIGN" }
-        name campaignCheckValidation: "/ajax/$userAlias/$urlTitle-$campaignId/validation/check"(controller: "campaign", action: "campaignUserValidChecker")
+        name campaignCheckValidation: "/ajax/$userAlias/$urlTitle-$campaignId/validation/check"(controller: "campaignValidation", action: "campaignUserValidChecker")
         name campaignCheckGroupValidation: "/ajax/$userAlias/$urlTitle-$campaignId/group/check"(controller: "campaign", action: "checkGroupCampaignValidation")
         name campaignPause: "/ajax/account/$userAlias/$urlTitle-$campaignId/pause"(controller: "newsletter", action: "pauseCampaign")
 
@@ -332,7 +332,7 @@ class UrlMappings {
         name campaignValidationPhoneNumber: "/$userAlias/$urlTitle-$campaignId/validation/phone/number"(controller: "campaignValidation") { action = [GET: "stepCampaignValidationPhoneNumber"] }
         name campaignValidationPhoneNumberCode: "/$userAlias/$urlTitle-$campaignId/validation/phone/code"(controller: "campaignValidation") { action = [GET: "stepCampaignValidationPhoneCode", POST: "stepCampaignValidationPhoneCodeSave"] }
 
-        name domainValidationChecker: "/ajax/validation/domain-valid-cheker"(controller: "campaign", action: "domainUserValidChecker")
+        name domainValidationChecker: "/ajax/validation/domain-valid-cheker"(controller: "campaignValidation", action: "domainUserValidChecker")
         name domainValidationByCensusValidate: "/ajax/validation/domain-validate"(controller: "campaign", action: "validateUser")
         name domainValidationByPhoneSendSms: "/ajax/validation/domain-valid-phone-sendSms"(controller: "campaign", action: "validateUserPhoneSendSMS")
         name domainValidationByPhoneValidate: "/ajax/validation/domain-valid-phone-validate"(controller: "campaign", action: "validateUserPhone")

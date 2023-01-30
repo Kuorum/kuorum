@@ -1,5 +1,6 @@
 package kuorum.politician
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.annotations.FunnelLoginSessionValid
 import kuorum.core.customDomain.CustomDomainResolver
@@ -64,7 +65,7 @@ class CampaignValidationController {
             ContactRSDTO contact = censusLoginData.getContact();
             logoutIfContactDifferentAsLoggedUser(contact, censusLogin);
             log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Contact: ${contact.email}")
-            Evidences evidences = new HttpRequestRecoverEvidences(request);
+            Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
             if (campaign.closed) {
                 // The closed view needs the OwnerTimeZone which is not mapped on camapaign ligh
                 campaignClosedError(campaignService.find(campaign.getUser(), campaign.id, null), contact)
@@ -122,7 +123,7 @@ class CampaignValidationController {
 
                 logoutIfContactDifferentAsLoggedUser(contact, null);
                 log.info("[externalIdJoin: ${params.get("externalId")}] : Receviced a valid Contact: ${contact.name},${contact.email}")
-                Evidences evidences = new HttpRequestRecoverEvidences(request);
+                Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
 
                 if (campaign.closed) {
                     campaignClosedError(campaign, contact)
@@ -197,7 +198,7 @@ class CampaignValidationController {
             redirect mapping: 'home'
         } else {
             log.info("[censusLogion: ${censusLogin}] : Valid census login => Creating user")
-            Evidences evidences = new HttpRequestRecoverEvidences(request);
+            Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
             KuorumUserRSDTO userRSDTO = censusService.createUserByCensusCode(censusLogin, evidences);
 //            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
             cookieUUIDService.buildAnonymousUser(userRSDTO.getId())
@@ -208,12 +209,12 @@ class CampaignValidationController {
 
     def step0RegisterWithExternalIdSave(KuorumRegisterCommand command) {
         CampaignRSDTO campaign = campaignService.find(command.ownerId, command.campaignId.toLong())
-        if(!campaign.isQrEnabled()){
+        if (!campaign.isQrEnabled()) {
             qrDisabledRedirect()
             return
         }
         log.info("[externalIdLogion: ${command.externalId}] : Valid contact login => Creating user")
-        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
         try {
             KuorumUserRSDTO userRSDTO = censusService.createUserByExternalId(contactService.getContactByExternalId(command.ownerId, command.externalId), evidences, command.ownerId, command.campaignId.toLong());
 //            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
@@ -246,7 +247,7 @@ class CampaignValidationController {
         }
 //        KuorumUserSession user = springSecurityService.principal
         KuorumUserSession user = recoverUserSessionDependingOnCookieOrSession();
-        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
         UserValidationRSDTO validationRSDTO = kuorumUserService.userDomainValidation(user, evidences, campaign.getId(), command.ndi, command.postalCode, command.birthDate)
         if (validationRSDTO.censusStatus.isGranted()) {
             redirect uri: calcNextStepMappingNameWithUsersSession(campaign, user, ValidationStep.CENSUS, validationRSDTO)
@@ -274,7 +275,7 @@ class CampaignValidationController {
         }
 //        KuorumUserSession userSession = springSecurityService.principal
         KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
-        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
         UserValidationRSDTO userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, evidences, campaign.getId(), command.customCode)
         String msg;
         if (userValidationRSDTO.codeStatus.isGranted()) {
@@ -310,7 +311,12 @@ class CampaignValidationController {
 //        KuorumUserSession userSession = springSecurityService.principal
         KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
         try {
-            UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(userSession, campaign.getId(), command.phoneNumber.toString(), command.phoneNumberPrefix)
+            UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(
+                    userSession,
+                    campaign.getId(),
+                    command.phoneNumber.toString(),
+                    command.phoneNumberPrefix,
+                    cookieUUIDService.getBrowserId())
             [command : new DomainUserPhoneCodeValidationCommand(
                     phoneHash: userPhoneValidationRDTO.getHash(),
                     validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(),
@@ -349,7 +355,7 @@ class CampaignValidationController {
         }
 //        KuorumUserSession userSession = springSecurityService.principal
         KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
-        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
         UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaign.getId(), command.validationPhoneNumberPrefix, command.validationPhoneNumber, command.phoneHash, command.phoneCode)
         if (userValidationRSDTO.phoneStatus.isGranted()) {
             redirect uri: calcNextStepMappingNameWithUsersSession(campaign, userSession, ValidationStep.PHONE_SAVE, userValidationRSDTO)
@@ -399,15 +405,18 @@ class CampaignValidationController {
     }
 
     private ValidationStep nextStep(BasicCampaignInfoRSDTO campaignRSDTO, DomainRSDTO domainRSDTO, ValidationStep currentStep, UserValidationRSDTO validationRSDTO = null) {
-        if (springSecurityService.isLoggedIn()) {
-            KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession()
-            if (!validationRSDTO) {
-                validationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignRSDTO.getId())
-            }
-            return currentStep.getNextStep(validationRSDTO)
-        } else {
-            return currentStep.getNextStep(domainRSDTO)
+        KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession()
+        if (!validationRSDTO) {
+            validationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignRSDTO.getId())
         }
+        if (!springSecurityService.isLoggedIn() && validationRSDTO.isGranted()) {
+            KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(userSession)
+            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+            return null;
+        } else if (springSecurityService.isLoggedIn()) {
+            return null;
+        }
+        return currentStep.getNextStep(validationRSDTO)
     }
 
     public enum ValidationStep {
@@ -416,7 +425,7 @@ class CampaignValidationController {
         CENSUS("validationCensus", "censusStatus", "campaignValidationCensus"),
         CODE("validationCode", "codeStatus", "campaignValidationCode"),
         PHONE_SEND("validationPhone", "phoneStatus", "campaignValidationPhoneNumber"),
-        PHONE_SAVE("validationPhone", "", "campaignValidationPhoneNumber");
+        PHONE_SAVE("validationPhone", "phoneStatus", "campaignValidationPhoneNumber");
 
         // Done in static because it is not possible to autoreference itself in the constructor.
         static {
@@ -460,7 +469,7 @@ class CampaignValidationController {
         } else if (cookieUUIDService.isUserUUIDSet()) {
             return cookieUUIDService.buildAnonymousUser(cookieUUIDService.getUserUUID());
         } else
-            return null
+            return cookieUUIDService.buildAnonymousUser(cookieUUIDService.buildUserUUID())
     }
 
     private CampaignRSDTO getCampaignRSDTO(def params) {
@@ -500,5 +509,29 @@ class CampaignValidationController {
         public String recover() {
 
         }
+    }
+
+
+    def campaignUserValidChecker() {
+        Long campaignId = Long.parseLong(params.campaignId)
+        def result = userValidationChecker(campaignId)
+        render(result as JSON)
+    }
+
+    // USER VALIDATION
+    def domainUserValidChecker() {
+        Long campaignId = Long.parseLong(params.campaignId)
+        def result = userValidationChecker(campaignId)
+        render(result as JSON)
+    }
+
+    private def userValidationChecker(Long campaignId) {
+        KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignId)
+        if (userValidationRSDTO.isGranted() && !userSession.isAFakeUser()) {
+            KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(userSession)
+            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+        }
+        return [validated: userValidationRSDTO.isGranted(), success: true, pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO)]
     }
 }
