@@ -15,6 +15,7 @@ class CookieUUIDService {
 
     // I don't know why  cookieService.deleteCookie(cookie) doesn't delete the cookie. That's why I'm going to use a logic delete with this text
     private final String DELETED_COOKIE_VALUE = "KUORUM_DELETED";
+    private final String COOKIE_BROWSER_ID = "BROWSER_ID";
 
     String getUserUUID() {
         String evaluatorId = cookieService.getCookie(WebConstants.COOKIE_USER_UUID)
@@ -51,10 +52,7 @@ class CookieUUIDService {
                 uuid,
                 null,
                 null,
-                null,
-                false,
-                false,
-                false,
+                null
         )
     }
 
@@ -118,12 +116,26 @@ class CookieUUIDService {
         }
     }
 
-    String getRememberPasswordRedirect(){
+    String getRememberPasswordRedirect() {
         String urlRedirect = cookieService.getCookie(WebConstants.COOKIE_URL_CALLBACK_REMEMBER_PASS)
-        if (urlRedirect){
-            return URLDecoder.decode(urlRedirect,"UTF-8")+"#recoverStatus";// Hash to launch the recover event on js
-        }else{
+        if (urlRedirect) {
+            return URLDecoder.decode(urlRedirect, "UTF-8") + "#recoverStatus";// Hash to launch the recover event on js
+        } else {
             return null;
         }
+    }
+
+    String getBrowserId() {
+        String browserId = cookieService.getCookie(COOKIE_BROWSER_ID)
+        if (browserId) {
+            return browserId
+        }
+        browserId = UUID.randomUUID().toString()
+        cookieService.setCookie(
+                [name  : COOKIE_BROWSER_ID,
+                 value : browserId,
+                 maxAge: Integer.MAX_VALUE,
+                 path  : WebConstants.COOKIE_PATH,
+                 domain: CustomDomainResolver.domain])
     }
 }

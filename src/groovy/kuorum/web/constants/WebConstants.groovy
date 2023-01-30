@@ -25,4 +25,6 @@ class WebConstants {
 
     public static final String FAKE_LANDING_ALIAS_USER = "admin"
     public static final Integer MIN_FILES_PER_DOC_IN_CONTEST = 2;
+
+    public static final String FAKE_USER_EMAIL_DOMAIN = "@fake.com"
 }
