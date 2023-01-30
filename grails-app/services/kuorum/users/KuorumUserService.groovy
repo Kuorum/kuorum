@@ -453,6 +453,18 @@ class KuorumUserService {
         return getUserValidationStatus(user.getId().toString(), campaignId)
     }
 
+    List<UserValidationRSDTO> getAllUserValidationStatus(String userId) {
+        Map<String, String> params = [userId: userId]
+        Map<String, String> query = [:]
+        def apiResponse = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_VALIDATIONS,
+                params,
+                query,
+                new TypeReference<List<UserValidationRSDTO>>() {}
+        )
+        return apiResponse.data
+    }
+
     UserValidationRSDTO getUserValidationStatus(String userId, Long campaignId) {
         Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [browserId: cookieUUIDService.getBrowserId()]

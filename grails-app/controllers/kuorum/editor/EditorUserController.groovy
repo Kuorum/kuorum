@@ -108,7 +108,7 @@ class EditorUserController {
 
 
             if (user && campaignId){
-                Evidences evidences = new HttpRequestRecoverEvidences(request, "BROWSER_ID_SET_BY_ADMIN????");
+                Evidences evidences = new HttpRequestRecoverEvidences(request, params.browserId);
                 kuorumUserService.adminValidation(kuorumUserSession, evidences, user, campaignId)
                 flash.message = "User validated"
             }else{

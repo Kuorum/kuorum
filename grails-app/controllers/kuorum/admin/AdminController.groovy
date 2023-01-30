@@ -31,6 +31,7 @@ import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
+import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.kuorum.rest.model.payment.BillingAmountUsersRangeDTO
@@ -480,10 +481,11 @@ class AdminController {
     @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def editUserRights(String userAlias) {
         KuorumUserRSDTO user = kuorumUserService.findUserRSDTO(userAlias)
+        List<UserValidationRSDTO> validations = kuorumUserService.getAllUserValidationStatus(user.getId().toString());
         KuorumUserRightsCommand command = new KuorumUserRightsCommand()
         command.userId = user.id
         command.active = user.active
-        [command: command, user: user]
+        [command: command, user: user, validations: validations]
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
