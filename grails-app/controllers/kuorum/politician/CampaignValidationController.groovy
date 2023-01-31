@@ -378,7 +378,7 @@ class CampaignValidationController {
         KuorumUserSession fakeUserSession = recoverUserSessionDependingOnCookieOrSession(userId)
         DomainRSDTO domainRSDTO = CustomDomainResolver.getDomainRSDTO()
         if (fakeUserSession) {
-            ValidationStep nextValidationStep = nextStep(campaignRSDTO, domainRSDTO, currentStep, validationRSDTO)
+            ValidationStep nextValidationStep = nextStep(campaignRSDTO, domainRSDTO, currentStep, validationRSDTO, fakeUserSession)
             if (nextValidationStep) {
                 // USER IS NOT STILL VALIDATED
                 return g.createLink(mapping: nextValidationStep.getUrlMappingNameNextStep(), params: campaignRSDTO.encodeAsLinkProperties());
@@ -404,8 +404,8 @@ class CampaignValidationController {
         }
     }
 
-    private ValidationStep nextStep(BasicCampaignInfoRSDTO campaignRSDTO, DomainRSDTO domainRSDTO, ValidationStep currentStep, UserValidationRSDTO validationRSDTO = null) {
-        KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession()
+    private ValidationStep nextStep(BasicCampaignInfoRSDTO campaignRSDTO, DomainRSDTO domainRSDTO, ValidationStep currentStep, UserValidationRSDTO validationRSDTO = null, KuorumUserSession fakeUserSession = null) {
+        KuorumUserSession userSession = fakeUserSession ?: recoverUserSessionDependingOnCookieOrSession()
         if (!validationRSDTO) {
             validationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignRSDTO.getId())
         }

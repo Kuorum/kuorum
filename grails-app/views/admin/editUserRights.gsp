@@ -58,7 +58,9 @@
 
         <div class="col-xs-1"><abbr title="Validation is active"><span class="fas fa-shield-check"></span></abbr></div>
 
-        <div class="col-xs-2"><abbr title="Token Mail is granted"><span class="fas fa-envelope"></span></abbr></div>
+        <div class="col-xs-1"><abbr title="Token Mail is granted"><span class="fas fa-envelope"></span></abbr></div>
+
+        <div class="col-xs-1"><abbr title="Token Mail is granted"><span class="fas fa-qrcode"></span></abbr></div>
 
         <div class="col-xs-2"><abbr title="Code is granted"><span class="fas fa-code"></span></abbr></div>
 
@@ -77,10 +79,16 @@
                 <span class="fal ${validationStatus.granted ? 'fa-check-circle' : 'fa-times-circle'}"></span>
             </div>
 
-            <div class="col-xs-2">
+            <div class="col-xs-1">
                 <span class="fal ${validationStatus.tokenMailStatus.granted ? 'fa-check-circle' : 'fa-times-circle'}"></span>
                 <br/>
                 <kuorumDate:humanDate date="${validationStatus.tokenMailStatus.timestamp}"/>
+            </div>
+
+            <div class="col-xs-1">
+                <span class="fal ${validationStatus.externalIdStatus.granted ? 'fa-check-circle' : 'fa-times-circle'}"></span>
+                <br/>
+                <kuorumDate:humanDate date="${validationStatus.externalIdStatus.timestamp}"/>
             </div>
 
             <div class="col-xs-2">
