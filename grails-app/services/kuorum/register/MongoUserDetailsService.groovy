@@ -120,7 +120,7 @@ class KuorumUserSession extends GrailsUser {
     }
 
     boolean isValidMongoUser() {
-        return ObjectId.isValid(id)
+        return ObjectId.isValid(id?.toString() ?: "")
     }
 
     boolean isAFakeUser() {
