@@ -1,12 +1,13 @@
 <%@ page import="kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="customRegister.stepDomainValidation.title"/> </title>
+    <title><g:message code="customRegister.stepDomainValidation.title"/></title>
     <meta name="layout" content="centerColumn1Layout">
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="showNavBar" value="false"/>
     <parameter name="extraHeadCss" value="landing"/>
     <parameter name="disableLogoLink" value="true"/>
+    <parameter name="showBrowserId" value="true"/>
     <r:require modules="forms"/>
 </head>
 

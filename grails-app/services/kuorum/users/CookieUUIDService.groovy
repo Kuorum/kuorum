@@ -14,8 +14,8 @@ class CookieUUIDService {
     CookieService cookieService
 
     // I don't know why  cookieService.deleteCookie(cookie) doesn't delete the cookie. That's why I'm going to use a logic delete with this text
-    private final String DELETED_COOKIE_VALUE = "KUORUM_DELETED";
-    private final String COOKIE_BROWSER_ID = "BROWSER_ID";
+    private static final String DELETED_COOKIE_VALUE = "KUORUM_DELETED";
+    public static final String COOKIE_BROWSER_ID = "BROWSER_ID";
 
     String getUserUUID() {
         String evaluatorId = cookieService.getCookie(WebConstants.COOKIE_USER_UUID)
