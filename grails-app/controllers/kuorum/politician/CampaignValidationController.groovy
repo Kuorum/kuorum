@@ -203,6 +203,7 @@ class CampaignValidationController {
             log.info("VALIDATION: censusLogion: ${censusLogin} -> Valid census login => Creating user")
             Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
             KuorumUserRSDTO userRSDTO = censusService.createUserByCensusCode(censusLogin, evidences);
+            log.info("VALIDATION: censusLogion: ${censusLogin} -> Valid census login => User Created [${userRSDTO.id.toString()}]")
 //            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
             cookieUUIDService.buildAnonymousUser(userRSDTO.getId())
             censusService.deleteCensusCode(censusLogin)
@@ -388,7 +389,7 @@ class CampaignValidationController {
                 log.info("VALIDATION: Next mapping [${fakeUserSession?.id}] -> User not validated : Next step ${nextValidationStep}")
                 return g.createLink(mapping: nextValidationStep.getUrlMappingNameNextStep(), params: campaignRSDTO.encodeAsLinkProperties());
             } else {
-                // USER Logged
+                // USER Logged or validated
                 log.info("VALIDATION: Next mapping [${fakeUserSession?.id}] -> User validated")
                 KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(fakeUserSession)
                 log.info("VALIDATION: Next mapping [${fakeUserSession?.id}] -> Reautenticating using email ${userRSDTO.getEmailOrAlternative()}")

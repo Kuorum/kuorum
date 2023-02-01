@@ -27,18 +27,22 @@ class CookieUUIDService {
 
     KuorumUserSession buildAnonymousUser(String userId) {
         if (springSecurityService.isLoggedIn()) {
+            log.info("VALIDATION: User ${springSecurityService.principal.id.toString()} ->anonymous user recovered from user logged")
             return springSecurityService.principal
         } else {
+            log.info("VALIDATION: User ${userId} -> Setting cookie")
             return createAnonymousUserSession(userId);
         }
     }
 
     private createAnonymousUserSession(String userId) {
+        String uuid = userId
         if (userId) {
+            // Updating UUID with the new one
             setUserUUID(userId);
+        } else {
+            uuid = getUserUUID();
         }
-        String uuid = getUserUUID();
-        uuid = uuid ?: userId // First time, no logged user setUserUUID is not set as fast as necessary
         return new KuorumUserSession(
                 uuid,
                 uuid,
