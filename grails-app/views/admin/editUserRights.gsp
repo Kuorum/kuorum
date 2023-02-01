@@ -52,9 +52,9 @@
 
     <h1>Validar usuario</h1>
     <h4 class="clearfix center" style="padding: 10px 0; border-bottom: 1px solid">
-        <div class="col-xs-2"><abbr title="Browser ID">Browser</abbr></div>
+        <div class="col-xs-2"><abbr title="Browser ID"><span class="fas fa-browser"></span></abbr></div>
 
-        <div class="col-xs-1"><abbr title="Campaign ID">C</abbr></div>
+        <div class="col-xs-1"><abbr title="Campaign ID"><span class="fas fa-paper-plane"></span></abbr></div>
 
         <div class="col-xs-1"><abbr title="Validation is active"><span class="fas fa-shield-check"></span></abbr></div>
 
