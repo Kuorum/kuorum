@@ -17,6 +17,8 @@
         <p><g:message code="districtProposal.create.limitPerUser.subtitle" args="[participatoryBudgetRSDTO.maxDistrictProposalsPerUser]"/> </p>
             <h4><g:message code="districtProposal.create.limitPerUser.body" args="[participatoryBudgetRSDTO.maxDistrictProposalsPerUser]"/> </h4>
         <br/>
-        <g:link mapping="contestListApplications" class="btn btn-lg btn-blue"><g:message code="districtProposal.create.limitPerUser.campaignList"/></g:link>
+        <g:link mapping="contestListApplications" params="${participatoryBudgetRSDTO.encodeAsLinkProperties()}"
+                class="btn btn-lg btn-blue"><g:message
+                code="districtProposal.create.limitPerUser.campaignList"/></g:link>
     </div>
 </content>
