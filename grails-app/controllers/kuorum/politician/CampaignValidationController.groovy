@@ -2,6 +2,7 @@ package kuorum.politician
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.annotations.FunnelLoginSessionValid
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
@@ -46,9 +47,11 @@ class CampaignValidationController {
 
     private Boolean showLandingData = true;
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def initValidation() {
         CampaignRSDTO campaign = getCampaignRSDTO(params)
-        redirect uri: calcNextStepMappingName(campaign)
+        KuorumUserSession userSession = springSecurityService.principal
+        redirect uri: calcNextStepMappingName(campaign, userSession.id.toString())
     }
 
     def step0RegisterWithCensusCode() {
