@@ -35,6 +35,8 @@ import payment.contact.ContactService
 import springSecurity.ExternIdJoinCommand
 import springSecurity.KuorumRegisterCommand
 
+import javax.validation.Validation
+
 class CampaignValidationController {
     KuorumUserService kuorumUserService
     CookieUUIDService cookieUUIDService
@@ -203,6 +205,7 @@ class CampaignValidationController {
             log.info("VALIDATION: censusLogion: ${censusLogin} -> Valid census login => Creating user")
             Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
             KuorumUserRSDTO userRSDTO = censusService.createUserByCensusCode(censusLogin, evidences);
+            log.info("VALIDATION: censusLogion: ${censusLogin} -> Valid census login => User Created [${userRSDTO.id.toString()}]")
 //            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
             cookieUUIDService.buildAnonymousUser(userRSDTO.getId())
             censusService.deleteCensusCode(censusLogin)
@@ -370,11 +373,11 @@ class CampaignValidationController {
 
 
     private String calcNextStepMappingNameWithUsersSession(BasicCampaignInfoRSDTO campaignRSDTO, KuorumUserSession user, ValidationStep currentStep = null, UserValidationRSDTO validationRSDTO = null) {
-        return calcNextStepMappingName(campaignRSDTO, user.getId(), currentStep, validationRSDTO)
+        return calcNextStepMappingName(campaignRSDTO, user.getId().toString(), currentStep, validationRSDTO)
     }
 
     private String calcNextStepMappingNameWithUserRSDTO(BasicCampaignInfoRSDTO campaignRSDTO, KuorumUserRSDTO user, ValidationStep currentStep = null, UserValidationRSDTO validationRSDTO = null) {
-        return calcNextStepMappingName(campaignRSDTO, user.getId(), currentStep, validationRSDTO)
+        return calcNextStepMappingName(campaignRSDTO, user.getId().toString(), currentStep, validationRSDTO)
     }
 
     private String calcNextStepMappingName(BasicCampaignInfoRSDTO campaignRSDTO, String userId = null, ValidationStep currentStep = null, UserValidationRSDTO validationRSDTO = null) {
@@ -388,7 +391,7 @@ class CampaignValidationController {
                 log.info("VALIDATION: Next mapping [${fakeUserSession?.id}] -> User not validated : Next step ${nextValidationStep}")
                 return g.createLink(mapping: nextValidationStep.getUrlMappingNameNextStep(), params: campaignRSDTO.encodeAsLinkProperties());
             } else {
-                // USER Logged
+                // USER Logged or validated
                 log.info("VALIDATION: Next mapping [${fakeUserSession?.id}] -> User validated")
                 KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(fakeUserSession)
                 log.info("VALIDATION: Next mapping [${fakeUserSession?.id}] -> Reautenticating using email ${userRSDTO.getEmailOrAlternative()}")
@@ -417,17 +420,19 @@ class CampaignValidationController {
         if (!validationRSDTO) {
             validationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignRSDTO.getId())
         }
-        if (!springSecurityService.isLoggedIn() && validationRSDTO.isGranted()) {
-            log.info("VALIDATION: Next mapping [${userSession?.id}] -> User not logged but is granted. End validation process")
+        if (validationRSDTO.isGranted()) {
+            log.info("VALIDATION: Next mapping [${userSession?.id}] -> User is granted. End validation process")
             KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(userSession)
-            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+            if (!springSecurityService.isLoggedIn()) {
+                log.info("VALIDATION: Next mapping [${userSession?.id}] -> User not logged - Reautenticating ${userRSDTO.getEmailOrAlternative()}. End validation process")
+                springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+            }
             return null;
-        } else if (springSecurityService.isLoggedIn()) {
-            log.info("VALIDATION: Next mapping [${userSession?.id}] -> User logged. End validation process")
-            return null;
+        } else {
+            log.info("VALIDATION: Next mapping [${userSession?.id}] -> User not granted. Returning next step")
+            ValidationStep nextStep = currentStep ? currentStep.getNextStep(validationRSDTO) : ValidationStep.getInitialStep(validationRSDTO)
+            return nextStep;
         }
-        log.info("VALIDATION: Next mapping [${userSession?.id}] -> User not logged not granted. Returning next step")
-        return currentStep.getNextStep(validationRSDTO)
     }
 
     public enum ValidationStep {
@@ -469,6 +474,23 @@ class CampaignValidationController {
             ValidationStep possibleNextStep = this.nextStep;
             // GET NEXT STEP CHECKING DOMAIN CONFIG. If it is validated, returns the next step
             return possibleNextStep && validationRSDTO."${possibleNextStep.userValidationField}".granted ? possibleNextStep.getNextStep(validationRSDTO) : possibleNextStep
+        }
+
+        public static ValidationStep getInitialStep(UserValidationRSDTO userValidationRSDTO) {
+            if (userValidationRSDTO.isGranted()) {
+                return null
+            } else if (!userValidationRSDTO.tokenMailStatus.isGranted()) {
+                return null
+            } else if (!userValidationRSDTO.phoneStatus.isGranted()) {
+                return ValidationStep.PHONE_SEND
+            } else if (!userValidationRSDTO.codeStatus.isGranted()) {
+                return ValidationStep.CODE
+            } else if (!userValidationRSDTO.censusStatus.isGranted()) {
+                return ValidationStep.CENSUS
+            } else if (!userValidationRSDTO.externalIdStatus.isGranted()) {
+                return ValidationStep.EXTERNAL_ID
+            }
+            return null;
         }
     }
 
@@ -539,7 +561,7 @@ class CampaignValidationController {
     private def userValidationChecker(Long campaignId) {
         KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
         UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignId)
-        if (userValidationRSDTO.isGranted() && !userSession.isAFakeUser()) {
+        if (userValidationRSDTO.isGranted() && userSession.isValidMongoUser()) {
             KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(userSession)
             springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
         }
