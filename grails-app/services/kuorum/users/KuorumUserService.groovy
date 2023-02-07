@@ -654,11 +654,10 @@ class KuorumUserService {
         return apiResponse.data
     }
 
-    private def getPendingValidations(UserValidationRSDTO userValidationRSDTO) {
+    def getPendingValidations(UserValidationRSDTO userValidationRSDTO, KuorumUserSession userSession) {
         String phone = null;
         Boolean predefinedPhone = false;
         if (!userValidationRSDTO.phoneStatus.isGranted()) {
-            KuorumUserSession userSession = cookieUUIDService.buildAnonymousUser()
             if (userSession && userSession.isValidMongoUser()) {
                 KuorumUserExtraDataRSDTO extraDataRSDTO = findUserExtendedDataRSDTO(userSession)
                 phone = extraDataRSDTO.phoneNumber?.encodeAsHiddenPhone()
