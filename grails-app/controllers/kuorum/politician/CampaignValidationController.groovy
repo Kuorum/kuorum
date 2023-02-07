@@ -561,10 +561,10 @@ class CampaignValidationController {
     private def userValidationChecker(Long campaignId) {
         KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
         UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignId)
-        if (userValidationRSDTO.isGranted() && userSession.isValidMongoUser()) {
+        if (userValidationRSDTO.isGranted() && userSession.isValidMongoUser() && !userSession.isAFakeUser()) {
             KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(userSession)
             springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
         }
-        return [validated: userValidationRSDTO.isGranted(), success: true, pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO)]
+        return [validated: userValidationRSDTO.isGranted(), success: true, pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO, userSession)]
     }
 }

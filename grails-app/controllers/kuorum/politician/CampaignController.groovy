@@ -512,7 +512,7 @@ class CampaignController {
                 success           : userValidationRSDTO.censusStatus.isGranted(),
                 validated         : userValidationRSDTO.isGranted(),
                 msg               : userValidationRSDTO.censusStatus.isGranted() ? "Success validation" : g.message(code: 'kuorum.web.commands.profile.DomainValidationCommand.validationError'),
-                pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO)
+                pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO, userSession)
         ] as JSON)
     }
 
@@ -530,7 +530,7 @@ class CampaignController {
             cookieUUIDService.buildAnonymousUser(userPhoneValidationRDTO.getUserId());
             render([
                     validated                  : userPhoneValidationRDTO.validationStatus.phoneStatus.isGranted(),
-                    pendingValidations         : kuorumUserService.getPendingValidations(userPhoneValidationRDTO.validationStatus),
+                    pendingValidations         : kuorumUserService.getPendingValidations(userPhoneValidationRDTO.validationStatus, votingUser),
                     success                    : true,
                     hash                       : userPhoneValidationRDTO.getHash(),
                     validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(),
@@ -555,7 +555,7 @@ class CampaignController {
                 success           : userValidationRSDTO.phoneStatus.isGranted(),
                 validated         : userValidationRSDTO.isGranted(),
                 msg               : userValidationRSDTO.phoneStatus.isGranted() ? "Success validation" : g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.phoneCode.validationError'),
-                pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO)
+                pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO, userSession)
         ] as JSON)
     }
 
@@ -581,7 +581,7 @@ class CampaignController {
                 success           : userValidationRSDTO.codeStatus.isGranted(),
                 validated         : userValidationRSDTO.isGranted(),
                 msg               : msg,
-                pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO)
+                pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO, userSession)
         ] as JSON)
     }
 
