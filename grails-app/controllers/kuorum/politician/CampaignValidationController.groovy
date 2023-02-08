@@ -35,8 +35,6 @@ import payment.contact.ContactService
 import springSecurity.ExternIdJoinCommand
 import springSecurity.KuorumRegisterCommand
 
-import javax.validation.Validation
-
 class CampaignValidationController {
     KuorumUserService kuorumUserService
     CookieUUIDService cookieUUIDService
@@ -561,9 +559,11 @@ class CampaignValidationController {
     private def userValidationChecker(Long campaignId) {
         KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
         UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignId)
-        if (userValidationRSDTO.isGranted() && userSession.isValidMongoUser() && !userSession.isAFakeUser()) {
+        if (userValidationRSDTO.isGranted() && userSession.isValidMongoUser()) {
             KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(userSession)
-            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+            if (kuorumUserService.isLogableUser(userRSDTO)) {
+                springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+            }
         }
         return [validated: userValidationRSDTO.isGranted(), success: true, pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO, userSession)]
     }
