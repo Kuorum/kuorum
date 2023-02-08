@@ -19,6 +19,7 @@ import kuorum.security.evidences.Evidences
 import kuorum.solr.SearchSolrService
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.profile.SocialNetworkCommand
+import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
@@ -673,5 +674,9 @@ class KuorumUserService {
                 codeValidation     : [success: userValidationRSDTO.codeStatus.isGranted(), data: [:]]
 
         ]
+    }
+
+    boolean isLogableUser(KuorumUserRSDTO userRSDTO) {
+        return !userRSDTO.getEmailOrAlternative().endsWith(WebConstants.NO_REAL_USER_EMAIL_DOMAIN)
     }
 }

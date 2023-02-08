@@ -123,8 +123,8 @@ class KuorumUserSession extends GrailsUser {
         return ObjectId.isValid(id?.toString() ?: "")
     }
 
-    boolean isAFakeUser() {
-        return email && (!email.contains("@") || email.endsWith(WebConstants.FAKE_USER_EMAIL_DOMAIN))
+    boolean isNotARealUser() {
+        return email && (!email.contains("@") || email.endsWith(WebConstants.NO_REAL_USER_EMAIL_DOMAIN))
     }
 
     KuorumUserSession(String alias, String username, String password, boolean enabled, boolean accountNonExpired,
