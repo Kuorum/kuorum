@@ -18,6 +18,10 @@ import net.spy.memcached.transcoders.SerializingTranscoder
 beans = {
     xmlns aop: "http://www.springframework.org/schema/aop"
     languajeAspectBean(kuorum.core.aop.LanguageInjectorAOP)
+    funnelLoginSesionBean(kuorum.core.aop.FunnelLoginSessionAOP){
+        cookieUUIDService = ref("cookieUUIDService")
+        springSecurityService = ref("springSecurityService")
+    }
 
     Boolean cdnActive =
             application.config.grails.resources.mappers.amazoncdn.enabled instanceof Boolean ? application.config.grails.resources.mappers.amazoncdn.enabled :
