@@ -7,6 +7,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.web.constants.WebConstants
 import org.apache.log4j.Logger
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
@@ -41,7 +42,7 @@ class MongoUserDetailsService implements GrailsUserDetailsService {
             throw new UsernameNotFoundException('Empty username', username)
         }
         KuorumUser user
-        if (username.endsWith("@fake.com")) {
+        if (username.endsWith(WebConstants.FAKE_USER_EMAIL_DOMAIN)) {
             user = KuorumUser.findById(new ObjectId(username.substring(0, username.indexOf("@"))))
         } else {
             user = KuorumUser.findByEmailAndDomain(username.toLowerCase(), CustomDomainResolver.domain)
@@ -77,10 +78,7 @@ class MongoUserDetailsService implements GrailsUserDetailsService {
                 userRSDTO.name,
                 userRSDTO.timeZone,
                 userRSDTO.avatarUrl,
-                AvailableLanguage.valueOf(userRSDTO.language.toString()),
-                userRSDTO.censusValid,
-                userRSDTO.phoneValid,
-                userRSDTO.codeValid
+                AvailableLanguage.valueOf(userRSDTO.language.toString())
         )
     }
 
@@ -116,26 +114,28 @@ class KuorumUserSession extends GrailsUser {
     TimeZone timeZone
     String avatarUrl
     AvailableLanguage language
-    Boolean censusValid
-    Boolean phoneValid
-    Boolean codeValid
 
     String getEmail() {
         username
     }
 
+    boolean isValidMongoUser() {
+        return ObjectId.isValid(id?.toString() ?: "")
+    }
+
+    boolean isNotARealUser() {
+        return email && (!email.contains("@") || email.endsWith(WebConstants.NO_REAL_USER_EMAIL_DOMAIN))
+    }
+
     KuorumUserSession(String alias, String username, String password, boolean enabled, boolean accountNonExpired,
                       boolean credentialsNonExpired, boolean accountNonLocked,
-                      Collection<GrantedAuthority> authorities, Object id, String name, TimeZone timeZone, String avatarUrl, AvailableLanguage language, Boolean censusValid, Boolean phoneValid, Boolean codeValid) {
+                      Collection<GrantedAuthority> authorities, Object id, String name, TimeZone timeZone, String avatarUrl, AvailableLanguage language) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, id)
         this.name = name
         this.alias = alias
         this.timeZone = timeZone
         this.avatarUrl = avatarUrl
         this.language = language
-        this.censusValid = censusValid
-        this.phoneValid = phoneValid
-        this.codeValid = codeValid
     }
 
 

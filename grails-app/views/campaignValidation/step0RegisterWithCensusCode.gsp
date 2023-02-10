@@ -7,6 +7,7 @@
     <parameter name="showNavBar" value="false"/>
     <parameter name="extraHeadCss" value="landing"/>
     <parameter name="disableLogoLink" value="true"/>
+    <parameter name="showBrowserId" value="true"/>
     <r:require modules="forms"/>
 </head>
 

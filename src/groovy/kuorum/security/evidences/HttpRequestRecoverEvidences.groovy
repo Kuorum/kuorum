@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletRequestWrapper
 
 class HttpRequestRecoverEvidences implements Evidences{
     HttpServletRequest httpRequest;
+    String browserId;
 
-    public HttpRequestRecoverEvidences(HttpServletRequestWrapper httpServletRequestWrapper){
+    public HttpRequestRecoverEvidences(HttpServletRequestWrapper httpServletRequestWrapper, String browserId) {
         this.httpRequest = httpServletRequestWrapper;
+        this.browserId = browserId
     }
 
-    String getIp(){
+    String getIp() {
         String xForwardedForHeader = httpRequest.getHeader("X-Forwarded-For");
         if (xForwardedForHeader == null) {
             return httpRequest.getRemoteAddr();
@@ -24,7 +26,11 @@ class HttpRequestRecoverEvidences implements Evidences{
         }
     }
 
-    String getBrowser(){
+    String getBrowser() {
         return httpRequest.getHeader("user-agent");
+    }
+
+    String getBrowserId() {
+        return browserId
     }
 }

@@ -1,4 +1,4 @@
-<div class="comment-box call-to-action campaign-steps-status">
+<div class="comment-box call-to-action campaign-steps-status ${hideXs ? 'hidden-sm hidden-xs' : ''} ${hideXl ? 'hidden-md hidden-lg' : ''}">
     <div class="comment-header">
         <span class="call-title">
             <g:message code="contest.status.title"/>
@@ -63,40 +63,41 @@
         </ul>
     </div>
 
-    <userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
-        <!-- MODAL CHANGE CAMPAIGN STATUS-->
-        <div class="modal fade in" id="changeContestApplicationStatusModal" tabindex="-1" role="dialog"
-             aria-labelledby="modalEditParticipatoryBudgetStatusTitle" aria-hidden="true">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                            <span aria-hidden="true" class="fal fa-times-circle fa"></span><span
-                                class="sr-only"><g:message code="modalDefend.close"/></span>
-                        </button>
-                        <h4>
-                            <g:message code="modal.changeContestStatusModal.title"/>
-                        </h4>
-                    </div>
 
-                    <div class="modal-body">
-                        <p><g:message code="modal.changeContestStatusModal.text"/></p>
-                        <fieldset aria-live="polite" class="text-right">
-                            <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal"
-                               id="modalEditParticipatoryBudgetStatusButtonClose">
-                                <g:message code="participatoryBudget.status.change.modal.cancel"/>
-                            </a>
-                            <g:link mapping="contestEditStatus"
-                                    params="${contest.encodeAsLinkProperties() + [status: "STATUS"]}"
-                                    class="btn btn-blue inverted btn-lg"
-                                    elementId="modalEditParticipatoryBudgetStatusButtonOk">
-                                <g:message code="participatoryBudget.status.change.modal.submit"/>
-                            </g:link>
-                        </fieldset>
+</div>
+<userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
+    <!-- MODAL CHANGE CAMPAIGN STATUS-->
+    <div class="modal fade in" id="changeContestApplicationStatusModal" tabindex="-1" role="dialog"
+         aria-labelledby="modalEditParticipatoryBudgetStatusTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true" class="fal fa-times-circle fa"></span><span
+                            class="sr-only"><g:message code="modalDefend.close"/></span>
+                    </button>
+                    <h4>
+                        <g:message code="modal.changeContestStatusModal.title"/>
+                    </h4>
+                </div>
 
-                    </div>
+                <div class="modal-body">
+                    <p><g:message code="modal.changeContestStatusModal.text"/></p>
+                    <fieldset aria-live="polite" class="text-right">
+                        <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal"
+                           id="modalEditParticipatoryBudgetStatusButtonClose">
+                            <g:message code="participatoryBudget.status.change.modal.cancel"/>
+                        </a>
+                        <g:link mapping="contestEditStatus"
+                                params="${contest.encodeAsLinkProperties() + [status: "STATUS"]}"
+                                class="btn btn-blue inverted btn-lg"
+                                elementId="modalEditParticipatoryBudgetStatusButtonOk">
+                            <g:message code="participatoryBudget.status.change.modal.submit"/>
+                        </g:link>
+                    </fieldset>
+
                 </div>
             </div>
         </div>
-    </userUtil:ifUserIsTheLoggedOne>
-</div>
+    </div>
+</userUtil:ifUserIsTheLoggedOne>

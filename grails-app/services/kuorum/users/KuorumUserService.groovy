@@ -19,6 +19,7 @@ import kuorum.security.evidences.Evidences
 import kuorum.solr.SearchSolrService
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.profile.SocialNetworkCommand
+import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
@@ -52,6 +53,7 @@ class KuorumUserService {
     SearchSolrService searchSolrService
     CausesService causesService
     RestKuorumApiService restKuorumApiService
+    CookieUUIDService cookieUUIDService
 
 
     GrailsApplication grailsApplication
@@ -452,9 +454,21 @@ class KuorumUserService {
         return getUserValidationStatus(user.getId().toString(), campaignId)
     }
 
+    List<UserValidationRSDTO> getAllUserValidationStatus(String userId) {
+        Map<String, String> params = [userId: userId]
+        Map<String, String> query = [:]
+        def apiResponse = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_VALIDATIONS,
+                params,
+                query,
+                new TypeReference<List<UserValidationRSDTO>>() {}
+        )
+        return apiResponse.data
+    }
+
     UserValidationRSDTO getUserValidationStatus(String userId, Long campaignId) {
         Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
-        Map<String, String> query = [:]
+        Map<String, String> query = [browserId: cookieUUIDService.getBrowserId()]
         def apiResponse = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_VALIDATION_STATUS,
                 params,
@@ -465,20 +479,23 @@ class KuorumUserService {
         return validationRDTO;
     }
 
-    UserValidationRSDTO userDomainValidation(KuorumUserSession user, Evidences evidences, Long campaignId, String ndi, String postalCode, Date birthDate){
-        Map<String, String> params = [userId: user.getId().toString(),campaignId: campaignId.toString()]
+    UserValidationRSDTO userDomainValidation(KuorumUserSession user, Evidences evidences, Long campaignId, String ndi, String postalCode, Date birthDate) {
+        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
-        UserDataDomainValidationDTO userDataDomainValidationDTO = new UserDataDomainValidationDTO(ip: evidences.getIp(),browserType:evidences.getBrowser())
-        userDataDomainValidationDTO.postalCode=postalCode
-        userDataDomainValidationDTO.ndi=ndi
-        userDataDomainValidationDTO.birthDate=kuorum.util.TimeZoneUtil.convertToUserTimeZone(birthDate, TimeZone.getTimeZone("UTC"))
-        try{
-            def apiResponse= restKuorumApiService.put(
+        UserDataDomainValidationDTO userDataDomainValidationDTO = new UserDataDomainValidationDTO(
+                ip: evidences.getIp(),
+                browserType: evidences.getBrowser(),
+                browserId: evidences.getBrowserId())
+        userDataDomainValidationDTO.postalCode = postalCode
+        userDataDomainValidationDTO.ndi = ndi
+        userDataDomainValidationDTO.birthDate = kuorum.util.TimeZoneUtil.convertToUserTimeZone(birthDate, TimeZone.getTimeZone("UTC"))
+        try {
+            def apiResponse = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.USER_VALIDATION_CENSUS,
                     params,
                     query,
                     userDataDomainValidationDTO,
-                    new TypeReference<UserValidationRSDTO>(){}
+                    new TypeReference<UserValidationRSDTO>() {}
             )
             UserValidationRSDTO validationRDTO = apiResponse.data
             return validationRDTO
@@ -488,19 +505,23 @@ class KuorumUserService {
         }
     }
 
-    UserPhoneValidationRDTO sendSMSWithValidationCode(KuorumUserSession user, Long campaignId, String phoneNumber, String phoneNumberPrefix){
+    UserPhoneValidationRDTO sendSMSWithValidationCode(KuorumUserSession user, Long campaignId, String phoneNumber, String phoneNumberPrefix, String browserId) {
         Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
-        Map<String, String> query = [phoneNumber:phoneNumber,phoneNumberPrefix:phoneNumberPrefix]
-        try{
-            def apiResponse= restKuorumApiService.post(
+        Map<String, String> query = [
+                phoneNumber      : phoneNumber,
+                phoneNumberPrefix: phoneNumberPrefix,
+                browserId        : browserId
+        ]
+        try {
+            def apiResponse = restKuorumApiService.post(
                     RestKuorumApiService.ApiMethod.USER_VALIDATION_PHONE,
                     params,
                     query,
                     null,
-                    new TypeReference<UserPhoneValidationRDTO>(){}
+                    new TypeReference<UserPhoneValidationRDTO>() {}
             )
             return apiResponse.data
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Exception validating user: [Excpt: ${e.getMessage()}]")
             if (e instanceof UndeclaredThrowableException ) {
                 KuorumException ke = ((UndeclaredThrowableException) e).getCause().getCause()
@@ -517,10 +538,11 @@ class KuorumUserService {
         UserPhoneValidationDTO userPhoneValidationDTO = new UserPhoneValidationDTO(
                 ip: evidences.getIp(),
                 browserType: evidences.getBrowser(),
-                phoneNumberPrefix:phoneNumberPrefix,
+                browserId: evidences.getBrowserId(),
+                phoneNumberPrefix: phoneNumberPrefix,
                 phoneNumber: phoneNumber,
-                code:code,
-                hash:hash
+                code: code,
+                hash: hash
         )
         try{
             def apiResponse= restKuorumApiService.put(
@@ -536,20 +558,25 @@ class KuorumUserService {
             return new UserValidationRSDTO();
         }
     }
-    UserValidationRSDTO userCodeDomainValidation(KuorumUserSession user, Evidences evidences, Long campaignId, String code){
-        Map<String, String> params = [userId: user.getId().toString(), campaignId:campaignId.toString()]
+    UserValidationRSDTO userCodeDomainValidation(KuorumUserSession user, Evidences evidences, Long campaignId, String code) {
+        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
-        UserCodeValidationDTO userCodeValidationDTO = new UserCodeValidationDTO(code:code,ip: evidences.getIp(),browserType:evidences.getBrowser())
-        try{
-            def apiResponse= restKuorumApiService.put(
+        UserCodeValidationDTO userCodeValidationDTO = new UserCodeValidationDTO(
+                code: code,
+                ip: evidences.getIp(),
+                browserType: evidences.getBrowser(),
+                browserId: evidences.getBrowserId()
+        )
+        try {
+            def apiResponse = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.USER_VALIDATION_CODE,
                     params,
                     query,
                     userCodeValidationDTO,
-                    new TypeReference<UserValidationRSDTO>(){}
+                    new TypeReference<UserValidationRSDTO>() {}
             )
             return apiResponse.data
-        }catch (Exception e){
+        } catch (Exception e) {
             if (e?.cause?.cause instanceof KuorumException){
                 log.info("Exception validating user: [Excpt: ${e?.cause?.cause?.getMessage()}]")
                 throw e.cause.cause
@@ -587,20 +614,25 @@ class KuorumUserService {
         )
     }
 
-    UserValidationRSDTO adminValidation(KuorumUserSession actor, Evidences evidences, BasicDataKuorumUserRSDTO user, Long campaignId){
-        Map<String, String> params = [userId: user.getId().toString(), campaignId:campaignId.toString()]
+    UserValidationRSDTO adminValidation(KuorumUserSession actor, Evidences evidences, BasicDataKuorumUserRSDTO user, Long campaignId) {
+        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
-        UserAdminValidationDTO userAdminValidationDTO = new UserAdminValidationDTO(actorId:actor.id.toString(),ip: evidences.getIp(),browserType:evidences.getBrowser())
-        try{
-            def apiResponse= restKuorumApiService.put(
+        UserAdminValidationDTO userAdminValidationDTO = new UserAdminValidationDTO(
+                actorId: actor.id.toString(),
+                ip: evidences.getIp(),
+                browserType: evidences.getBrowser(),
+                browserId: evidences.getBrowserId()
+        )
+        try {
+            def apiResponse = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.USER_VALIDATION_STATUS,
                     params,
                     query,
                     userAdminValidationDTO,
-                    new TypeReference<UserValidationRSDTO>(){}
+                    new TypeReference<UserValidationRSDTO>() {}
             )
             return apiResponse.data
-        }catch (Exception e){
+        } catch (Exception e) {
             if (e?.cause?.cause instanceof KuorumException){
                 log.info("Exception validating user: [Excpt: ${e?.cause?.cause?.getMessage()}]")
                 throw e.cause.cause
@@ -613,13 +645,38 @@ class KuorumUserService {
 
     Boolean checkEmailForRegistrationOnDomain(String email){
         Map<String, String> params = [:] // DELETES ALL VALIDATIONS
-        Map<String, String> query = [email:email]
+        Map<String, String> query = [email: email]
         def apiResponse = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_PREVALIDATION,
                 params,
                 query,
-                new TypeReference<Boolean>(){}
+                new TypeReference<Boolean>() {}
         )
         return apiResponse.data
+    }
+
+    def getPendingValidations(UserValidationRSDTO userValidationRSDTO, KuorumUserSession userSession) {
+        String phone = null;
+        Boolean predefinedPhone = false;
+        if (!userValidationRSDTO.phoneStatus.isGranted()) {
+            if (userSession && userSession.isValidMongoUser()) {
+                KuorumUserExtraDataRSDTO extraDataRSDTO = findUserExtendedDataRSDTO(userSession)
+                phone = extraDataRSDTO.phoneNumber?.encodeAsHiddenPhone()
+                predefinedPhone = extraDataRSDTO.phoneNumber ? true : false;
+            } else {
+                predefinedPhone = false;
+            }
+        }
+        return [
+                tokenMailValidation: [success: userValidationRSDTO.tokenMailStatus.isGranted(), data: [:]],
+                censusValidation   : [success: userValidationRSDTO.censusStatus.isGranted(), data: [:]],
+                phoneValidation    : [success: userValidationRSDTO.phoneStatus.isGranted(), data: [phone: phone, predefinedPhone: predefinedPhone]],
+                codeValidation     : [success: userValidationRSDTO.codeStatus.isGranted(), data: [:]]
+
+        ]
+    }
+
+    boolean isLogableUser(KuorumUserRSDTO userRSDTO) {
+        return !userRSDTO.getEmailOrAlternative().endsWith(WebConstants.NO_REAL_USER_EMAIL_DOMAIN)
     }
 }

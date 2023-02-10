@@ -181,6 +181,7 @@ class RestKuorumApiService {
         USER_IMG_PROFILE('/user/{userId}/files/profile'),
 
         USER_DATA('/user/{userId}/data/'),
+        USER_VALIDATIONS('/user/{userId}/validation/'),
         USER_VALIDATION_STATUS('/user/{userId}/validation/{campaignId}'),
         USER_VALIDATION_CENSUS('/user/{userId}/validation/{campaignId}/census'),
         USER_VALIDATION_PHONE('/user/{userId}/validation/{campaignId}/phone'),
