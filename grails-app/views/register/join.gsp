@@ -36,7 +36,10 @@
                         <g:message code="springSecurity.CodeJoinCommand.submit"/>
                     </button>
                 </div>
-                <r:require modules="recaptcha_register"/>
+                <g:set var="isDev" value="${grails.util.Environment.current == grails.util.Environment.DEVELOPMENT}"/>
+                <g:if test="${!isDev}">
+                    <r:require modules="recaptcha_register"/>
+                </g:if>
             </fieldset>
         </g:form>
     </div>

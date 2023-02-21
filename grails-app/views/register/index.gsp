@@ -13,8 +13,11 @@
 <content tag="mainContent">
     <div class="box-ppal auto-width-center">
         <g:if test="${_domainLoginSettings.providerBasicEmailForm}">
-            <r:require modules="recaptcha_register"/>
-            <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
+            <g:set var="isDev" value="${grails.util.Environment.current == grails.util.Environment.DEVELOPMENT}"/>
+            <g:if test="${!isDev}">
+                <r:require modules="recaptcha_register"/>
+            </g:if>
+                       <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
             <form action="#" name="sign" role="form" method="POST" autocomplete="off" class="login clearfix">
                 <fieldset aria-live="polite" class="modal-login-action-buttons">
                     <div class="form-group">
