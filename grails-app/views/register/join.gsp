@@ -37,9 +37,9 @@
                     </button>
                 </div>
                 <g:set var="isDev" value="${grails.util.Environment.current == grails.util.Environment.DEVELOPMENT}"/>
-                <g:if test="${!isDev}">
+                <nav:ifNotDevelopment>
                     <r:require modules="recaptcha_register"/>
-                </g:if>
+                </nav:ifNotDevelopment>
             </fieldset>
         </g:form>
     </div>
