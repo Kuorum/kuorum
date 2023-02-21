@@ -76,8 +76,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             render view: 'index', model: [command: command]
             return
         }
-
-        if (!verifyRegister()) {
+        if (grails.util.Environment.current == grails.util.Environment.PRODUCTION && !verifyRegister()) {
             render([success: false] as JSON)
             return
         }
@@ -92,18 +91,13 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         String path = "/recaptcha/api/siteverify"
         def query = [secret: secretKey, response: responseCaptcha]
         RESTClient mailKuorumServices = new RESTClient("https://www.google.com")
-        def response = mailKuorumServices.get(
-                path: path,
+        def response = mailKuorumServices.get(path: path,
                 headers: ["User-Agent": "Kuorum Web"],
                 query: query,
-                requestContentType: groovyx.net.http.ContentType.JSON
-        )
+                requestContentType: groovyx.net.http.ContentType.JSON)
 
         log.info("Checking CAPTCHA :: Google response - ${response.data.hostname} || domain : ${CustomDomainResolver.domain}")
-        if (!response.data.success && response.data.hostname != CustomDomainResolver.domain)
-            return false
-        else
-            return true
+        if (!response.data.success && response.data.hostname != CustomDomainResolver.domain) return false else return true
     }
 
     RememberMeServices rememberMeServices
@@ -301,8 +295,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         redirect mapping: "resetPasswordSent"
     }
 
-    def forgotPasswordSuccess = {
-    }
+    def forgotPasswordSuccess = {}
 
     def resetPassword(ResetPasswordCommand command) {
 
@@ -355,11 +348,11 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             qrDisabledRedirect()
             return
         }
-        CodeJoinCommand command = new CodeJoinCommand();
+        CodeJoinCommand command = new CodeJoinCommand()
         if (flash.error && !command.hasErrors()) {
             // Error passed as param
             command.errors.rejectValue('qrCode', flash.error)
-            flash.error = "";
+            flash.error = ""
         }
         return [command: command]
     }

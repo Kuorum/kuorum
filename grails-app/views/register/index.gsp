@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.login" args="[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"/> </title>
+    <title><g:message code="page.title.login"
+                      args="[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"/></title>
     <meta name="layout" content="centerColumn1Layout">
     <parameter name="extraHeadCss" value="landing"/>
     <parameter name="hideHeadSearch" value="true"/>
@@ -13,7 +14,9 @@
 <content tag="mainContent">
     <div class="box-ppal auto-width-center">
         <g:if test="${_domainLoginSettings.providerBasicEmailForm}">
-            <r:require modules="recaptcha_register"/>
+            <nav:ifNotDevelopment>
+                <r:require modules="recaptcha_register"/>
+            </nav:ifNotDevelopment>
             <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
             <form action="#" name="sign" role="form" method="POST" autocomplete="off" class="login clearfix">
                 <fieldset aria-live="polite" class="modal-login-action-buttons">
