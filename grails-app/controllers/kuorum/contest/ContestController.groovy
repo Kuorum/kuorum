@@ -398,7 +398,6 @@ class ContestController extends CampaignController {
         KuorumUserSession loggedUser = cookieUUIDService.buildAnonymousUser()
         try {
             ContestApplicationVoteRSDTO vote = contestApplicationService.vote(command.userAlias, command.contestId, command.campaignId, loggedUser.getId().toString());
-            cookieUUIDService.removeUserUUID();
             render([success: true, message: g.message(code: 'contestApplication.callToAction.VOTING.success'), vote: vote] as JSON)
         } catch (Exception e) {
             String msgError = "Error updating saving your vote"
@@ -407,8 +406,9 @@ class ContestController extends CampaignController {
                 String dateClosed = g.formatDate([format: g.message(code: 'default.date.format'), date: contestRSDTO.deadLineVotes, timeZone: contestRSDTO.user.timeZone])
                 msgError = message(code: "contestApplication.callToAction.VOTING.${ke.errors[0].code}", args: [contestRSDTO.title, dateClosed])
             }
-            cookieUUIDService.removeUserUUID();
             render([success: false, message: msgError, vote: null] as JSON)
+        } finally {
+            cookieUUIDService.removeUserUUID();
         }
     }
 

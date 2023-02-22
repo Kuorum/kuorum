@@ -126,6 +126,7 @@ var contestApplicationFunctions = {
             },
             complete: function () {
                 pageLoadingOff();
+                cookiesHelper.removeCookie("KUORUM_USER_UUID")
             }
         });
     },
