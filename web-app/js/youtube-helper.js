@@ -66,14 +66,20 @@ function YoutubeHelper(){
     this.checkValidYoutube= function(img){
         var youtubeId = img.getAttribute("data-youtubeId");
         var imageYoutubeNotFound = img.getAttribute("data-urlYoutubeNotFound");
-        validYoutube(youtubeId, function(data){
-            maxResImage(data, img);
-        }, function(){
+
+        function setErrorYoutubeImage() {
             img.setAttribute("src", imageYoutubeNotFound);
             var a = img.parentNode;
             var videoContainer = a.parentNode;
-            videoContainer.innerHTML="";
+            videoContainer.innerHTML = "";
             videoContainer.appendChild(img)
+        }
+
+        validYoutube(youtubeId, function(data){
+            maxResImage(data, img);
+        }, function(){
+           // setErrorYoutubeImage();
+            console.log("Error loading youtube data");
         });
     };
 
