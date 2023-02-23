@@ -1,9 +1,11 @@
 <g:if test="${_showSocialButtons && campaign.published}">
     <r:require modules="social"/>
 
+    <g:set var="currentLang"
+           value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).getLanguage()}"/>
     <g:set var="campaignLink"><g:createLink
             mapping="campaignShow"
-            params="${campaign.encodeAsLinkProperties()}"
+            params="${campaign.encodeAsLinkProperties() + [lang: currentLang]}"
             absolute="true"/></g:set>
 
     <ul class="social pull-left">

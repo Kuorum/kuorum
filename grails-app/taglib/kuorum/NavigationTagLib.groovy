@@ -33,20 +33,19 @@ class NavigationTagLib {
     LessCompilerService lessCompilerService
 
     NotificationService notificationService
-    DomainService domainService;
+    DomainService domainService
 
     /**
-     * Returns the css "ACTIVE" if the mapping is the same as the url loaded
-     */
+     * Returns the css "ACTIVE" if the mapping is the same as the url loaded*/
     def activeMenuCss = { attrs ->
         String activeCss = attrs.activeCss ?: "active"
         def urlParams = attrs.urlParams ?: []
         String controller = attrs.controller
         String action = attrs.action
-        Boolean active = false;
+        Boolean active = false
         if (controller) {
             try {
-                String controllerName = request.servletPath.split("/")[2];
+                String controllerName = request.servletPath.split("/")[2]
                 String actionName = request.servletPath.split("/")[3].split("\\.")[0]
                 active = controllerName == controller && (!action || action == actionName)
             } catch (Exception e) {
@@ -60,7 +59,7 @@ class NavigationTagLib {
                 mappings = attrs.mappingNames
             }
             List<String> urls = mappings.collect { mappingName -> grailsLinkGenerator.link(mapping: mappingName, params: urlParams, absolute: false) }
-            active = urls.contains(request.forwardURI.toString());
+            active = urls.contains(request.forwardURI.toString())
         }
         if (active) {
             out << activeCss
@@ -71,7 +70,7 @@ class NavigationTagLib {
     def ifActiveMapping = { attrs, body ->
         String mappingName = attrs.mappingName ?: ''
         List<String> mappingNames = attrs.mappingNames ? attrs.mappingNames.split(",").collect { it.trim() }.findAll { it } : [mappingName]
-        Boolean equals = attrs.equals ? Boolean.parseBoolean(attrs.equals) : true;
+        Boolean equals = attrs.equals ? Boolean.parseBoolean(attrs.equals) : true
         List<String> urls = mappingNames.collect { grailsLinkGenerator.link(mapping: it, absolute: false) }
 
         // TODO: "request.getRequestURL()" is not "sign-in" at the sign-in page
@@ -82,10 +81,10 @@ class NavigationTagLib {
 
     def kuorumLink = { attrs, body ->
         Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
-        AvailableLanguage currentLang = AvailableLanguage.fromLocale(locale);
-        String languageCode = "en";
+        AvailableLanguage currentLang = AvailableLanguage.fromLocale(locale)
+        String languageCode = "en"
         if (currentLang.spanishLang) {
-            languageCode = "es";
+            languageCode = "es"
         }
 
         out << """<a href="https://kuorum.org/${languageCode}" hreflang="${languageCode}" target="_blank">Kuorum.org</a>"""
@@ -100,8 +99,7 @@ class NavigationTagLib {
     }
 
     /**
-     * Language utils to display hreflangs and language selector
-     */
+     * Language utils to display hreflangs and language selector*/
     private Map<AvailableLanguage, String> generateAllRelatedUrlsDependingOnLang() {
         // Init
         def languageList = [AvailableLanguage.es_ES, AvailableLanguage.en_EN, AvailableLanguage.ca_ES]
@@ -121,17 +119,15 @@ class NavigationTagLib {
                         normalizedValue = Normalizer.normalize(v, Normalizer.Form.NFD)
                                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
                     }
-                    normalizedParams.put(
-                            k,
-                            normalizedValue
-                    )
+                    normalizedParams.put(k,
+                            normalizedValue)
                 }
             }
             languageList.each { lang ->
-                String link = g.createLink(mapping: "${lang.locale.language}_${mappingName}".toString(), params: normalizedParams, absolute: true);
-                int dollarIndex = link.indexOf('?');
+                String link = g.createLink(mapping: "${lang.locale.language}_${mappingName}".toString(), params: normalizedParams, absolute: true)
+                int dollarIndex = link.indexOf('?')
                 if (dollarIndex != -1) {
-                    link = link.substring(0, dollarIndex);
+                    link = link.substring(0, dollarIndex)
                 }
                 urls.put(lang, link)
             }
@@ -146,7 +142,7 @@ class NavigationTagLib {
                 urls.put(lang, url)
             }
         }
-        return urls;
+        return urls
     }
 
     private String prepareSpecialMappings(String mapping) {
@@ -158,10 +154,10 @@ class NavigationTagLib {
             }
 
             if (params.searchType) {
-                SearchType searchType = SearchType.safeParse(params.searchType);
+                SearchType searchType = SearchType.safeParse(params.searchType)
                 if (!searchType) {
                     // Google still asks for old filters
-                    searchType = SearchType.ALL;
+                    searchType = SearchType.ALL
                 }
                 if (!SearchType.ALL.equals(searchType)) {
                     // ONLY CAUSE IS MAPPED
@@ -169,7 +165,7 @@ class NavigationTagLib {
                 }
             }
         }
-        return mapping;
+        return mapping
     }
 
     @Autowired
@@ -177,7 +173,7 @@ class NavigationTagLib {
     UrlMappingsHolder urlMappingsHolder
 
     def canonical = { attrs, body ->
-        Map<AvailableLanguage, String> urls = generateAllRelatedUrlsDependingOnLang();
+        Map<AvailableLanguage, String> urls = generateAllRelatedUrlsDependingOnLang()
         Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
         AvailableLanguage currentLang = AvailableLanguage.fromLocale(locale)
         if (attrs.onlyLink) {
@@ -188,7 +184,7 @@ class NavigationTagLib {
     }
 
     def generateAlternateLangLink = { attrs, body ->
-        Map<AvailableLanguage, String> urls = generateAllRelatedUrlsDependingOnLang();
+        Map<AvailableLanguage, String> urls = generateAllRelatedUrlsDependingOnLang()
         urls.each { k, v ->
             out << """
                 <link   rel="alternate"
@@ -207,7 +203,7 @@ class NavigationTagLib {
     }
 
     def generateLangSelector = { attrs, body ->
-        Map<AvailableLanguage, String> urls = generateAllRelatedUrlsDependingOnLang();
+        Map<AvailableLanguage, String> urls = generateAllRelatedUrlsDependingOnLang()
         Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
         AvailableLanguage currentLang = AvailableLanguage.fromLocale(locale)
         out << """
@@ -282,6 +278,11 @@ class NavigationTagLib {
     protected getPage() {
         return getRequest().getAttribute(RequestConstants.PAGE)
     }
+    def ifNotDevelopment = {
+        if (grails.util.Environment.current == grails.util.Environment.PRODUCTION) {
+            out << body()
+        }
+    }
 
     def contactPagination = { attrs ->
         Long totalElements = attrs.total
@@ -309,10 +310,10 @@ class NavigationTagLib {
         out << getPaginationLi(">", currentPage + 1, currentPage >= totalPages, nextLink)
 
         out << "</ul>"
-        out << "<div class='pagination-size'><label>${g.message(code:'pagination.show')}</label> <select class='form-control input' name='sizePage'>"
+        out << "<div class='pagination-size'><label>${g.message(code: 'pagination.show')}</label> <select class='form-control input' name='sizePage'>"
         [10, 50, 100].each {
             String changeSizeLink = link ? "${link}${link.contains("?") ? "&" : "?"}offset=0&max=${it}" : ""
-            out << "<option ${it==sizePage?'selected=\'selected\'':''} data-link='${changeSizeLink}'>${it}</option>"
+            out << "<option ${it == sizePage ? 'selected=\'selected\'' : ''} data-link='${changeSizeLink}'>${it}</option>"
         }
         out << "</select></div>"
         out << "</div>"
@@ -320,9 +321,9 @@ class NavigationTagLib {
     }
 
     def onlyPublicDomain = { attrs, body ->
-        Boolean checkLogged = attrs.checkLogged?Boolean.parseBoolean(attrs.checkLogged):true
-        if (domainService.showPrivateContent(checkLogged)){
-            out << body();
+        Boolean checkLogged = attrs.checkLogged ? Boolean.parseBoolean(attrs.checkLogged) : true
+        if (domainService.showPrivateContent(checkLogged)) {
+            out << body()
         }
     }
 
