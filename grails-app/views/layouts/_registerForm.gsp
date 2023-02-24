@@ -70,7 +70,9 @@
         });
     });
 </r:script>
-<r:require modules="recaptcha_modalRegister"/>
+<nav:ifNotDevelopment>
+    <r:require modules="recaptcha_register"/>
+</nav:ifNotDevelopment>
 <g:form mapping="register" action-ajax="${g.createLink(mapping: 'ajaxRegister')}" autocomplete="off" method="post"
         name="${formId}" class="login" role="form" novalidate="novalidate">
     <g:if test="${_domainLoginSettings != null && _domainLoginSettings.providerBasicEmailForm}">
