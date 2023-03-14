@@ -517,6 +517,10 @@ class CampaignController {
     }
 
     def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand) {
+        if (domainUserPhoneValidationCommand.hasErrors()) {
+            render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.invalidPhone')] as JSON)
+            return;
+        }
         KuorumUserSession votingUser = cookieUUIDService.buildAnonymousUser();
         Long campaignId = Long.parseLong(params.campaignId)
         try {
