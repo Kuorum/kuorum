@@ -16,12 +16,15 @@ class DomainUserPhoneValidationCommand {
 
     static constraints = {
         phoneNumberPrefix nullable: false, validator: { val, obj ->
-            if (INVALID_PHONES.contains(val)) {
-                return "CountryNotAllowed"
-            }
-            if (SPANISH_CODE.equals(val)) {
-                if (obj.phoneNumber.toString().length() != 9 && !obj.phoneNumber.toString().startsWith("6")) {
-                    return "NotSpanishPhone"
+            if (obj.phoneNumber) {
+                // CHECK only if the user has introduced the phone number. If not, the system supposes that the phone will be recovered from Contact DDBB
+                if (INVALID_PHONES.contains(val)) {
+                    return "CountryNotAllowed"
+                }
+                if (SPANISH_CODE.equals(val)) {
+                    if (obj.phoneNumber.toString().length() != 9 && !obj.phoneNumber.toString().startsWith("6")) {
+                        return "NotSpanishPhone"
+                    }
                 }
             }
         }
