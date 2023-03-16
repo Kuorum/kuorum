@@ -19,14 +19,13 @@
     </ol>
 
     <div class="box-steps container-fluid campaign-steps">
-        <g:set var="mappings" value="${
-            [step:'questions',
-            saveAndSentButtons: true,
-            next: 'surveyEditContent',
-            settings: 'surveyEditSettings',
-            questions: 'surveyEditQuestions',
-            content: 'surveyEditContent',
-            showResult: 'surveyShow' ]}"/>
+        <g:set var="mappings" value="${[step              : 'questions',
+                                        saveAndSentButtons: true,
+                                        next              : 'surveyEditContent',
+                                        settings          : 'surveyEditSettings',
+                                        questions         : 'surveyEditQuestions',
+                                        content           : 'surveyEditContent',
+                                        showResult        : 'surveyShow']}"/>
         <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
     </div>
 

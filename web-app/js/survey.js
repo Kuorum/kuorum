@@ -85,17 +85,17 @@ $(function () {
 });
 
 var surveyFunctions = {
-    NO_LOGGED_CALLBACK:"addAnwerNoLogged",
-    NO_LOGGED_CALLBACK_QUESTION_VAR_NAME:"data-questionId",
-    SKIPPED_CLASS:"skipped",
-    ANSWERED_CLASS:"answered",
+    NO_LOGGED_CALLBACK: "addAnwerNoLogged",
+    NO_LOGGED_CALLBACK_QUESTION_VAR_NAME: "data-questionId",
+    SKIPPED_CLASS: "skipped-question",
+    ANSWERED_CLASS: "answered",
     relodAfeterSubmit: false,
 
-    QUESTION_OPTION_ATTR_TYPE:"data-questionoptiontype",
+    QUESTION_OPTION_ATTR_TYPE: "data-questionoptiontype",
 
-    KEYBOARD_SELECT_OPTION_CODES:[KEYBOARD_EVENT_CODES.SPACE],
+    KEYBOARD_SELECT_OPTION_CODES: [KEYBOARD_EVENT_CODES.SPACE],
 
-    initSurvey:function(){
+    initSurvey: function () {
         // IE10 not supports foreach
         var questionAnswerIdx
         var singleAnswers =document.querySelectorAll(".survey-question."+surveyFunctions.ANSWERED_CLASS);
