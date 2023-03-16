@@ -9878,13 +9878,19 @@ ul.notification-menu > li.see-more {
 .survey-question.active-question,
 .survey-question.answered {
     margin-bottom: 20px;
-    border:1px solid #F0F0F0;;
-    box-shadow: 0 0 2px rgba(200,200,200,0.6);
+    border: 1px solid #F0F0F0;;
+    box-shadow: 0 0 2px rgba(200, 200, 200, 0.6);
     max-height: 100000px;
     transition: max-height 5s ease-in;
 }
 
-.survey-questions.survey-vote-secret .survey-question.answered{opacity:0.2}
+.survey-question.skipped-question {
+    display: none;
+}
+
+.survey-questions.survey-vote-secret .survey-question.answered {
+    opacity: 0.2
+}
 
 
 .survey-box {
