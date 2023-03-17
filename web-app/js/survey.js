@@ -673,8 +673,8 @@ var surveyFunctions = {
 
     _updateSurveyProgressBar : function(){
         // GLOBAL PROGRESS
-        var numberQuestions = $(".survey-question:not(."+surveyFunctions.SKIPPED_CLASS+")").length;
-        var numberQuestionsAnswered = $(".survey-question."+surveyFunctions.ANSWERED_CLASS).length;
+        var numberQuestions = $(".survey-question:not(." + surveyFunctions.SKIPPED_CLASS + ")").length;
+        var numberQuestionsAnswered = $(".survey-question." + surveyFunctions.ANSWERED_CLASS + ":not(." + surveyFunctions.SKIPPED_CLASS + ")").length;
         // var surveyPos = document.getElementById('survey-pos');
         // var surveyTotal = document.getElementById('survey-total');
         var surveyPercentage = document.getElementById('survey-percentage');
