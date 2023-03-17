@@ -28,6 +28,6 @@ class DomainUserPhoneValidationCommand {
                 }
             }
         }
-        phoneNumber nullable: false
+        phoneNumber nullable: true
     }
 }
