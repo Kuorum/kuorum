@@ -26,7 +26,7 @@
 <g:set var="legendId" value="legend-question-${question.id}"/>
 <g:set var="groupAnswersId" value="group-answers-question-${question.id}"/>
 <fieldset aria-live="polite"
-          class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered ? 'answered' : ''} ${activeQuestionId == question.id ? 'active-question' : ''} ${isQuestionWithImages ? 'questions-with-images' : ''}"
+          class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered || question.skipped ? 'answered' : ''} ${activeQuestionId == question.id ? 'active-question' : ''} ${isQuestionWithImages ? 'questions-with-images' : ''} ${question.skipped ? 'skipped-question' : ''}"
           id="question-${question.id}"
           data-ajaxQuestionStats="${g.createLink(mapping: 'ajaxSurveyQuestionStats', params: survey.encodeAsLinkProperties() + [questionId: question.id])}"
           data-question-id="${question.id}"
