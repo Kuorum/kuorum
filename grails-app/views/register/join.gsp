@@ -32,7 +32,7 @@
                             data-sitekey="${siteKey}"
                             data-size="invisible"
                             data-callback='joinRegisterCallback'
-                            class="btn btn-lg g-recaptcha col-xs-12">
+                            class="btn btn-lg g-recaptcha col-xs-12 submit-only-once">
                         <g:message code="springSecurity.CodeJoinCommand.submit"/>
                     </button>
                 </div>

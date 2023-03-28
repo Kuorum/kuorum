@@ -528,6 +528,8 @@ $(document).ready(function() {
         getParticipatoryBudgetList(ajaxLink);
     });
 
+
+    prepareOnlyOneClickButtons();
 });
 
 function getParticipatoryBudgetList(ajaxLink) {
@@ -594,22 +596,67 @@ function requestCustomSender($selector) {
 
 
 function stringStartsWith (string, prefix) {
-    if (string == undefined || string.length < prefix.length){
+    if (string == undefined || string.length < prefix.length) {
         return false;
     }
     return string.slice(0, prefix.length) == prefix;
 }
 
-function getHash(){
+function getHash() {
 
 }
 
-function normalizeHash(hash){
-    hash = hash.replace("=",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
-    hash = hash.replace("'",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
+function prepareOnlyOneClickButtons() {
+    console.log("Preparing only once submit")
+
+    function allowClickAndBlock($button) {
+        if ($button.find("span.fa-spin").length > 0) {
+            return false;
+        } else {
+            _addSpinner($button);
+            return true;
+        }
+    };
+
+    function _addSpinner($button) {
+        const spinner = document.createElement("span");
+        spinner.classList.add("fa");
+        spinner.classList.add("fa-spinner");
+        spinner.classList.add("fa-spin");
+        const text = $button.html().trim()
+        $button.html(text);
+        $button.append(" ");
+        $button.append(spinner);
+    };
+
+    function releaseButton($button) {
+        $button.find("span.fa-spin").remove()
+        const text = $button.html().trim()
+        $button.html(text);
+    };
+
+    $("form [type=\"submit\"].submit-only-once").on("click", function (e) {
+        console.log("Preparing only once submit")
+        e.preventDefault();
+        const $button = $(this)
+        const $form = $button.parents("form")
+        console.log($button)
+        console.log($form)
+
+        if ($form.valid() && allowClickAndBlock($button)) {
+            $form.submit()
+        } else {
+            // console.log("Not submit form")
+        }
+    })
+}
+
+function normalizeHash(hash) {
+    hash = hash.replace("=", ""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
+    hash = hash.replace("'", ""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
     hash = decodeURIComponent(hash);
     hash = removeDiacritics(hash);
-    hash = hash.replace(/ /g,"-");
+    hash = hash.replace(/ /g, "-");
     hash = hash.toLowerCase();
     return hash;
 }
