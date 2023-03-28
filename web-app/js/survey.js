@@ -930,50 +930,76 @@ var surveyFunctions = {
 
         var data = {
             // surveyId:10,
-            questionId:questionId,
-            questionType:questionType,
-            answersJson:JSON.stringify(answers)
+            questionId: questionId,
+            questionType: questionType,
+            answersJson: JSON.stringify(answers)
         }
         moveToHash("#survey-progress")
-        pageLoadingOn("Survey :: save answer. QuestionId: "+questionId)
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: $.param(data),
-            success: function(data){
-                successFunction(data.question);
-                if (surveyFunctions.relodAfeterSubmit){
-                    // Chapu para recargar la pagina sin pasar el callback desde mordor
-                    noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers");
+        pageLoadingOn("Survey :: save answer. QuestionId: " + questionId)
+        if (surveyFunctions.handleDoubleClick.allowClickAndBlock(button)) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $.param(data),
+                success: function (data) {
+                    successFunction(data.question);
+                    if (surveyFunctions.relodAfeterSubmit) {
+                        // Chapu para recargar la pagina sin pasar el callback desde mordor
+                        noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers");
+                    }
+                },
+                dataType: 'json'
+            }).fail(function (xhr, status, error) {
+                console.log(error);
+                if (xhr.status == 401) {
+                    surveyFunctions._openRegisterModal(question)
+                } else if (xhr.status == 403) {
+                    display.warn(xhr.responseJSON.msg)
+                    noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey validation changed");
+                } else if (xhr.status == 405) {
+                    display.warn(xhr.responseJSON.msg)
+                    noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey closed");
+                } else {
+                    failFunction();
                 }
-            },
-            dataType: 'json'
-        }).fail(function(xhr, status, error) {
-            console.log(error);
-            if (xhr.status==401){
-                surveyFunctions._openRegisterModal(question)
-            }else if (xhr.status==403){
-                display.warn(xhr.responseJSON.msg)
-                noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey validation changed");
-            }else if (xhr.status==405){
-                display.warn(xhr.responseJSON.msg)
-                noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey closed");
-            }else{
-                failFunction();
+            }).always(function () {
+                pageLoadingOff("Survey :: save answer. Question Id: " + questionId)
+                surveyFunctions.handleDoubleClick.releaseButton(button)
+            });
+        }
+    },
+    handleDoubleClick: {
+        allowClickAndBlock: function (button) {
+            if (button.querySelectorAll("span.fa-spin").length > 0) {
+                return false;
+            } else {
+                surveyFunctions.handleDoubleClick._addSpinner(button);
+                return true;
             }
-        }).always(function() {
-            pageLoadingOff("Survey :: save answer. Question Id: "+questionId)
-        });
+        },
+        _addSpinner: function (button) {
+            const spinner = document.createElement("span");
+            spinner.classList.add("fa");
+            spinner.classList.add("fa-spinner");
+            spinner.classList.add("fa-spin");
+            button.appendChild(spinner)
+        },
+        releaseButton: function (button) {
+            if (button.querySelectorAll("span.fa-spin").length > 0) {
+                button.querySelectorAll("span.fa-spin")[0].remove()
+            }
+        }
+
     },
 
-    _updateQuestionStats: function(questionId){
-        updateQustionOptionWithStats = function(questionOptionStats){
-            var $questionOption = $("#question-option-"+questionOptionStats.questionOptionId);
+    _updateQuestionStats: function (questionId) {
+        updateQustionOptionWithStats = function (questionOptionStats) {
+            var $questionOption = $("#question-option-" + questionOptionStats.questionOptionId);
             $questionOption.attr("data-optionstats-total", questionOptionStats.total);
             $questionOption.attr("data-optionstats-votes", questionOptionStats.optionVotes);
             $questionOption.attr("data-optionstats-percentage", questionOptionStats.percentage);
         }
-        updateQuestionWithStats = function($question, questionStats) {
+        updateQuestionWithStats = function ($question, questionStats) {
             $question.attr("data-numAnswers", questionStats.answerAmount);
             // questionStats.questionOptionStats.forEach(updateQustionOptionWithStats);
             var answerOptionIdx; // IE10 not supports forEach
