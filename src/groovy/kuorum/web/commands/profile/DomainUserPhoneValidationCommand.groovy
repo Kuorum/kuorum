@@ -15,19 +15,19 @@ class DomainUserPhoneValidationCommand {
     static String SPANISH_CODE = "0034"
 
     static constraints = {
-        phoneNumberPrefix nullable: false, validator: { val, obj ->
-            if (obj.phoneNumber) {
+        phoneNumberPrefix nullable: false
+        phoneNumber nullable: true, validator: { val, obj ->
+            if (val) {
                 // CHECK only if the user has introduced the phone number. If not, the system supposes that the phone will be recovered from Contact DDBB
-                if (INVALID_PHONES.contains(val)) {
-                    return "CountryNotAllowed"
+                if (INVALID_PHONES.contains(obj.phoneNumberPrefix)) {
+                    return "countryNotAllowed"
                 }
-                if (SPANISH_CODE.equals(val)) {
-                    if (obj.phoneNumber.toString().length() != 9 && !obj.phoneNumber.toString().startsWith("6")) {
-                        return "NotSpanishPhone"
+                if (SPANISH_CODE.equals(obj.phoneNumberPrefix)) {
+                    if (val.toString().length() != 9 && !val.toString().startsWith("6")) {
+                        return "notSpanishPhone"
                     }
                 }
             }
         }
-        phoneNumber nullable: true
     }
 }
