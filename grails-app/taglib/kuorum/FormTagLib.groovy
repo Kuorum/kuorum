@@ -323,13 +323,22 @@ class FormTagLib {
             throw e
         }
         def label = buildLabel(command, field, attrs.label)
-        def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
-        String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
+        def placeHolder = attrs.placeHolder ?: message(code: "${command.class.name}.${field}.placeHolder", default: '')
+        String helpBlock = attrs.helpBlock ?: message(code: "${command.class.name}.${field}.helpBlock", default: '')
         String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
 
         // command."${field}" == 0 is false when using elvis operator
-        def value = (command."${field}"!=null?command."${field}":'').encodeAsHTML()
-        def error = hasErrors(bean: command, field: field,'error')
+        def value = command."${field}" != null ? command."${field}" : ''
+        if (value instanceof Number) {
+            value = String.format("%.19f", value)
+                    .replaceAll("0*\$", "") // Remove last last 0
+                    .replaceAll("\\.", "") // Remove miles point
+                    .replaceAll(",", ".") // change decimal separator to .
+                    .replaceAll("\\.\$", "") // For numbers like 1.000 -> 1. -> 1
+        } else {
+            value = value.encodeAsHTML()
+        }
+        def error = hasErrors(bean: command, field: field, 'error')
 
         ConstrainedProperty constraints = command.constraints.find { it.key.toString() == field }.value
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find { it instanceof MaxSizeConstraint }
