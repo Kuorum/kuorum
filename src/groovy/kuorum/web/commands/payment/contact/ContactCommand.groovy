@@ -37,7 +37,7 @@ class ContactCommand {
         phonePrefix nullable: true
         phone nullable: true
         email nullable: true, email: true // Is nullable because when the contact is a follower we don't have the email
-        surveyVoteWeight nullable: false, min: new Double(0), scale: 2
+        surveyVoteWeight nullable: false, min: new Double(0)
         birthDate nullable: true
         gender nullable: true
 
