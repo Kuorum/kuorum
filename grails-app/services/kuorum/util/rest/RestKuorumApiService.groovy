@@ -148,16 +148,16 @@ class RestKuorumApiService {
     }
 
 
-    def post(ApiMethod apiMethod, Map<String, String> params, Map<String, String> query, def body, TypeReference typeToMap) throws KuorumException {
+    def post(ApiMethod apiMethod, Map<String, String> params, Map<String, String> query, def body, TypeReference typeToMap, String adminApiKey = null) throws KuorumException {
 
         RestClientNoSSL mailKuorumServices = getRestMailKuorumServices(typeToMap)
-
+        String apiKey = adminApiKey ?: CustomDomainResolver.apiToken
 //        encoderRegistry
         String path = apiMethod.buildUrl(apiPath, params)
 
         def response = mailKuorumServices.post(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "Authorization": CustomDomainResolver.apiToken],
+                headers: ["User-Agent": "Kuorum Web", "Authorization": apiKey],
                 query: query,
                 body: body,
                 requestContentType: groovyx.net.http.ContentType.JSON
