@@ -3,11 +3,16 @@ package kuorum.domain
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.async.Promise
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.util.Environment
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.LessCompilerService
+import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.domain.*
+import org.kuorum.rest.model.domain.creation.NewDomainAdminUserDataRDTO
+import org.kuorum.rest.model.domain.creation.NewDomainDataRDTO
+import org.kuorum.rest.model.domain.creation.NewDomainDataRSDTO
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
 import org.kuorum.rest.model.payment.BillingAmountUsersRangeDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
@@ -246,5 +251,56 @@ class DomainService {
 
     Boolean isSurveyPlatform() {
         return CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() == DomainTypeRSDTO.SURVEY
+    }
+
+    NewDomainDataRSDTO createNewDomain(String prefixDomain) {
+        String salesAdminApiToken = CustomDomainResolver.getSalesAdminApiToken()
+
+        Map<String, String> params = [:]
+        Map<String, String> query = [:]
+        NewDomainDataRDTO newDomainDataRDTO = buildDomainDataRDTO(prefixDomain)
+        try {
+            def apiResponse = restKuorumApiService.post(
+                    RestKuorumApiService.ApiMethod.DOMAINS,
+                    params,
+                    query,
+                    newDomainDataRDTO,
+                    new TypeReference<NewDomainDataRSDTO>() {},
+                    salesAdminApiToken)
+            return apiResponse.data
+        } catch (Exception e) {
+            log.warn("Error recovering domains", e)
+            return null
+        }
+    }
+
+    private NewDomainDataRDTO buildDomainDataRDTO(String prefixDomain) {
+        String prefixDomainNormalized = prefixDomain.replaceAll("[^\\p{Alpha}\\p{Digit}]+", "")
+        String baseDomain = Environment.getCurrent().equals(Environment.PRODUCTION) ? "kuorum.org" : "dev.kuorum.org"
+        NewDomainDataRDTO newDomainDataRDTO = new NewDomainDataRDTO();
+        DomainRDTO domainRDTO = new DomainRDTO()
+        domainRDTO.domain = "${prefixDomainNormalized}.${baseDomain}"
+        domainRDTO.name = prefixDomainNormalized
+        domainRDTO.domainPrivacy = DomainPrivacyRDTO.PRIVATE
+        domainRDTO.mainColor = "#171a33"
+        domainRDTO.platformType = PlatformTypeDTO.ELECTION
+        domainRDTO.slogan = "Slogan ${prefixDomainNormalized}"
+//        domainRDTO.subtitle
+
+        NewDomainAdminUserDataRDTO adminUserData = new NewDomainAdminUserDataRDTO()
+        adminUserData.email = ((KuorumUserSession) springSecurityService.principal).email
+        adminUserData.name = ((KuorumUserSession) springSecurityService.principal).name
+        adminUserData.password = Math.random()
+
+        NewDomainPaymentDataRDTO domainPaymentInfoRSDTO = new NewDomainPaymentDataRDTO()
+        domainPaymentInfoRSDTO.billingAmountUsersRange = BillingAmountUsersRangeDTO.SURVEY_BLOCK_50
+        domainPaymentInfoRSDTO.billingCycle = BillingCycleRDTO.YEARLY
+        domainPaymentInfoRSDTO.domainPlan = DomainPlanRSDTO.SURVEYS_FREE
+        domainPaymentInfoRSDTO.customerId = null // THINK THIS ID
+
+        newDomainDataRDTO.setAdminUserData(adminUserData)
+        newDomainDataRDTO.setDomainData(domainRDTO)
+        newDomainDataRDTO.setPaymentData(domainPaymentInfoRSDTO)
+        return newDomainDataRDTO;
     }
 }

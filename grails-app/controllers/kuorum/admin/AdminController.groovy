@@ -28,6 +28,7 @@ import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.domain.*
+import org.kuorum.rest.model.domain.creation.NewDomainDataRSDTO
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
@@ -578,5 +579,21 @@ class AdminController {
         domainService.updateAllDomainCss(false)
         flash.message = "Executing asynchronously"
         redirect mapping: 'adminRecerateCss'
+    }
+
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    def createDomain() {
+        [command: new DomainCreateCommand()]
+    }
+
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    def createDomainConfirm(DomainCreateCommand command) {
+        if (command.hasErrors()) {
+            render view: "createDomain", model: [command: command]
+            return
+        }
+        NewDomainDataRSDTO newDomainDataRSDTO = domainService.createNewDomain(command.name)
+        flash.message = "Success"
+        render view: "createDomain", model: [command: new DomainCreateCommand(), newDomainDataRSDTO: newDomainDataRSDTO]
     }
 }
