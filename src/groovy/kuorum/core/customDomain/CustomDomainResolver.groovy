@@ -2,6 +2,7 @@ package kuorum.core.customDomain
 
 import grails.util.Holders
 import org.apache.commons.collections.map.HashedMap
+import org.apache.jasper.tagplugins.jstl.core.Url
 import org.kuorum.rest.client.KuorumApi
 import org.kuorum.rest.model.domain.DomainRSDTO
 import org.omg.CORBA.Environment
@@ -17,16 +18,16 @@ class CustomDomainResolver {
     //Not destroyed each call
     private static final Map<String, KuorumApi> API_TOKENS= new HashMap<String, KuorumApi>();
 
-    static void setUrl(URL url, String contextPath="") {
+    static void setUrl(URL url, String contextPath = "", String clientId = "", String clientSecret = "") {
 //        System.out.print("ThreadLocal [START] ->"+Thread.currentThread().id)
         Map<String, Object> cachedData
-        if (CONTEXT.get()){
+        if (CONTEXT.get()) {
             cachedData = CONTEXT.get()
-        }else{
+        } else {
             cachedData = new HashedMap()
 
         }
-        cachedData.put(PARAM_URL,URL)
+        cachedData.put(PARAM_URL, URL)
         String domain = url.getHost()
         String port = url.getPort()==80 || url.getPort() <=0 ?'':":${url.getPort()}"
 //        String protocol = url.getProtocol()
@@ -35,12 +36,12 @@ class CustomDomainResolver {
         cachedData.put(PARAM_BASE,base)
         cachedData.put(PARAM_DOMAIN,domain)
         CONTEXT.set(cachedData)
-        if (!API_TOKENS.get(domain)){
+        if (!API_TOKENS.get(domain)) {
             String apiUrl = Holders.getGrailsApplication().config.kuorum.rest.url
             String oauthPath = Holders.getGrailsApplication().config.kuorum.rest.authPath
-            String clientId = Holders.getGrailsApplication().config.kuorum.rest.client_id
-            String clientSecret = Holders.getGrailsApplication().config.kuorum.rest.client_secret
-            KuorumApi kuorumApi = new KuorumApi(apiUrl+oauthPath, clientId, domain,clientSecret, grails.util.Environment.current == grails.util.Environment.DEVELOPMENT)
+            clientId = clientId ?: Holders.getGrailsApplication().config.kuorum.rest.client_id
+            clientSecret = clientSecret ?: Holders.getGrailsApplication().config.kuorum.rest.client_secret
+            KuorumApi kuorumApi = new KuorumApi(apiUrl + oauthPath, clientId, domain, clientSecret, grails.util.Environment.current == grails.util.Environment.DEVELOPMENT)
             API_TOKENS.put(domain, kuorumApi)
         }
     }
@@ -66,21 +67,33 @@ class CustomDomainResolver {
         }
     }
 
-    static String getApiToken(){
+    static String getApiToken() {
         String domainName = CONTEXT.get().get(PARAM_DOMAIN);
         return API_TOKENS.get(domainName).getAuthorizationHeader();
     }
 
-    static String getAdminApiToken(){
+    static String getAdminApiToken() {
         String domainName = "kuorum.org";
         return API_TOKENS.get(domainName).getAuthorizationHeader();
     }
 
-    static DomainRSDTO getDomainRSDTO(){
+    static String getSalesAdminApiToken() {
+        String currentDomain = getDomain()
+        URL currentURL = new URL("https://${currentDomain}")
+        String domainName = "kuorum.org";
+        URL url = new URL("https://${domainName}")
+        CustomDomainResolver.setUrl(url, "", "sales")
+        String saleAdminToken = API_TOKENS.get(domainName).getAuthorizationHeader();
+        // Restoring Working domain
+        CustomDomainResolver.setUrl(currentURL, "", "sales")
+        return saleAdminToken
+    }
+
+    static DomainRSDTO getDomainRSDTO() {
         return CONTEXT.get().get(PARAM_DOMAIN_CONFIG)
     }
 
-    static void setDomainRSDTO(DomainRSDTO domainConfig){
+    static void setDomainRSDTO(DomainRSDTO domainConfig) {
         CONTEXT.get().put(PARAM_DOMAIN_CONFIG, domainConfig)
     }
 }
