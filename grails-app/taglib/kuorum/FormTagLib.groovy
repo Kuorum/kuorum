@@ -329,8 +329,8 @@ class FormTagLib {
 
         // command."${field}" == 0 is false when using elvis operator
         def value = command."${field}" != null ? command."${field}" : ''
-        if (value instanceof Number) {
-            value = String.format("%.19f", value)
+        if (value instanceof Float || value instanceof Double) {
+            value = String.format("%.10f", value)
                     .replaceAll("0*\$", "") // Remove last last 0
                     .replaceAll("\\.", "") // Remove miles point
                     .replaceAll(",", ".") // change decimal separator to .
