@@ -374,6 +374,7 @@ class UrlMappings {
         name adminRequestEmailSender: "/sec/admin/domain/requestSender"(controller: "admin") { action = [GET: "requestedEmailSender", POST: "requestedEmailSenderSend"]; cacheGlobalEvict="POST"; }
         name adminEditDomainEmailSender: "/sec/admin/domain/setSender"(controller: "admin") { action = [GET: "editDomainEmailSender", POST: "updateDomainEmailSender"]; cacheGlobalEvict="POST"; }
         name adminDomainDelete: "/sec/admin/domain/delete"(controller: "admin") { action = [GET: "deleteDomain", POST: "deleteDomainConfirm"] }
+        name adminDomainCreate: "/sec/admin/domain/create"(controller: "admin") { action = [GET: "createDomain", POST: "createDomainConfirm"] }
 
         // REMOVE This entries and his actions
         //name adminDomainRegisterStep1:              "/sec/admin/domain/config/landing"  (controller:"admin"){action =[GET:"designLandingPage", POST:"saveDesignLandingPage"]}
