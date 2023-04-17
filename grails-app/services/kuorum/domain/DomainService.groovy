@@ -276,7 +276,7 @@ class DomainService {
 
     private NewDomainDataRDTO buildDomainDataRDTO(String prefixDomain) {
         String prefixDomainNormalized = prefixDomain.replaceAll("[^\\p{Alpha}\\p{Digit}]+", "")
-        String baseDomain = Environment.getCurrent().equals(Environment.PRODUCTION) ? "kuorum.org" : "dev.kuorum.org"
+        String baseDomain = (Environment.getCurrent() == Environment.PRODUCTION) ? "kuorum.org" : "dev.kuorum.org"
         NewDomainDataRDTO newDomainDataRDTO = new NewDomainDataRDTO();
         DomainRDTO domainRDTO = new DomainRDTO()
         domainRDTO.domain = "${prefixDomainNormalized}.${baseDomain}"
