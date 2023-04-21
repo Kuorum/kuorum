@@ -330,14 +330,13 @@ class FormTagLib {
         // command."${field}" == 0 is false when using elvis operator
         def value = command."${field}" != null ? command."${field}" : ''
         if (value instanceof Float || value instanceof Double) {
-            value = String.format("%.10f", value)
+            value = String.format(Locale.US, "%.10f", value) // Locale is for get the a standar format to work with
                     .replaceAll("0*\$", "") // Remove last last 0
-                    .replaceAll("\\.", "") // Remove miles point
-                    .replaceAll(",", ".") // change decimal separator to .
+//                    .replaceAll("\\.", "") // Remove miles point
+//                    .replaceAll(",", ".") // change decimal separator to .
                     .replaceAll("\\.\$", "") // For numbers like 1.000 -> 1. -> 1
-        } else {
-            value = value.encodeAsHTML()
         }
+        value = value.encodeAsHTML()
         def error = hasErrors(bean: command, field: field, 'error')
 
         ConstrainedProperty constraints = command.constraints.find { it.key.toString() == field }.value
