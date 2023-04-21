@@ -335,9 +335,8 @@ class FormTagLib {
                     .replaceAll("\\.", "") // Remove miles point
                     .replaceAll(",", ".") // change decimal separator to .
                     .replaceAll("\\.\$", "") // For numbers like 1.000 -> 1. -> 1
-        } else {
-            value = value.encodeAsHTML()
         }
+        value = value.encodeAsHTML()
         def error = hasErrors(bean: command, field: field, 'error')
 
         ConstrainedProperty constraints = command.constraints.find { it.key.toString() == field }.value
