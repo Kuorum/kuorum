@@ -278,11 +278,6 @@ class NavigationTagLib {
     protected getPage() {
         return getRequest().getAttribute(RequestConstants.PAGE)
     }
-    def ifNotDevelopment = {attrs, body ->
-        if (grails.util.Environment.current == grails.util.Environment.PRODUCTION) {
-            out << body()
-        }
-    }
 
     def contactPagination = { attrs ->
         Long totalElements = attrs.total
