@@ -74,9 +74,7 @@
                                 label="${g.message(code: 'register.conditions', args: [g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
 
                     </div>
-                    <nav:ifNotDevelopment>
-                        <r:require modules="recaptcha_register"/>
-                    </nav:ifNotDevelopment>
+                    <r:require modules="recaptcha_register"/>
                 </fieldset>
             </g:form>
         </g:if>
