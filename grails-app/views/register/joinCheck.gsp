@@ -40,9 +40,7 @@
                 </div>
                 <input type="hidden" name="campaignId" value="${command.campaignId}">
                 <input type="hidden" name="ownerId" value="${command.ownerId}">
-                <nav:ifNotDevelopment>
-                    <r:require modules="recaptcha_register"/>
-                </nav:ifNotDevelopment>
+                <r:require modules="recaptcha_register"/>
             </fieldset>
         </g:form>
     </div>
