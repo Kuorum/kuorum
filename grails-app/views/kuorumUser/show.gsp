@@ -81,11 +81,21 @@
     </g:if>
 
     <r:require modules="campaignsTargetsListResourcesRequired"/>
-    <ul class="search-list clearfix delayed"
-        data-link="${g.createLink(mapping: 'politicianCampaignsLists', params: [userId: politician.id.toString()])}"
-        data-callback="campaignUserListCallback">
+    <ul class="search-list clearfix"
+        data-callback="campaignUserListCallback"
+        id="campaign-list-id">
         %{--        <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns]"/>--}%
     </ul>
+    <nav:loadMoreLink
+            formId="campaign-list-loadMore"
+            mapping="politicianCampaignsLists"
+            mappingParams="[userId: politician.id.toString()]"
+            parentId="campaign-list-id"
+            callback="campaignUserListCallback"
+            pagination="${[max: 10]}"
+            cssClass="hidden"
+            delayed="true"
+            numElements="${11}"/>
     <r:script>
         function campaignUserListCallback() {
             sortCampaigns.orderList();
