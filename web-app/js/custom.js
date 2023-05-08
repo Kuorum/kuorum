@@ -230,22 +230,25 @@ $(document).ready(function() {
         }
         var max = $.parseJSON($("#" + formId).find('input[name=max]').val() || 10);
         var offset = $.parseJSON(link.attr('data-offset') || max);
-         //Para que sea un integer
+        //Para que sea un integer
         url += paramAppender + "offset=" + offset + "&" + $('#' + formId).serialize();
         var parentId = link.attr('data-parent-id');
         var callback = link.attr('data-callback');
         var loadingId = parentId + "-loading";
         var parent = $("#" + parentId);
-        parent.append('<div class="loading" id="' + loadingId + '"><span class="sr-only">Cargando...</span></div>');
-        $.ajax( {
-            url:url,
+        console.log("ParentLInk loading")
+        if (!parentLink.is(":visible")) { // Loading is hidden
+            parent.append('<div class="loading" id="' + loadingId + '"><span class="sr-only">Cargando...</span></div>');
+        }
+        $.ajax({
+            url: url,
             statusCode: {
-                401: function() {
+                401: function () {
                     location.reload();
                 }
             }
         })
-            .done(function(data, status, xhr) {
+            .done(function (data, status, xhr) {
                 parent.append(data);
                 var moreResults = $.parseJSON(xhr.getResponseHeader('moreResults'));
                  //Para que sea un bool
@@ -449,6 +452,7 @@ function relaodAllDynamicDivs(){
 }
 
 function reloadDynamicDiv($div){
+    console.log("Delayed module")
     var link = $div.attr("data-link");
     var callback = $div.attr('data-callback');
     var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>';
