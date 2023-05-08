@@ -9,6 +9,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileType
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.search.Pagination
 import kuorum.files.FileService
 import kuorum.register.KuorumUserSession
 import kuorum.security.evidences.Evidences
@@ -133,18 +134,20 @@ class CampaignController {
         }
     }
 
-    def findLiUserCampaigns(String userId) {
+    def findLiUserCampaigns(Pagination pagination) {
+        String userId = params.userId
+        Integer page = pagination.offset / pagination.max
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(userId)
 
         List<SearchTypeRSDTO> campaignTypes = new ArrayList<SearchTypeRSDTO>(Arrays.asList(SearchTypeRSDTO.values()));
         campaignTypes.remove(SearchTypeRSDTO.KUORUM_USER);
-
         SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO(
-                page: 0,
+                page: page,
                 size: 10,
                 ownerAlias: [user.alias],
                 types: campaignTypes);
         SearchResultsRSDTO campaigns = searchSolrService.searchAPI(searchParamsRDTO)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${campaigns.total < (pagination.offset + pagination.max)}")
         List<SearchKuorumElementRSDTO> userCampaigns = campaigns.data
         render template: '/campaigns/cards/campaignsList', model: [campaigns: userCampaigns, showAuthor: true]
     }
