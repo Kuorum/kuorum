@@ -779,52 +779,60 @@ var debateFunctions = {
             $('#registro').find("form").attr("data-buttonId", buttonId);
             $('#registro').modal('show');
         }else{
-            if (!validMediumEditor($mediumEditor)){return;}
+            if (!validMediumEditor($mediumEditor)) {
+                return;
+            }
             pageLoadingOn();
-            $buttonPublish.off("click");
-            var body = $mediumEditor.html();
-            var debateId = $buttonPublish.attr("data-debateId");
-            var debateAlias = $buttonPublish.attr("data-debateAlias");
-            var url = $buttonPublish.attr("data-postUrl");
-            var data={
-                debateId:debateId,
-                debateAlias:debateAlias,
-                body:body
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function (htmlProposal) {
-                    $mediumEditor.html("");
-                    callback(htmlProposal);
-                    if (typeof(dataLayer) != "undefined"){
-                        dataLayer.push({
-                            'event': 'debate-proposal-published',
-                            'pageCategory':'debate',
-                            'debateId':debateId,
-                            'debateAlias':debateAlias,
-                            'alias':alias
-                        })
-                    }
-                },
-                complete : function(){
-                    $buttonPublish.on("click",debateFunctions.publishProposal)
-                    pageLoadingOff();
-                },
-                error: function(){
-                    display.error("Error adding proposal. Reload page an try again")
-                },
-                dataType: "html"
-            });
+            // debateFunctions.__callPublishProposal($mediumEditor, $buttonPublish, callback)
+            var params = {
+                $button: $buttonPublish,
+                $mediumEditor: $mediumEditor,
+                callback: callback
+            }
+            var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(debateFunctions.__callPublishProposal, params)
+            userValidatedByDomain.executeClickButtonHandlingValidations($buttonPublish, executableFunction);
         }
     },
-    printComment: function($commentsList, htmlComment){
+    __callPublishProposal: function (params) {
+        // Unbind
+        var $buttonPublish = params.$button
+        var $mediumEditor = params.$mediumEditor
+        var callback = params.callback
+        // __callPublishProposal: function($mediumEditor, $buttonPublish, callback){
+        $buttonPublish.off("click");
+        var body = $mediumEditor.html();
+        var debateId = $buttonPublish.attr("data-debateId");
+        var debateAlias = $buttonPublish.attr("data-debateAlias");
+        var url = $buttonPublish.attr("data-postUrl");
+        var data = {
+            debateId: debateId,
+            debateAlias: debateAlias,
+            body: body
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (htmlProposal) {
+                $mediumEditor.html("");
+                callback(htmlProposal);
+            },
+            complete: function () {
+                $buttonPublish.on("click", debateFunctions.publishProposal)
+                pageLoadingOff();
+            },
+            error: function () {
+                display.error("Error adding proposal. Reload page an try again")
+            },
+            dataType: "html"
+        });
+    },
+    printComment: function ($commentsList, htmlComment) {
         var comment = $(htmlComment).hide().fadeIn(2000);
         $commentsList.append(comment)
     },
-    saveCommentButtonClick: function (e, callback){
-        if (isPageLoading()){
+    saveCommentButtonClick: function (e, callback) {
+        if (isPageLoading()) {
             return;
         }
         var $button = $(e.target)
