@@ -288,9 +288,9 @@ class DomainService {
 //        domainRDTO.subtitle
 
         NewDomainAdminUserDataRDTO adminUserData = new NewDomainAdminUserDataRDTO()
-        adminUserData.email = ((KuorumUserSession) springSecurityService.principal).email
-        adminUserData.name = ((KuorumUserSession) springSecurityService.principal).name
-        adminUserData.password = Math.random()
+        adminUserData.email = 'soporte+admin@kuorum.org'
+        adminUserData.name = prefixDomainNormalized
+        adminUserData.password = 'SUPER_ADMIN_KUORUM' + Math.random()
 
         NewDomainPaymentDataRDTO domainPaymentInfoRSDTO = new NewDomainPaymentDataRDTO()
         domainPaymentInfoRSDTO.billingAmountUsersRange = BillingAmountUsersRangeDTO.SURVEY_BLOCK_50
