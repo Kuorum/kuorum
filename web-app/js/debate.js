@@ -779,54 +779,63 @@ var debateFunctions = {
             $('#registro').find("form").attr("data-buttonId", buttonId);
             $('#registro').modal('show');
         }else{
-            if (!validMediumEditor($mediumEditor)){return;}
+            if (!validMediumEditor($mediumEditor)) {
+                return;
+            }
             pageLoadingOn();
-            $buttonPublish.off("click");
-            var body = $mediumEditor.html();
-            var debateId = $buttonPublish.attr("data-debateId");
-            var debateAlias = $buttonPublish.attr("data-debateAlias");
-            var url = $buttonPublish.attr("data-postUrl");
-            var data={
-                debateId:debateId,
-                debateAlias:debateAlias,
-                body:body
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function (htmlProposal) {
-                    $mediumEditor.html("");
-                    callback(htmlProposal);
-                    if (typeof(dataLayer) != "undefined"){
-                        dataLayer.push({
-                            'event': 'debate-proposal-published',
-                            'pageCategory':'debate',
-                            'debateId':debateId,
-                            'debateAlias':debateAlias,
-                            'alias':alias
-                        })
-                    }
-                },
-                complete : function(){
-                    $buttonPublish.on("click",debateFunctions.publishProposal)
-                    pageLoadingOff();
-                },
-                error: function(){
-                    display.error("Error adding proposal. Reload page an try again")
-                },
-                dataType: "html"
-            });
+            // debateFunctions.__callPublishProposal($mediumEditor, $buttonPublish, callback)
+            var params = {
+                $button: $buttonPublish,
+                $mediumEditor: $mediumEditor,
+                callback: callback
+            }
+            var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(debateFunctions.__callPublishProposal, params)
+            userValidatedByDomain.executeClickButtonHandlingValidations($buttonPublish, executableFunction);
         }
     },
-    printComment: function($commentsList, htmlComment){
+    __callPublishProposal: function (params) {
+        // Unbind
+        var $buttonPublish = params.$button
+        var $mediumEditor = params.$mediumEditor
+        var callback = params.callback
+        // __callPublishProposal: function($mediumEditor, $buttonPublish, callback){
+        $buttonPublish.off("click");
+        var body = $mediumEditor.html();
+        var debateId = $buttonPublish.attr("data-debateId");
+        var debateAlias = $buttonPublish.attr("data-debateAlias");
+        var url = $buttonPublish.attr("data-postUrl");
+        var data = {
+            debateId: debateId,
+            debateAlias: debateAlias,
+            body: body
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (htmlProposal) {
+                $mediumEditor.html("");
+                callback(htmlProposal);
+            },
+            complete: function () {
+                $buttonPublish.on("click", debateFunctions.publishProposal)
+                pageLoadingOff();
+            },
+            error: function () {
+                display.error("Error adding proposal. Reload page an try again")
+            },
+            dataType: "html"
+        });
+    },
+    printComment: function ($commentsList, htmlComment) {
         var comment = $(htmlComment).hide().fadeIn(2000);
         $commentsList.append(comment)
     },
-    saveCommentButtonClick: function (e, callback){
-        if (isPageLoading()){
+    saveCommentButtonClick: function (e, callback) {
+        if (isPageLoading()) {
             return;
         }
+        pageLoadingOn("");
         var $button = $(e.target)
         var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
@@ -841,8 +850,6 @@ var debateFunctions = {
     saveComment:function($commentsList, $button, callback){
         callback = callback || debateFunctions.printComment;
         var userLogged = $button.attr("data-userLogged");
-        var debateId = $button.attr("data-debateId");
-        var debateAlias = $button.attr("data-debateAlias");
         var proposalId = $button.attr("data-proposalId");
         var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
         if (userLogged == undefined || userLogged == "" ){
@@ -856,34 +863,52 @@ var debateFunctions = {
             if (!validMediumEditor($mediumEditor)) {
                 return;
             }
-            pageLoadingOn();
-            var body = $mediumEditor.html();
-            var url = $button.attr("data-postUrl");
-            var data = {
-                debateId: debateId,
-                debateAlias: debateAlias,
-                proposalId: proposalId,
-                body: body
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function (htmlComment) {
-                    callback($commentsList, htmlComment);
-                    $mediumEditor.html("")
-                },
-                dataType: "html",
-                complete: function(){
-                    pageLoadingOff();
-                },
-                error: function(){
-                    display.error("Error adding comment. Reload page an try again")
-                }
-            });
+            var params = {
+                $button: $button,
+                $mediumEditor: $mediumEditor,
+                $commentsList: $commentsList,
+                callback: callback
+            }
+            var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(debateFunctions.__saveComment, params)
+            userValidatedByDomain.executeClickButtonHandlingValidations($button, executableFunction);
         }
     },
-    conversationSectionClick: function($conversationBox){
+    __saveComment: function (params) {
+        // Unbind
+        const $button = params.$button
+        const $mediumEditor = params.$mediumEditor
+        const $commentsList = params.$commentsList
+        const callback = params.callback
+        const debateId = $button.attr("data-debateId");
+        const debateAlias = $button.attr("data-debateAlias");
+        const proposalId = $button.attr("data-proposalId");
+        pageLoadingOn();
+        const body = $mediumEditor.html();
+        const url = $button.attr("data-postUrl");
+        const data = {
+            debateId: debateId,
+            debateAlias: debateAlias,
+            proposalId: proposalId,
+            body: body
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (htmlComment) {
+                callback($commentsList, htmlComment);
+                $mediumEditor.html("")
+            },
+            dataType: "html",
+            complete: function () {
+                pageLoadingOff();
+            },
+            error: function () {
+                display.error("Error adding comment. Reload page an try again")
+            }
+        });
+    },
+    conversationSectionClick: function ($conversationBox) {
         var $conversationBoxComments = $conversationBox.next('.conversation-box-comments');
         var $conversationBoxCommentsComment = $conversationBoxComments.find('.comment-proposal > .editable-comment');
         var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');

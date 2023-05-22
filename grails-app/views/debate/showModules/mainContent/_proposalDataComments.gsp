@@ -55,9 +55,13 @@
                     type="button"
                     class="pull-right btn btn-grey publish save-comment"
                     data-postUrl="${g.createLink(mapping: 'debateProposalComment', params: debate.encodeAsLinkProperties())}"
+                    data-campaignValidationActive="${debate.checkValidationActive}"
+                    data-campaignGroupValidationActive="${debate.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()) : ''}"
                     data-debateId="${debate.id}"
+                    data-campaignId="${debate.id}"
                     data-proposalId="${proposal.id}"
                     data-debateAlias="${debate.user.alias}"
+                    data-campaignAlias="${debate.user.alias}"
                     data-userLogged="${userUtil.loggedUserId()}">
                 <g:message code="debate.show.proposal.comments.save"/>
             </button>
