@@ -14,6 +14,7 @@ import org.kuorum.rest.model.domain.creation.NewDomainAdminUserDataRDTO
 import org.kuorum.rest.model.domain.creation.NewDomainDataRDTO
 import org.kuorum.rest.model.domain.creation.NewDomainDataRSDTO
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
+import org.kuorum.rest.model.kuorumUser.LanguageRSDTO
 import org.kuorum.rest.model.payment.BillingAmountUsersRangeDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.slf4j.MDC
@@ -285,6 +286,7 @@ class DomainService {
         domainRDTO.mainColor = "#171a33"
         domainRDTO.platformType = PlatformTypeDTO.ELECTION
         domainRDTO.slogan = "Slogan ${prefixDomainNormalized}"
+        domainRDTO.language = LanguageRSDTO.es_ES
 //        domainRDTO.subtitle
 
         NewDomainAdminUserDataRDTO adminUserData = new NewDomainAdminUserDataRDTO()
