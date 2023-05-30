@@ -17,7 +17,9 @@
             <td></td>
             <td><kuorumDate:humanDate date="${bulletin.datePublished}"/></td>
             <td>
+            <g:if test="${contact.getEmail() != null}">
                 <contactUtil:showCopyAndSendBulletin contact="${contact}" bulletin="${bulletin}"/>
+            </g:if>
             </td>
         </tr>
         </g:each>
