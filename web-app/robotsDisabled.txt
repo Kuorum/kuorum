@@ -1,0 +1,6 @@
+
+# robots.txt for http://www.kuorum.org
+
+User-agent: *
+Disallow: /
+Disallow: /*
