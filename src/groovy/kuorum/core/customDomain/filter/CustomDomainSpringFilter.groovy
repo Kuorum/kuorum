@@ -9,6 +9,7 @@ import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
+import javax.servlet.http.HttpServletResponse
 
 class CustomDomainSpringFilter extends GenericFilterBean {
 
@@ -29,9 +30,11 @@ class CustomDomainSpringFilter extends GenericFilterBean {
             logger.info("Domain ${url.getHost()} not found due to an exception: ${e.getMessage()}", e)
         }
         if (!configRSDTO){
-            int errorCode = 402
-            logger.info("Domain not found: ${request.getContextPath()}. Sending ${errorCode} code")
-            response.sendError(errorCode)
+           int errorCode = HttpServletResponse.SC_MOVED_PERMANENTLY
+            String redirect_url ="https://www.kuorum.org"
+            response.setStatus(errorCode)
+            response.sendRedirect(redirect_url);
+            logger.info("Domain not found: ${request.getContextPath()}. Sending ${errorCode} code. Redirecting to ${redirect_url} ")
         }else{
             CustomDomainResolver.setDomainRSDTO(configRSDTO)
             filterChain.doFilter(request, response)
