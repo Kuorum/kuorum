@@ -30,7 +30,7 @@ class CustomDomainSpringFilter extends GenericFilterBean {
             logger.info("Domain ${url.getHost()} not found due to an exception: ${e.getMessage()}", e)
         }
         if (!configRSDTO){
-           int errorCode = HttpServletResponse.SC_MOVED_PERMANENTLY
+            int errorCode = HttpServletResponse.SC_MOVED_PERMANENTLY
             String redirect_url ="https://www.kuorum.org"
             response.setStatus(errorCode)
             response.sendRedirect(redirect_url);
