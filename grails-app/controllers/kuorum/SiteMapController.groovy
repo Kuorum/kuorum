@@ -3,6 +3,7 @@ package kuorum
 import com.mongodb.DBCursor
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
+import kuorum.domain.DomainService
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.petition.PetitionRSDTO
@@ -14,66 +15,67 @@ import payment.campaign.PostService
 
 class SiteMapController {
 
-    private static final FORMAT_DATE_SITEMAP="yyyy-MM-dd"
+    private static final FORMAT_DATE_SITEMAP = "yyyy-MM-dd"
 
     PostService postService
     PetitionService petitionService
+    DomainService domainService
 
-    static searchQueries =[
-            es:[
-                    basicSearch:[
+    static searchQueries = [
+            es: [
+                    basicSearch : [
                             "",
                             "admin"
                     ],
-                    userSearch:[
+                    userSearch  : [
                             "",
                             "admin"
                     ],
-                    debateSearch:[
+                    debateSearch: [
                             "",
                             "admin"
                     ],
-                    postSearch:[
+                    postSearch  : [
                             "",
                             "admin"
                     ],
-                    eventSearch:[
+                    eventSearch : [
                             "",
                             "admin"
                     ],
-                    usersByCause:[]
+                    usersByCause: []
             ],
-            en:[
-                    basicSearch:[
+            en: [
+                    basicSearch : [
                             "",
                             "admin"
                     ],
-                    userSearch:[
+                    userSearch  : [
                             "",
                             "admin"
                     ],
-                    debateSearch:[
+                    debateSearch: [
                             "",
                             "admin"
                     ],
-                    postSearch:[
+                    postSearch  : [
                             "admin",
                             ""
                     ],
-                    eventSearch:[
+                    eventSearch : [
                             "",
                             "admin"
                     ],
-                    usersByCause:[
+                    usersByCause: [
                     ]
             ]
     ]
 
     DebateService debateService
 
-    def sitemapIndex(){
+    def sitemapIndex() {
 //        AvailableLanguage language = AvailableLanguage.fromLocaleParam(CustomDomainResolver.domainRSDTO.language)
-        render(contentType: 'text/xml', encoding: 'UTF-8', ) {
+        render(contentType: 'text/xml', encoding: 'UTF-8',) {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
             sitemapindex(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9") {
                 sitemap {
@@ -92,7 +94,7 @@ class SiteMapController {
         }
     }
 
-    def sitemapSearchs(){
+    def sitemapSearchs() {
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(CustomDomainResolver.domainRSDTO.language)
         String lang = language.locale.language
         def relevantSearchs = ["", "admin"]
@@ -103,14 +105,14 @@ class SiteMapController {
 
                 relevantSearchs.each { searchText ->
                     url {
-                        loc(g.createLink( mapping:'searcherSearch', absolute: true, params: [word:searchText]))
+                        loc(g.createLink(mapping: 'searcherSearch', absolute: true, params: [word: searchText]))
                         changefreq('daily')
                         priority(0.5)
                     }
                     List<kuorum.core.model.solr.SolrType> solrTypes = kuorum.core.model.solr.SolrType.values() - kuorum.core.model.solr.SolrType.NEWSLETTER
-                    solrTypes.each{solrType ->
+                    solrTypes.each { solrType ->
                         url {
-                            loc(g.createLink( mapping:"searcherSearch${solrType}", absolute: true, params: [word:searchText]))
+                            loc(g.createLink(mapping: "searcherSearch${solrType}", absolute: true, params: [word: searchText]))
                             changefreq('daily')
                             priority(0.5)
 //                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
@@ -153,6 +155,7 @@ class SiteMapController {
             }
         }
     }
+
     def sitemapFooters() {
         def footerMappings = [
 //                'footerAboutKuorum',
@@ -161,16 +164,16 @@ class SiteMapController {
 //                'footerUserGuides',
 //                'footerPress',
 //                'footerHistory',
-                'footerPrivacyPolicy',
-                'footerTermsUse'
+'footerPrivacyPolicy',
+'footerTermsUse'
         ]
         render(contentType: 'application/xml', encoding: 'UTF-8') {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
-            urlset(xmlns:"http://www.sitemaps.org/schemas/sitemap/0.9",
-                    'xmlns:xhtml':"http://www.w3.org/1999/xhtml") {
-                footerMappings.each{mapping ->
+            urlset(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
+                    'xmlns:xhtml': "http://www.w3.org/1999/xhtml") {
+                footerMappings.each { mapping ->
                     url {
-                        loc(g.createLink( mapping: mapping, absolute: true))
+                        loc(g.createLink(mapping: mapping, absolute: true))
                         changefreq('yearly')
                         priority(0.7)
 //                        "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: mapping, absolute: true, params: [lang:'es'])}\""()
@@ -190,23 +193,23 @@ class SiteMapController {
         startDate.set(Calendar.DAY_OF_MONTH, 1)
         Calendar endDate = Calendar.getInstance()
         endDate.add(Calendar.MONTH, 0)
-        render(contentType: 'text/xml', encoding: 'UTF-8', ) {
+        render(contentType: 'text/xml', encoding: 'UTF-8',) {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
             sitemapindex(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9") {
                 while (startDate.before(endDate)) {
                     def ranges = getDateRanges(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH))
                     def numUsers = KuorumUser.collection.count(
                             [
-                                    'alias':['$ne':null],
-                                    'alias':['$ne':''],
-                                    'alias':['$exists':true],
+                                    'alias'      : ['$ne': null],
+                                    'alias'      : ['$ne': ''],
+                                    'alias'      : ['$exists': true],
 //                                    'language':"${language}",
-                                    'dateCreated':[
-                                            '$gte':ranges.startRange,
-                                            '$lt':ranges.endRange
+                                    'dateCreated': [
+                                            '$gte': ranges.startRange,
+                                            '$lt' : ranges.endRange
                                     ]
                             ])
-                    if (numUsers >0 ){
+                    if (numUsers > 0) {
                         sitemap {
                             loc(g.createLink(mapping: 'sitemapUsers', params: [year: startDate.get(Calendar.YEAR), month: startDate.get(Calendar.MONTH) + 1], absolute: true))
                         }
@@ -216,11 +219,12 @@ class SiteMapController {
             }
         }
     }
+
     def sitemapUsers() {
-    //TODO: Pensar si salvar a un fichero o a MONGO en vez de generarlo al vuelo
+        //TODO: Pensar si salvar a un fichero o a MONGO en vez de generarlo al vuelo
 //        AvailableLanguage language = AvailableLanguage.fromLocaleParam(CustomDomainResolver.domainRSDTO.language)
-        Integer year= Integer.parseInt(params.year)
-        Integer month=Integer.parseInt(params.month)-1
+        Integer year = Integer.parseInt(params.year)
+        Integer month = Integer.parseInt(params.month) - 1
         def ranges = getDateRanges(year, month)
         render(contentType: 'text/xml', encoding: 'UTF-8') {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
@@ -230,21 +234,21 @@ class SiteMapController {
 
                 DBCursor cursor = KuorumUser.collection.find(
                         [
-                                'alias':['$ne':null],
-                                'alias':['$ne':''],
-                                'alias':['$exists':true],
+                                'alias'      : ['$ne': null],
+                                'alias'      : ['$ne': ''],
+                                'alias'      : ['$exists': true],
 //                                'language':"${language}",
-                                'dateCreated':[
-                                        '$gte':ranges.startRange,
-                                        '$lt':ranges.endRange
+                                'dateCreated': [
+                                        '$gte': ranges.startRange,
+                                        '$lt' : ranges.endRange
                                 ]
                         ],
-                        [_id:1, alias: 1, lastUpdated:1])
-                while(cursor.hasNext()){
+                        [_id: 1, alias: 1, lastUpdated: 1])
+                while (cursor.hasNext()) {
                     def politicianData = cursor.next()
                     KuorumUser kuorumUser = politicianData as KuorumUser
                     url {
-                        loc(g.createLink( mapping: 'userShow', params:[userAlias:politicianData.alias], absolute: true))
+                        loc(g.createLink(mapping: 'userShow', params: [userAlias: politicianData.alias], absolute: true))
                         changefreq('weekly')
                         priority(0.5)
                         lastmod(politicianData.lastUpdated.format(FORMAT_DATE_SITEMAP))
@@ -252,9 +256,9 @@ class SiteMapController {
 //                        "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'debateShowLang', absolute: true, params: [userAlias:politicianData.alias,lang:'en'])}\""()
                     }
 
-                    List<PostRSDTO> posts= postService.findAllPosts(kuorumUser.id.toString())
+                    List<PostRSDTO> posts = postService.findAllPosts(kuorumUser.id.toString())
                     posts.each { post ->
-                        if (CampaignStatusRSDTO.SENT.equals(post?.newsletter?.status?:null)){
+                        if (CampaignStatusRSDTO.SENT.equals(post?.newsletter?.status ?: null)) {
                             url {
                                 loc(g.createLink(mapping: 'postShow', params: post.encodeAsLinkProperties(), absolute: true))
                                 changefreq('weekly')
@@ -266,9 +270,9 @@ class SiteMapController {
                         }
                     }
 
-                    List<PetitionRSDTO> petitions= petitionService.findAllPetitionsByUser(kuorumUser.id.toString())
+                    List<PetitionRSDTO> petitions = petitionService.findAllPetitionsByUser(kuorumUser.id.toString())
                     petitions.each { petition ->
-                        if (CampaignStatusRSDTO.SENT.equals(petition?.newsletter?.status?:null)){
+                        if (CampaignStatusRSDTO.SENT.equals(petition?.newsletter?.status ?: null)) {
                             url {
                                 loc(g.createLink(mapping: 'petitionShow', params: petition.encodeAsLinkProperties(), absolute: true))
                                 changefreq('weekly')
@@ -282,7 +286,7 @@ class SiteMapController {
 
                     List<DebateRSDTO> debates = debateService.findAllDebates(kuorumUser.id.toString())
                     debates.each { debate ->
-                        if (CampaignStatusRSDTO.SENT.equals(debate?.newsletter?.status?:null)) {
+                        if (CampaignStatusRSDTO.SENT.equals(debate?.newsletter?.status ?: null)) {
 
                             url {
                                 loc(g.createLink(mapping: 'debateShow', params: debate.encodeAsLinkProperties(), absolute: true))
@@ -299,7 +303,7 @@ class SiteMapController {
         }
     }
 
-    private getDateRanges(Integer year, Integer month){
+    private getDateRanges(Integer year, Integer month) {
         Calendar startRange = Calendar.getInstance()
         startRange.set(Calendar.YEAR, year)
         startRange.set(Calendar.MONTH, month)
@@ -308,7 +312,20 @@ class SiteMapController {
         endRange.add(Calendar.MONTH, 1)
         return [
                 startRange: startRange.time,
-                endRange: endRange.time
+                endRange  : endRange.time
         ]
+    }
+
+    def robots() {
+        boolean isPublicDomain = domainService.isPublicPlatform()
+        boolean isRegularDomain = domainService.isRegularPlatform()
+        String robots = ""
+
+        if (isRegularDomain && !isPublicDomain) {
+           robots = domainService.disableRobotCrawling()
+        } else {
+            robots = domainService.enableRobotCrawling()
+        }
+        render(contentType: 'text/plain', encoding: 'UTF-8', text: robots)
     }
 }

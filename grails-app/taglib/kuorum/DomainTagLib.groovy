@@ -1,9 +1,11 @@
 package kuorum
 
 import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.domain.DomainService
 import kuorum.files.AmazonFileService
 import kuorum.files.LessCompilerService
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
+import org.kuorum.rest.model.domain.DomainPrivacyRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
 
 class DomainTagLib {
@@ -16,46 +18,47 @@ class DomainTagLib {
     LinkGenerator grailsLinkGenerator
     LessCompilerService lessCompilerService
     AmazonFileService amazonFileService
+    DomainService domainService
 
-    def customCss={attrs ->
+    def customCss = { attrs ->
         String domain = CustomDomainResolver.domain
         String urlCustomDomainCss = lessCompilerService.getUrlDomainCss(domain)
         String urlCustomDomainCssTricks = lessCompilerService.getUrlDomainCssTricks(domain)
-        Long version = CustomDomainResolver.domainRSDTO?.version?:0
+        Long version = CustomDomainResolver.domainRSDTO?.version ?: 0
         out << """
             <link rel="stylesheet" href="${urlCustomDomainCss}?v=${version}" type="text/css"/>
             <link rel="stylesheet" href="${urlCustomDomainCssTricks}?v=${version}" type="text/css"/>
         """
     }
 
-    def brandAndLogo={attrs ->
+    def brandAndLogo = { attrs ->
         String domain = CustomDomainResolver.domain
         String logoUrl = amazonFileService.getDomainLogoUrl(domain)
-        String emptyLogo= g.resource(dir: "images", file: "logo@2x.png", absolute: true)
-        Long version = CustomDomainResolver.domainRSDTO?.version?:0
-        out <<"""
+        String emptyLogo = g.resource(dir: "images", file: "logo@2x.png", absolute: true)
+        Long version = CustomDomainResolver.domainRSDTO?.version ?: 0
+        out << """
         <img 
             id="domain-logo"
             src="${logoUrl}?v=${version}" 
             onerror="this.onerror=null;this.src='$emptyLogo';"
-            alt="${g.message(code:'head.logo.alt', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}" 
-            title="${g.message(code:'head.logo.title', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
+            alt="${g.message(code: 'head.logo.alt', args: [kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}" 
+            title="${g.message(code: 'head.logo.title', args: [kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
         <span class="hidden">${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}</span>
         """
     }
 
-    def footerLis={attrs ->
+    def footerLis = { attrs ->
         DomainRSDTO domain = CustomDomainResolver.domainRSDTO
-        if (domain.footerLinks){
-            domain.footerLinks.each{
+        if (domain.footerLinks) {
+            domain.footerLinks.each {
                 out << "<li><a href='${it.value}' target='_blank'>${it.key}</a></li>"
             }
         }
     }
 
-    def favicon={attrs ->
+    def favicon = { attrs ->
         String domainResourcesPath = attrs.domainResourcesPath
-        Long version = CustomDomainResolver.domainRSDTO?.version?:0
+        Long version = CustomDomainResolver.domainRSDTO?.version ?: 0
         out << """
         <link rel="apple-touch-icon" sizes="180x180" href="${domainResourcesPath}/favicon/apple-touch-icon.png?v=${version}">
         <link rel="icon" type="image/png" sizes="32x32" href="${domainResourcesPath}/favicon/favicon-32x32.png?v=${version}">
@@ -67,5 +70,15 @@ class DomainTagLib {
         <meta name="msapplication-config" content="${domainResourcesPath}/favicon/browserconfig.xml?v=${version}">
         <meta name="theme-color" content="#ffffff">
         """
+    }
+
+    def metaRobots = {
+        boolean  isRegularDomain =domainService.isRegularPlatform()
+        boolean isPublicDomain = domainService.isPublicPlatform()
+        if (isRegularDomain && !isPublicDomain) {
+            out << """<meta name="robots" content="noindex">"""
+        } else {
+            out << """<meta name="robots" content="all">"""
+        }
     }
 }

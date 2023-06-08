@@ -19,6 +19,8 @@ import org.kuorum.rest.model.payment.BillingAmountUsersRangeDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.slf4j.MDC
 
+import java.util.regex.Pattern
+
 class DomainService {
 
     RestKuorumApiService restKuorumApiService
@@ -252,6 +254,32 @@ class DomainService {
 
     Boolean isSurveyPlatform() {
         return CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() == DomainTypeRSDTO.SURVEY
+    }
+
+    Boolean isPublicPlatform(){
+        return CustomDomainResolver.domainRSDTO.domainPrivacy == DomainPrivacyRDTO.PUBLIC
+    }
+
+    Boolean isRegularPlatform(){ //Its url follows structure xxxxx.kuorum.org
+        String domainName = CustomDomainResolver.domainRSDTO.domain
+        String defaultDomainNameRegex = ".+\\.kuorum\\.org"
+        def defaultDomainPattern = Pattern.compile(defaultDomainNameRegex)
+
+        return defaultDomainPattern.matcher(domainName).matches()
+    }
+
+    String getRobotsEnableCrawlingBody(){
+        log.info("Using enable robots.txt rules...")
+        def file = new File("web-app/robotsEnabled.txt")
+        def robotsFileContent = file.text
+        return robotsFileContent
+    }
+
+    String getRobotsDisableCrawlingBody() {
+        log.info("Using disable robots.txt rules...")
+        def file = new File("web-app/robotsDisabled.txt")
+        def robotsFileContent = file.text
+        return robotsFileContent
     }
 
     NewDomainDataRSDTO createNewDomain(String prefixDomain) {
