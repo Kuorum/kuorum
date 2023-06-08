@@ -256,7 +256,9 @@ class DomainService {
         return CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() == DomainTypeRSDTO.SURVEY
     }
 
-    Boolean isPublicPlatform(){ return CustomDomainResolver.domainRSDTO.domainPrivacy == DomainPrivacyRDTO.PUBLIC}
+    Boolean isPublicPlatform(){
+        return CustomDomainResolver.domainRSDTO.domainPrivacy == DomainPrivacyRDTO.PUBLIC
+    }
 
     Boolean isRegularPlatform(){ //Its url follows structure xxxxx.kuorum.org
         String domainName = CustomDomainResolver.domainRSDTO.domain
@@ -266,15 +268,15 @@ class DomainService {
         return defaultDomainPattern.matcher(domainName).matches()
     }
 
-    String enableRobotCrawling(){
-        print("Using enable robots.txt rules...")
+    String getRobotsEnableCrawlingBody(){
+        log.info("Using enable robots.txt rules...")
         def file = new File("web-app/robotsEnabled.txt")
         def robotsFileContent = file.text
         return robotsFileContent
     }
 
-    String disableRobotCrawling() {
-        print("Using disable robots.txt rules...")
+    String getRobotsDisableCrawlingBody() {
+        log.info("Using disable robots.txt rules...")
         def file = new File("web-app/robotsDisabled.txt")
         def robotsFileContent = file.text
         return robotsFileContent
