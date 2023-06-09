@@ -547,11 +547,16 @@ class CampaignController {
             render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: 'Internal error. Try again or contact with info@kuorum.org'] as JSON)
         }
     }
-    def renderErrorMessage(KuorumException e){
-        if(e.getErrors()[0].getCode().contains("FORMAT")){
+    def renderErrorMessage(KuorumException e) {
+        if(e != null && e.errors != null){
+            if (e.errors[0].code == "CONTACT_PHONE_BAD_FORMAT") {
             render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.badFormatNumber')] as JSON)
-        }
+            }
             render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
+        }else{
+            log.info("No exception obtained. throwing default error message")
+            render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: 'Internal error. Try again or contact with info@kuorum.org'] as JSON)
+        }
     }
 
     def validateUserPhone(DomainUserPhoneCodeValidationCommand domainUserPhoneValidationCommand) {
