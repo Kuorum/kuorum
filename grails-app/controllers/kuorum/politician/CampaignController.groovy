@@ -39,7 +39,6 @@ import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
-import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
 import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
@@ -543,8 +542,21 @@ class CampaignController {
                     validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(),
                     validationPhoneNumber      : userPhoneValidationRDTO.getPhoneNumber()] as JSON)
         } catch (KuorumException e) {
-            render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
+            renderErrorMessage(e)
         } catch (Exception e) {
+            render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: 'Internal error. Try again or contact with info@kuorum.org'] as JSON)
+        }
+    }
+
+    def renderErrorMessage(KuorumException e) {
+        if (e != null && e.errors != null) {
+            if (e.errors[0].code == "error.api.CONTACT_PHONE_BAD_FORMAT") {
+                render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.badFormatNumber')] as JSON)
+            } else{
+                render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
+            }
+        } else {
+            log.info("No exception obtained. throwing default error message")
             render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: 'Internal error. Try again or contact with info@kuorum.org'] as JSON)
         }
     }
