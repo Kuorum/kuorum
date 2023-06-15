@@ -68,7 +68,6 @@
                 data-page="0"
                 data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[participatoryBudgetStatus:participatoryBudget.status, districtId:district.id, voter:userUtil.loggedUserId()])}"
                </ul>
- %{--data-loggedUser="${userUtil.loggedUserId()}">--}%
             </sec:ifLoggedIn>
         </g:if>
             <!-- District modal overflow -->
