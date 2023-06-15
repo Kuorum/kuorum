@@ -52,6 +52,10 @@ $(function () {
             participatoryBudgetHelper.clickOrderTabRandomSeed($a)
         }
     });
+    $(document).on("click",'a[data-listselector="voted"]',function (){
+        var $a = $(this)
+        participatoryBudgetHelper.clickOrderByVotedUser($a)
+    })
 
     $("#participatoryBudget-districtProposals-list").on("click",'.load-more-district-proposals', function(e){
         e.preventDefault();
@@ -202,6 +206,19 @@ var participatoryBudgetHelper={
             participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
         }
 
+    },
+
+    clickOrderByVotedUser:function($a){
+        $a.parent().parent().children().removeClass("active"); // Removes active of other tab links
+        $a.parent().addClass("active"); // Set as active the current tab
+        var districtId = $a.attr("data-districtId");
+        var divId = "#proposal-district-"+districtId;
+        var ulId = $('ul.search-list.clearfix.voted')
+        $(divId +"> ul.search-list").hide();
+        $(ulId).show();
+        if (ulId + " > li".length <= 0) {
+            participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
+        }
     },
 
     moveAndOpenDistrict:function(districtName){

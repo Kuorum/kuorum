@@ -259,6 +259,11 @@ class ParticipatoryBudgetController extends CampaignController {
         } else {
             filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field: FilterDistrictProposalRDTO.SortableFieldRDTO.PRICE, direction: DirectionDTO.ASC)
         }
+        if (params.voter){
+            String voter = params.voter
+            filter = new FilterDistrictProposalRDTO(voter: voter)
+        }
+
         ParticipatoryBudgetStatusDTO participatoryBudgetStatus = ParticipatoryBudgetStatusDTO.valueOf(params.participatoryBudgetStatus)
         switch (participatoryBudgetStatus) {
             case ParticipatoryBudgetStatusDTO.RESULTS:
