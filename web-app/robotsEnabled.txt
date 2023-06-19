@@ -1,4 +1,3 @@
-
 # robots.txt for http://www.kuorum.org
 
 User-agent: *
@@ -14,4 +13,3 @@ Disallow: /account/*
 Disallow: /edit-profile/*
 Disallow: /config/*
 Disallow: /oauth/*
-
