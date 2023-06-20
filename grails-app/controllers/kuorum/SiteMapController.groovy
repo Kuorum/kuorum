@@ -322,9 +322,9 @@ class SiteMapController {
         String robots = ""
 
         if (isRegularDomain && !isPublicDomain) {
-           robots = domainService.disableRobotCrawling()
+           robots = domainService.getRobotsDisableCrawlingBody()
         } else {
-            robots = domainService.enableRobotCrawling()
+            robots = domainService.getRobotsEnableCrawlingBody()
         }
         render(contentType: 'text/plain', encoding: 'UTF-8', text: robots)
     }
