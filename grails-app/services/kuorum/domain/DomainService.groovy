@@ -19,6 +19,8 @@ import org.kuorum.rest.model.payment.BillingAmountUsersRangeDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.slf4j.MDC
 
+import java.util.regex.Pattern
+
 class DomainService {
 
     RestKuorumApiService restKuorumApiService
@@ -252,6 +254,50 @@ class DomainService {
 
     Boolean isSurveyPlatform() {
         return CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() == DomainTypeRSDTO.SURVEY
+    }
+
+    Boolean isPublicPlatform(){
+        return CustomDomainResolver.domainRSDTO.domainPrivacy == DomainPrivacyRDTO.PUBLIC
+    }
+
+    Boolean isRegularPlatform(){ //Its url follows structure xxxxx.kuorum.org
+        String domainName = CustomDomainResolver.domainRSDTO.domain
+        String defaultDomainNameRegex = ".+\\.kuorum\\.org"
+        def defaultDomainPattern = Pattern.compile(defaultDomainNameRegex)
+
+        return defaultDomainPattern.matcher(domainName).matches()
+    }
+
+    String getRobotsEnableCrawlingBody(){
+        log.info("Using enable robots.txt rules")
+        return """
+# robots.txt for https://www.kuorum.org
+
+User-agent: *
+Allow: /
+Allow: /*
+Disallow: /login/auth
+Disallow: /ajax/*
+#Disallow: /admin/*
+Disallow: /editor/*
+Disallow: /sec/*
+Disallow: /dashboard/*
+Disallow: /account/*
+Disallow: /edit-profile/*
+Disallow: /config/*
+Disallow: /oauth/*
+        """
+    }
+
+    String getRobotsDisableCrawlingBody() {
+        log.info("Using disable robots.txt rules")
+        return """
+# robots.txt for https://www.kuorum.org
+
+User-agent: *
+Disallow: /
+Disallow: /*
+        """
     }
 
     NewDomainDataRSDTO createNewDomain(String prefixDomain) {
