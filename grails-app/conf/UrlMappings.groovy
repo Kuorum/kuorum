@@ -4,7 +4,7 @@ import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
 
-    static excludes = ['/robots.txt', '/error-page/402.html']
+    static excludes = ['/error-page/402.html']
 
     static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect', 'j_spring_security_exit_user', 'register', 'login', 'js', 'images', 'css', 'fonts']
     static mappings = {
@@ -462,7 +462,7 @@ class UrlMappings {
         name sitemapSearchs: "/sitemap/searchs"(controller: "siteMap", action: "sitemapSearchs")
         name sitemapUsersIdx: "/sitemap/users"(controller: "siteMap", action: "sitemapUsersIndex")
         name sitemapUsers: "/sitemap/users/$year/$month"(controller: "siteMap", action: "sitemapUsers")
-
+        name robots: "/robots.txt"( controller: "siteMap", action: "robots")
 
 
 

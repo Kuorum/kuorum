@@ -24,7 +24,7 @@
     <meta name="dcterms.rightsHolder" content="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}">
     %{--<meta name="dcterms.dateCopyrighted" content="2013">--}%
 
-    <meta name="robots" content="all">
+    <domain:metaRobots/>
     <domain:favicon domainResourcesPath="${_domainResourcesPath}"/>
 
     %{--This line wirtes the goole verification code. It is a meta tag with its code--}%
