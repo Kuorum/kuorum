@@ -89,7 +89,6 @@ var userValidatedByDomain={
         }
     },
     hide2ndPhoneFields: function () {
-        console.log("Empezando a ocultar campos.... :) ")
         $(".form-group.form-group-phone.second-phone").hide()
         userValidatedByDomain.are2ndPhoneFieldsHidden = true
     },
@@ -108,12 +107,10 @@ var userValidatedByDomain={
     arePhonesAndPrefixEquals: function (){
         var samePhoneData;
         if (!userValidatedByDomain.are2ndPhoneFieldsHidden) {
-            console.log("Como no se han ocultado lo comprueba")
             var samePhones = userValidatedByDomain.comparePhones();
             var samePhonePrefix = userValidatedByDomain.comparePhonesPrefix();
             samePhoneData = samePhones && samePhonePrefix;
         } else {
-            console.log("campos ocultos, no se debe comprobar")
             samePhoneData = true;
         }
         return samePhoneData;
@@ -305,6 +302,8 @@ var userValidatedByDomain={
     },
 
     sendSMSForPhoneValidation:function(e){
+        $("#validatePhoneDomain-modal-form-button-id").addClass(".g-recaptcha")
+        $("#validatePhoneDomain-modal-form-button-id").attr('data-recaptcha',0)
         e.preventDefault();
         var $button = $(this);
         var $form = $button.closest("form");
@@ -421,7 +420,6 @@ var userValidatedByDomain={
         var $form = $button.closest("form");
         var url = $form.attr("action");
         var data = $form.serialize()+"&campaignId="+userValidatedByDomain.dataValidation.campaignId;
-        console.log("empezando validación....")
         if ($form.valid()){
             userValidatedByDomain.showModalLoading();
 
