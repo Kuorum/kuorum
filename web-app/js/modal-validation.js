@@ -302,8 +302,6 @@ var userValidatedByDomain={
     },
 
     sendSMSForPhoneValidation:function(e){
-        $("#validatePhoneDomain-modal-form-button-id").addClass(".g-recaptcha")
-        $("#validatePhoneDomain-modal-form-button-id").attr('data-recaptcha',0)
         e.preventDefault();
         var $button = $(this);
         var $form = $button.closest("form");
