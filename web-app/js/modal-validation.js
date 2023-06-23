@@ -12,6 +12,7 @@ var userValidatedByDomain={
     dataValidation: undefined,
     urlAnonymousValidation: undefined,
     successFunctionCallback: undefined,
+    are2ndPhoneFieldsHidden: false,
 
     initVariables: function () {
         if (!userValidatedByDomain.binded) {
@@ -53,6 +54,10 @@ var userValidatedByDomain={
     },
 
     openAndPrepareValidationModal: function () {
+        if (!userValidatedByDomain.dataValidation.allowAnonymousAction){
+          this.hide2ndPhoneFields()
+
+        }
         // Open validation modal
         $("#domain-validation").modal({
             backdrop: 'static',
@@ -83,7 +88,36 @@ var userValidatedByDomain={
             }
         }
     },
-
+    hide2ndPhoneFields: function () {
+        console.log("Empezando a ocultar campos.... :) ")
+        $(".form-group.form-group-phone.second-phone").hide()
+        userValidatedByDomain.are2ndPhoneFieldsHidden = true
+    },
+    comparePhones: function () {
+        var phoneNo1 = $("#phoneNumber").val();
+        var phoneNo2 = $("#phoneNumber2").val();
+        var arePhonesEquals = phoneNo1 === phoneNo2;
+        return arePhonesEquals;
+    },
+    comparePhonesPrefix: function () {
+        var phonePrefixNo1 = $("#phoneNumberPrefix").val();
+        var phonePrefixNo2 = $("#phoneNumberPrefix2").val();
+        var arePhonesPrefixesEquals = phonePrefixNo1 === phonePrefixNo2;
+        return arePhonesPrefixesEquals;
+    },
+    arePhonesAndPrefixEquals: function (){
+        var samePhoneData;
+        if (!userValidatedByDomain.are2ndPhoneFieldsHidden) {
+            console.log("Como no se han ocultado lo comprueba")
+            var samePhones = userValidatedByDomain.comparePhones();
+            var samePhonePrefix = userValidatedByDomain.comparePhonesPrefix();
+            samePhoneData = samePhones && samePhonePrefix;
+        } else {
+            console.log("campos ocultos, no se debe comprobar")
+            samePhoneData = true;
+        }
+        return samePhoneData;
+    },
     executeClickButtonHandlingValidations: function ($button, executableFunctionCallback) {
         userValidatedByDomain.initDataValidation($button, executableFunctionCallback);
         if (userValidatedByDomain.dataValidation.validationActive == "true") {
@@ -274,7 +308,10 @@ var userValidatedByDomain={
         e.preventDefault();
         var $button = $(this);
         var $form = $button.closest("form");
-        if ($form.valid()) {
+
+        if (!userValidatedByDomain.arePhonesAndPrefixEquals()) {
+            userValidatedByDomain.showErrorModal(i18n.inputs.errors.nonMatchingPhones);
+        } else if ($form.valid()) {
             userValidatedByDomain.showModalLoading();
             var url = $form.attr("action");
             console.log("CampaignID: "+userValidatedByDomain.dataValidation.campaignId);
@@ -384,6 +421,7 @@ var userValidatedByDomain={
         var $form = $button.closest("form");
         var url = $form.attr("action");
         var data = $form.serialize()+"&campaignId="+userValidatedByDomain.dataValidation.campaignId;
+        console.log("empezando validación....")
         if ($form.valid()){
             userValidatedByDomain.showModalLoading();
 
