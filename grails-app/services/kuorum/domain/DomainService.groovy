@@ -269,17 +269,35 @@ class DomainService {
     }
 
     String getRobotsEnableCrawlingBody(){
-        log.info("Using enable robots.txt rules...")
-        def file = new File("web-app/robotsEnabled.txt")
-        def robotsFileContent = file.text
-        return robotsFileContent
+        log.info("Using enable robots.txt rules")
+        return """
+# robots.txt for https://www.kuorum.org
+
+User-agent: *
+Allow: /
+Allow: /*
+Disallow: /login/auth
+Disallow: /ajax/*
+#Disallow: /admin/*
+Disallow: /editor/*
+Disallow: /sec/*
+Disallow: /dashboard/*
+Disallow: /account/*
+Disallow: /edit-profile/*
+Disallow: /config/*
+Disallow: /oauth/*
+        """
     }
 
     String getRobotsDisableCrawlingBody() {
-        log.info("Using disable robots.txt rules...")
-        def file = new File("web-app/robotsDisabled.txt")
-        def robotsFileContent = file.text
-        return robotsFileContent
+        log.info("Using disable robots.txt rules")
+        return """
+# robots.txt for https://www.kuorum.org
+
+User-agent: *
+Disallow: /
+Disallow: /*
+        """
     }
 
     NewDomainDataRSDTO createNewDomain(String prefixDomain) {
