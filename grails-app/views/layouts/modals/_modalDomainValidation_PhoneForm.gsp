@@ -17,7 +17,7 @@
                 <formUtil:selectPhonePrefix
                         command="${validatePhoneCommand}"
                         field="phoneNumberPrefix"
-                        showLabel="false"
+                        showLabel="true"
                         placeHolder=""
                         cssClass="form-control input-lg"
                         required="true"
@@ -30,6 +30,24 @@
                         cssClass="form-control input-lg"
                         type="number"
                         required="true"/>
+            </div>
+            <div class="form-group form-group-phone second-phone">
+                <formUtil:selectPhonePrefix
+                        command="${validatePhoneCommand}"
+                        field="phoneNumberPrefix2"
+                        showLabel="true"
+                        placeHolder=""
+                        cssClass="form-control input-lg"
+                        required="true"
+                />
+                <formUtil:input
+                        command="${validatePhoneCommand}"
+                        field="phoneNumber2"
+                        showLabel="true"
+                        placeHolder=""
+                        cssClass="form-control input-lg"
+                        type="number"
+                        required="false"/>
             </div>
         </div>
 
