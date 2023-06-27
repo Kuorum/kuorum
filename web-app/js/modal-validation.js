@@ -60,7 +60,7 @@ var userValidatedByDomain={
         });
         userValidatedByDomain.closeRegisterModal(true);
 
-        console.log("Anonimous vote is active: " + userValidatedByDomain.dataValidation.allowAnonymousAction)
+        console.log("Anonymous vote is active: " + userValidatedByDomain.dataValidation.allowAnonymousAction)
         if (!isUserLogged() && !userValidatedByDomain.dataValidation.allowAnonymousAction) {
             // User is logged but the page is not reloaded and the anonymous action is not allowed.
             $('#domain-validation').on('hidden.bs.modal', function () {
@@ -165,7 +165,7 @@ var userValidatedByDomain={
     checkGroupValidation:function(executableFunctionCallback, closeCallbackModal){
 
         var joinCallbacks = new userValidatedByDomain.ExcutableFunctionCallback(function(params) {
-            console.log("gorupValidationJoined")
+            console.log("groupValidationJoined")
             if (executableFunctionCallback != undefined) {
                 console.log("Executing callback")
                 executableFunctionCallback.exec()
