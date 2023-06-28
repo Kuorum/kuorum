@@ -34,6 +34,10 @@
     <Resources cacheMaxSize="51200"/>
 
     <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+             sticky="false"
+             lockingMode="all"
+             sessionBackupAsync="false"
+             sessionBackupTimeout="100"
              memcachedNodes="n1:${MEMCACHED_END_POINT}:${MEMCACHED_PORT}"
              requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
              transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"/>
