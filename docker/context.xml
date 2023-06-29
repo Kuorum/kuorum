@@ -34,7 +34,7 @@
     <Resources cacheMaxSize="51200"/>
 
     <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
-             sticky="false"
+             sticky="true"
              lockingMode="all"
              sessionBackupAsync="false"
              sessionBackupTimeout="100"
