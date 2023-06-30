@@ -116,6 +116,7 @@ var contestApplicationFunctions = {
             success: function (contestApplicationVote) {
                 if (contestApplicationVote.success) {
                     contestApplicationFunctions._handleButtonsAtSuccess(contestApplicationVote, $button);
+                    cookiesHelper.removeCookie("KUORUM_USER_UUID")
                     display.success(contestApplicationVote.message)
                 } else {
                     display.error(contestApplicationVote.message)

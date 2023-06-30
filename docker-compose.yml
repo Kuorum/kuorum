@@ -9,8 +9,8 @@ services:
       - 11211:11211
 
   front:
-    depends_on:
-      - memcached_front
+#    depends_on:
+    #      - memcached
     build:
       context: .
       args:
@@ -26,6 +26,7 @@ services:
       - UPLOADED_RESOURCES_DOMAIN=webcontent.dev.kuorum.org
     ports:
       - 8080:8080
+      - 8443:8443
 
 #networks:
 #  default:
