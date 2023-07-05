@@ -9,7 +9,7 @@ class DomainPrivateFilters {
     def domainService
 
     def filters = {
-        customRegisterFilter(controller:'customRegister|logout|login|error|register|layouts|landing|footer|campaignValidation', invert: true) {
+        customRegisterFilter(controller:'customRegister|logout|login|error|register|layouts|landing|footer|campaignValidation|siteMap', invert: true) {
             before = {
                 if (!domainService.showPrivateContent()){
 //                        It is for redirect when the user is not logged and the the domain is private
