@@ -153,7 +153,7 @@ grails.project.dependency.resolution = {
 
         compile group: 'com.twelvemonkeys.imageio', name: 'imageio-jpeg', version: '3.8.1'
 
-        compile group: 'net.spy', name: 'spymemcached', version: '2.12.3'
+        compile group: 'net.spy', name: 'spymemcached', version: '2.12.3' // DON'T EDIT VERSION - SAME AS TOMCAT
 
 
         // https://mvnrepository.com/artifact/de.javakaffee.msm/memcached-session-manager

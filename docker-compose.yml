@@ -1,6 +1,16 @@
 version: "3.9"  # optional since v1.27.0
 services:
+  memcached_front:
+    image: bitnami/memcached
+    mem_reservation: 16M
+    restart: always
+    container_name: memcached_front
+    ports:
+      - 11211:11211
+
   front:
+#    depends_on:
+    #      - memcached
     build:
       context: .
       args:
@@ -16,10 +26,12 @@ services:
       - UPLOADED_RESOURCES_DOMAIN=webcontent.dev.kuorum.org
     ports:
       - 8080:8080
-networks:
-  default:
-    external:
-      name: kuorumservices_default
+      - 8443:8443
+
+#networks:
+#  default:
+#    external:
+#      name: kuorumservices_default
 
 
 
