@@ -49,10 +49,12 @@ $(function () {
         if (typeof direction !== typeof undefined && direction !== false){
             participatoryBudgetHelper.clickOrderTabDirection($a)
         }else{
+            console.log('Executing order tab randomseed')
             participatoryBudgetHelper.clickOrderTabRandomSeed($a)
         }
     });
     $(document).on("click",'a[data-listselector="voted"]',function (){
+        console.log('executing order voted by user')
         var $a = $(this)
         participatoryBudgetHelper.clickOrderByVotedUser($a)
     })
