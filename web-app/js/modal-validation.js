@@ -1,4 +1,15 @@
+var captcha={
+    isRecaptchaSolved: false,
+    showCaptcha: function (){
+        var submitButton = $('#validatePhoneDomain-modal-form-button-id')
+        var dataRecaptcha = submitButton.attr('data-recaptcha');
+        grecaptcha.execute(dataRecaptcha);
 
+    }
+}
+function captchaSolvedCallback() {
+    captcha.isRecaptchaSolved = true;
+}
 
 var userValidatedByDomain={
 
@@ -305,10 +316,10 @@ var userValidatedByDomain={
         e.preventDefault();
         var $button = $(this);
         var $form = $button.closest("form");
-
+        captcha.showCaptcha()
         if (!userValidatedByDomain.arePhonesAndPrefixEquals()) {
             userValidatedByDomain.showErrorModal(i18n.inputs.errors.nonMatchingPhones);
-        } else if ($form.valid()) {
+        } else if ($form.valid() && captcha.isRecaptchaSolved) {
             userValidatedByDomain.showModalLoading();
             var url = $form.attr("action");
             console.log("CampaignID: "+userValidatedByDomain.dataValidation.campaignId);
