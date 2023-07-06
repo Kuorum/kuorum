@@ -42,22 +42,40 @@ $(function () {
 
     });
 
-    $("#participatoryBudget-districtProposals-list ul.nav-pills-lvl2 > li > a").on("click", function(e){
+    $("#participatoryBudget-districtProposals-list ul.nav-pills-lvl2 > li > a").on("click", function (e) {
         e.preventDefault();
         var $a = $(this);
         var direction = $a.attr("data-direction");
-        if (typeof direction !== typeof undefined && direction !== false){
-            participatoryBudgetHelper.clickOrderTabDirection($a)
-        }else{
-            console.log('Executing order tab randomseed')
-            participatoryBudgetHelper.clickOrderTabRandomSeed($a)
+        var orderType = $a.attr("data-listselector");
+
+        switch (orderType) {
+            case 'random':
+                console.log('rand')
+                participatoryBudgetHelper.clickOrderTabRandomSeed($a)
+                break;
+            case 'price':
+                if (typeof direction !== typeof undefined && direction !== false) {
+                    console.log('price')
+                    participatoryBudgetHelper.clickOrderTabDirection($a)
+                }
+                break;
+            case 'voted':
+                console.log('voted')
+                var selector = $('a[data-listselector="voted"]')
+                participatoryBudgetHelper.clickOrderByVotedUser(selector)
+                break;
+            default:
+                console.log('filter not defined');
         }
+
     });
-    $(document).on("click",'a[data-listselector="voted"]',function (){
+
+/*    $(document).on("click",'a[data-listselector="voted"]',function (){
         console.log('executing order voted by user')
         var $a = $(this)
         participatoryBudgetHelper.clickOrderByVotedUser($a)
-    })
+    })*/
+
 
     $("#participatoryBudget-districtProposals-list").on("click",'.load-more-district-proposals', function(e){
         e.preventDefault();
