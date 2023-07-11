@@ -24,14 +24,14 @@ class KuorumPermissionEvaluator implements PermissionEvaluator {
     boolean hasPermission(Authentication authentication, KuorumUser editedUser, Object permission) {
         KuorumUserSession loggedUser = springSecurityService.principal
         return  editedUser.id.toString() == loggedUser.id.toString() ||
-                SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")
+                SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN,ROLE_ADMIN")
 
     }
 
     boolean hasPermission(Authentication authentication, BasicDataKuorumUserRSDTO editedUser, Object permission) {
         KuorumUserSession loggedUser = springSecurityService.principal
         return  editedUser.id.equals(loggedUser.id.toString()) ||
-                SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")
+                SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN,ROLE_ADMIN")
 
     }
 //
