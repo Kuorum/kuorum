@@ -16,6 +16,9 @@
         <li class="${nav.activeMenuCss(mappingName: 'editorKuorumAccountEdit', urlParams: user.encodeAsLinkProperties())}"><g:link
                 mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}"><g:message
                     code="admin.menu.user.editAccount" args="[user.name]"/></g:link></li>
+        <li class="${nav.activeMenuCss(mappingName: 'editorKuorumAccountPicturesEdit', urlParams: user.encodeAsLinkProperties())}"><g:link
+                mapping="editorKuorumAccountPicturesEdit" params="${user.encodeAsLinkProperties()}"><g:message
+                    code="customRegister.fillProfile.images" args="[user.name]"/></g:link></li>
     </sec:ifAnyGranted>
     <sec:ifAnyGranted roles="ROLE_SUPER_ADMIN">
         <li class="${nav.activeMenuCss(mappingName: 'editorAdminUserRights', urlParams: user.encodeAsLinkProperties())}"><g:link

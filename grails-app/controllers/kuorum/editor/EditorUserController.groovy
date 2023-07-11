@@ -14,6 +14,7 @@ import kuorum.users.KuorumUserService
 import kuorum.users.PersonalData
 import kuorum.users.ProfileController
 import kuorum.web.commands.editor.EditorAccountCommand
+import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
@@ -76,15 +77,33 @@ class EditorUserController {
     }
 
 
-    def invalidateUser(){
-        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias, true)
-        if (user){
-            kuorumUserService.invalidateUser(user)
-            flash.message="User invalidated"
-        }else{
-            flash.error="User not found"
+    def editAdminAccountPictures() {
+        KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
+        EditProfilePicturesCommand command = new EditProfilePicturesCommand(user)
+        [user: user, command: command]
+    }
+
+    def updateAdminAccountPictures(EditProfilePicturesCommand command) {
+        KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
+        if (command.hasErrors()) {
+            render view: "editPictures", model: [command: command, user: user]
+            return
         }
-        redirect(mapping:'editorAdminUserRights', params:user.encodeAsLinkProperties())
+        ProfileController.prepareUserImages(user, command, fileService)
+        kuorumUserService.updateUser(user)
+        flash.message = message(code: 'profile.editUser.success')
+        redirect mapping: "editorKuorumAccountPicturesEdit", params: user.encodeAsLinkProperties()
+    }
+
+    def invalidateUser() {
+        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias, true)
+        if (user) {
+            kuorumUserService.invalidateUser(user)
+            flash.message = "User invalidated"
+        } else {
+            flash.error = "User not found"
+        }
+        redirect(mapping: 'editorAdminUserRights', params: user.encodeAsLinkProperties())
     }
 
     def validateUser(){
