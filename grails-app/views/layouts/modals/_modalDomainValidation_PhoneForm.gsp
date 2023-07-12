@@ -53,7 +53,7 @@
 
 
         <fieldset aria-live="polite" class="center modal-login-action-buttons">
-            <button id="validatePhoneDomain-modal-form-button-id" data-recaptcha="" data-callback="captchaSolvedCallback" class="btn btn-orange g-recaptcha">
+            <button id="validatePhoneDomain-modal-form-button-id" data-recaptcha=""  data-callback="captchaSolvedCallback" class="btn btn-orange g-recaptcha">
                 <g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.modal.submit"/>
             </button>
         </fieldset>

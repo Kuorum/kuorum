@@ -1,14 +1,26 @@
 var captcha={
-    isRecaptchaSolved: false,
+    datarecaptcha : '',
+    grecaptchaResponse : '',
+    isRecaptchaSolved: function () {
+        return captcha.grecaptchaResponse != ''
+    },
     showCaptcha: function (){
         var submitButton = $('#validatePhoneDomain-modal-form-button-id')
         var dataRecaptcha = submitButton.attr('data-recaptcha');
+        captcha.dataRecaptcha = dataRecaptcha
         grecaptcha.execute(dataRecaptcha);
+
+    },
+    clearCaptcha : function (){
+        grecaptcha.reset(captcha.datarecaptcha);
+        captcha.datarecaptcha = '';
+        captcha.grecaptchaResponse = ''
 
     }
 }
-function captchaSolvedCallback() {
-    captcha.isRecaptchaSolved = true;
+function captchaSolvedCallback(grecaptcha) {
+    console.log("entrando al callback del captcha")
+    captcha.grecaptchaResponse = grecaptcha;
 }
 
 var userValidatedByDomain={
@@ -326,7 +338,8 @@ var userValidatedByDomain={
             var data = {
                 campaignId:userValidatedByDomain.dataValidation.campaignId,
                 phoneNumberPrefix: $("#phoneNumberPrefix").val(),
-                phoneNumber: $("#phoneNumber").val()
+                phoneNumber: $("#phoneNumber").val(),
+                'g-recaptcha-response': captcha.grecaptchaResponse
             };
             $.ajax({
                 type: "POST",
@@ -335,6 +348,7 @@ var userValidatedByDomain={
                 success: function (dataSms) {
                     console.log(dataSms)
                     if (dataSms.success) {
+                        captcha.clearCaptcha()
                         $("#phoneHash").val(dataSms.hash)
                         $("#validationPhoneNumber").val(dataSms.validationPhoneNumber)
                         $("#validationPhoneNumberPrefix").val(dataSms.validationPhoneNumberPrefix)
