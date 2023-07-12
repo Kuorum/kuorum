@@ -541,7 +541,7 @@ class CampaignController {
     // ajax/validation/domain-valid-phone-sendSms
     def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand) {
         boolean isCaptchaSolved = verifyCaptcha();
-        if (domainUserPhoneValidationCommand.hasErrors() || isCaptchaSolved) {
+        if (domainUserPhoneValidationCommand.hasErrors() || !isCaptchaSolved) {
             render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.invalidPhone')] as JSON)
             return;
         }
