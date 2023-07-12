@@ -1,6 +1,6 @@
 
-export MEMCACHED_END_POINT=__MEMCACHED_END_POINT__
-export MEMCACHED_PORT=__MEMCACHED_PORT__
+export MEMCACHED_END_POINT=kuorum-dev-cache.0ok9f8.cfg.euw1.cache.amazonaws.com
+export MEMCACHED_PORT=11211
 
 
 export JAVA_OPTS="-Dfile.encoding=UTF-8

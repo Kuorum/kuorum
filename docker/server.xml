@@ -90,6 +90,12 @@
           <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
         </Connector>
         -->
+
+        <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+                   maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+                   keystoreFile="keystore/my_keystore" keystorePass="changeme"
+                   clientAuth="false" sslProtocol="TLS"/>
+
         <!-- Define an AJP 1.3 Connector on port 8009 -->
         <Connector port="8009" protocol="AJP/1.3" redirectPort="8443"/>
 
@@ -125,15 +131,6 @@
 
             <Host name="localhost" appBase="webapps"
                   unpackWARs="true" autoDeploy="true">
-
-                <Context path="/" docBase="ROOT" reloadalbe="">
-                    <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
-                             memcachedNodes="n1:my-memcache1:11211,n2:my-memcache2:11211"
-                             failoverNodes="n1"
-                             requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
-                             transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
-                    />
-                </Context>
                 <!-- SingleSignOn valve, share authentication between web applications
                      Documentation at: /docs/config/valve.html -->
                 <!--
