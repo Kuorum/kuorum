@@ -343,7 +343,8 @@ var userValidatedByDomain={
                     campaignId: userValidatedByDomain.dataValidation.campaignId,
                     phoneNumberPrefix: $("#phoneNumberPrefix").val(),
                     phoneNumber: $("#phoneNumber").val(),
-                    'g-recaptcha-response': captcha.grecaptchaResponse
+                    'g-recaptcha-response': captcha.grecaptchaResponse,
+                    'allowAnonymousAction':userValidatedByDomain.dataValidation.allowAnonymousAction
                 };
                 $.ajax({
                     type: "POST",
