@@ -23,7 +23,7 @@ class CaptchaService {
                     requestContentType: groovyx.net.http.ContentType.JSON)
 
             log.info("Checking CAPTCHA :: Google response - ${response.data.hostname} || domain : ${CustomDomainResolver.domain}")
-            // TODO change this ugly return
+
             def isCaptchaVerified = false
             if (response.data.hostname != CustomDomainResolver.domain) {
                 log.info("invalid captcha domain")
