@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
+import groovyx.net.http.RESTClient
 import kuorum.KuorumFile
 import kuorum.core.FileType
 import kuorum.core.customDomain.CustomDomainResolver
@@ -47,6 +48,7 @@ import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchParamsRDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.search.SearchTypeRSDTO
+import org.springframework.beans.factory.annotation.Value
 import payment.campaign.*
 import payment.contact.ContactService
 
@@ -70,6 +72,9 @@ class CampaignController {
     CookieUUIDService cookieUUIDService
     CampaignService campaignService
     SearchSolrService searchSolrService
+
+    @Value('${recaptcha.providers.google.secretKey}')
+    String RECAPTCHA_SECRET
 
     def show() {
         String viewerUid = cookieUUIDService.buildUserUUID()
@@ -517,9 +522,26 @@ class CampaignController {
                 pendingValidations: kuorumUserService.getPendingValidations(userValidationRSDTO, userSession)
         ] as JSON)
     }
+    //TODO same method logic in registerController, do refactor
+    def verifyCaptcha() {
+        String secretKey = RECAPTCHA_SECRET
+        String responseCaptcha = params['g-recaptcha-response']
+        String path = "/recaptcha/api/siteverify"
+        def query = [secret: secretKey, response: responseCaptcha]
+        RESTClient mailKuorumServices = new RESTClient("https://www.google.com")
+        def response = mailKuorumServices.get(path: path,
+                headers: ["User-Agent": "Kuorum Web"],
+                query: query,
+                requestContentType: groovyx.net.http.ContentType.JSON)
 
+        log.info("Checking CAPTCHA :: Google response - ${response.data.hostname} || domain : ${CustomDomainResolver.domain}")
+        if (!response.data.success && response.data.hostname != CustomDomainResolver.domain) return false else return true
+    }
+
+    // ajax/validation/domain-valid-phone-sendSms
     def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand) {
-        if (domainUserPhoneValidationCommand.hasErrors()) {
+        boolean isCaptchaSolved = verifyCaptcha();
+        if (domainUserPhoneValidationCommand.hasErrors() || isCaptchaSolved) {
             render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.invalidPhone')] as JSON)
             return;
         }
