@@ -527,8 +527,7 @@ class CampaignController {
 
 
     def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand) {
-        def captchaPassed = false;
-        captchaPassed = springSecurityService.isLoggedIn() || captchaService.verifyCaptcha(params['g-recaptcha-response']);
+        boolean captchaPassed = springSecurityService.isLoggedIn() || captchaService.verifyCaptcha(params['g-recaptcha-response']);
         if (domainUserPhoneValidationCommand.hasErrors() || !captchaPassed) {
             render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.invalidPhone')] as JSON)
             return;
