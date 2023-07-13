@@ -335,6 +335,7 @@ var userValidatedByDomain={
         function successCaptchaCallback() {
             if (!userValidatedByDomain.arePhonesAndPrefixEquals()) {
                 userValidatedByDomain.showErrorModal(i18n.inputs.errors.nonMatchingPhones);
+                captcha.clearCaptcha()
             } else if ($form.valid() && captcha.isRecaptchaSolved) {
                 userValidatedByDomain.showModalLoading();
                 var url = $form.attr("action");
