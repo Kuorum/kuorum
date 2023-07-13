@@ -5,7 +5,7 @@ import groovyx.net.http.RESTClient
 import kuorum.core.customDomain.CustomDomainResolver
 import org.springframework.beans.factory.annotation.Value
 
-@Transactional
+
 class CaptchaService {
 
     @Value('${recaptcha.providers.google.secretKey}')
