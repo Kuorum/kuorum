@@ -5,7 +5,9 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
+import groovyx.net.http.RESTClient
 import kuorum.KuorumFile
+import kuorum.captcha.CaptchaService
 import kuorum.core.FileType
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
@@ -47,6 +49,7 @@ import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchParamsRDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.search.SearchTypeRSDTO
+import org.springframework.beans.factory.annotation.Value
 import payment.campaign.*
 import payment.contact.ContactService
 
@@ -70,6 +73,10 @@ class CampaignController {
     CookieUUIDService cookieUUIDService
     CampaignService campaignService
     SearchSolrService searchSolrService
+
+    CaptchaService captchaService
+
+
 
     def show() {
         String viewerUid = cookieUUIDService.buildUserUUID()
@@ -518,8 +525,10 @@ class CampaignController {
         ] as JSON)
     }
 
+
     def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand) {
-        if (domainUserPhoneValidationCommand.hasErrors()) {
+        boolean captchaPassed = springSecurityService.isLoggedIn() || captchaService.verifyCaptcha(params['g-recaptcha-response']);
+        if (domainUserPhoneValidationCommand.hasErrors() || !captchaPassed) {
             render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.invalidPhone')] as JSON)
             return;
         }
