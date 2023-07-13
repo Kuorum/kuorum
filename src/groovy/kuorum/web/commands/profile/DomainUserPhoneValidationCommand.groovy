@@ -10,6 +10,8 @@ class DomainUserPhoneValidationCommand {
 
     String phoneNumberPrefix
     Long phoneNumber
+    Long phoneNumber2
+    String phoneNumberPrefix2
 
     static List<String> INVALID_PHONES = ["00291", "+291", "00292", "+292", "00299", "+299", "00298", "+298"];
     static String SPANISH_CODE = "0034"
@@ -33,5 +35,7 @@ class DomainUserPhoneValidationCommand {
                 }
             }
         }
+        phoneNumberPrefix2 nullable: true
+        phoneNumber2 nullable: true
     }
 }

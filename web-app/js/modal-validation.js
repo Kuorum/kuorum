@@ -1,4 +1,30 @@
+var captcha={
+    dataRecaptcha: '',
+    grecaptchaResponse: '',
+    callback: undefined,
+    isRecaptchaSolved: function () {
+        return captcha.grecaptchaResponse != ''
+    },
+    showCaptcha: function (callback) {
+        var submitButton = $('#validatePhoneDomain-modal-form-button-id')
+        var dataRecaptcha = submitButton.attr('data-recaptcha');
+        captcha.dataRecaptcha = dataRecaptcha
+        grecaptcha.execute(dataRecaptcha);
+        captcha.callback = callback
 
+    },
+    clearCaptcha : function () {
+        grecaptcha.reset(captcha.dataRecaptcha);
+        captcha.dataRecaptcha = '';
+        captcha.grecaptchaResponse = ''
+        captcha.callback = undefined
+    }
+}
+function captchaSolvedCallback(grecaptcha) {
+    console.log("entrando al callback del captcha")
+    captcha.grecaptchaResponse = grecaptcha;
+    captcha.callback()
+}
 
 var userValidatedByDomain={
 
@@ -12,6 +38,7 @@ var userValidatedByDomain={
     dataValidation: undefined,
     urlAnonymousValidation: undefined,
     successFunctionCallback: undefined,
+    are2ndPhoneFieldsHidden: false,
 
     initVariables: function () {
         if (!userValidatedByDomain.binded) {
@@ -53,6 +80,10 @@ var userValidatedByDomain={
     },
 
     openAndPrepareValidationModal: function () {
+        if (!userValidatedByDomain.dataValidation.allowAnonymousAction){
+          this.hide2ndPhoneFields()
+
+        }
         // Open validation modal
         $("#domain-validation").modal({
             backdrop: 'static',
@@ -83,7 +114,33 @@ var userValidatedByDomain={
             }
         }
     },
-
+    hide2ndPhoneFields: function () {
+        $(".form-group.form-group-phone.second-phone").hide()
+        userValidatedByDomain.are2ndPhoneFieldsHidden = true
+    },
+    comparePhones: function () {
+        var phoneNo1 = $("#phoneNumber").val();
+        var phoneNo2 = $("#phoneNumber2").val();
+        var arePhonesEquals = phoneNo1 === phoneNo2;
+        return arePhonesEquals;
+    },
+    comparePhonesPrefix: function () {
+        var phonePrefixNo1 = $("#phoneNumberPrefix").val();
+        var phonePrefixNo2 = $("#phoneNumberPrefix2").val();
+        var arePhonesPrefixesEquals = phonePrefixNo1 === phonePrefixNo2;
+        return arePhonesPrefixesEquals;
+    },
+    arePhonesAndPrefixEquals: function (){
+        var samePhoneData;
+        if (!userValidatedByDomain.are2ndPhoneFieldsHidden) {
+            var samePhones = userValidatedByDomain.comparePhones();
+            var samePhonePrefix = userValidatedByDomain.comparePhonesPrefix();
+            samePhoneData = samePhones && samePhonePrefix;
+        } else {
+            samePhoneData = true;
+        }
+        return samePhoneData;
+    },
     executeClickButtonHandlingValidations: function ($button, executableFunctionCallback) {
         userValidatedByDomain.initDataValidation($button, executableFunctionCallback);
         if (userValidatedByDomain.dataValidation.validationActive == "true") {
@@ -270,48 +327,58 @@ var userValidatedByDomain={
         $("#domain-validation .modal-domain-validation-groupCampaign").show();
     },
 
-    sendSMSForPhoneValidation:function(e){
+    sendSMSForPhoneValidation:function(e) {
         e.preventDefault();
         var $button = $(this);
         var $form = $button.closest("form");
-        if ($form.valid()) {
-            userValidatedByDomain.showModalLoading();
-            var url = $form.attr("action");
-            console.log("CampaignID: "+userValidatedByDomain.dataValidation.campaignId);
-            var data = {
-                campaignId:userValidatedByDomain.dataValidation.campaignId,
-                phoneNumberPrefix: $("#phoneNumberPrefix").val(),
-                phoneNumber: $("#phoneNumber").val()
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function (dataSms) {
-                    console.log(dataSms)
-                    if (dataSms.success) {
-                        $("#phoneHash").val(dataSms.hash)
-                        $("#validationPhoneNumber").val(dataSms.validationPhoneNumber)
-                        $("#validationPhoneNumberPrefix").val(dataSms.validationPhoneNumberPrefix)
-                        if (dataSms.validated) {
-                            // This phone is already validated
-                            userValidatedByDomain.nextValidationStep(dataSms);
+
+        function successCaptchaCallback() {
+            if (!userValidatedByDomain.arePhonesAndPrefixEquals()) {
+                userValidatedByDomain.showErrorModal(i18n.inputs.errors.nonMatchingPhones);
+            } else if ($form.valid() && captcha.isRecaptchaSolved) {
+                userValidatedByDomain.showModalLoading();
+                var url = $form.attr("action");
+                console.log("CampaignID: " + userValidatedByDomain.dataValidation.campaignId);
+                var data = {
+                    campaignId: userValidatedByDomain.dataValidation.campaignId,
+                    phoneNumberPrefix: $("#phoneNumberPrefix").val(),
+                    phoneNumber: $("#phoneNumber").val(),
+                    'g-recaptcha-response': captcha.grecaptchaResponse,
+                    'allowAnonymousAction':userValidatedByDomain.dataValidation.allowAnonymousAction
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (dataSms) {
+                        console.log(dataSms)
+                        if (dataSms.success) {
+                            captcha.clearCaptcha()
+                            $("#phoneHash").val(dataSms.hash)
+                            $("#validationPhoneNumber").val(dataSms.validationPhoneNumber)
+                            $("#validationPhoneNumberPrefix").val(dataSms.validationPhoneNumberPrefix)
+                            if (dataSms.validated) {
+                                // This phone is already validated
+                                userValidatedByDomain.nextValidationStep(dataSms);
+                            } else {
+                                userValidatedByDomain.showPhoneValidationStep2();
+                            }
                         } else {
-                            userValidatedByDomain.showPhoneValidationStep2();
+                            userValidatedByDomain.showErrorModal(dataSms.msg)
                         }
-                    }else{
-                        userValidatedByDomain.showErrorModal(dataSms.msg)
+                    },
+                    error: function (dataError) {
+                        display.error("There was an error sending a sms validation to your phone number")
+                    },
+                    complete: function () {
+                        pageLoadingOff();
+                        // userValidatedByDomain.hideModalLoading()
                     }
-                },
-                error: function (dataError) {
-                    display.error("There was an error sending a sms validation to your phone number")
-                },
-                complete: function () {
-                    pageLoadingOff();
-                    // userValidatedByDomain.hideModalLoading()
-                }
-            });
+                });
+            }
         }
+
+        captcha.showCaptcha(successCaptchaCallback)
     },
 
     handleSubmitValidationPhone:function(e){

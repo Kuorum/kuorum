@@ -22,6 +22,11 @@
 <script>
 //    TODO: Use jawr. The actual version ignore codification
     var i18n = {
+        inputs:{
+            errors:{
+                nonMatchingPhones: "<g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber2.nonMatchingPhones"/>"
+            }
+        },
         uploader:{
             error:{
                 sizeError: "<g:message code="uploader.error.sizeError"/>",

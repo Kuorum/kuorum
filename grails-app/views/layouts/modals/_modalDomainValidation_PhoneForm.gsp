@@ -17,7 +17,7 @@
                 <formUtil:selectPhonePrefix
                         command="${validatePhoneCommand}"
                         field="phoneNumberPrefix"
-                        showLabel="false"
+                        showLabel="true"
                         placeHolder=""
                         cssClass="form-control input-lg"
                         required="true"
@@ -31,11 +31,29 @@
                         type="number"
                         required="true"/>
             </div>
+            <div class="form-group form-group-phone second-phone">
+                <formUtil:selectPhonePrefix
+                        command="${validatePhoneCommand}"
+                        field="phoneNumberPrefix2"
+                        showLabel="true"
+                        placeHolder=""
+                        cssClass="form-control input-lg"
+                        required="true"
+                />
+                <formUtil:input
+                        command="${validatePhoneCommand}"
+                        field="phoneNumber2"
+                        showLabel="true"
+                        placeHolder=""
+                        cssClass="form-control input-lg"
+                        type="number"
+                        required="false"/>
+            </div>
         </div>
 
 
         <fieldset aria-live="polite" class="center modal-login-action-buttons">
-            <button id="validatePhoneDomain-modal-form-button-id" class="btn btn-orange">
+            <button id="validatePhoneDomain-modal-form-button-id" data-recaptcha=""  data-callback="captchaSolvedCallback" class="btn btn-orange g-recaptcha">
                 <g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.modal.submit"/>
             </button>
         </fieldset>
