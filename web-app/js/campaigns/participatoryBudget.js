@@ -42,16 +42,30 @@ $(function () {
 
     });
 
-    $("#participatoryBudget-districtProposals-list ul.nav-pills-lvl2 > li > a").on("click", function(e){
+    $("#participatoryBudget-districtProposals-list ul.nav-pills-lvl2 > li > a").on("click", function (e) {
         e.preventDefault();
         var $a = $(this);
         var direction = $a.attr("data-direction");
-        if (typeof direction !== typeof undefined && direction !== false){
-            participatoryBudgetHelper.clickOrderTabDirection($a)
-        }else{
-            participatoryBudgetHelper.clickOrderTabRandomSeed($a)
+        var datalistSelector = $a.attr("data-listselector");
+
+        switch (datalistSelector) {
+            case 'price':
+                if (typeof direction !== typeof undefined && direction !== false) {
+                    participatoryBudgetHelper.clickOrderTabDirection($a)
+                }
+                break;
+            case 'random':
+                participatoryBudgetHelper.clickOrderTabRandomSeed($a)
+                break;
+            case 'voted':
+                participatoryBudgetHelper.clickOrderByVotedUser($a)
+                break;
+            default:
+                console.log('Error filtering proposals');
         }
     });
+
+
 
     $("#participatoryBudget-districtProposals-list").on("click",'.load-more-district-proposals', function(e){
         e.preventDefault();
@@ -202,6 +216,20 @@ var participatoryBudgetHelper={
             participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
         }
 
+    },
+
+    clickOrderByVotedUser:function($a){
+        $a.parent().parent().children().removeClass("active"); // Removes active of other tab links
+        $a.parent().addClass("active"); // Set as active the current tab
+        var districtId = $a.attr("data-districtId");
+        var selector = $a.attr("data-listSelector");
+        var divId = "#proposal-district-"+districtId;
+        var ulId = divId +"> ul.search-list."+selector;
+        $(divId +"> ul.search-list").hide();
+        $(ulId).show();
+        if ($(ulId+ " > li").length <= 0) {
+            participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
+        }
     },
 
     moveAndOpenDistrict:function(districtName){
