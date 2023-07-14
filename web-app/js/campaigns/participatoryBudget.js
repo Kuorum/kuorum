@@ -46,35 +46,25 @@ $(function () {
         e.preventDefault();
         var $a = $(this);
         var direction = $a.attr("data-direction");
-        var orderType = $a.attr("data-listselector");
+        var datalistSelector = $a.attr("data-listselector");
 
-        switch (orderType) {
-            case 'random':
-                console.log('rand')
-                participatoryBudgetHelper.clickOrderTabRandomSeed($a)
-                break;
+        switch (datalistSelector) {
             case 'price':
                 if (typeof direction !== typeof undefined && direction !== false) {
-                    console.log('price')
                     participatoryBudgetHelper.clickOrderTabDirection($a)
                 }
                 break;
+            case 'random':
+                participatoryBudgetHelper.clickOrderTabRandomSeed($a)
+                break;
             case 'voted':
-                console.log('voted')
-                var selector = $('a[data-listselector="voted"]')
-                participatoryBudgetHelper.clickOrderByVotedUser(selector)
+                participatoryBudgetHelper.clickOrderByVotedUser($a)
                 break;
             default:
-                console.log('filter not defined');
+                console.log('Error filtering proposals');
         }
-
     });
 
-/*    $(document).on("click",'a[data-listselector="voted"]',function (){
-        console.log('executing order voted by user')
-        var $a = $(this)
-        participatoryBudgetHelper.clickOrderByVotedUser($a)
-    })*/
 
 
     $("#participatoryBudget-districtProposals-list").on("click",'.load-more-district-proposals', function(e){
@@ -232,11 +222,12 @@ var participatoryBudgetHelper={
         $a.parent().parent().children().removeClass("active"); // Removes active of other tab links
         $a.parent().addClass("active"); // Set as active the current tab
         var districtId = $a.attr("data-districtId");
+        var selector = $a.attr("data-listSelector");
         var divId = "#proposal-district-"+districtId;
-        var ulId = $('ul.search-list.clearfix.voted')
+        var ulId = divId +"> ul.search-list."+selector;
         $(divId +"> ul.search-list").hide();
         $(ulId).show();
-        if (ulId + " > li".length <= 0) {
+        if ($(ulId+ " > li").length <= 0) {
             participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
         }
     },

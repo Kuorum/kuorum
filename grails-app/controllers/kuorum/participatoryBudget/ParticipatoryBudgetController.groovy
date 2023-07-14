@@ -259,8 +259,9 @@ class ParticipatoryBudgetController extends CampaignController {
         } else {
             filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field: FilterDistrictProposalRDTO.SortableFieldRDTO.PRICE, direction: DirectionDTO.ASC)
         }
+        // TODO May be, you should use the data of the user logged instead of param. This is for security reasons.
         if (params.voter){
-            String voter = params.voter
+            String voter = userUtil.loggedUserId()
             filter = new FilterDistrictProposalRDTO(voter: voter)
         }
 
