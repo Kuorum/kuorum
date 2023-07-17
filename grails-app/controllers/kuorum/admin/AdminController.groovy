@@ -132,6 +132,7 @@ class AdminController {
         domainValidationCommand.isSocialNetwork = domainRSDTO.isSocialNetwork
         domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
         domainValidationCommand.tourEnabled = domainRSDTO.tourEnabled
+        domainValidationCommand.showRegisterButton = domainRSDTO.showRegisterButton
         domainValidationCommand.externalIdName = domainRSDTO.externalIdName
 
         domainValidationCommand.providerBasicEmailForm = domainRSDTO.loginSettings.providerBasicEmailForm
@@ -143,13 +144,18 @@ class AdminController {
         [command: domainValidationCommand] + modelAuthorizedCampaigns
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN', 'ROLE_ADMIN'])
     def domainValidationSave(DomainValidationCommand command) {
+
         if (command.hasErrors()) {
             render view: 'domainValidation', model: [command: command]
             return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
+        if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")){
+            domainRDTO.showRegisterButton = command.showRegisterButton != null && command.showRegisterButton
+        }
+
         if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")) {
             domainRDTO.validationCensus = command.validationCensus ?: false
             domainRDTO.validationCode = command.validationCode ?: false
@@ -161,7 +167,7 @@ class AdminController {
             domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
             domainRDTO.firstFactorValidation = command.firstFactorValidation
             domainRDTO.externalIdName = command.externalIdName
-
+            domainRDTO.showRegisterButton = command.showRegisterButton != null && command.showRegisterButton
             domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
             domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
             domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false

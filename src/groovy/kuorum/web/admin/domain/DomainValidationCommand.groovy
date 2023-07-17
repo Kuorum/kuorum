@@ -20,6 +20,7 @@ class DomainValidationCommand {
     Boolean isSocialNetwork
     Boolean isUserProfileExtended
     Boolean tourEnabled
+    Boolean showRegisterButton
 
     Boolean providerBasicEmailForm
     Boolean providerGoogle
@@ -27,8 +28,8 @@ class DomainValidationCommand {
     Boolean providerAoc
 
     static constraints = {
-        domainPrivacy nullable: false
-        firstFactorValidation nullable: false
+        domainPrivacy nullable: true
+        firstFactorValidation nullable: true
         externalIdName nullable: true
         validationCensus nullable: true
         validationPhone nullable: true
@@ -37,6 +38,7 @@ class DomainValidationCommand {
         isSocialNetwork nullable: true
         isUserProfileExtended nullable: true
         tourEnabled nullable: true
+        showRegisterButton nullable: true
         smsDomainName nullable: true, matches: '[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*', maxSize: 11
         defaultPhonePrefix nullable: true
         providerBasicEmailForm nullable: true
