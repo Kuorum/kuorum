@@ -132,7 +132,6 @@ class AdminController {
         domainValidationCommand.isSocialNetwork = domainRSDTO.isSocialNetwork
         domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
         domainValidationCommand.tourEnabled = domainRSDTO.tourEnabled
-        domainValidationCommand.showRegisterButton = domainRSDTO.showRegisterButton
         domainValidationCommand.externalIdName = domainRSDTO.externalIdName
 
         domainValidationCommand.providerBasicEmailForm = domainRSDTO.loginSettings.providerBasicEmailForm
@@ -152,10 +151,6 @@ class AdminController {
             return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
-        if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")){
-            domainRDTO.showRegisterButton = command.showRegisterButton != null && command.showRegisterButton
-        }
-
         if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")) {
             domainRDTO.validationCensus = command.validationCensus ?: false
             domainRDTO.validationCode = command.validationCode ?: false
@@ -167,7 +162,6 @@ class AdminController {
             domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
             domainRDTO.firstFactorValidation = command.firstFactorValidation
             domainRDTO.externalIdName = command.externalIdName
-            domainRDTO.showRegisterButton = command.showRegisterButton != null && command.showRegisterButton
             domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
             domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
             domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false
@@ -192,6 +186,7 @@ class AdminController {
         domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect { new LinkCommand(title: it.key, url: it.value) }
         domainLandingCommand.landingVisibleRoles = domainRSDTO.landingVisibleRoles
         domainLandingCommand.showLandingLogin = domainRSDTO.getLoginSettings().getShowLandingLogin() ?: false
+        domainLandingCommand.showRegisterButton = domainRSDTO.showRegisterButton ?: false
         [command: domainLandingCommand]
     }
 
@@ -208,6 +203,7 @@ class AdminController {
         domainRDTO.footerLinks = command.footerLinks?.findAll { it }?.collectEntries { [(it.title): it.url] } ?: null
         domainRDTO.landingVisibleRoles = command.landingVisibleRoles
         domainRDTO.getLoginSettings().showLandingLogin = command.showLandingLogin ?: false
+        domainRDTO.showRegisterButton = command.showRegisterButton?: false
         domainService.updateConfig(domainRDTO)
         flash.message = "Success"
         redirect mapping: 'adminDomainConfigLanding'

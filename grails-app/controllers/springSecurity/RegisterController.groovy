@@ -57,7 +57,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         copy.remove 'action'
         def config = SpringSecurityUtils.securityConfig
 
-        registerButtonDisabledRedirect();
+        checkRegisterActiveAndRedirect();
 
         if (springSecurityService.isLoggedIn()) {
             redirect uri: config.successHandler.defaultTargetUrl
@@ -67,7 +67,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         [command: new KuorumRegisterCommand(copy)]
     }
 
-    private void registerButtonDisabledRedirect() {
+    private void checkRegisterActiveAndRedirect() {
         if (domainService.getConfig(CustomDomainResolver.domain).getShowRegisterButton()) {
         } else {
             log.info("Trying to register with register button hidden")
