@@ -143,7 +143,7 @@ class AdminController {
         [command: domainValidationCommand] + modelAuthorizedCampaigns
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN', 'ROLE_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def domainValidationSave(DomainValidationCommand command) {
 
         if (command.hasErrors()) {
@@ -151,22 +151,21 @@ class AdminController {
             return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
-        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")) {
-            domainRDTO.validationCensus = command.validationCensus ?: false
-            domainRDTO.validationCode = command.validationCode ?: false
-            domainRDTO.validationPhone = command.validationPhone ?: false
-            domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
-            domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
-            domainRDTO.tourEnabled = command.tourEnabled != null && command.tourEnabled
-            domainRDTO.smsDomainName = command.smsDomainName ?: ''
-            domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
-            domainRDTO.firstFactorValidation = command.firstFactorValidation
-            domainRDTO.externalIdName = command.externalIdName
-            domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
-            domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
-            domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false
-            domainRDTO.loginSettings.providerAoc = command.providerAoc ?: false
-        }
+        domainRDTO.validationCensus = command.validationCensus ?: false
+        domainRDTO.validationCode = command.validationCode ?: false
+        domainRDTO.validationPhone = command.validationPhone ?: false
+        domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
+        domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
+        domainRDTO.tourEnabled = command.tourEnabled != null && command.tourEnabled
+        domainRDTO.smsDomainName = command.smsDomainName ?: ''
+        domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
+        domainRDTO.firstFactorValidation = command.firstFactorValidation
+        domainRDTO.externalIdName = command.externalIdName
+        domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
+        domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
+        domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false
+        domainRDTO.loginSettings.providerAoc = command.providerAoc ?: false
+
         domainRDTO.domainPrivacy = command.domainPrivacy
         DomainRSDTO domainRSDTO= domainService.updateConfig(domainRDTO)
 
