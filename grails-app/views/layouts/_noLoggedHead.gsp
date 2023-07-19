@@ -48,13 +48,14 @@
             <span><g:message code="head.noLogged.login"/></span>
         </g:link>
     </li>
-
-    <li>
-        <g:link mapping="register"
-                class="navbar-link btn btn-transparent ${nav.activeMenuCss(mappingName: 'register')}">
-            <span><g:message code="login.head.register"/></span>
-        </g:link>
-    </li>
+    <g:if test="${showRegisterButton}">
+        <li>
+            <g:link mapping="register"
+                    class="navbar-link btn btn-transparent ${nav.activeMenuCss(mappingName: 'register')}">
+                <span><g:message code="login.head.register"/></span>
+            </g:link>
+        </li>
+    </g:if>
 
     %{--<li>--}%
     %{--<g:set var="logInMapping" value="loginAuth"/>--}%

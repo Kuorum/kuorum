@@ -16,7 +16,7 @@
                     <sec:ifNotLoggedIn>
                     %{--<g:include controller="login" action="headAuth"/>--}%
                         <g:render template="/layouts/noLoggedHead"
-                                  model="[registerCommand: new springSecurity.KuorumRegisterCommand()]"/>
+                                  model="[registerCommand: new springSecurity.KuorumRegisterCommand(), showRegisterButton : kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.showRegisterButton]"/>
                     </sec:ifNotLoggedIn>
                 </nav:ifPageProperty>
             </div>

@@ -76,6 +76,9 @@
         <div class="form-group col-md-12">
             <formUtil:checkBox command="${command}" field="showLandingLogin" showLabel="true"/>
         </div>
+        <div class="form-group col-md-12">
+            <formUtil:checkBox command="${command}" field="showRegisterButton" showLabel="true"/>
+        </div>
 
     </fieldset>
 </div>

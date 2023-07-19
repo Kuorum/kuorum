@@ -145,28 +145,27 @@ class AdminController {
 
     @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def domainValidationSave(DomainValidationCommand command) {
+
         if (command.hasErrors()) {
             render view: 'domainValidation', model: [command: command]
             return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
-        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")) {
-            domainRDTO.validationCensus = command.validationCensus ?: false
-            domainRDTO.validationCode = command.validationCode ?: false
-            domainRDTO.validationPhone = command.validationPhone ?: false
-            domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
-            domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
-            domainRDTO.tourEnabled = command.tourEnabled != null && command.tourEnabled
-            domainRDTO.smsDomainName = command.smsDomainName ?: ''
-            domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
-            domainRDTO.firstFactorValidation = command.firstFactorValidation
-            domainRDTO.externalIdName = command.externalIdName
+        domainRDTO.validationCensus = command.validationCensus ?: false
+        domainRDTO.validationCode = command.validationCode ?: false
+        domainRDTO.validationPhone = command.validationPhone ?: false
+        domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
+        domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
+        domainRDTO.tourEnabled = command.tourEnabled != null && command.tourEnabled
+        domainRDTO.smsDomainName = command.smsDomainName ?: ''
+        domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
+        domainRDTO.firstFactorValidation = command.firstFactorValidation
+        domainRDTO.externalIdName = command.externalIdName
+        domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
+        domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
+        domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false
+        domainRDTO.loginSettings.providerAoc = command.providerAoc ?: false
 
-            domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
-            domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
-            domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false
-            domainRDTO.loginSettings.providerAoc = command.providerAoc ?: false
-        }
         domainRDTO.domainPrivacy = command.domainPrivacy
         DomainRSDTO domainRSDTO= domainService.updateConfig(domainRDTO)
 
@@ -186,6 +185,7 @@ class AdminController {
         domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect { new LinkCommand(title: it.key, url: it.value) }
         domainLandingCommand.landingVisibleRoles = domainRSDTO.landingVisibleRoles
         domainLandingCommand.showLandingLogin = domainRSDTO.getLoginSettings().getShowLandingLogin() ?: false
+        domainLandingCommand.showRegisterButton = domainRSDTO.showRegisterButton ?: false
         [command: domainLandingCommand]
     }
 
@@ -202,6 +202,7 @@ class AdminController {
         domainRDTO.footerLinks = command.footerLinks?.findAll { it }?.collectEntries { [(it.title): it.url] } ?: null
         domainRDTO.landingVisibleRoles = command.landingVisibleRoles
         domainRDTO.getLoginSettings().showLandingLogin = command.showLandingLogin ?: false
+        domainRDTO.showRegisterButton = command.showRegisterButton?: false
         domainService.updateConfig(domainRDTO)
         flash.message = "Success"
         redirect mapping: 'adminDomainConfigLanding'
