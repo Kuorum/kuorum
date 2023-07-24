@@ -24,7 +24,7 @@ class WebConstants {
     public static final String WEB_PARAM_LANG = "lang"
 
     public static final String FAKE_LANDING_ALIAS_USER = "admin"
-    public static final Integer MIN_FILES_PER_DOC_IN_CONTEST = 2;
+    public static final Integer MIN_FILES_PER_DOC_IN_CONTEST = 3;
 
     public static final String FAKE_USER_EMAIL_DOMAIN = "@fake.com"
     public static final String NO_REAL_USER_EMAIL_DOMAIN = "@norealuser.com"
