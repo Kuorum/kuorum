@@ -49,8 +49,8 @@ class FunnelFillBasicDataCommand {
                 return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
             }
         }
-        bio nullable: false, maxSize: 500
-        bio2 nullable: false, maxSize: 800
+        bio nullable: false, maxCharsHtml: 500
+        bio2 nullable: false, maxCharsHtml: 800
         contactName nullable: false, maxSize: 70
     }
 
