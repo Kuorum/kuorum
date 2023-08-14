@@ -13,7 +13,6 @@ public class CalculaNif {
     private final String letrasCifNoAutorizadasAsociaciones = "AB";
     private final String letrasNie = "XYZ";
     private final String digitoControlCif = "JABCDEFGHI";
-//    private final String cifNumero = "ABEH";
     private final String cifLetra = "KPQRSNW";
 
     private boolean isValidFormat = false;
@@ -22,7 +21,7 @@ public class CalculaNif {
 
     public CalculaNif(String nif) {
         this.nif = nif.toUpperCase();
-        this.isValidFormat = this.nif ==~ /[A-Z]*[0-9]{8,9}[A-Z]*/
+        this.isValidFormat = this.nif ==~ "^(?:[A-Z]\\d{7}[A-Z]|[A-Z]\\d{8}|\\d{8}[A-Z])\$"
     }
 
     def getNif() {
