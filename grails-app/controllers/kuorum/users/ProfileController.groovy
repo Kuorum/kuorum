@@ -509,6 +509,7 @@ class ProfileController {
 
     def saveFunnelFillBasicData(FunnelFillBasicDataCommand command) {
         KuorumUser user = params.user
+        KuorumUserSession userSession
         if (command.hasErrors()) {
             handleSaveFunnelFillBasicDataErrorCommand(command, user)
             return;
@@ -526,8 +527,6 @@ class ProfileController {
 
         ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
         contact.setName(user.name);
-        contact.setPhone(command.phone);
-        contact.setPhonePrefix(command.phonePrefix);
         contact.setExternalId(command.nid);
         try {
             contactService.updateContact(WebConstants.FAKE_LANDING_ALIAS_USER, contact, contact.getId())
@@ -535,14 +534,31 @@ class ProfileController {
             command.errors.rejectValue("phone", "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.phone.repeated")
             handleSaveFunnelFillBasicDataErrorCommand(command, user)
             return;
-        } finally{
-            Map<String,String> extraInfoList = new HashMap<>();
-            extraInfoList.put(command.contactName,command.phone);
-            KuorumUserSession userSession = springSecurityService.principal
-            contactService.putExtraInfo(userSession, contact.getId(), extraInfoList)
         }
 
+        Map <String,String> actualMetadata = new HashMap<>();
+        actualMetadata.put(command.contactName,command.phone);
+
+        Map <String,String> filledHashMap = fillMetaDataHashMap(actualMetadata,contact)
+        saveMetaDataHashMapToContact(filledHashMap, contact)
+
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
+    }
+    private Map<String, String> fillMetaDataHashMap(Map <String,String> actualMetadata,ContactRSDTO contact) {
+        KuorumUserSession userSession = springSecurityService.principal
+        Map <String,String> previousMetadata = contactService.getExtraInfo(userSession, contact.getId());
+        Map<String, String> joinedHashmap = new HashMap<>();
+        if (previousMetadata != null && !previousMetadata.isEmpty()) {
+            joinedHashmap.putAll(previousMetadata);
+        }
+        joinedHashmap.putAll(actualMetadata);
+
+        return joinedHashmap;
+    }
+
+    private def saveMetaDataHashMapToContact(Map <String,String> joinedHashmap, ContactRSDTO contact) {
+        KuorumUserSession userSession = springSecurityService.principal
+        contactService.putExtraInfo(userSession,contact.getId(), joinedHashmap)
     }
 
     private def handleSaveFunnelFillBasicDataErrorCommand(FunnelFillBasicDataCommand command, KuorumUser user) {
