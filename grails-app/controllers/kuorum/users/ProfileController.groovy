@@ -495,8 +495,6 @@ class ProfileController {
         redirect(mapping: 'profileNewsletterConfig')
     }
 
-    private static final String PREFIX_CONTACT_NOTE = "Contacto: "
-
     def funnelFillBasicData() {
         KuorumUser user = params.user
         FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
@@ -506,13 +504,6 @@ class ProfileController {
         command.phone = user.personalData?.telephone
         command.phonePrefix = user.personalData?.phonePrefix
         command.nid = user.nid
-        ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
-        if (!contact || !contact.notes) {
-            command.contactName = user.name
-        } else {
-            command.contactName = contact.notes.startsWith(PREFIX_CONTACT_NOTE) ? contact.notes - PREFIX_CONTACT_NOTE : '';
-            command.name = user.name
-        }
         return [command: command]
     }
 
@@ -534,7 +525,6 @@ class ProfileController {
         kuorumUserService.updateUser(user)
 
         ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
-        contact.setNotes(PREFIX_CONTACT_NOTE + command.contactName);
         contact.setName(user.name);
         contact.setPhone(command.phone);
         contact.setPhonePrefix(command.phonePrefix);
@@ -545,6 +535,11 @@ class ProfileController {
             command.errors.rejectValue("phone", "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.phone.repeated")
             handleSaveFunnelFillBasicDataErrorCommand(command, user)
             return;
+        } finally{
+            Map<String,String> extraInfoList = new HashMap<>();
+            extraInfoList.put(command.contactName,command.phone);
+            KuorumUserSession userSession = springSecurityService.principal
+            contactService.putExtraInfo(userSession, contact.getId(), extraInfoList)
         }
 
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
