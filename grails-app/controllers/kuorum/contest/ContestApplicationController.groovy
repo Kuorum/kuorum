@@ -109,9 +109,13 @@ class ContestApplicationController extends CampaignController {
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveContent(CampaignContentCommand command) {
         Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
-        if (command.hasErrors()) {
-            if (command.errors.getFieldError().arguments.first() == "publishOn") {
-                flash.error = message(code: "debate.scheduleError")
+        if (command.hasErrors() || command.headerPictureId == null) {
+            if (command.hasErrors()) {
+                if (command.errors.getFieldError().arguments.first() == "publishOn") {
+                    flash.error = message(code: "debate.scheduleError")
+                }
+            } else {
+                flash.error = message(code: "contestApplication.imageUrl.nullable") // Additional error message for contestApplication with no uploaded image
             }
             render view: 'editContentStep', model: campaignModelContent(campaignId, null, command, contestApplicationService)
             return
