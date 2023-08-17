@@ -9,11 +9,11 @@ package kuorum.util.cif
 public class CalculaNif {
 
     private final String letrasNif = "TRWAGMYFPDXBNJZSQVHLCKE";
-    private final String letrasCif = "ABCDEFGHJKLMNPQRSUVW";
     private final String letrasCifNoAutorizadasAsociaciones = "AB";
     private final String letrasNie = "XYZ";
     private final String digitoControlCif = "JABCDEFGHI";
     private final String cifLetra = "KPQRSNW";
+    private final String letrasInicioAutorizadas = "CDEFGHJKLMNPQRSUVW"
 
     private boolean isValidFormat = false;
 
@@ -21,7 +21,7 @@ public class CalculaNif {
 
     public CalculaNif(String nif) {
         this.nif = nif.toUpperCase();
-        this.isValidFormat = this.nif ==~ "^(?:[A-Z]\\d{7}[A-Z]|[A-Z]\\d{8}|\\d{8}[A-Z])\$"
+        this.isValidFormat = this.nif ==~ "^(?:[" + letrasInicioAutorizadas + "][0-9]{7}[A-Z]|[" + letrasInicioAutorizadas + "][0-9]{8})\$"
     }
 
     def getNif() {
@@ -40,7 +40,7 @@ public class CalculaNif {
         }
         String a = nif.substring(0, 1);
 
-        if (letrasCif.contains(a)) {
+        if (letrasInicioAutorizadas.contains(a)) {
             return calculaCif(nif);
         } else if (letrasNie.contains(a)) {
             return calculaNie(nif);
@@ -61,7 +61,7 @@ public class CalculaNif {
         }
         String a = nif.substring(0, 1);
 
-        if (letrasCif.contains(a)) {
+        if (letrasInicioAutorizadas.contains(a)) {
             return isCifValido(nif);
         } else if (letrasNie.contains(a)) {
             return isNieValido(nif);

@@ -35,13 +35,14 @@ class FunnelFillBasicDataCommand {
     String bio2;
     String contactName;
     static constraints = {
+        String ALLOWED_LETTERS = "CDEFGHJKLMNPQRSUVW"
         importFrom KuorumUser, include: ["alias"]
         name nullable: false, maxSize: 70
         // WILL BE IGNORED. IS ONLY FOR VIEW
         email nullable: true
         phonePrefix nullable: false
         phone nullable: false, matches: "^[0-9]{9}\$"
-        nid nullable: false, matches: "^(?:[A-Z]\\d{7}[A-Z]|[A-Z]\\d{8}|\\d{8}[A-Z])\$", validator: { val, obj ->
+        nid nullable: false, matches:"^(?![0-9]{8}[A-Z]\$)(?:[" + ALLOWED_LETTERS + "][0-9]{7}[A-Z]|[" + ALLOWED_LETTERS + "][0-9]{8})\$", validator: { val, obj ->
             CalculaNif calculaNif = new CalculaNif(val)
             if (!calculaNif.isValid()) {
                 return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
