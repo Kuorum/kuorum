@@ -536,29 +536,25 @@ class ProfileController {
             return;
         }
 
-        Map <String,String> actualMetadata = new HashMap<>();
-        actualMetadata.put(command.contactName,command.phone);
-
-        Map <String,String> filledHashMap = fillMetaDataHashMap(actualMetadata,contact)
-        saveMetaDataHashMapToContact(filledHashMap, contact)
+        Map <String,String> contactExtraInfo = getContactExtraInfo(contact, command)
+        saveMetaDataHashMapToContact(contactExtraInfo, contact)
 
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
     }
-    private Map<String, String> fillMetaDataHashMap(Map <String,String> actualMetadata,ContactRSDTO contact) {
+    private Map<String, String> getContactExtraInfo(ContactRSDTO contact, FunnelFillBasicDataCommand command) {
         KuorumUserSession userSession = springSecurityService.principal
-        Map <String,String> previousMetadata = contactService.getExtraInfo(userSession, contact.getId());
-        Map<String, String> joinedHashmap = new HashMap<>();
-        if (previousMetadata != null && !previousMetadata.isEmpty()) {
-            joinedHashmap.putAll(previousMetadata);
+        Map<String, String> contactExtraInfo = contactService.getExtraInfo(userSession, contact.getId())
+        if (contactExtraInfo == null) {
+            contactExtraInfo = new HashMap<>()
+        } else {
+            contactExtraInfo.put(command.contactName, command.phone)
         }
-        joinedHashmap.putAll(actualMetadata);
-
-        return joinedHashmap;
+        return contactExtraInfo
     }
 
-    private def saveMetaDataHashMapToContact(Map <String,String> joinedHashmap, ContactRSDTO contact) {
+    private def saveMetaDataHashMapToContact(Map <String,String> contactExtraInfo, ContactRSDTO contact) {
         KuorumUserSession userSession = springSecurityService.principal
-        contactService.putExtraInfo(userSession,contact.getId(), joinedHashmap)
+        contactService.putExtraInfo(userSession,contact.getId(), contactExtraInfo)
     }
 
     private def handleSaveFunnelFillBasicDataErrorCommand(FunnelFillBasicDataCommand command, KuorumUser user) {
