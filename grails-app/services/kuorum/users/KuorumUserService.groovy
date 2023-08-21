@@ -91,6 +91,7 @@ class KuorumUserService {
         userDataRDTO.socialLinks = kuorumUserRSDTO.socialLinks
         userDataRDTO.bio = kuorumUserRSDTO.bio
         userDataRDTO.timeZoneId = kuorumUserRSDTO.timeZoneId
+        userDataRDTO.nid = kuorumUserRSDTO.nid
         return userDataRDTO
     }
 

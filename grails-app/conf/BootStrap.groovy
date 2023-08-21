@@ -1,4 +1,5 @@
 import com.mongodb.BasicDBObject
+import constraints.MaxCharsHtmlConstraint
 import grails.async.Promise
 import grails.util.Holders
 import kuorum.core.annotations.MongoUpdatable
@@ -6,6 +7,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.domain.DomainService
 import kuorum.files.LessCompilerService
+import org.codehaus.groovy.grails.validation.ConstrainedProperty
 import org.kuorum.rest.model.domain.DomainRSDTO
 import org.slf4j.MDC
 import org.springframework.beans.factory.annotation.Value
@@ -20,6 +22,9 @@ class BootStrap {
     LessCompilerService lessCompilerService
     DomainService domainService
     def init = { servletContext ->
+        ConstrainedProperty.registerNewConstraint(
+                MaxCharsHtmlConstraint.MAX_CHARS_HTML_CONSTRAINT,
+                MaxCharsHtmlConstraint.class);
 //        System.setProperty("https.protocols","TLSv1.2")
 
 //        javax.servlet.http.HttpServletRequest.metaClass.getSiteUrl = {
