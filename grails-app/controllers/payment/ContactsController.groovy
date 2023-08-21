@@ -206,9 +206,32 @@ class ContactsController {
             render([err: g.message(code: 'tools.contact.edit.error')] as JSON)
             return
         }
-        Map<String, String> extraInfo = extraInfoCommand.extraInfo.collectEntries { [it.key, it.value] }
-        contactService.putExtraInfo(user, contact.getId(), extraInfo)
-        render([msg: g.message(code: 'tools.contact.edit.success', args: [contact.name])] as JSON)
+        if (extraInfoCommand.extraInfo) {
+            boolean allKeysNotNull = extraInfoCommand.extraInfo.every { key -> key != null }
+            if (allKeysNotNull) {
+                Map<String, String> extraInfo = extraInfoCommand.extraInfo.collectEntries { [it.key, it.value] }
+                contactService.putExtraInfo(user, contact.getId(), extraInfo)
+                render([msg: g.message(code: 'tools.contact.edit.success', args: [contact.name])] as JSON)
+            } else {
+                removeNullKeys(extraInfoCommand)
+                Map<String, String> extraInfo = extraInfoCommand.extraInfo.collectEntries { [it.key, it.value] }
+                contactService.putExtraInfo(user, contact.getId(), extraInfo)
+                render([msg: g.message(code: 'tools.contact.edit.success', args: [contact.name])] as JSON)
+                return
+            }
+        } else {
+            Map<String, String> emptyExtraInfo = [:]
+            contactService.putExtraInfo(user, contact.getId(), emptyExtraInfo)
+            render([msg: g.message(code: 'tools.contact.edit.success', args: [contact.name])] as JSON)
+            return
+        }
+        render([err: g.message(code: 'tools.contact.edit.error')] as JSON)
+    }
+
+    def removeNullKeys(ContactExtraInfoCommand extraInfoCommand) {
+        def keysToRemove = extraInfoCommand.extraInfo.findAll { it == null }
+        keysToRemove.each { key -> extraInfoCommand.extraInfo.remove(key)
+        }
     }
 
     def addIssue(Long contactId, ContactIssueCommand contactIssueCommand) {
