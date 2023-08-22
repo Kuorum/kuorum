@@ -8,6 +8,7 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
+import kuorum.web.commands.payment.contest.NewContestApplicationCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
@@ -107,15 +108,16 @@ class ContestApplicationController extends CampaignController {
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
-    def saveContent(CampaignContentCommand command) {
+    def saveContent(NewContestApplicationCommand command) {
         Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
-        if (command.hasErrors() || command.headerPictureId == null) {
-            if (command.hasErrors()) {
-                if (command.errors.getFieldError().arguments.first() == "publishOn") {
-                    flash.error = message(code: "debate.scheduleError")
-                }
-            } else {
-                flash.error = message(code: "contestApplication.imageUrl.nullable") // Additional error message for contestApplication with no uploaded image
+
+        if (command.hasErrors()) {
+            if (command.errors.getFieldError().field.toString() == "headerPictureId") {
+                flash.error = message(code: 'kuorum.web.commands.payment.contest.NewContestApplicationCommand.headerPictureId.nullable')
+            }else if (command.errors.getFieldError().field.toString() == "body"){
+                flash.error = message(code: 'kuorum.web.commands.payment.contest.NewContestApplicationCommand.body.nullable')
+            }else{
+                flash.error = message(code: 'kuorum.web.commands.payment.contest.NewContestApplicationCommand.name.nullable')
             }
             render view: 'editContentStep', model: campaignModelContent(campaignId, null, command, contestApplicationService)
             return
