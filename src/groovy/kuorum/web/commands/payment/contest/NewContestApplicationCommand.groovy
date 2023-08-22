@@ -9,12 +9,12 @@ import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 
 @Validateable
 class NewContestApplicationCommand extends CampaignContentCommand {
-    String name
+
     Long contestId
 
     static constraints = {
         contestId nullable: false
-        name nullable: false
+        title nullable: false
         body nullable: false
         headerPictureId nullable: false
     }

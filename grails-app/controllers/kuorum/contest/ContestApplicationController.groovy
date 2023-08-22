@@ -112,17 +112,13 @@ class ContestApplicationController extends CampaignController {
         Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
 
         if (command.hasErrors()) {
-            if (command.errors.getFieldError().field.toString() == "headerPictureId") {
+            boolean isHeaderPictureIdError = errors.any { error -> command.errors.getFieldError().field == "headerPictureId" }
+            if (isHeaderPictureIdError) {
                 flash.error = message(code: 'kuorum.web.commands.payment.contest.NewContestApplicationCommand.headerPictureId.nullable')
-            }else if (command.errors.getFieldError().field.toString() == "body"){
-                flash.error = message(code: 'kuorum.web.commands.payment.contest.NewContestApplicationCommand.body.nullable')
-            }else{
-                flash.error = message(code: 'kuorum.web.commands.payment.contest.NewContestApplicationCommand.name.nullable')
             }
             render view: 'editContentStep', model: campaignModelContent(campaignId, null, command, contestApplicationService)
             return
         }
-
         Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, contestApplicationService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
