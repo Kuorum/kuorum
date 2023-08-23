@@ -82,26 +82,29 @@ class ImagesTagLib {
 
         String uploadDate = "";
         String description = "";
+        String predefinedImage = "";
         if (attrs.campaign && attrs.campaign instanceof CampaignRSDTO){
             CampaignRSDTO campaignRSDTO = attrs.campaign
             uploadDate = campaignRSDTO.datePublished?.format( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" )?:"";
             description = campaignRSDTO.title
+            predefinedImage = campaignRSDTO.photoUrl
         }
         if (attrs.campaign && attrs.campaign instanceof SearchKuorumElementRSDTO){
             SearchKuorumElementRSDTO campaignRSDTO = attrs.campaign
             uploadDate = campaignRSDTO.dateCreated?.format( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" )?:"";
             description = campaignRSDTO.name
+            predefinedImage = campaignRSDTO.urlImage
         }
         String imageYoutubeNotFound = g.resource(dir:"/images", file: "youtube-broken-link.png", absolute: true)
 out << """
     <div class="video click-handler-no-processed" itemscope itemtype="http://schema.org/VideoObject">
         <meta itemprop="name" content="YouTube" />
-        <meta itemprop="thumbnailUrl" content="${imageYoutubeSrc(youtube:attrs.youtube)}" />
+        <meta itemprop="thumbnailUrl" content="${imageYoutubeSrc(youtube:attrs.youtube, predefinedImage: predefinedImage)}" />
         <meta itemprop="uploadDate" content="${uploadDate}" />
         <meta itemprop="description" content="${description}" />
         <a href="#" class="front">
             <span class="fas fa-play-circle fa-4x"></span>
-            <img itemprop='image' src="${imageYoutubeSrc(youtube:attrs.youtube)}" data-youtubeId="${youtubeFileName}" data-urlYoutubeNotFound="${imageYoutubeNotFound}">
+            <img itemprop='image' src="${imageYoutubeSrc(youtube:attrs.youtube, predefinedImage: predefinedImage)}" data-youtubeId="${youtubeFileName}" data-urlYoutubeNotFound="${imageYoutubeNotFound}">
         </a>
         <div id="youtube-${youtubeFileName}" class="youtube" data-youtubeId="${youtubeFileName}"></div>
     </div>
@@ -109,19 +112,25 @@ out << """
     }
 
     def imageYoutubeSrc = {attrs ->
+
         Boolean maxResolution = attrs.maxResolution?Boolean.parseBoolean(attrs.maxResolution):false
-        String youtubeFileName = ""
-        if (attrs.youtube instanceof String){
-            youtubeFileName = attrs.youtube.decodeYoutubeName()
-        }else{
-            KuorumFile youtube = attrs.youtube
-            youtubeFileName = youtube.fileName
+        String predefinedImage = attrs.predefinedImage?: ""
+        if(predefinedImage){
+            out << predefinedImage
+        } else { // Recovering default imagne from Youtube
+            String youtubeFileName = ""
+            if (attrs.youtube instanceof String) {
+                youtubeFileName = attrs.youtube.decodeYoutubeName()
+            } else {
+                KuorumFile youtube = attrs.youtube
+                youtubeFileName = youtube.fileName
+            }
+            String screenShot = "mqdefault.jpg" // Si es de alta resolucion se podría poner maxresdefault.jpg
+            if (maxResolution) {
+                screenShot = "maxresdefault.jpg"
+            }
+            out << "https://img.youtube.com/vi/${youtubeFileName}/${screenShot}"
         }
-        String screenShot = "mqdefault.jpg" // Si es de alta resolucion se podría poner maxresdefault.jpg
-        if (maxResolution){
-            screenShot = "maxresdefault.jpg"
-        }
-        out << "https://img.youtube.com/vi/${youtubeFileName}/${screenShot}"
     }
 
     def loggedUserImgSrc={attrs ->

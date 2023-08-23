@@ -330,6 +330,7 @@ class CampaignController {
                 if (campaignRSDTO.videoUrl) {
                     command.videoPost = campaignRSDTO.videoUrl
                     command.fileType = FileType.YOUTUBE.toString()
+                    command.headerPictureId = campaignRSDTO.photoUrl
                 }
 
                 if (campaignRSDTO.datePublished) {
@@ -378,19 +379,11 @@ class CampaignController {
             campaignRDTO.setPhotoUrl(picture.getUrl())
 
             // Remove video
-            campaignRDTO.setVideoUrl(null)
-        } else if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
+        }
+        if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
             // Save video
             String youtubeUrl = command.videoPost.encodeAsYoutubeName();
             campaignRDTO.setVideoUrl(youtubeUrl)
-
-            // Remove image
-            if (command.headerPictureId) {
-                KuorumFile picture = KuorumFile.get(command.headerPictureId)
-                fileService.deleteKuorumFile(picture)
-                command.setHeaderPictureId(null)
-                campaignRDTO.setPhotoUrl(null)
-            }
         }
         campaignRDTO
     }

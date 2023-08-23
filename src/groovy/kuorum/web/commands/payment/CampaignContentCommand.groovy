@@ -50,7 +50,7 @@ class CampaignContentCommand {
             }
         }
         body nullable: true, maxCharsHtml: 1000, validator: { val, obj ->
-            if (!val) {
+            if (obj.publishOn && !val) {
                 return "kuorum.web.commands.payment.massMailing.DebateCommand.body.nullable"
             }
         }
