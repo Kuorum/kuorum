@@ -15,7 +15,7 @@ class NewContestApplicationCommand extends CampaignContentCommand {
     static constraints = {
         contestId nullable: false
         title nullable: false
-        body nullable: false
+        body nullable: false, maxCharsHtml: 1000
         headerPictureId nullable: false
     }
 
