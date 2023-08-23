@@ -13,7 +13,6 @@ import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
-import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
