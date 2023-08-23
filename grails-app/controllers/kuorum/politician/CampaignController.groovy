@@ -384,18 +384,7 @@ class CampaignController {
             // Save video
             String youtubeUrl = command.videoPost.encodeAsYoutubeName();
             campaignRDTO.setVideoUrl(youtubeUrl)
-
-            // Remove image
-          /* if (command.headerPictureId) {
-                KuorumFile picture = KuorumFile.get(command.headerPictureId)
-                fileService.deleteKuorumFile(picture)
-                command.setHeaderPictureId(null)
-                campaignRDTO.setPhotoUrl(null)
-            }*/
         }
-        /*else{
-            campaignRDTO.setVideoUrl(null)
-        }*/
         campaignRDTO
     }
 
