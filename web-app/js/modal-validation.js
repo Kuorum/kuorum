@@ -335,7 +335,9 @@ var userValidatedByDomain={
         function successCaptchaCallback() {
             if (!userValidatedByDomain.arePhonesAndPrefixEquals()) {
                 userValidatedByDomain.showErrorModal(i18n.inputs.errors.nonMatchingPhones);
+                captcha.clearCaptcha()
             } else if ($form.valid() && captcha.isRecaptchaSolved) {
+                userValidatedByDomain.modalNotifications.find(".text-danger").hide();
                 userValidatedByDomain.showModalLoading();
                 var url = $form.attr("action");
                 console.log("CampaignID: " + userValidatedByDomain.dataValidation.campaignId);
@@ -495,6 +497,7 @@ var userValidatedByDomain={
         }
         userValidatedByDomain.modalNotifications.find(".text-danger").show();
         userValidatedByDomain.modal.find(".modal-login-action-buttons").show();
+        captcha.clearCaptcha()
     },
 
     hideErrorModal:function(){
