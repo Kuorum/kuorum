@@ -377,13 +377,13 @@ class CampaignController {
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
             campaignRDTO.setPhotoUrl(picture.getUrl())
-
-            // Remove video
         }
         if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
             // Save video
             String youtubeUrl = command.videoPost.encodeAsYoutubeName();
             campaignRDTO.setVideoUrl(youtubeUrl)
+        }else{
+            campaignRDTO.setVideoUrl(null)
         }
         campaignRDTO
     }
