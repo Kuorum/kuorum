@@ -135,7 +135,7 @@ var contestApplicationFunctions = {
     _handleButtonsAtSuccess: function (contestApplicationVote, $button) {
         const $buttonMain = $("section#main .leader-post .contestApplication-vote");
         const $buttonContestApplicationList = $("#contest-applications-list  .contestApplication-vote-" + contestApplicationVote.vote.contestApplicationId);
-        const $buttonColumnCallToAction = $("#aside-ppal .call-to-action .actions a");
+        const $buttonColumnCallToAction = $("#aside-ppal .call-to-action-add-proposal .actions a");
         const $badgeNumVotesStats = $(".leader-post-stats .fa-box-ballot").parents("li");
 
         const buttons = [$buttonMain, $buttonContestApplicationList, $buttonColumnCallToAction]

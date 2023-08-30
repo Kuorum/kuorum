@@ -18,7 +18,7 @@
     <formUtil:validateForm bean="${command}" form="accountForm"/>
     <g:form method="POST" mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}" name="accountForm" role="form" class="submitOrangeButton">
         <div class="box-ppal-section">
-            <g:render template="/profile/accountDetailsForm" model="[command:command]"/>
+            <g:render template="/profile/adminEditAccountDetailsForm" model="[command: command]"/>
         </div>
 
         <div class="box-ppal-section">

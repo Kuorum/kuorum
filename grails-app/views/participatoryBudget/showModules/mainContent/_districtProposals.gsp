@@ -1,5 +1,5 @@
 
-<g:render template="/participatoryBudget/showModules/cCallToAction" model="[participatoryBudget:participatoryBudget,campaignUser:campaignUser, hideXs:false]"/>
+<g:render template="/participatoryBudget/showModules/cCallToAction" model="[participatoryBudget:participatoryBudget,campaignUser:campaignUser, districtProposal: districtProposal, hideXs:false]"/>
 <ul class="nav nav-pills nav-underline" id="participatory-budget-district-proposals-list-tab-tag">
     <g:each in="${participatoryBudget.districts}" var="district">
         <li><a href="#${district.name}" id="${district.name.encodeAsKuorumUrl()}" data-districtId="${district.id}">
@@ -25,6 +25,14 @@
                             <g:message code="participatoryBudget.show.listProposals.sort.random"/>
                         </a>
                     </li>
+                <sec:ifLoggedIn>
+                    <li>
+                        <a href="#" data-listSelector="voted" data-districtId="${district.id}">
+                            <g:message code="participatoryBudget.show.listProposals.sort.votedByUser"/>
+                        </a>
+                    </li>
+                    </sec:ifLoggedIn>
+
                     <g:if test="${participatoryBudget.participatoryBudgetType == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetTypeDTO.BUDGET}">
                         <li>
                             <a href="#" data-listSelector="price" data-direction="DESC"
@@ -53,7 +61,15 @@
                 data-page="0"
                 data-direction="DESC"
                 data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[participatoryBudgetStatus:participatoryBudget.status, districtId:district.id])}"></ul>
-
+        <g:if test="${participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS &&
+                      participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW}">
+            <sec:ifLoggedIn>
+            <ul class="search-list clearfix voted"
+                data-page="0"
+                data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[participatoryBudgetStatus:participatoryBudget.status, districtId:district.id, voter:userUtil.loggedUserId()])}"
+               </ul>
+            </sec:ifLoggedIn>
+        </g:if>
             <!-- District modal overflow -->
             <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:district]"/>
         </div>
