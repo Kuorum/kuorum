@@ -1,4 +1,5 @@
 %{--<!-- POPOVER PARA IMÁGENES USUARIOS -->--}%
+<g:if test="${_isSocialNetwork}">
 <div class="popover">
     %{--<button type="button" class="close" aria-hidden="true"  data-dismiss="popover"><span class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="kuorumUser.popover.close"/></span></button>--}%
     %{--<a href="#" class="hidden" rel="nofollow"><g:message code="kuorumUser.popover.showUser"/> </a>--}%
@@ -24,3 +25,4 @@
         </div>
     </div>
 </div>
+</g:if>

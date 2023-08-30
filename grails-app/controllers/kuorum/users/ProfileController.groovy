@@ -495,8 +495,6 @@ class ProfileController {
         redirect(mapping: 'profileNewsletterConfig')
     }
 
-    private static final String PREFIX_CONTACT_NOTE = "Contacto: "
-
     def funnelFillBasicData() {
         KuorumUser user = params.user
         FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
@@ -506,18 +504,12 @@ class ProfileController {
         command.phone = user.personalData?.telephone
         command.phonePrefix = user.personalData?.phonePrefix
         command.nid = user.nid
-        ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
-        if (!contact || !contact.notes) {
-            command.contactName = user.name
-        } else {
-            command.contactName = contact.notes.startsWith(PREFIX_CONTACT_NOTE) ? contact.notes - PREFIX_CONTACT_NOTE : '';
-            command.name = user.name
-        }
         return [command: command]
     }
 
     def saveFunnelFillBasicData(FunnelFillBasicDataCommand command) {
         KuorumUser user = params.user
+        KuorumUserSession userSession
         if (command.hasErrors()) {
             handleSaveFunnelFillBasicDataErrorCommand(command, user)
             return;
@@ -534,10 +526,7 @@ class ProfileController {
         kuorumUserService.updateUser(user)
 
         ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
-        contact.setNotes(PREFIX_CONTACT_NOTE + command.contactName);
         contact.setName(user.name);
-        contact.setPhone(command.phone);
-        contact.setPhonePrefix(command.phonePrefix);
         contact.setExternalId(command.nid);
         try {
             contactService.updateContact(WebConstants.FAKE_LANDING_ALIAS_USER, contact, contact.getId())
@@ -547,7 +536,25 @@ class ProfileController {
             return;
         }
 
+        Map <String,String> contactExtraInfo = getContactExtraInfo(contact, command)
+        saveMetaDataHashMapToContact(contactExtraInfo, contact)
+
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
+    }
+    private Map<String, String> getContactExtraInfo(ContactRSDTO contact, FunnelFillBasicDataCommand command) {
+        KuorumUserSession userSession = springSecurityService.principal
+        Map<String, String> contactExtraInfo = contactService.getExtraInfo(userSession, contact.getId())
+        if (contactExtraInfo == null) {
+            contactExtraInfo = new HashMap<>()
+        } else {
+            contactExtraInfo.put(command.contactName, command.phone)
+        }
+        return contactExtraInfo
+    }
+
+    private def saveMetaDataHashMapToContact(Map <String,String> contactExtraInfo, ContactRSDTO contact) {
+        KuorumUserSession userSession = springSecurityService.principal
+        contactService.putExtraInfo(userSession,contact.getId(), contactExtraInfo)
     }
 
     private def handleSaveFunnelFillBasicDataErrorCommand(FunnelFillBasicDataCommand command, KuorumUser user) {

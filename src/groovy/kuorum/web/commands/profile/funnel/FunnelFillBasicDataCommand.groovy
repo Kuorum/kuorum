@@ -35,13 +35,14 @@ class FunnelFillBasicDataCommand {
     String bio2;
     String contactName;
     static constraints = {
+        String ALLOWED_LETTERS = "CDEFGHJKLMNPQRSUVW"
         importFrom KuorumUser, include: ["alias"]
         name nullable: false, maxSize: 70
         // WILL BE IGNORED. IS ONLY FOR VIEW
         email nullable: true
         phonePrefix nullable: false
         phone nullable: false, matches: "^[0-9]{9}\$"
-        nid nullable: false, matches: "^[A-Z][0-9]{8}", validator: { val, obj ->
+        nid nullable: false, matches:"^(?![0-9]{8}[A-Z]\$)(?:[" + ALLOWED_LETTERS + "][0-9]{7}[A-Z]|[" + ALLOWED_LETTERS + "][0-9]{8})\$", validator: { val, obj ->
             CalculaNif calculaNif = new CalculaNif(val)
             if (!calculaNif.isValid()) {
                 return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
@@ -49,8 +50,8 @@ class FunnelFillBasicDataCommand {
                 return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
             }
         }
-        bio nullable: false, maxSize: 500
-        bio2 nullable: false, maxSize: 800
+        bio nullable: false, maxCharsHtml: 500
+        bio2 nullable: false, maxCharsHtml: 800
         contactName nullable: false, maxSize: 70
     }
 

@@ -8,11 +8,11 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
+import kuorum.web.commands.payment.contest.NewContestApplicationCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
-import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -107,16 +107,17 @@ class ContestApplicationController extends CampaignController {
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
-    def saveContent(CampaignContentCommand command) {
+    def saveContent(NewContestApplicationCommand command) {
         Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
+
         if (command.hasErrors()) {
-            if (command.errors.getFieldError().arguments.first() == "publishOn") {
-                flash.error = message(code: "debate.scheduleError")
+            boolean isHeaderPictureIdError = errors.any { error -> command.errors.getFieldError().field == "headerPictureId" }
+            if (isHeaderPictureIdError) {
+                flash.error = message(code: 'kuorum.web.commands.payment.contest.NewContestApplicationCommand.headerPictureId.nullable')
             }
             render view: 'editContentStep', model: campaignModelContent(campaignId, null, command, contestApplicationService)
             return
         }
-
         Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, contestApplicationService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }

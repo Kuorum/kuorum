@@ -23,7 +23,7 @@
         <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.social"/></div></li>
     </ol>
 
-    <form name="stepFillFiles" role="form" method="POST" autocomplete="off">
+    <form name="stepFillFiles" role="form" method="POST" autocomplete="off"  class="col-lg-10 col-lg-offset-1 m-top-10">
         <fieldset aria-live="polite" class="row">
             <div class="form-group form-group-files">
                 <formUtil:uploadContactFiles contact="${contact}" adminContact="true"

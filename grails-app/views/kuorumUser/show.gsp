@@ -42,13 +42,14 @@
                                                                   itemtype="http://schema.org/Organization">${userUtil.roleName(user: politician)}</span>
                     </p>
                 </div>
-
+                <g:if test="${_isSocialNetwork}">
                 <div class="col-sm-5 profile-actions">
                     <div class="follow-btn-group">
                         <userUtil:followButton user="${politician}" cssExtra="inverted"/>
                         <userUtil:contactButton user="${politician}" cssExtra="inverted"/>
                     </div>
                 </div>
+                </g:if>
             </div>
 
             <div class="extra-padding text-left following">
