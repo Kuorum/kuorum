@@ -368,22 +368,21 @@ class CampaignController {
         CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
         campaignRDTO.title = command.title
         campaignRDTO.body = command.body
-
         // Multimedia URL
-        if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
+        if (command.headerPictureId) {
             // Save image
             KuorumFile picture = KuorumFile.get(command.headerPictureId)
             picture.setCampaignId(campaignId)
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
             campaignRDTO.setPhotoUrl(picture.getUrl())
-
-            // Remove video
         }
-        if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
+        if (command.videoPost) {
             // Save video
             String youtubeUrl = command.videoPost.encodeAsYoutubeName();
             campaignRDTO.setVideoUrl(youtubeUrl)
+        }else{
+            campaignRDTO.setVideoUrl(null)
         }
         campaignRDTO
     }
