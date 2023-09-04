@@ -1,5 +1,6 @@
 package kuorum
 
+import constraints.MaxCharsHtmlConstraint
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
 import kuorum.core.exception.KuorumException
@@ -1162,34 +1163,42 @@ class FormTagLib {
     def textArea = {attrs ->
         def command = attrs.command
         def field = attrs.field
-        def rows = attrs.rows?:3
+        def rows = attrs.rows ?: 3
 
-        def id = attrs.id?:field
-        def prefixFieldName=attrs.prefixFieldName?:""
-        def value = command."$field"?:''
-        def placeHolder = attrs.placeholder==null?message(code: "${command.class.name}.${field}.placeHolder"):attrs.placeholder
-        def error = hasErrors(bean: command, field: field,'error')
-        ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
-        MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
-        def maxSize = maxSizeConstraint?.maxSize?:0
-        def texteditor = attrs.texteditor?:''
+        def id = attrs.id ?: field
+        def prefixFieldName = attrs.prefixFieldName ?: ""
+        def value = command."$field" ?: ''
+        def placeHolder = attrs.placeholder == null ? message(code: "${command.class.name}.${field}.placeHolder") : attrs.placeholder
+        def error = hasErrors(bean: command, field: field, 'error')
+        ConstrainedProperty constraints = command.constraints.find { it.key.toString() == field }.value
+        MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find { it instanceof MaxSizeConstraint }
+        MaxCharsHtmlConstraint maxCharsHtmlConstraint = constraints.appliedConstraints.find { it instanceof MaxCharsHtmlConstraint }
+        def maxSize = maxSizeConstraint?.maxSize ?: maxCharsHtmlConstraint?.maxSize ?: 0
+        def texteditor = attrs.texteditor ?: ''
         def label = buildLabel(command, field, attrs.label)
-        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
-        if (showLabel){
+        def showLabel = attrs.showLabel ? Boolean.parseBoolean(attrs.showLabel) : false
+        if (showLabel) {
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
         out << """
             <textarea name='${prefixFieldName}${field}' class="${maxSize ? "counted" : ""} ${texteditor} ${error}" rows="${rows}" id="${prefixFieldName}${id}" placeholder="${placeHolder}" aria-errormessage="${id}-error">${value}</textarea>
         """
-        if (error){
+        if (error) {
             out << "<span class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: field)}</span>"
         }
 
-        if (maxSize && !texteditor){
-        out << """
-            <div id="charInit_${prefixFieldName}${field}" class="hidden">${message(code:'form.textarea.limitChar')}<span>${maxSize}</span></div>
-            <div id="charNum_${prefixFieldName}${field}" class="charNum">${message(code:'form.textarea.limitChar.left')} <span>${maxSize}</span> ${message(code:'form.textarea.limitChar.characters')}</div>
-            """
+        if (maxSize) {
+            if (texteditor) {
+                // Is not possible to calculate the remaining chars in a text area with the editor activated
+                out << """
+                <div class="charNum">${g.message(code: 'form.textarea.limitChar.textEditor', args: [maxSize])}</div>
+                """
+            } else {
+                out << """
+                <div id="charInit_${prefixFieldName}${field}" class="hidden">${message(code: 'form.textarea.limitChar')}<span>${maxSize}</span></div>
+                <div id="charNum_${prefixFieldName}${field}" class="charNum">${message(code: 'form.textarea.limitChar.left')} <span>${maxSize}</span> ${message(code: 'form.textarea.limitChar.characters')}</div>
+                """
+            }
         }
     }
 
