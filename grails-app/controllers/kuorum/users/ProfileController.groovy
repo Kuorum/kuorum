@@ -499,6 +499,7 @@ class ProfileController {
         KuorumUser user = params.user
         FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
 //        command.name = user.name // Is not se because we want to force to update the name to the association nam
+        command.contactName = user.name
         command.email = user.email
         command.fillBioParts(user.bio)
         command.phone = user.personalData?.telephone
@@ -547,7 +548,8 @@ class ProfileController {
         if (contactExtraInfo == null) {
             contactExtraInfo = new HashMap<>()
         } else {
-            contactExtraInfo.put(command.contactName, command.phone)
+            // save crafted complete phone in contact metadata
+            contactExtraInfo.put(command.contactName, command.phonePrefix.replaceAll("^0+", "+").concat( command.phone))
         }
         return contactExtraInfo
     }
