@@ -78,7 +78,6 @@ function YoutubeHelper(){
         validYoutube(youtubeId, function(data){
             // Campaign has custom image
             var isCampaignThumbnailUrl = !$('meta[itemprop="thumbnailUrl"]').attr("content").includes("youtube");
-            console.log("Custom image: "+isCampaignThumbnailUrl)
             isCampaignThumbnailUrl? '': maxResImage(data, img);
         }, function(){
            // setErrorYoutubeImage();
