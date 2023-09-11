@@ -76,7 +76,10 @@ function YoutubeHelper(){
         }
 
         validYoutube(youtubeId, function(data){
-            maxResImage(data, img);
+            // Campaign has custom image
+            var isCampaignThumbnailUrl = !$('meta[itemprop="thumbnailUrl"]').attr("content").includes("youtube");
+            console.log("Custom image: "+isCampaignThumbnailUrl)
+            isCampaignThumbnailUrl? '': maxResImage(data, img);
         }, function(){
            // setErrorYoutubeImage();
             console.log("Error loading youtube data");
