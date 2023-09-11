@@ -42,13 +42,17 @@ class FunnelFillBasicDataCommand {
         email nullable: true
         phonePrefix nullable: false
         phone nullable: false, matches: "^[0-9]{9}\$"
-        nid nullable: false, matches:"^(?![0-9]{8}[A-Z]\$)(?:[" + ALLOWED_LETTERS + "][0-9]{7}[A-Z]|[" + ALLOWED_LETTERS + "][0-9]{8})\$", validator: { val, obj ->
+        nid nullable: false, validator: { val, obj ->
             CalculaNif calculaNif = new CalculaNif(val)
-            if (!calculaNif.isValid()) {
-                return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
-            } else if (!calculaNif.isAsociacion()) {
-                return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
+            def error;
+            if (!calculaNif.isAsociacion()) {
+                error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
+            }else if (!val.matches(/^(?![0-9]{8}[A-Z]$)(?:[${ALLOWED_LETTERS}][0-9]{7}[A-Z]|[${ALLOWED_LETTERS}][0-9]{8}$)/)){
+                error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.matches.error"
+            }else if (!calculaNif.isValid()) {
+                error =  "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
             }
+            return (error != null) ? error : true;
         }
         bio nullable: false, maxCharsHtml: 500
         bio2 nullable: false, maxCharsHtml: 800
