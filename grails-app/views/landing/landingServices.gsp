@@ -50,7 +50,8 @@
         <r:require modules="campaignsTargetsListResourcesRequired"/>
         <g:render template="/campaigns/cards/campaignsList" model="[campaigns: campaigns, center: true]"/>
     </ul>
-
+<g:if test="${showRegisterButton}">
     <g:link mapping="register" elementId="register-submit-footer" class="btn btn-orange btn-lg"><g:message
             code="landingPage.register.form.submit"/></g:link>
+</g:if>
 </content>
