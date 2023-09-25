@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.customDomain.CustomDomainResolver; org.kuorum.rest.model.kuorumUser.UserRoleRSDTO" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="titleMessageCode" value="contest.show.title"/>
@@ -19,7 +20,7 @@
     <g:render template="/contest/showModules/cContestStatus" model="[contest: contest, campaignUser: campaignUser, hideXs: true, hideXl: false]"/>
     <g:render template="/contest/showModules/cContestRanking" model="[contest: contest, campaignUser: campaignUser, hideXs: true, hideXl: false]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles"
-              model="[campaignFiles: campaignFiles, subtitle: g.message(code: 'contest.show.files.subtitle')]"/>
+              model="[campaignFiles: campaignFiles, subtitle: ' ']"/>
     <g:render template="/campaigns/columnCModules/campaignContactFiles"
               model="[contact: contact, contactFiles: contactFiles]"/>
     <g:render template="/contest/showModules/cContestStats" model="[contest: contest, campaignUser: campaignUser]"/>
