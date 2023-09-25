@@ -1,4 +1,3 @@
-<%@ page import="kuorum.core.customDomain.CustomDomainResolver; org.kuorum.rest.model.kuorumUser.UserRoleRSDTO" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="titleMessageCode" value="contest.show.title"/>
