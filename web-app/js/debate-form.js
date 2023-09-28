@@ -51,15 +51,4 @@ $(function(){
         }
     }*/
 
-    // Animate view when click on add image or video
-    $("a[data-toggle='tab']").on('shown.bs.tab', function () {
-        var $navbarTabs = $("ul.nav-pills");
-        var navbarHeight = $('.navbar').outerHeight();
-        $('html, body').animate({
-            scrollTop: $navbarTabs.offset().top - navbarHeight - 40
-        }, 1000, function () {
-            // ÑAPA: solo hace falta hacer focus para el input de video de YT
-            $("#videoPost").focus();
-        });
-    });
 });
