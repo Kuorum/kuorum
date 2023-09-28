@@ -60,14 +60,10 @@
                    value="YOUTUBE">
             <ul class="nav nav-pills nav-justified nav-justified-2li">
                 <li>
-                    <a href="#projectUploadYoutube" data-toggle="tab" data-filetype="YOUTUBE"><g:message
-                            code="default.upload.youtube"/></a>
-                </li>
-                <li>
-                    <div class="tab-pane fade ${command.videoPost ? 'in active' : ''}" id="projectUploadYoutube">
+                    <div class="tab-pane fade in active">
                         <div class="video" data-multimedia-switch="on" data-multimedia-type="YOUTUBE">
-                            <formUtil:url command="${command}" field="videoPost"
-                                          placeHolder="${g.message(code: "kuorum.web.commands.payment.massMailing.DebateCommand.videoPost.placeholder")}"/>
+                            <formUtil:url command="${command}"  field="videoPost"
+                                          placeHolder="${g.message(code: "kuorum.web.commands.payment.massMailing.DebateCommand.videoPost.placeholder")} "/>
                         </div>
                     </div>
                 </li>
