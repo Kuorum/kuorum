@@ -19,7 +19,7 @@
     <g:render template="/contest/showModules/cContestStatus" model="[contest: contest, campaignUser: campaignUser, hideXs: true, hideXl: false]"/>
     <g:render template="/contest/showModules/cContestRanking" model="[contest: contest, campaignUser: campaignUser, hideXs: true, hideXl: false]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles"
-              model="[campaignFiles: campaignFiles, subtitle: ' ']"/>
+              model="[campaignFiles: campaignFiles, subtitle: g.message(code: 'contest.show.files.subtitle'), showSubtitle: false]"/>
     <g:render template="/campaigns/columnCModules/campaignContactFiles"
               model="[contact: contact, contactFiles: contactFiles]"/>
     <g:render template="/contest/showModules/cContestStats" model="[contest: contest, campaignUser: campaignUser]"/>

@@ -17,7 +17,7 @@
 <content tag="cColumn">
     <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: postUser,campaign:post, hideSmallDevices:false]"/>
     <g:render template="/campaigns/columnCModules/eventInfo" model="[event:post.event, eventUser: postUser,displayTimeZone:displayTimeZone]"/>
-    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles]"/>
+    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles, showSubtitle: true]"/>
     <g:render template="/campaigns/columnCModules/campaignContactFiles"
               model="[contact: contact, contactFiles: contactFiles]"/>
     <g:render template="/post/showModules/cColumn" model="[post: post, postUser: postUser]" />

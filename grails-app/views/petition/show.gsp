@@ -17,7 +17,7 @@
 <content tag="cColumn">
     <g:render template="/petition/showModules/cCallToAction" model="[petition: petition, campaignUser: petitionUser, hideXs:false]"/>
     <g:render template="/petition/showModules/signedUsers" model="[petition: petition, signs: signs,campaignUser: petitionUser]"/>
-    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles]"/>
+    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles, showSubtitle: true]"/>
     <g:render template="/petition/showModules/mainContent/cPetitionStats" model="[petition: petition, campaignUser: petitionUser,displayTimeZone:displayTimeZone]"/>
 </content>
 
