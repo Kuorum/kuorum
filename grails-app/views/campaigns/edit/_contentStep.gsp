@@ -40,14 +40,10 @@
 
         <div class="col-sm-8 col-md-7">
             <span class="span-label sr-only"><g:message code="default.upload.title"/></span>
-            <input type="hidden" name="fileType"
+            <input type="hidden"
                    value="IMAGE">
-            <ul class="nav nav-pills nav-justified nav-justified-2li">
-                <li data-multimedia-switch="on" data-multimedia-type="IMAGE" id="projectUploadImage">
-                    <formUtil:editImage command="${command}" field="headerPictureId"
-                                        fileGroup="${kuorum.core.FileGroup.PROJECT_IMAGE}"/>
-                </li>
-            </ul>
+            <formUtil:editImage command="${command}" field="headerPictureId"
+                                fileGroup="${kuorum.core.FileGroup.PROJECT_IMAGE}"/>
         </div>
     </fieldset>
     <fieldset aria-live="polite" class="form-group multimedia">
@@ -56,18 +52,10 @@
 
         <div class="col-sm-8 col-md-7">
             <span class="span-label sr-only"><g:message code="default.upload.title"/></span>
-            <input type="hidden" name="fileType"
+            <input type="hidden"
                    value="YOUTUBE">
-            <ul class="nav nav-pills nav-justified nav-justified-2li">
-                <li>
-                    <div class="tab-pane fade in active">
-                        <div class="video" data-multimedia-switch="on" data-multimedia-type="YOUTUBE">
-                            <formUtil:url command="${command}"  field="videoPost"
-                                          placeHolder="${g.message(code: "kuorum.web.commands.payment.massMailing.DebateCommand.videoPost.placeholder")} "/>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            <formUtil:url command="${command}" field="videoPost"
+                          placeHolder="${g.message(code: "kuorum.web.commands.payment.massMailing.DebateCommand.videoPost.placeholder")}"/>
         </div>
     </fieldset>
 

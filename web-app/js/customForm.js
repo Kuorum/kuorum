@@ -31,11 +31,6 @@ $(function(){
         $('span.error').prepend('<span class="tooltip-arrow"></span>');
     }
 
-    //Tipo de imagen o youtube seleccionado
-    $("form [data-fileType]").on("click", function(e){
-        $(this).closest("form").find("input[name=fileType]").val($(this).attr("data-fileType"));
-    });
-
     // textarea editor
     $.each($(".texteditor"), function(idx, val) {
         var placeholder = $(val).attr("placeholder");
