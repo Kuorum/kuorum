@@ -25,7 +25,6 @@ class CampaignContentCommand {
     String title
     String body
 
-    String fileType
     String headerPictureId
     String videoPost
 
@@ -54,7 +53,6 @@ class CampaignContentCommand {
                 return "kuorum.web.commands.payment.massMailing.DebateCommand.body.nullable"
             }
         }
-        fileType nullable: true
         headerPictureId nullable: true
         videoPost nullable: true
         publishOn nullable: true, validator: { val, obj ->
