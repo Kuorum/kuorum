@@ -9,7 +9,7 @@
 </fieldset>
 <fieldset aria-live="polite" class="row">
     <div class="form-group col-md-6">
-        <formUtil:input command="${command}" field="email" required="true" showLabel="true"/>
+        <formUtil:input command="${command}" field="email" required="true" showLabel="true" disabled="true"/>
     </div>
     <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="alias" showLabel="true" showCharCounter="false" helpBlock="https://${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}/${command.alias?:'alias'}"/>
@@ -29,9 +29,9 @@
         <formUtil:regionInput command="${command}" field="homeRegion" showLabel="true"/>
     </div>
     <div class="form-group col-md-2">
-        <formUtil:selectPhonePrefix command="${command}" field="phonePrefix" showLabel="true"/>
+        <formUtil:selectPhonePrefix command="${command}" field="phonePrefix" showLabel="true" disabled="true"/>
     </div>
     <div class="form-group col-md-4">
-        <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
+        <formUtil:input command="${command}" field="phone" showLabel="true" type="number" disabled="true"/>
     </div>
 </fieldset>
