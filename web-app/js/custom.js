@@ -191,13 +191,6 @@ $(document).ready(function() {
         })
     });
 
-    $(".multimedia .groupRadio input[type=radio]").on('click', function(e){
-        var multimediaType = $(this).val();
-        $('[data-multimedia-switch="on"]').hide();
-        $('[data-multimedia-type="'+multimediaType+'"]').show()
-
-    });
-
     // desvanecer y eliminar los usuario de la lista "A quién seguir"
     $('body').on('click','ul.user-list-followers > li.user .close', function(e) {
         clickedDeleteRecommendedUser(this, 'li.user');

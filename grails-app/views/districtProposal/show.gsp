@@ -14,7 +14,7 @@
 
 <content tag="cColumn">
     <g:render template="/districtProposal/showModules/cCallToAction" model="[districtProposal: districtProposal, campaignUser: campaignUser]"/>
-    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles]"/>
+    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles, showSubtitle: true]"/>
     <g:render template="/campaigns/columnCModules/campaignContactFiles"
               model="[contact: contact, contactFiles: contactFiles]"/>
     <g:render template="/districtProposal/showModules/cDistrictProposalStats" model="[districtProposal: districtProposal, campaignUser: campaignUser]"/>
