@@ -9,7 +9,12 @@
 </fieldset>
 <fieldset aria-live="polite" class="row">
     <div class="form-group col-md-6">
-        <formUtil:input command="${command}" field="email" required="true" showLabel="true" disabled="true"/>
+        <input type="hidden" name="email" value="${command.email}"/>
+        <label for="email" class=""><g:message
+                code="kuorum.web.commands.profile.AccountDetailsCommand.email.label"/>*</label>
+        <input type="text" name="email-blocked" class="form-control input-lg" id="email" required=""
+               placeholder="${command.email}"
+               aria-errormessage="email-error" disabled="" aria-required="true">
     </div>
     <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="alias" showLabel="true" showCharCounter="false" helpBlock="https://${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}/${command.alias?:'alias'}"/>
