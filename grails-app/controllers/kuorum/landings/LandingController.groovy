@@ -36,7 +36,8 @@ class LandingController {
                 starredCampaign    : null,
                 carouselFooter1    : domainRSDTO.carouselFooter1,
                 carouselFooter2    : domainRSDTO.carouselFooter2,
-                carouselFooter3    : domainRSDTO.carouselFooter3
+                carouselFooter3    : domainRSDTO.carouselFooter3,
+                showRegisterButton : domainRSDTO.showRegisterButton
         ]
         if (domainService.showPrivateContent()) {
             CampaignRSDTO starredCampaign = campaignService.findStarredCampaign(campaigns, domainRSDTO.getStarredCampaignId())

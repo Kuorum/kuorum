@@ -4,7 +4,9 @@
     <div class="comment-box call-to-action">
         <div class="comment-header">
             <span class="call-title">${title}</span>
-            <span class="call-subTitle">${subtitle}</span>
+            <g:if test="${showSubtitle}">
+              <span class="call-subTitle">${subtitle}</span>
+            </g:if>
         </div>
 
         <div class="comment-proposal clearfix">

@@ -24,20 +24,22 @@ $(function (){
                 pageLoadingOn("Error Callback")
             }).done(function(data){
             });
-        }else{
+        } else {
             callbackError()
             pageLoadingOff("Error Callback")
         }
     }
+    function handleSocialButtonProvider(provider) {
+        var socialButton = new SocialButton(provider, apiCallback, callbackError);
+        socialButton.openSocialLoginWindow()
+    }
 
-    $(".socialGo .btn.fb").on("click", function(e){
+    $(".socialGo .btn.fb").on("click", function (e) {
         e.preventDefault();
-        var socialButton = new SocialButton("facebook",apiCallback, callbackError);
-        socialButton.openSocialLoginWindow()
+        handleSocialButtonProvider("facebook")
     })
-    $(".socialGo .btn.btn-gog").on("click", function(e){
+    $(".socialGo .btn.btn-gog").on("click", function (e) {
         e.preventDefault();
-        var socialButton = new SocialButton("google",apiCallback, callbackError);
-        socialButton.openSocialLoginWindow()
+        handleSocialButtonProvider("google")
     })
 })
