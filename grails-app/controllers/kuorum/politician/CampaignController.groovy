@@ -329,7 +329,6 @@ class CampaignController {
                 //Links are encoded Hopefully, user not use URL encoding in his texts
                 if (campaignRSDTO.videoUrl) {
                     command.videoPost = campaignRSDTO.videoUrl
-                    command.fileType = FileType.YOUTUBE.toString()
                     command.headerPictureId = campaignRSDTO.photoUrl
                 }
 
@@ -340,7 +339,6 @@ class CampaignController {
                 if (campaignRSDTO.photoUrl) {
                     KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.photoUrl)
                     command.headerPictureId = kuorumFile?.id
-                    command.fileType = FileType.IMAGE.toString()
                 }
             }
         }
@@ -497,7 +495,7 @@ class CampaignController {
 
     private boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {
         List<String> files = contactService.getFiles(campaignOwner.getId().toString(), ownerContact)
-        return files.size() >= WebConstants.MIN_FILES_PER_DOC_IN_CONTEST;
+        return files.size() >= WebConstants.MIN_FILES_PER_DOC_IN_CONTEST -1; // added minus one to not force user follow this flow 
     }
 
     def validateUser(DomainValidationCommand domainValidationCommand) {

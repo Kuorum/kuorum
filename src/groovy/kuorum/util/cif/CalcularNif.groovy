@@ -72,7 +72,7 @@ public class CalculaNif {
 
 
     boolean isAsociacion() {
-        return letrasCifNoAutorizadasAsociaciones.indexOf(nif.substring(0, 1)) < 0;
+        return nif &&letrasCifNoAutorizadasAsociaciones.indexOf(nif.substring(0, 1)) < 0;
     }
 
     private String calculaDni(String dni) {

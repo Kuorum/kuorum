@@ -1,5 +1,6 @@
 package constraints
 
+import org.codehaus.groovy.grails.validation.ConstrainedProperty
 import org.springframework.validation.Errors
 
 /**
@@ -8,6 +9,12 @@ import org.springframework.validation.Errors
 class MaxCharsHtmlConstraint extends org.codehaus.groovy.grails.validation.AbstractConstraint {
     public static final String MAX_CHARS_HTML_CONSTRAINT = "maxCharsHtml";
     private static final String DEFAULT_EXCEDED_MAX_CHARS_HTML_MESSAGE_CODE = "default.not.maxCharsHtml.message";
+
+    private int maxSize
+
+    int getMaxSize() {
+        return maxSize
+    }
 
     @Override
     protected void processValidate(Object target, Object propertyValue, Errors errors) {
@@ -37,5 +44,18 @@ class MaxCharsHtmlConstraint extends org.codehaus.groovy.grails.validation.Abstr
     @Override
     String getName() {
         return MAX_CHARS_HTML_CONSTRAINT
+    }
+
+    @Override
+    void setParameter(Object constraintParameter) {
+        if (!(constraintParameter instanceof Integer)) {
+            throw new IllegalArgumentException("Parameter for constraint [" +
+                    ConstrainedProperty.MAX_SIZE_CONSTRAINT + "] of property [" +
+                    constraintPropertyName + "] of class [" + constraintOwningClass +
+                    "] must be a of type [java.lang.Integer]");
+        }
+
+        maxSize = ((Integer) constraintParameter).intValue();
+        super.setParameter(constraintParameter);
     }
 }

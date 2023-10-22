@@ -5626,7 +5626,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {
 }
 
 fieldset.multimedia ul.nav.nav-pills.nav-justified {
-    display: table;
+    display: flex;
+    flex-direction: column;
     position: relative;
 }
 
@@ -6903,25 +6904,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     fieldset.multimedia ul.nav.nav-pills.nav-justified li a {
         padding: 5px 15px;
-    }
-
-    fieldset.multimedia ul.nav.nav-pills.nav-justified.nav-justified-2li li {
-        width: 50%
-    }
-
-    fieldset.multimedia ul.nav.nav-pills.nav-justified li.nav-pills-disjunction {
-
-        background: url('../images/nav-pills-or.svg') no-repeat center;
-        background-size: 50px 50px;
-        position: absolute;
-        left: calc(50% - 25px);
-        top: 0;
-        z-index: 1;
-        width: 50px;
-        height: 36px;
-        padding: 5px 0;
-        text-align: center;
-        margin-left: 0px;
     }
 
     .charNum {
