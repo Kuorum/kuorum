@@ -41,6 +41,10 @@ import java.util.regex.Pattern
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
 
+    public static final String METADATA_NAME = "Nombre"
+    public static final String METADATA_PHONE_PREFIX = "Prefijo"
+    public static final String METADATA_PHONE = "Teléfono"
+
     def springSecurityService
     FileService fileService
     def passwordEncoder
@@ -548,8 +552,9 @@ class ProfileController {
         if (contactExtraInfo == null) {
             contactExtraInfo = new HashMap<>()
         } else {
-            // save crafted complete phone in contact metadata
-            contactExtraInfo.put(command.contactName, command.phonePrefix.replaceAll("^0+", "+").concat( command.phone))
+            contactExtraInfo.put(METADATA_NAME, command.contactName)
+            contactExtraInfo.put(METADATA_PHONE_PREFIX, command.phonePrefix)
+            contactExtraInfo.put(METADATA_PHONE, command.phone.replaceAll("^0+", "+"))
         }
         return contactExtraInfo
     }
