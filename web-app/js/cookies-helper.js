@@ -56,6 +56,7 @@ var cookiesHelper = {
     acceptThirdCookies: function (value) {
         if (value) {
             cookiesHelper.setCookie(this.cookieThirdAccepted, "true", 99999);
+            loadGoogleTagManager(true);
         } else {
             cookiesHelper.removeCookie(this.cookieThirdAccepted)
         }
