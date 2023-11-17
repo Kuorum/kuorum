@@ -495,7 +495,7 @@ class CampaignController {
 
     private boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {
         List<String> files = contactService.getFiles(campaignOwner.getId().toString(), ownerContact)
-        return files.size() >= WebConstants.MIN_FILES_PER_DOC_IN_CONTEST -1; // added minus one to not force user follow this flow 
+        return files.size() >= WebConstants.MIN_FILES_PER_DOC_IN_CONTEST
     }
 
     def validateUser(DomainValidationCommand domainValidationCommand) {
