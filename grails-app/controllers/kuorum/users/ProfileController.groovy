@@ -502,14 +502,22 @@ class ProfileController {
     def funnelFillBasicData() {
         KuorumUser user = params.user
         FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
-//        command.name = user.name // Is not se because we want to force to update the name to the association nam
-        command.contactName = user.name
+
+        isAssociationAlreadyRegistered(user) ? command.name = user.name:''
+
         command.email = user.email
         command.fillBioParts(user.bio)
         command.phone = user.personalData?.telephone
         command.phonePrefix = user.personalData?.phonePrefix
         command.nid = user.nid
         return [command: command]
+    }
+
+    def isAssociationAlreadyRegistered(user) {
+        ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
+        KuorumUserSession userSession = springSecurityService.principal as KuorumUserSession
+        Map<String, String> contactExtraInfo = contactService.getExtraInfo(userSession, contact.getId())
+        return !contactExtraInfo.isEmpty()
     }
 
     def saveFunnelFillBasicData(FunnelFillBasicDataCommand command) {
