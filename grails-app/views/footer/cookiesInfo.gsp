@@ -195,6 +195,13 @@
                     <td><g:message code="footer.menu.footerCookiesInfo.cookie.google.AMP_TOKEN.expiration"/></td>
                     <td><g:message code="footer.menu.footerCookiesInfo.cookie.type.analitycs"/></td>
                 </tr>
+                <tr>
+                    <td>FG_ID</td>
+                    <td>Froged</td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.google.FG_ID"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.sixMonth"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.type.analitycs"/></td>
+                </tr>
                 </tbody>
             </table>
         </div>
