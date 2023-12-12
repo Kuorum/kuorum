@@ -86,6 +86,8 @@ class ProfileController {
         KuorumUser user = params.user
         AccountDetailsCommand command = new AccountDetailsCommand(user)
 //        command.homeRegion = regionService.findUserRegion(user)
+        command.phonePrefix = ""
+        command.phone = ""
         [command: command, requirePassword: registerService.isPasswordSetByUser(user)]
     }
 
@@ -108,8 +110,8 @@ class ProfileController {
         if (!user.personalData) {
             user.personalData = new PersonalData()
         }
-        user.personalData.phonePrefix = command.phonePrefix
-        user.personalData.telephone = command.phone
+        // user.personalData.phonePrefix = command.phonePrefix
+        // user.personalData.telephone = command.phone
         user.personalData.provinceCode = command.homeRegion?.iso3166 ?: null
         user.timeZone = command.timeZoneId ? TimeZone.getTimeZone(command.timeZoneId) : null
         kuorumUserService.updateUser(user)
@@ -581,9 +583,9 @@ class ProfileController {
         return contactExtraInfo
     }
 
-    private def saveMetaDataHashMapToContact(Map <String,String> contactExtraInfo, ContactRSDTO contact) {
+    private def saveMetaDataHashMapToContact(Map<String, String> contactExtraInfo, ContactRSDTO contact) {
         KuorumUserSession userSession = springSecurityService.principal
-        contactService.putExtraInfo(userSession,contact.getId(), contactExtraInfo)
+        contactService.putExtraInfo(userSession, contact.getId(), contactExtraInfo)
     }
 
     private def handleSaveFunnelFillBasicDataErrorCommand(FunnelFillBasicDataCommand command, KuorumUser user) {
