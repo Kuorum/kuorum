@@ -31,16 +31,21 @@ var cookiesHelper = {
         }
     },
     displayCookiesPolitics: function () {
-        this.checkCookie(
-            this.cookieTechnicalAccepted,
-            function () {
-            },
-            function (cName) {
-                var buttonAccept = "<button id='acceptCookies' class='btn btn-orange' onclick='cookiesHelper.acceptedAllCookies()'>" + i18n.cookies.accept + "</button>";
-                var message = "<p>" + i18n.cookies.message + "</p><div>" + i18n.cookies.settingsLink + buttonAccept + "</div>"
-                display.cookie(message);
-            }
-        )
+        this.checkCookie(this.cookieTechnicalAccepted, function () {
+        }, function (cName) {
+            console.log(123)
+            var buttonAccept = "<button id='acceptCookies' class='btn btn-orange' onclick='cookiesHelper.acceptedAllCookies()'>" + i18n.cookies.accept + "</button>";
+            var buttonReject = "<button id='rejectCookies' class='btn btn-orange' onclick='cookiesHelper.rejectCookies()'>" + i18n.cookies.reject + "</button>";
+            var message = "<p>" + i18n.cookies.message + "</p>"+buttonAccept + buttonReject + i18n.cookies.settingsLink;
+            display.cookie(message);
+        })
+    },
+    hideCookiesPolitics: function (){
+        $('#noty_cookieLayout_layout_container').hide();
+    },
+    rejectCookies: function () {
+        cookiesHelper.acceptTechnicalCookies();
+        cookiesHelper.acceptThirdCookies(false);
     },
     acceptedAllCookies: function () {
         cookiesHelper.acceptTechnicalCookies()
