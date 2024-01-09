@@ -3,11 +3,6 @@
 <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}"/>
 <html class="no-js" lang="${currentLang.language}" xml:lang="${currentLang.language}"
       xmlns="http://www.w3.org/1999/xhtml">
-<sec:ifLoggedIn>
-    <r:script>
-        if (!cookiesHelper.getCookie(cookiesHelper.cookieTechnicalAccepted)) cookiesHelper.acceptTechnicalCookies()
-    </r:script>
-</sec:ifLoggedIn>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
