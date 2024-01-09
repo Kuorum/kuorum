@@ -56,7 +56,8 @@
         cookies:{
             message: '<g:message code="cookies.message" args="[createLink(mapping: 'footerCookiesInfo', absolute: true)]" encodeAs="raw"/>',
             settingsLink: '<g:message code="cookies.settings.link" args="[createLink(mapping: 'footerCookiesInfo', absolute: true)]" encodeAs="raw"/>',
-            accept:"<g:message code="cookies.accept"/>"
+            accept:"<g:message code="cookies.accept"/>",
+            reject: "<g:message code="cookies.reject"/>",
         },
         read:{
             more:"<g:message code="read.more"/>",

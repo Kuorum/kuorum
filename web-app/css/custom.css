@@ -5771,15 +5771,27 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li {
 .cl-ntral-xxlight {color: #fcfcfc;}
 
 #acceptCookies{
-    float: right;
     margin: 6px 1px 8px 6px !important;
 }
 
 #settingsCookies{
     font-weight: normal !important;
     margin: 6px 1px 8px 6px !important;
+    float: right;
 }
 
+#rejectCookies{
+    font-weight: normal !important;
+    margin: 6px 1px 8px 6px !important;
+}
+
+#noty_cookieLayout_layout_container{
+    width: auto!important;
+}
+
+#noty_cookieLayout_layout_container > li:nth-child(1){
+    min-width: 600px !important;
+}
 /*** commment-box ***/
 .comment-box {
     padding: 25px 25px;
@@ -6766,6 +6778,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .edit-contact-header > div:first-child ul li {list-style: none; display: contents; margin-right: 5px;}
     .removeQuestionButton .visible-xs {display:inline-block!important;padding-right: 5px;}
 
+    #noty_cookieLayout_layout_container > li:nth-child(1){min-width:auto!important;}
+    #settingsCookies {float:none!important;}
+
 }
 
 @media only screen and (max-width: 998px) {
@@ -6777,6 +6792,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    #settingsCookies{float:right;}
     #navigation-admin-show-landing-button {margin-top:0px;}
     #navigation-admin-show-landing-button a{ height: 61px;}
     .form-group label .fa-info-circle{position: absolute;right: -11px;top: 13px; z-index:2;}
