@@ -41,6 +41,10 @@ import java.util.regex.Pattern
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
 
+    public static final String METADATA_NAME = "Nombre"
+    public static final String METADATA_PHONE_PREFIX = "Prefijo"
+    public static final String METADATA_PHONE = "Teléfono"
+
     def springSecurityService
     FileService fileService
     def passwordEncoder
@@ -82,6 +86,8 @@ class ProfileController {
         KuorumUser user = params.user
         AccountDetailsCommand command = new AccountDetailsCommand(user)
 //        command.homeRegion = regionService.findUserRegion(user)
+        command.phonePrefix = ""
+        command.phone = ""
         [command: command, requirePassword: registerService.isPasswordSetByUser(user)]
     }
 
@@ -104,8 +110,8 @@ class ProfileController {
         if (!user.personalData) {
             user.personalData = new PersonalData()
         }
-        user.personalData.phonePrefix = command.phonePrefix
-        user.personalData.telephone = command.phone
+        // user.personalData.phonePrefix = command.phonePrefix
+        // user.personalData.telephone = command.phone
         user.personalData.provinceCode = command.homeRegion?.iso3166 ?: null
         user.timeZone = command.timeZoneId ? TimeZone.getTimeZone(command.timeZoneId) : null
         kuorumUserService.updateUser(user)
@@ -498,19 +504,35 @@ class ProfileController {
     def funnelFillBasicData() {
         KuorumUser user = params.user
         FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
-//        command.name = user.name // Is not se because we want to force to update the name to the association nam
-        command.contactName = user.name
+        Map<String, String> contactMetadata = recoverContactMetadata(user);
+
+        if (isAssociationAlreadyRegistered(contactMetadata)) {
+            log.info("Already registered association :: contactMetadata: ${contactMetadata}")
+            command.name = user.name
+            command.contactName = contactMetadata[METADATA_NAME]
+            command.phone = contactMetadata[METADATA_PHONE]
+            command.phonePrefix = contactMetadata[METADATA_PHONE_PREFIX]
+        }
+
         command.email = user.email
         command.fillBioParts(user.bio)
-        command.phone = user.personalData?.telephone
-        command.phonePrefix = user.personalData?.phonePrefix
         command.nid = user.nid
         return [command: command]
     }
 
+    def recoverContactMetadata(user) {
+        ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
+        KuorumUserSession userSession = springSecurityService.principal as KuorumUserSession
+        return contactService.getExtraInfo(userSession, contact.getId());
+    }
+
+    def isAssociationAlreadyRegistered(contactMetadata) {
+        //Non-registered associations don't have metadata
+        return contactMetadata && !contactMetadata.isEmpty()
+    }
+
     def saveFunnelFillBasicData(FunnelFillBasicDataCommand command) {
         KuorumUser user = params.user
-        KuorumUserSession userSession
         if (command.hasErrors()) {
             handleSaveFunnelFillBasicDataErrorCommand(command, user)
             return;
@@ -537,26 +559,33 @@ class ProfileController {
             return;
         }
 
-        Map <String,String> contactExtraInfo = getContactExtraInfo(contact, command)
+        Map<String, String> contactExtraInfo = getContactExtraInfo(command)
         saveMetaDataHashMapToContact(contactExtraInfo, contact)
 
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
     }
-    private Map<String, String> getContactExtraInfo(ContactRSDTO contact, FunnelFillBasicDataCommand command) {
-        KuorumUserSession userSession = springSecurityService.principal
-        Map<String, String> contactExtraInfo = contactService.getExtraInfo(userSession, contact.getId())
+
+    private Map<String, String> getContactExtraInfo(FunnelFillBasicDataCommand command) {
+        KuorumUser user = params.user
+        Map<String, String> contactExtraInfo = recoverContactMetadata(user)
+        contactExtraInfo = prepareMetadataFields(contactExtraInfo, command)
+        return contactExtraInfo
+    }
+
+    private def prepareMetadataFields(Map<String, String> contactExtraInfo, FunnelFillBasicDataCommand command) {
         if (contactExtraInfo == null) {
             contactExtraInfo = new HashMap<>()
         } else {
-            // save crafted complete phone in contact metadata
-            contactExtraInfo.put(command.contactName, command.phonePrefix.replaceAll("^0+", "+").concat( command.phone))
+            contactExtraInfo.put(METADATA_NAME, command.contactName)
+            contactExtraInfo.put(METADATA_PHONE_PREFIX, command.phonePrefix)
+            contactExtraInfo.put(METADATA_PHONE, command.phone.replaceAll("^0+", "+"))
         }
         return contactExtraInfo
     }
 
-    private def saveMetaDataHashMapToContact(Map <String,String> contactExtraInfo, ContactRSDTO contact) {
+    private def saveMetaDataHashMapToContact(Map<String, String> contactExtraInfo, ContactRSDTO contact) {
         KuorumUserSession userSession = springSecurityService.principal
-        contactService.putExtraInfo(userSession,contact.getId(), contactExtraInfo)
+        contactService.putExtraInfo(userSession, contact.getId(), contactExtraInfo)
     }
 
     private def handleSaveFunnelFillBasicDataErrorCommand(FunnelFillBasicDataCommand command, KuorumUser user) {
@@ -593,7 +622,7 @@ class ProfileController {
     }
 
     def saveFunnelFillFiles() {
-        ContactRSDTO adminContact =  getAdminContact()
+        ContactRSDTO adminContact = getAdminContact()
         List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
         if (contactFiles.size() < WebConstants.MIN_FILES_PER_DOC_IN_CONTEST) {
             flash.error = g.message(code: "kuorum.web.commands.profile.funnel.files.minFiles")
