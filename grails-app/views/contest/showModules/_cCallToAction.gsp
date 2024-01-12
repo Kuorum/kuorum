@@ -39,7 +39,9 @@
 <div class="comment-box call-to-action ${hideXs ? 'hidden-sm hidden-xs' : ''} ${hideXl ? 'hidden-md hidden-lg' : ''}">
     <div class="comment-header">
         <span class="call-title">${callTitleMsg}</span>
-        <span class="call-subTitle">${callSubtitleMsg}</span>
+        <g:if test="${contest.status != org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING}">
+            <span class="call-subTitle">${callSubtitleMsg}</span>
+        </g:if>
     </div>
     <g:if test="${contest.published}">
         <div class="actions clearfix">
