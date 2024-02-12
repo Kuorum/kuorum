@@ -46,7 +46,6 @@ class FileController {
         String userAlias = params.userAlias
         KuorumUserSession userSession = springSecurityService.principal
         KuorumUserSession uploadUserFile = userSession;
-        print(userSession.authorities)
         if (userAlias && userAlias != userSession.alias && SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
             KuorumUser fileUser = kuorumUserService.findByAlias(userAlias)
             uploadUserFile = MongoUserDetailsService.buildUserSession(fileUser, [])
