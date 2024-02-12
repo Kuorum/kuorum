@@ -12,7 +12,7 @@
     <uploader:uploader
             id="uploaderImageId_${imageId}"
             multiple="false"
-            url="${[mapping:'ajaxUploadFile']}"
+            url="${[mapping:'ajaxUploadFile', params: [userAlias: userAlias]]}"
             sizeLimit="${fileGroup.maxSize}"
             minSizeLimit="${kuorum.core.FileGroup.MIN_SIZE_IMAGE}"
             allowedExtensions='["\'png\'", "\'jpeg\'", "\'jpg\'", "\'JPG\'", "\'JPEG\'"]'

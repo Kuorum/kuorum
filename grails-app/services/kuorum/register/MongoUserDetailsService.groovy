@@ -53,7 +53,7 @@ class MongoUserDetailsService implements GrailsUserDetailsService {
         } else if (log.debugEnabled) {
             log.debug("KuorumUser found: $username")
         }
-        
+
         KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(user.id.toString())
         return createUserDetails(userRSDTO)
     }
@@ -79,6 +79,24 @@ class MongoUserDetailsService implements GrailsUserDetailsService {
                 userRSDTO.timeZone,
                 userRSDTO.avatarUrl,
                 AvailableLanguage.valueOf(userRSDTO.language.toString())
+        )
+    }
+
+    static KuorumUserSession buildUserSession(KuorumUser user, Collection authorities){
+        return new KuorumUserSession(
+                user.alias,
+                user.getEmail(),
+                user.password,
+                user.enabled,
+                true,
+                true,
+                true,
+                authorities,
+                user.id,
+                user.name,
+                user.timeZone,
+                user?.avatar?.url ?:"",
+                user?.language?: AvailableLanguage.en_EN
         )
     }
 

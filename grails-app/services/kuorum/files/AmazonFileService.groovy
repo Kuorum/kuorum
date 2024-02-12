@@ -30,7 +30,7 @@ class AmazonFileService extends LocalFileService {
 
     public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup) throws KuorumException {
         KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, userSession, fileName, fileGroup, userSession.alias)
-        uploadAmazonFile(kuorumFile, Boolean.TRUE)
+        uploadAmazonFile(kuorumFile, Boolean.TRUE, userSession)
         kuorumFile
     }
 
@@ -217,8 +217,10 @@ class AmazonFileService extends LocalFileService {
     }
 
     protected void uploadAmazonFile(KuorumFile kuorumFile, Boolean asTemporal) {
+        uploadAmazonFile(kuorumFile, asTemporal, springSecurityService.principal)
+    }
+    protected void uploadAmazonFile(KuorumFile kuorumFile, Boolean asTemporal, KuorumUserSession user) {
         if (kuorumFile.fileType == FileType.IMAGE) {
-            KuorumUserSession user = springSecurityService.principal
             String filePath = "${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}";
             File file = new File(filePath);
 

@@ -21,7 +21,7 @@
     <g:form method="POST" mapping="editorKuorumAccountPicturesEdit" params="${user.encodeAsLinkProperties()}"
             name="profilePictures" role="form">
         <div class="box-ppal-section">
-            <g:render template="/profile/formEditPictures" model="[command: command]"/>
+            <g:render template="/profile/formEditPictures" model="[command: command, user: user]"/>
         </div>
 
         <div class="box-ppal-section">
