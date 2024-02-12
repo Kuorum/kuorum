@@ -1,11 +1,15 @@
 package kuorum
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.FileGroup
 import kuorum.files.FileService
 import kuorum.files.LocalFileService
 import kuorum.register.KuorumUserSession
+import kuorum.register.MongoUserDetailsService
+import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.ContactRSDTO
@@ -28,21 +32,27 @@ class FileController {
     NewsletterService newsletterService
     ContactService contactService
     SurveyService surveyService
+    KuorumUserService kuorumUserService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadImage() {
         def fileData = getFileData(request)
         FileGroup fileGroup = FileGroup.valueOf(params.fileGroup)
 //        FileGroup fileGroup = FileGroup.PROJECT_IMAGE
-        if(!fileGroup){
+        if (!fileGroup) {
             //TODO: ESTO ESTA MAL (Por defecto no es POST_IMAGE)
             fileGroup = FileGroup.POST_IMAGE
         }
-        KuorumUserSession user = springSecurityService.principal
-
-        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
-
-        render ([absolutePathImg:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200, aspectRatio:fileGroup.aspectRatio] as JSON)
+        String userAlias = params.userAlias
+        KuorumUserSession userSession = springSecurityService.principal
+        KuorumUserSession uploadUserFile = userSession;
+        print(userSession.authorities)
+        if (userAlias && userAlias != userSession.alias && SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+            KuorumUser fileUser = kuorumUserService.findByAlias(userAlias)
+            uploadUserFile = MongoUserDetailsService.buildUserSession(fileUser, [])
+        }
+        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, uploadUserFile, fileData.fileName, fileGroup)
+        render([absolutePathImg: kuorumFile.url, fileId: kuorumFile.id.toString(), status: 200, aspectRatio: fileGroup.aspectRatio] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -52,28 +62,28 @@ class FileController {
         KuorumUserSession user = springSecurityService.principal
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
-        render ([absolutePathPDF:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
+        render([absolutePathPDF: kuorumFile.url, fileId: kuorumFile.id.toString(), status: 200] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadCampaignFile() {
         def fileData = getFileData(request)
         File file = File.createTempFile("campaignFile", "kuorum")
-        localFileService.upload(fileData.inputStream,file);
-        String fileUrl = campaignService.uploadFile(springSecurityService.principal,Long.parseLong(params.campaignId), file, fileData.fileName);
+        localFileService.upload(fileData.inputStream, file);
+        String fileUrl = campaignService.uploadFile(springSecurityService.principal, Long.parseLong(params.campaignId), file, fileData.fileName);
         file.delete();
 //        FileGroup fileGroup = FileGroup.PDF
 //        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 //        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
-        render ([fileUrl: fileUrl, fileName: fileData.fileName, status:200, success:true] as JSON)
+        render([fileUrl: fileUrl, fileName: fileData.fileName, status: 200, success: true] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def deleteCampaignFile() {
         def fileName = params.fileName
         campaignService.deleteFile(springSecurityService.principal, Long.parseLong(params.campaignId), fileName)
-        render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
+        render([fileUrl: "#FILE", fileName: fileName, status: 200, success: true] as JSON)
     }
 
 
@@ -128,39 +138,37 @@ class FileController {
     def uploadQuestionOptionFile() {
         def fileData = getFileData(request)
         File file = File.createTempFile("contactFile", "kuorum")
-        localFileService.upload(fileData.inputStream,file);
+        localFileService.upload(fileData.inputStream, file);
         String fileUrl
         try {
-            fileUrl = surveyService.uploadQuestionOptionFile(
-                    springSecurityService.principal,
+            fileUrl = surveyService.uploadQuestionOptionFile(springSecurityService.principal,
                     params.userAlias,
                     Long.parseLong(params.surveyId),
                     Long.parseLong(params.questionId),
                     Long.parseLong(params.questionOptionId),
                     file,
                     fileData.fileName);
-        }finally{
+        } finally {
             file.delete();
         }
 //        FileGroup fileGroup = FileGroup.PDF
 //        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 //        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
-        render ([fileUrl: fileUrl, fileName: fileData.fileName, status:200, success:true] as JSON)
+        render([fileUrl: fileUrl, fileName: fileData.fileName, status: 200, success: true] as JSON)
     }
 
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def deleteQuestionOptionFile() {
         def fileName = params.fileName
-        surveyService.deleteQuestionOptionFile(
-                springSecurityService.principal,
+        surveyService.deleteQuestionOptionFile(springSecurityService.principal,
                 params.userAlias,
                 Long.parseLong(params.surveyId),
                 Long.parseLong(params.questionId),
                 Long.parseLong(params.questionOptionId),
                 fileName);
-        render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
+        render([fileUrl: "#FILE", fileName: fileName, status: 200, success: true] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -168,24 +176,23 @@ class FileController {
         def fileData = getFileData(request, 'miufile')
         FileGroup fileGroup = FileGroup.CUSTOM_TEMPLATE_IMAGE
         KuorumUserSession user = springSecurityService.principal
-        String campaignId= params.campaignId
+        String campaignId = params.campaignId
         String path = "${user.id}/${campaignId}"
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup, path)
         kuorumFile = fileService.convertTemporalToFinalFile(kuorumFile)
 
-        render ([success:true,absolutePath:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
+        render([success: true, absolutePath: kuorumFile.url, fileId: kuorumFile.id.toString(), status: 200] as JSON)
 //        render ([success:true] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def getCampaignImages() {
-        String campaignId= params.campaignId
+        String campaignId = params.campaignId
         KuorumUserSession user = springSecurityService.principal
         String path = "${user.id}/${campaignId}"
         List<KuorumFile> files = fileService.listFilesFromPath(FileGroup.CUSTOM_TEMPLATE_IMAGE, path)
 
-        render (files.collect{kf->
-            [name:kf.originalName, uuid:kf.id.toString(), thumbnailUrl:kf.url]
+        render(files.collect { kf -> [name: kf.originalName, uuid: kf.id.toString(), thumbnailUrl: kf.url]
         } as JSON)
     }
 
@@ -194,21 +201,21 @@ class FileController {
     def uploadNewsletterAttachedFile() {
         def fileData = getFileData(request)
         File file = File.createTempFile("campaignFile", "kuorum")
-        localFileService.upload(fileData.inputStream,file);
-        String fileUrl = newsletterService.uploadFile(springSecurityService.principal,Long.parseLong(params.campaignId), file, fileData.fileName);
+        localFileService.upload(fileData.inputStream, file);
+        String fileUrl = newsletterService.uploadFile(springSecurityService.principal, Long.parseLong(params.campaignId), file, fileData.fileName);
         file.delete();
 //        FileGroup fileGroup = FileGroup.PDF
 //        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 //        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
-        render ([fileUrl: fileUrl, fileName: fileData.fileName, status:200, success:true] as JSON)
+        render([fileUrl: fileUrl, fileName: fileData.fileName, status: 200, success: true] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def deleteNewsletterAttachedFile() {
         def fileName = params.fileName
         newsletterService.deleteFile(springSecurityService.principal, Long.parseLong(params.campaignId), fileName)
-        render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
+        render([fileUrl: "#FILE", fileName: fileName, status: 200, success: true] as JSON)
     }
 
 
@@ -222,19 +229,20 @@ class FileController {
 
         //TODO: Seguridad. Ahora todo el mundo puede hacer crop de cualquier foto
 
-        KuorumFile cropedFile = fileService.cropImage(kuorumFile,x,y,height,width)
-        render ([absolutePathImg:cropedFile.url, fileId:cropedFile.id.toString(), status:200,aspectRatio:cropedFile.fileGroup.aspectRatio] as JSON)
+        KuorumFile cropedFile = fileService.cropImage(kuorumFile, x, y, height, width)
+        render([absolutePathImg: cropedFile.url, fileId: cropedFile.id.toString(), status: 200, aspectRatio: cropedFile.fileGroup.aspectRatio] as JSON)
     }
 
     private def getFileData(HttpServletRequest request) {
         getFileData(request, 'qqfile')
     }
+
     private def getFileData(HttpServletRequest request, paramFileName) {
         if (request instanceof MultipartHttpServletRequest) {
             MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile(paramFileName)
 
-            return [inputStream:uploadedFile.inputStream, fileName:uploadedFile.originalFilename]
+            return [inputStream: uploadedFile.inputStream, fileName: uploadedFile.originalFilename]
         }
-        return [inputStream:request.inputStream, fileName:params.qqfile]
+        return [inputStream: request.inputStream, fileName: params.qqfile]
     }
 }
