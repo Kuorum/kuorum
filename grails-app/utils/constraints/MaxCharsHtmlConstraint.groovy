@@ -28,8 +28,8 @@ class MaxCharsHtmlConstraint extends org.codehaus.groovy.grails.validation.Abstr
 
     private String clearText(String rawText) {
         String cleanText = rawText
-                .replaceAll("<(.|\n)*?>", '') // REMOVE ALL HTML CODES
-                .replaceAll("&nbsp;", ' ') // REMOVE ALL HTML CODES
+                .replaceAll("<(.|\n)*?>", "") // REMOVE ALL HTML CODES
+                .replaceAll("&nbsp;", "") // REMOVE ALL HTML CODES
                 .replaceAll("\u00A0", "") // Special break line or space
                 .replaceAll("\\s+", " ") // Replace multiple spaces with only one
         return cleanText;
