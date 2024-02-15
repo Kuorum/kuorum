@@ -33,7 +33,6 @@ var cookiesHelper = {
     displayCookiesPolitics: function () {
         this.checkCookie(this.cookieTechnicalAccepted, function () {
         }, function (cName) {
-            console.log(123)
             var buttonAccept = "<button id='acceptCookies' class='btn btn-orange' onclick='cookiesHelper.acceptedAllCookies()'>" + i18n.cookies.accept + "</button>";
             var buttonReject = "<button id='rejectCookies' class='btn btn-orange' onclick='cookiesHelper.rejectCookies()'>" + i18n.cookies.reject + "</button>";
             var message = "<p>" + i18n.cookies.message + "</p>"+buttonAccept + buttonReject + i18n.cookies.settingsLink;
