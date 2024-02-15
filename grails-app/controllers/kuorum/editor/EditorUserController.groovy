@@ -60,7 +60,7 @@ class EditorUserController {
         KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
         validateUniqueEmail(user, command)
         if (command.hasErrors()) {
-            flash.error = message(code: 'admin.createUser.error') + ": " + message(error: command.errors.getFieldError())
+            flash.error = message(code: 'admin.updateUser.error') + ": " + message(error: command.errors.getFieldError())
             render view: 'editAdminAccountDetails', model: [command: command, user: user]
             return
         }
