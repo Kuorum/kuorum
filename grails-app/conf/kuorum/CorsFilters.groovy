@@ -2,7 +2,7 @@ package kuorum
 
 class CorsFilters {
 
-    String X_FRAME_OPTIONS = "DENY" // DENY | SAMEORIGIN
+    String X_FRAME_OPTIONS = "SAMEORIGIN" // DENY | SAMEORIGIN
     def filters = {
         corsFilter(controller:'*', action:'*') {
             before = {
