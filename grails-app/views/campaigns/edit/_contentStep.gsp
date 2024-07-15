@@ -36,7 +36,9 @@
     </fieldset>
     <fieldset aria-live="polite" class="form-group multimedia">
         <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message
-                code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>
+                code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:
+            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
+                  title="${g.message(code: 'kuorum.web.commands.payment.contest.NewContestApplicationCommand.headerPictureId.info.'+campaign.campaignType)}"></span></label>
 
         <div class="col-sm-8 col-md-7">
             <span class="span-label sr-only"><g:message code="default.upload.title"/></span>
