@@ -275,6 +275,7 @@ class UrlMappings {
         name contestApplicationShow: "/$userAlias/$contestTitle-$contestId/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "CAMPAIGN" }
         name contestApplicationVote: "/ajax/$userAlias/ct/$contestTitle-$contestId/cta/$urlTitle-$campaignId/vote"(controller: "contest", action: "vote"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
 
+        name campaignShowShortener: "/s/$campaignId"(controller: "campaign", action: "showShort")
         name campaignShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "CAMPAIGN" }
         name campaignCheckValidation: "/ajax/$userAlias/$urlTitle-$campaignId/validation/check"(controller: "campaignValidation", action: "campaignUserValidChecker")
         name campaignCheckGroupValidation: "/ajax/$userAlias/$urlTitle-$campaignId/group/check"(controller: "campaign", action: "checkGroupCampaignValidation")
