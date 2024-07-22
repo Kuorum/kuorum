@@ -7591,8 +7591,12 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 /* Profile Card ----------------*/
 .politician-card p {
     text-align: justify;
-    margin: 0px 0px 48px 0px;
+    margin: 0px;
     /*display: inline;*/
+}
+
+.politician-card h5:last-of-type{
+    margin-top: 36px;
 }
 
 .politician-card h5 {
