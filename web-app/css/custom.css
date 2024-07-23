@@ -7595,7 +7595,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /*display: inline;*/
 }
 
-.politician-card h5:last-of-type{
+.politician-card p + h5{
     margin-top: 36px;
 }
 
