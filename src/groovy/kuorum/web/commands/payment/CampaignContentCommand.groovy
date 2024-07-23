@@ -2,6 +2,7 @@ package kuorum.web.commands.payment
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.validation.Validateable
+import kuorum.YoutubeNameCodec
 import kuorum.register.KuorumUserSession
 import kuorum.util.TimeZoneUtil
 import kuorum.web.constants.WebConstants
@@ -54,7 +55,15 @@ class CampaignContentCommand {
             }
         }
         headerPictureId nullable: true
-        videoPost nullable: true
+        videoPost nullable: true, validator: { val ->
+
+            if(val.contains("short")) return "kuorum.web.commands.payment.CampaignContentCommand.videoPost.matches.invalid.shortNotAllowed"
+            if(val.contains("/c/") || val.contains("/@")) return "kuorum.web.commands.payment.CampaignContentCommand.videoPost.matches.invalid.channelNotAllowed"
+
+            if(!YoutubeNameCodec.decode(val)){
+                return "kuorum.web.commands.payment.CampaignContentCommand.videoPost.matches.invalid"
+            }
+        }
         publishOn nullable: true, validator: { val, obj ->
             KuorumUserSession kuorumUser = CampaignContentCommand.currentUser()
             Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, kuorumUser.timeZone)
