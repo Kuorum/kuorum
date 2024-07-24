@@ -7595,12 +7595,13 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /*display: inline;*/
 }
 
-.politician-card p + h5{
+.politician-card h5 {
+    font-size: 18px;
     margin-top: 36px;
 }
 
-.politician-card h5 {
-    font-size: 18px;
+.politician-card h5:first-child{
+    margin-top: 0px;
 }
 
 .profile-header {
