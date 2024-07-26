@@ -140,6 +140,15 @@ class CampaignController {
         }
     }
 
+    def showShort(){
+        log.info("Using shortener, redirecting...")
+        int httpCode = HttpServletResponse.SC_MOVED_PERMANENTLY
+        String campaignId = params.campaignId;
+        response.setStatus(httpCode)
+        CampaignRSDTO campaignRSDTO = campaignService.find(String.valueOf(WebConstants.FAKE_LANDING_ALIAS_USER), Long.parseLong(campaignId))
+        redirect(mapping: 'campaignShow', params: campaignRSDTO.encodeAsLinkProperties(), permanent:true)
+    }
+
     def findLiUserCampaigns(Pagination pagination) {
         String userId = params.userId
         Integer page = pagination.offset / pagination.max
