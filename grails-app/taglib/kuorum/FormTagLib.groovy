@@ -304,6 +304,7 @@ class FormTagLib {
         def clazz
         def type
         def numberStep
+        def addMinValue = attrs.minValue?:''
         try{
             if (attrs.type){
                 type = attrs.type
@@ -365,7 +366,7 @@ class FormTagLib {
             """
         }
         out << """
-            <input type="${type}" ${numberStep ? "step='${numberStep}'" : ''} name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error ? 'error' : ''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" aria-errormessage="${id}-error" value="${value}" ${disabled} ${readonly} ${ariaLabel}/>
+            <input type="${type}" ${numberStep ? "step='${numberStep}'" : ''} name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error ? 'error' : ''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" aria-errormessage="${id}-error" value="${value}" ${disabled} ${readonly} ${ariaLabel} ${addMinValue ? "min='$addMinValue'" : ''}/>
         """
         if(error){
             out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
