@@ -43,6 +43,14 @@
             <div class="col-sm-4 col-xs-12">
                 <formUtil:selectEnum command="${command}" field="focusType" showLabel="true" defaultEmpty="true"/>
             </div>
+        </fieldset><fieldset aria-live="polite" class="form-group">
+            <div class="col-sm-offset-1 col-sm-4 col-xs-12">
+                <formUtil:input type="number" command="${command}" field="numBenefitedCaregivers" showLabel="true" minValue="0"/>
+            </div>
+
+            <div class="col-sm-4 col-xs-12">
+                <formUtil:input type="number" command="${command}" field="numBenefitedPacients" showLabel="true" minValue="0"/>
+            </div>
         </fieldset>
         <g:render template="/campaigns/edit/stepButtons"
                   model="[mappings: mappings, status: status, command: command, numberRecipients: numberRecipients]"/>
