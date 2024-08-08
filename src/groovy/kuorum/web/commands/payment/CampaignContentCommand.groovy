@@ -56,12 +56,10 @@ class CampaignContentCommand {
         }
         headerPictureId nullable: true
         videoPost nullable: true, validator: { val ->
-
-            if(val.contains("short")) return "kuorum.web.commands.payment.CampaignContentCommand.videoPost.matches.invalid.shortNotAllowed"
-            if(val.contains("/c/") || val.contains("/@")) return "kuorum.web.commands.payment.CampaignContentCommand.videoPost.matches.invalid.channelNotAllowed"
-
-            if(!YoutubeNameCodec.decode(val)){
-                return "kuorum.web.commands.payment.CampaignContentCommand.videoPost.matches.invalid"
+            if(val) {
+                if(val.contains("short")) return "kuorum.web.commands.payment.CampaignContentCommand.videoPost.matches.invalid.shortNotAllowed"
+                if(val.contains("/c/") || val.contains("/@")) return "kuorum.web.commands.payment.CampaignContentCommand.videoPost.matches.invalid.channelNotAllowed"
+                if (!YoutubeNameCodec.decode(val)) { return "kuorum.web.commands.payment.CampaignContentCommand.videoPost.matches.invalid"}
             }
         }
         publishOn nullable: true, validator: { val, obj ->
