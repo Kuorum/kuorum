@@ -25,7 +25,7 @@
                 code="kuorumUser.social.twitter.text"
                 args="[twitterName, kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"
                 encodeAs="HTML"/></g:set>
-        <g:set var="twitterLink">https://twitter.com/share?url=${userLink}&text=${twitterShareText}&hashtags=${user.alias?:""}</g:set>
+        <g:set var="twitterLink">https://twitter.com/intent/tweet?url=${userLink}&text=${twitterShareText}&hashtags=${user.alias?:""}</g:set>
 
         <a href="${twitterLink}" target="_blank" rel="nofollow noopener noreferrer" title="${g.message(code: 'project.social.twitter')}">
             <span class="social-share fab fa-twitter"></span>
