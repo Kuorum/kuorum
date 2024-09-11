@@ -12,7 +12,7 @@
     <ul class="social pull-left">
         <li>
             <g:set var="twitterShareText">${debate.title}</g:set>
-            <g:set var="twitterLink">https://twitter.com/share?url=${debateLink.encodeAsURL()}&text=${twitterShareText}</g:set>
+            <g:set var="twitterLink">https://twitter.com/intent/tweet?url=${debateLink.encodeAsURL()}&text=${twitterShareText}</g:set>
             <a href="${twitterLink}" target="_blank" title="${g.message(code: 'project.social.twitter')}"
                rel="noopener noreferrer">
                 <span class="fa-stack fa-lg" aria-hidden="true">

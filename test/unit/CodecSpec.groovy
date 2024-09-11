@@ -2,7 +2,7 @@ import kuorum.AmazonS3KeyCodec
 import kuorum.NormalizedCodec
 import kuorum.numberCodecs.HiddenPhoneCodec
 import kuorum.numberCodecs.ReducedPriceCodec
-import kuorum.postalCodeHandlers.YoutubeNameCodec
+import kuorum.YoutubeNameCodec
 import org.codehaus.groovy.grails.plugins.codecs.HTMLEncoder
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -111,7 +111,94 @@ class CodecSpec extends Specification {
         "http://youtube.com/watch v=5fTsCcUD8Kg"                        | ""            | true
         ""                                                              | ""            | true
         "kkafuti"                                                       | ""            | true
+        "https://www.youtube.com/shorts/J0iIQ629N2c"                    |"J0iIQ629N2c"  | false
+        "thisdoesnotmatch"                                              |""             | true
+        "seulement11"                                                   |""             | true
+        "l_la5XiQJdk"                                                   |""             | true
+        "http://www.youtube.com/watch?v=vpiMAaPTze8"                    |"vpiMAaPTze8"  | false
+        "http://youtu.be/l_la5XiQJdk"                                   |"l_la5XiQJdk"  | false
+        "http://youtu.be/NLqAF9hrVbY"                                   |"NLqAF9hrVbY"  | false
+        "https://youtu.be/qT47KF5pvfw"                                  |"qT47KF5pvfw"  | false
+        "https://youtu.be/zImHyTyYhM8?t=4s"                             |"zImHyTyYhM8"  | false
+        "http://www.youtube.com/v/NLqAF9hrVbY?fs=1&hl=en_US"            |"NLqAF9hrVbY"  | false
+        "http://www.youtube.com/watch?v=NLqAF9hrVbY"                    |"NLqAF9hrVbY"  | false
+        "http://www.youtube.com/user/Scobleizer#p/u/1/1p3vcRhsYGo"      |"1p3vcRhsYGo"  | false
+        "http://www.youtube.com/ytscreeningroom?v=NRHVzbJVx8I"          |"NRHVzbJVx8I"  | false
+        "http://www.youtube.com/sandalsResorts#p/c/54B8C800269D7C1B/2/PPS-8DMrAn4" | "PPS-8DMrAn4" | false
+        "http://gdata.youtube.com/feeds/api/videos/NLqAF9hrVbY"         |"NLqAF9hrVbY"  | false
+        "http://www.youtube.com/watch?v=spDj54kf-vY&feature=g-vrec"     |"spDj54kf-vY"  | false
+        "http://www.youtube.com/watch?v=spDj54kf-vY&feature=youtu.be"   |"spDj54kf-vY"  | false
+        "http://www.youtube-nocookie.com/watch?v=spDj54kf-vY"           |"spDj54kf-vY"  | false
+        "http://www.youtube.com/embed/spDj54kf-vY"                      |"spDj54kf-vY"  | false
+        "https://www.youtube.com/embed/NLqAF9hrVbY"                     |"NLqAF9hrVbY"  | false
+        "https://www.youtube.com/watch?v=MRl7cxSOXdU&feature=youtu.be"  |"MRl7cxSOXdU"  | false
+        "https://www.youtube.com/watch?v=q07SQFmL4rM"                   |"q07SQFmL4rM"  | false
+        "https://www.youtube.com/watch?time_continue=4&v=zImHyTyYhM8"   |"zImHyTyYhM8"  | false
+        "http://www.youtube.com/embed/dQw4w9WgXcQ"                      |"dQw4w9WgXcQ"  | false
+        "http://www.youtube.com/watch?v=dQw4w9WgXcQ"                    |"dQw4w9WgXcQ"  | false
+        "http://www.youtube.com/?v=dQw4w9WgXcQ"                         |"dQw4w9WgXcQ"  | false
+        "http://www.youtube.com/v/dQw4w9WgXcQ"                          |"dQw4w9WgXcQ"  | false
+        "http://www.youtube.com/e/dQw4w9WgXcQ"                          |"dQw4w9WgXcQ"  | false
+        "http://www.youtube.com/user/username#p/u/11/dQw4w9WgXcQ"       |"dQw4w9WgXcQ"  | false
+        "http://www.youtube.com/sandalsResorts#p/c/54B8C800269D7C1B/2/PPS-8DMrAn4"|"PPS-8DMrAn4"  | false
+        "http://www.youtube.com/watch?feature=player_embedded&v=dQw4w9Wg"|""  | true
+        "http://www.youtube.com/?feature=player_embedded&v=dQw4w9WgXcQ" |"dQw4w9WgXcQ"  | false
+        "https://www.youtube.com/watch?v=DFYRQ_zQ-gk&feature=featured"  |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/watch?v=DFYRQ_zQ-gk"                   |"DFYRQ_zQ-gk"  | false
+        "http://www.youtube.com/watch?v=DFYRQ_zQ-gk"                    |"DFYRQ_zQ-gk"  | false
+        "www.youtube.com/watch?v=DFYRQ_zQ-gk"                           |"DFYRQ_zQ-gk"  | false
+        "https://youtube.com/watch?v=DFYRQ_zQ-gk"                       |"DFYRQ_zQ-gk"  | false
+        "http://youtube.com/watch?v=DFYRQ_zQ-gk"                        |"DFYRQ_zQ-gk"  | false
+        "youtube.com/watch?v=DFYRQ_zQ-gk"                               |"DFYRQ_zQ-gk"  | false
+        "http://m.youtube.com/watch?v=DFYRQ_zQ-gk"                      |"DFYRQ_zQ-gk"  | false
+        "m.youtube.com/watch?v=DFYRQ_zQ-gk"                             |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/v/DFYRQ_zQ-gk?fs=1&hl=en_US"           |"DFYRQ_zQ-gk"  | false
+        "http://www.youtube.com/v/DFYRQ_zQ-gk?fs=1&hl=en_US"            |"DFYRQ_zQ-gk"  | false
+        "www.youtube.com/v/DFYRQ_zQ-gk?fs=1&hl=en_US"                   |"DFYRQ_zQ-gk"  | false
+        "youtube.com/v/DFYRQ_zQ-gk?fs=1&hl=en_US"                       |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/embed/DFYRQ_zQ-gk?autoplay=1"          |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/embed/DFYRQ_zQ-gk"                     |"DFYRQ_zQ-gk"  | false
+        "http://www.youtube.com/embed/DFYRQ_zQ-gk"                      |"DFYRQ_zQ-gk"  | false
+        "www.youtube.com/embed/DFYRQ_zQ-gk"                             |"DFYRQ_zQ-gk"  | false
+        "https://youtube.com/embed/DFYRQ_zQ-gk"                         |"DFYRQ_zQ-gk"  | false
+        "http://youtube.com/embed/DFYRQ_zQ-gk"                          |"DFYRQ_zQ-gk"  | false
+        "youtube.com/embed/DFYRQ_zQ-gk"                                 |"DFYRQ_zQ-gk"  | false
+        "https://youtu.be/DFYRQ_zQ-gk?t=120"                            |"DFYRQ_zQ-gk"  | false
+        "https://youtu.be/DFYRQ_zQ-gk"                                  |"DFYRQ_zQ-gk"  | false
+        "http://youtu.be/DFYRQ_zQ-gk"                                   |"DFYRQ_zQ-gk"  | false
+        "youtu.be/DFYRQ_zQ-gk"                                          |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/watch?v=DFYRQ_zQ-gk&feature=featured"  |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/watch?v=DFYRQ_zQ-gk"                   |"DFYRQ_zQ-gk"  | false
+        "http://www.youtube.com/watch?v=DFYRQ_zQ-gk"                    |"DFYRQ_zQ-gk"  | false
+        "www.youtube.com/watch?v=DFYRQ_zQ-gk"                           |"DFYRQ_zQ-gk"  | false
+        "https://youtube.com/watch?v=DFYRQ_zQ-gk"                       |"DFYRQ_zQ-gk"  | false
+        "http://youtube.com/watch?v=DFYRQ_zQ-gk"                        |"DFYRQ_zQ-gk"  | false
+        "youtube.com/watch?v=DFYRQ_zQ-gk"                               |"DFYRQ_zQ-gk"  | false
+        "https://m.youtube.com/watch?v=DFYRQ_zQ-gk"                     |"DFYRQ_zQ-gk"  | false
+        "http://m.youtube.com/watch?v=DFYRQ_zQ-gk"                      |"DFYRQ_zQ-gk"  | false
+        "m.youtube.com/watch?v=DFYRQ_zQ-gk"                             |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/v/DFYRQ_zQ-gk?fs=1&hl=en_US"           |"DFYRQ_zQ-gk"  | false
+        "http://www.youtube.com/v/DFYRQ_zQ-gk?fs=1&hl=en_US"            |"DFYRQ_zQ-gk"  | false
+        "www.youtube.com/v/DFYRQ_zQ-gk?fs=1&hl=en_US"                   |"DFYRQ_zQ-gk"  | false
+        "www.youtube.com/v/DFYRQ_zQ-gk?fs=1&hl=en_US"                   |"DFYRQ_zQ-gk"  | false
+        "youtube.com/v/DFYRQ_zQ-gk?fs=1&hl=en_US"                       |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/embed/DFYRQ_zQ-gk?autoplay=1"          |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/embed/DFYRQ_zQ-gk"                     |"DFYRQ_zQ-gk"  | false
+        "http://www.youtube.com/embed/DFYRQ_zQ-gk"                      |"DFYRQ_zQ-gk"  | false
+        "www.youtube.com/embed/DFYRQ_zQ-gk"                             |"DFYRQ_zQ-gk"  | false
+        "www.youtube.com/embed/DFYRQ_zQ-gk"                             |"DFYRQ_zQ-gk"  | false
+        "https://youtube.com/embed/DFYRQ_zQ-gk"                         |"DFYRQ_zQ-gk"  | false
+        "http://youtube.com/embed/DFYRQ_zQ-gk"                          |"DFYRQ_zQ-gk"  | false
+        "youtube.com/embed/DFYRQ_zQ-gk"                                 |"DFYRQ_zQ-gk"  | false
+        "youtube.com/embed/DFYRQ_zQ-gk"                                 |"DFYRQ_zQ-gk"  | false
+        "https://youtu.be/DFYRQ_zQ-gk?t=120"                            |"DFYRQ_zQ-gk"  | false
+        "https://youtu.be/DFYRQ_zQ-gk"                                  |"DFYRQ_zQ-gk"  | false
+        "http://youtu.be/DFYRQ_zQ-gk"                                   |"DFYRQ_zQ-gk"  | false
+        "youtu.be/DFYRQ_zQ-gk"                                          |"DFYRQ_zQ-gk"  | false
+        "https://www.youtube.com/HamdiKickProduction?v=DFYRQ_zQ-gk"     |"DFYRQ_zQ-gk"  | false
     }
+
+
     @Unroll
     void "Test youtubeName decoder [youtubeUrl: #youtubeUrl]"(){
         given:"The possible youtube id"
