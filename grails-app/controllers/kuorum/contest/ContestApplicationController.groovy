@@ -187,6 +187,8 @@ class ContestApplicationController extends CampaignController {
             command.cause = contestApplicationRSDTO.causes ? contestApplicationRSDTO.causes[0] : ""
             command.focusType = contestApplicationRSDTO.focusType
             command.activityType = contestApplicationRSDTO.activityType
+            command.numBenefitedPacients = contestApplicationRSDTO.numBenefitedPacients
+            command.numBenefitedCaregivers = contestApplicationRSDTO.numBenefitedCaregivers
         }
         def model = [
                 campaign: contestApplicationRSDTO,
@@ -222,6 +224,8 @@ class ContestApplicationController extends CampaignController {
         campaignRDTO.causes = [command.cause]
         campaignRDTO.focusType = command.focusType
         campaignRDTO.activityType = command.activityType
+        campaignRDTO.numBenefitedCaregivers = command.numBenefitedCaregivers
+        campaignRDTO.numBenefitedPacients = command.numBenefitedPacients
         return campaignRDTO
     }
 
@@ -246,6 +250,8 @@ class ContestApplicationController extends CampaignController {
         rdto.causes = [command.cause]
         rdto.focusType = command.focusType
         rdto.activityType = command.activityType
+        rdto.numBenefitedPacients = command.numBenefitedPacients
+        rdto.numBenefitedCaregivers = command.numBenefitedCaregivers
         contestApplicationRSDTO = contestApplicationService.save(user, rdto, contestApplicationRSDTO.getId())
         def nextStep = processNextStep(user, contestApplicationRSDTO, false)
         return nextStep

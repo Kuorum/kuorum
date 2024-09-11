@@ -7597,6 +7597,11 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 .politician-card h5 {
     font-size: 18px;
+    margin-top: 36px;
+}
+
+.politician-card h5:first-child{
+    margin-top: 0px;
 }
 
 .profile-header {
@@ -8359,7 +8364,7 @@ header .header-msg h6:hover{
 
 
 @media only screen and (min-width: 768px){
-    #politician-bio.extra-padding {padding: 0 30px 20px;}
+    #politician-bio.extra-padding {padding-right:30px;}
     header h6{
         font-size: 16px;
     }

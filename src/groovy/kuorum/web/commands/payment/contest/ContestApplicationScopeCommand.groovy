@@ -11,12 +11,16 @@ class ContestApplicationScopeCommand {
     String cause
     ContestApplicationActivityTypeDTO activityType
     ContestApplicationFocusTypeDTO focusType
+    Integer numBenefitedCaregivers
+    Integer numBenefitedPacients
 
     static constraints = {
         name nullable: false
         cause nullable: false
         activityType nullable: false
         focusType nullable: false
+        numBenefitedCaregivers nullable: false
+        numBenefitedPacients nullable: false
     }
 
 }
