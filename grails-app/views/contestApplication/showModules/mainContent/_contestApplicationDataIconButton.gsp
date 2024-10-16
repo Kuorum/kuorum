@@ -18,8 +18,8 @@
         btn-disabled="${contestApplicationVoted || !org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING.equals(contestApplication.contest.status)}"
         aria-hidden="false"
         role="button"
-        aria-roledescription="${g.message(code: 'contestApplication.card.voteIcon')}"
-        aria-label="${g.message(code: 'contestApplication.card.vote')+' '+ contestApplication.title}">
+        aria-roledescription="${g.message(code: 'contestApplication.card.voteIcon.roleDescription')}"
+        aria-label="${g.message(code: 'contestApplication.card.vote.ariaLabel')+' '+ contestApplication.title}">
     <span class="${contestApplicationVoted ? 'fas' : 'fal'} fa-box-ballot" aria-hidden="true"></span>
     <span class="number">${contestApplication.votes}</span>
 </g:link>
