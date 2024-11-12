@@ -18,6 +18,7 @@
                         command="${validatePhoneCommand}"
                         field="phoneNumberPrefix"
                         showLabel="true"
+                        ariaLabelCustom="${message(code:'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumberPrefix.ariaLabel')}"
                         placeHolder=""
                         cssClass="form-control input-lg"
                         required="true"
@@ -26,6 +27,7 @@
                         command="${validatePhoneCommand}"
                         field="phoneNumber"
                         showLabel="false"
+                        ariaLabelCustom="${message(code:'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.ariaLabel')}"
                         placeHolder=""
                         cssClass="form-control input-lg"
                         type="number"
@@ -36,6 +38,7 @@
                         command="${validatePhoneCommand}"
                         field="phoneNumberPrefix2"
                         showLabel="true"
+                        ariaLabelCustom="${message(code:'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumberPrefix2.ariaLabel')}"
                         placeHolder=""
                         cssClass="form-control input-lg"
                         required="true"
@@ -44,6 +47,7 @@
                         command="${validatePhoneCommand}"
                         field="phoneNumber2"
                         showLabel="true"
+                        ariaLabelCustom="${message(code:'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber2.ariaLabel')}"
                         placeHolder=""
                         cssClass="form-control input-lg"
                         type="number"
@@ -73,6 +77,7 @@
                     field="phoneCode"
                     showLabel="true"
                     cssClass="form-control input-lg"
+                    ariaLabelCustom="${message(code:'kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.phoneCode.helpBlock')}"
                     required="true"/>
         </div>
         <fieldset aria-live="polite" class="modal-login-action-buttons">

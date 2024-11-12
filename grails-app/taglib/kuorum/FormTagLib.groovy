@@ -300,6 +300,7 @@ class FormTagLib {
         def readonly = attrs.readonly?'readonly':''
         def labelCssClass = attrs.labelCssClass?:''
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
+        def ariaLabelCustom = attrs.ariaLabelCustom?:''
         def showCharCounter = attrs.showCharCounter?Boolean.parseBoolean(attrs.showCharCounter):true
         def clazz
         def type
@@ -328,8 +329,18 @@ class FormTagLib {
         }
         def label = buildLabel(command, field, attrs.label)
         def placeHolder = attrs.placeHolder ?: message(code: "${command.class.name}.${field}.placeHolder", default: '')
+        def ariaLabelText =message(code: "${command.class.name}.${field}.ariaLabel", default: label)
         String helpBlock = attrs.helpBlock ?: message(code: "${command.class.name}.${field}.helpBlock", default: '')
         String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
+
+        def ariaLabel = "";
+        if (ariaLabelCustom != '') {
+            ariaLabel = "aria-label='${ariaLabelCustom}'";
+        }else {
+            ariaLabel = "aria-label='${ariaLabelText}'";
+        }
+
+
 
         // command."${field}" == 0 is false when using elvis operator
         def value = command."${field}" != null ? command."${field}" : ''
@@ -351,13 +362,11 @@ class FormTagLib {
             cssClass += " counted"
         }
 
-
-        def ariaLabel = "";
         if (showLabel) {
             out << "<label for='${prefixFieldName}${field}' class='${labelCssClass}'>${label}</label>"
-        } else {
-            ariaLabel = "aria-label='${label}'";
         }
+       // def ariaLabel = "aria-label='${ariaLabelText}'";
+
         if (extraInfo) {
             out << """
                 <span class="info-disabled">
@@ -768,13 +777,18 @@ class FormTagLib {
         Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
         Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
         def label = buildLabel(command, field, attrs.label)
+        def ariaLabelCustom = attrs.ariaLabelCustom?:''
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         def error = hasErrors(bean: command, field: field,'error')
         if (showLabel){
             out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
         }
+        def ariaLabel = "";
+        if (ariaLabelCustom != '') {
+            ariaLabel = "aria-label='${ariaLabelCustom}'";
+        }
         out << """
-            <select name="${prefixFieldName}${field}"  aria-label="${label}" class="form-control input-lg ${error}" id="${id}" ${disabled ? 'disabled' : ''} aria-errormessage="${id}-error">
+            <select name="${prefixFieldName}${field}" ${ariaLabel} class="form-control input-lg ${error}" id="${id}" ${disabled ? 'disabled' : ''} aria-errormessage="${id}-error">
             """
         if (!isRequired || defaultEmpty){
             out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty", default: '')}</option>"
