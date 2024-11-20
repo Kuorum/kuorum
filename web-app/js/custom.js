@@ -415,7 +415,7 @@ var display = {
                 speed: 500 // opening & closing animation speed
             },
             timeout: 0,
-            template: '<div class="noty_message" role="alert"><span class="noty_text"></span><span class="noty_close_fake fal fa-times-square"></span></div>',
+            template: '<div class="noty_message" role="alert" aria-live="assertive"><span class="noty_text"></span><span class="noty_close_fake fal fa-times-square"></span></div>',
             type: type,
             text: htmlText
         });
