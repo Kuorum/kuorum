@@ -19,11 +19,11 @@
             </div>
         %{--</g:if>--}%
             <div class="card-body">
-                <h1>
+                <h2>
                     <g:link mapping="campaignShow" class="link-wrapper-clickable" params="${campaign.encodeAsLinkProperties()}">
                         <searchUtil:highlightedField searchElement="${campaign}" field="name"/>
                     </g:link>
-                </h1>
+                </h2>
         </div>
         <div class="card-footer">
             <ul>
