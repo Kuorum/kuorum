@@ -332,15 +332,7 @@ class FormTagLib {
         def ariaLabelText =message(code: "${command.class.name}.${field}.ariaLabel", default: label)
         String helpBlock = attrs.helpBlock ?: message(code: "${command.class.name}.${field}.helpBlock", default: '')
         String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
-
-        def ariaLabel = "";
-        if (ariaLabelCustom != '') {
-            ariaLabel = "aria-label='${ariaLabelCustom}'";
-        }else {
-            ariaLabel = "aria-label='${ariaLabelText}'";
-        }
-
-
+        def ariaLabel = ariaLabelCustom ? "aria-label='${ariaLabelCustom}'" : "aria-label='${ariaLabelText}'";
 
         // command."${field}" == 0 is false when using elvis operator
         def value = command."${field}" != null ? command."${field}" : ''
@@ -783,10 +775,8 @@ class FormTagLib {
         if (showLabel){
             out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
         }
-        def ariaLabel = "";
-        if (ariaLabelCustom != '') {
-            ariaLabel = "aria-label='${ariaLabelCustom}'";
-        }
+        def ariaLabelText =message(code: "${command.class.name}.${field}.ariaLabel", default: label)
+        def ariaLabel = ariaLabelCustom ? "aria-label='${ariaLabelCustom}'" : "aria-label='${ariaLabelText}'";
         out << """
             <select name="${prefixFieldName}${field}" ${ariaLabel} class="form-control input-lg ${error}" id="${id}" ${disabled ? 'disabled' : ''} aria-errormessage="${id}-error">
             """
