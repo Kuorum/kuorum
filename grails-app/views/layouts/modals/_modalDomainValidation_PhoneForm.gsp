@@ -28,7 +28,7 @@
                         showLabel="false"
                         placeHolder=""
                         cssClass="form-control input-lg"
-                        type="number"
+                        type="tel"
                         required="true"/>
             </div>
             <div class="form-group form-group-phone second-phone">
@@ -46,7 +46,7 @@
                         showLabel="true"
                         placeHolder=""
                         cssClass="form-control input-lg"
-                        type="number"
+                        type="tel"
                         required="false"/>
             </div>
         </div>
