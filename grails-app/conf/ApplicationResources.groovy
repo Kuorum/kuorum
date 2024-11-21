@@ -21,6 +21,7 @@ modules = {
         // Fin soporte HTML5
         resource url:'js/basic.js'
         resource url:'css/custom.css'
+        resource url: 'https://website-widgets.pages.dev/dist/sienna.min.js' // Accessibility widget
     }
 
     recaptcha{
