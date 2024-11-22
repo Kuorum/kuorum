@@ -19,7 +19,7 @@
         aria-hidden="false"
         role="button"
         aria-roledescription="${g.message(code: 'contestApplication.card.voteIcon.roleDescription')}"
-        aria-label="${g.message(code: 'contestApplication.card.vote.ariaLabel')+' '+ contestApplication.title}">
+        aria-label="${g.message(code: 'contestApplication.card.vote.ariaLabel')+' '+ searchUtil.getTitle([searchElement: contestApplication])}">
     <span class="${contestApplicationVoted ? 'fas' : 'fal'} fa-box-ballot" aria-hidden="true"></span>
     <span class="number">${contestApplication.votes}</span>
 </g:link>
