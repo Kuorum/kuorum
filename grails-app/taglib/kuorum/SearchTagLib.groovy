@@ -5,7 +5,9 @@ import org.jsoup.nodes.Document
 import org.jsoup.nodes.Entities
 import org.jsoup.safety.Cleaner
 import org.jsoup.safety.Whitelist
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchContestApplicationRSDTO
 
 class SearchTagLib {
     static defaultEncodeAs = 'raw'
@@ -38,5 +40,14 @@ class SearchTagLib {
         // Get back the string of the body.
         res = doc.body().html();
         out << res
+    }
+    def getTitle = {attrs ->
+       def  element = attrs.searchElement
+        if (element instanceof SearchContestApplicationRSDTO) {
+            out << element.name
+        }else if(element instanceof CampaignRSDTO){
+            out << element.title
+        }
+
     }
 }
