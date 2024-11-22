@@ -3842,6 +3842,7 @@ ul.search-list > li.search-article .box-ppal .card-header-photo {height: auto;}
 ul.search-list > li.search-article .box-ppal .card-body {padding:1em;overflow: hidden;height: 325px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo + .card-body {height: 125px; margin-bottom: 15px;}
 ul.search-list > li.search-article .box-ppal .card-body h1{text-align:left; margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
+ul.search-list > li.search-article .box-ppal .card-body h2{text-align:left; margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 25px}
 ul.search-list > li.search-article .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
 ul.search-list > li.search-article .box-ppal .card-body .card-text a{color: #ec931f;}
 ul.search-list > li.search-article .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
