@@ -36,11 +36,8 @@ function setupCookieV2Config() {
     const allCheckboxesExist = checkboxes.every(cb => cb !== null);
 
     if (!allCheckboxesExist) {
-        console.warn("No se encontraron todos los checkboxes de cookies. La configuración del panel V2 no se inicializará.");
         return;
     }
-
-    console.info("Checkboxes de cookies encontrados. Inicializando configuración...");
 
     const toggleIndividualCheckboxes = (isChecked) => {
         checkboxes.forEach(checkbox => {
