@@ -218,4 +218,34 @@
         <span class="check-box-icon"></span>
         <span class="label-checkbox"><g:message code="footer.menu.footerCookiesInfo.cookieThird.label"/></span>
     </label>
+    <label class="checkbox">
+        <input id="ad_storage" type="checkbox" disabled/>
+        <span class="check-box-icon"></span>
+        <span class="label-checkbox disabled=true"><g:message code="footer.menu.footerCookiesInfo.ad_storage.label"/></span>
+    </label>
+    <label class="checkbox">
+        <input id="analytics_storage" type="checkbox" disabled/>
+        <span class="check-box-icon"></span>
+        <span class="label-checkbox"><g:message code="footer.menu.footerCookiesInfo.analytics_storage.label"/></span>
+    </label>
+    <label class="checkbox">
+        <input id="ad_user_data" type="checkbox" disabled/>
+        <span class="check-box-icon"></span>
+        <span class="label-checkbox"><g:message code="footer.menu.footerCookiesInfo.ad_user_data.label"/></span>
+    </label>
+    <label class="checkbox">
+        <input id="ad_personalization" type="checkbox" disabled/>
+        <span class="check-box-icon"></span>
+        <span class="label-checkbox"><g:message code="footer.menu.footerCookiesInfo.ad_personalization.label"/></span>
+    </label>
+    <label class="checkbox">
+        <input id="personalization_storage" type="checkbox" disabled/>
+        <span class="check-box-icon"></span>
+        <span class="label-checkbox"><g:message code="footer.menu.footerCookiesInfo.personalization_storage.label"/></span>
+    </label>
+    <label class="checkbox">
+        <input id="marketing_storage" type="checkbox" disabled/>
+        <span class="check-box-icon"></span>
+        <span class="label-checkbox"><g:message code="footer.menu.footerCookiesInfo.marketing_storage.label"/></span>
+    </label>
 </content>
