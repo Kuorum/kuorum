@@ -266,26 +266,6 @@ class DomainService {
         return defaultDomainPattern.matcher(domainName).matches()
     }
 
-    String getRobotsEnableCrawlingBody(){
-        log.info("Using enable robots.txt rules")
-        return """
-# robots.txt for https://www.kuorum.org
-
-User-agent: *
-Allow: /
-Allow: /*
-Disallow: /login/auth
-Disallow: /ajax/*
-#Disallow: /admin/*
-Disallow: /editor/*
-Disallow: /sec/*
-Disallow: /dashboard/*
-Disallow: /account/*
-Disallow: /edit-profile/*
-Disallow: /config/*
-Disallow: /oauth/*
-        """
-    }
 
     String getRobotsDefault() {
         log.info("Using disable robots.txt rules")
