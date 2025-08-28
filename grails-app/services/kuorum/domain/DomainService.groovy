@@ -3,10 +3,8 @@ package kuorum.domain
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.async.Promise
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.util.Environment
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.LessCompilerService
-import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.domain.*
@@ -289,14 +287,13 @@ Disallow: /oauth/*
         """
     }
 
-    String getRobotsDisableCrawlingBody() {
+    String getRobotsDefault() {
         log.info("Using disable robots.txt rules")
         return """
 # robots.txt for https://www.kuorum.org
 
 User-agent: *
 Disallow: /
-Disallow: /*
         """
     }
 
