@@ -317,15 +317,7 @@ class SiteMapController {
     }
 
     def robots() {
-        boolean isPublicDomain = domainService.isPublicPlatform()
-        boolean isRegularDomain = domainService.isRegularPlatform()
-        String robots = ""
-
-        if (isRegularDomain && !isPublicDomain) {
-           robots = domainService.getRobotsDisableCrawlingBody()
-        } else {
-            robots = domainService.getRobotsEnableCrawlingBody()
-        }
+        String robots = domainService.getRobotsDefault()
         render(contentType: 'text/plain', encoding: 'UTF-8', text: robots)
     }
 }
