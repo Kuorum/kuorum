@@ -50,6 +50,7 @@ import org.kuorum.rest.model.search.SearchParamsRDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.search.SearchTypeRSDTO
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.i18n.LocaleContextHolder
 import payment.campaign.*
 import payment.contact.ContactService
 
@@ -145,8 +146,15 @@ class CampaignController {
         int httpCode = HttpServletResponse.SC_MOVED_PERMANENTLY
         String campaignId = params.campaignId;
         response.setStatus(httpCode)
-        CampaignRSDTO campaignRSDTO = campaignService.find(WebConstants.FAKE_LANDING_ALIAS_USER, Long.parseLong(campaignId))
-        redirect(mapping: 'campaignShow', params: campaignRSDTO.encodeAsLinkProperties(), permanent:true)
+//        CampaignRSDTO campaignRSDTO = campaignService.find(WebConstants.FAKE_LANDING_ALIAS_USER, Long.parseLong(campaignId))
+        Locale locale = LocaleContextHolder.getLocale()
+        def params = [
+                userAlias: WebConstants.FAKE_LANDING_ALIAS_USER,
+                urlTitle:"s",
+                campaignId:campaignId,
+                lang: locale.language
+        ]
+        redirect(mapping: 'campaignShow', params: params, permanent:true)
     }
 
     def findLiUserCampaigns(Pagination pagination) {
