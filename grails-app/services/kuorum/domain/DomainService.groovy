@@ -266,7 +266,7 @@ Allow: /
     String getRobotsDefault() {
         log.info("Crafting robots.txt rules")
         String robots
-        if (isCinfaDomain()){ // Cinfa needs robots to show campaign preview when sharing
+        if (isPublicPlatform()){ // Cinfa needs robots to show campaign preview when sharing
             robots = ROBOTS_ALLOW
         }else{
             robots = ROBOTS_DISALLOW
@@ -274,7 +274,7 @@ Allow: /
         return robots
     }
 
-    Boolean isCinfaDomain(){
+    Boolean isPublicPlatform(){
         return grailsApplication.config.kuorum.robots.publicDomains.contains(CustomDomainResolver.getBaseUrlAbsolute())
     }
 

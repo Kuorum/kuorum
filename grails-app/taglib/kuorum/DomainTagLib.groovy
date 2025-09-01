@@ -73,7 +73,7 @@ class DomainTagLib {
     }
 
     def metaRobots = {
-        if (domainService.isCinfaDomain()) {
+        if (domainService.isPublicPlatform()) {
             out << """<meta name="robots" content="all">"""
         } else {
             out << """<meta name="robots" content="noindex">"""
