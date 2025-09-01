@@ -152,7 +152,6 @@ class CampaignController {
                 userAlias: WebConstants.FAKE_LANDING_ALIAS_USER,
                 urlTitle:"s",
                 campaignId:campaignId,
-                lang: locale.language
         ]
         redirect(mapping: 'campaignShow', params: params, permanent:true)
     }
