@@ -29,7 +29,6 @@ abstract class AbstractHttpRequestKeyCache implements ServletRequestResponseCach
 
     String buildKey(UrlMappingInfo urlMappingInfo, Locale locale) {
         String key = buildGlobalKey()
-        key += getPropertyOrEmpty(urlMappingInfo, USER_ALIAS_PARAM_NAME)
         key += getPropertyOrEmpty(urlMappingInfo, CAMPAIGN_ID_PARAM_NAME)
         key += getCacheName(urlMappingInfo)
         if (locale) {

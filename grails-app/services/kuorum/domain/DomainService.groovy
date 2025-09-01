@@ -21,6 +21,15 @@ import java.util.regex.Pattern
 
 class DomainService {
 
+    public static final String ROBOTS_DISALLOW = """
+User-agent: *
+Disallow: /
+        """
+    public static final String ROBOTS_ALLOW = """
+User-agent: *
+Allow: /
+        """
+    def grailsApplication
     RestKuorumApiService restKuorumApiService
 
     LessCompilerService lessCompilerService
@@ -254,27 +263,19 @@ class DomainService {
         return CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() == DomainTypeRSDTO.SURVEY
     }
 
-    Boolean isPublicPlatform(){
-        return CustomDomainResolver.domainRSDTO.domainPrivacy == DomainPrivacyRDTO.PUBLIC
-    }
-
-    Boolean isRegularPlatform(){ //Its url follows structure xxxxx.kuorum.org
-        String domainName = CustomDomainResolver.domainRSDTO.domain
-        String defaultDomainNameRegex = ".+\\.kuorum\\.org"
-        def defaultDomainPattern = Pattern.compile(defaultDomainNameRegex)
-
-        return defaultDomainPattern.matcher(domainName).matches()
-    }
-
-
     String getRobotsDefault() {
-        log.info("Using disable robots.txt rules")
-        return """
-# robots.txt for https://www.kuorum.org
+        log.info("Crafting robots.txt rules")
+        String robots
+        if (isPublicPlatform()){ // Cinfa needs robots to show campaign preview when sharing
+            robots = ROBOTS_ALLOW
+        }else{
+            robots = ROBOTS_DISALLOW
+        }
+        return robots
+    }
 
-User-agent: *
-Disallow: /
-        """
+    Boolean isPublicPlatform(){
+        return grailsApplication.config.kuorum.robots.publicDomains.contains(CustomDomainResolver.getBaseUrlAbsolute())
     }
 
     NewDomainDataRSDTO createNewDomain(String prefixDomain) {
