@@ -23,7 +23,7 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
     SpringSecurityService springSecurityService
 
 //    CookieLocaleResolver localeResolver
-
+    def grailsApplication
     String paramName
 
     private static final List<String> SPANISH_LANGS =["es", "ca", "eu", "gl"]
@@ -44,6 +44,9 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
             }else{
                 // First : language from param
                 userLanguage = AvailableLanguage.fromLocaleParam(localeParam)
+                if(!userLanguage){
+                    userLanguage = getHardcodedLanguagePerDomain()
+                }
                 if (!userLanguage){
                     // Second : From the browser or cookie
                     Locale local = localeResolver.resolveLocale(request)
@@ -56,11 +59,19 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
             }
         }catch(Throwable t){
             log.warn("Not language discover due to exception. ${webRequest.baseUrl} ${webRequest.getParams()}. [Excp: ${t.getLocalizedMessage()}")
-            userLanguage = AvailableLanguage.en_EN
+            userLanguage = AvailableLanguage.es_ES
         }
         setCountrySession(request, userLanguage.locale.language)
         localeResolver?.setLocale request, response, userLanguage.locale
         return true
+    }
+
+    private AvailableLanguage getHardcodedLanguagePerDomain(){
+        if (grailsApplication.config.kuorum.robots.publicDomains.contains(CustomDomainResolver.getBaseUrlAbsolute())){
+           return AvailableLanguage.es_ES
+        }else {
+            return null
+        }
     }
 
     private AvailableLanguage getLanguageFromDomain(HttpServletRequest request, LocaleResolver localeResolver ){

@@ -403,6 +403,11 @@ kuorum {
         }
         favicon = "XXXXXXX"
     }
+    robots{
+        publicDomains = [
+                "https://lavozdelpaciente.cinfa.com/", "https://cinfa.dev.kuoru.org", "https://local.kuorum.org/kuorum"
+        ]
+    }
 }
 
 //Added for date bindings
