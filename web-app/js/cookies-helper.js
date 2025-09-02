@@ -37,7 +37,7 @@ var cookiesHelper = {
     },
 
     removeCookie: function(cname) {
-        document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
+        document.cookie = `${cname}=;domain=${document.domain}; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
     },
 
     checkCookie: function(cname, onCookieFound, onNotCookieFound) {
