@@ -116,14 +116,16 @@ var contestApplicationFunctions = {
             success: function (contestApplicationVote) {
                 if (contestApplicationVote.success) {
                     contestApplicationFunctions._handleButtonsAtSuccess(contestApplicationVote, $button);
-                    cookiesHelper.removeCookie("KUORUM_USER_UUID")
                     display.success(contestApplicationVote.message)
                 } else {
                     display.error(contestApplicationVote.message)
+
                 }
+                cookiesHelper.removeCookie("KUORUM_USER_UUID")
             },
             error: function () {
                 display.error("Error saving vote")
+                cookiesHelper.removeCookie("KUORUM_USER_UUID")
             },
             complete: function () {
                 pageLoadingOff();
