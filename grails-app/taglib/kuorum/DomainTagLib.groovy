@@ -73,12 +73,10 @@ class DomainTagLib {
     }
 
     def metaRobots = {
-        boolean  isRegularDomain =domainService.isRegularPlatform()
-        boolean isPublicDomain = domainService.isPublicPlatform()
-        if (isRegularDomain && !isPublicDomain) {
-            out << """<meta name="robots" content="noindex">"""
-        } else {
+        if (domainService.isPublicPlatform()) {
             out << """<meta name="robots" content="all">"""
+        } else {
+            out << """<meta name="robots" content="noindex">"""
         }
     }
 }

@@ -1,68 +1,109 @@
 var cookiesHelper = {
+    defaultCookieConsent: {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'personalization_storage': 'denied',
+        'marketing_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
+    },
+    cookieV2Name: "cookieV2Preferences",
     cookieTechnicalAccepted: "kuorumCookiesAccepted",
     cookieThirdAccepted: "kuorumThirdCookiesAccepted",
-    setCookie: function (cname, cvalue, exdays) {
-        var d = new Date();
+
+    setCookie: function(cname, cvalue, exdays) {
+        const d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toGMTString();
-        var domain = document.domain;
-        document.cookie = cname + "=" + cvalue + "; " + expires + ";domain=" + domain + ";path=/";
+        const expires = "expires=" + d.toGMTString();
+        const domain = document.domain;
+        document.cookie = `${cname}=${encodeURIComponent(JSON.stringify(cvalue))}; ${expires};domain=${domain};path=/`;
     },
-    getCookie: function (cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1);
-            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+
+    getCookie: function(cname) {
+        const name = cname + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1);
+            if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
         }
         return "";
     },
-    removeCookie: function (cname) {
-        cookiesHelper.setCookie(cname, "", -1);
-        document.cookie = cname + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+
+    getV2Cookie: function() {
+        const preferences = this.getCookie(this.cookieV2Name);
+        return preferences ? JSON.parse(preferences) : { ...this.defaultCookieConsent };
     },
-    checkCookie: function (cname, onCookieFound, onNotCookieFound) {
-        var cvalue = this.getCookie(cname);
-        if (cvalue != "") {
+
+    removeCookie: function(cname) {
+        document.cookie = `${cname}=;domain=${document.domain}; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
+    },
+
+    checkCookie: function(cname, onCookieFound, onNotCookieFound) {
+        const cvalue = this.getCookie(cname);
+        if (cvalue !== "") {
             onCookieFound(cvalue);
         } else {
             onNotCookieFound(cname);
         }
     },
-    displayCookiesPolitics: function () {
-        this.checkCookie(this.cookieTechnicalAccepted, function () {
-        }, function (cName) {
-            var buttonAccept = "<button id='acceptCookies' class='btn btn-orange' onclick='cookiesHelper.acceptedAllCookies()'>" + i18n.cookies.accept + "</button>";
-            var buttonReject = "<button id='rejectCookies' class='btn btn-orange' onclick='cookiesHelper.rejectCookies()'>" + i18n.cookies.reject + "</button>";
-            var message = "<p>" + i18n.cookies.message + "</p>"+buttonAccept + buttonReject + i18n.cookies.settingsLink;
+
+    displayCookiesPolitics: function() {
+        this.checkCookie(this.cookieTechnicalAccepted, () => {}, (cName) => {
+            const buttonAccept = `<button id='acceptCookies' class='btn btn-orange' onclick='cookiesHelper.acceptAllCookies()'>${i18n.cookies.accept}</button>`;
+            const buttonReject = `<button id='rejectCookies' class='btn btn-orange' onclick='cookiesHelper.rejectAllCookies()'>${i18n.cookies.reject}</button>`;
+            const message = `<p>${i18n.cookies.message}</p>${buttonAccept}${buttonReject}${i18n.cookies.settingsLink}`;
             display.cookie(message);
-        })
+        });
     },
-    hideCookiesPolitics: function (){
+
+    hideCookiesPolitics: function() {
         $('#noty_cookieLayout_layout_container').hide();
     },
-    rejectCookies: function () {
-        cookiesHelper.acceptTechnicalCookies();
-        cookiesHelper.acceptThirdCookies(false);
+
+    acceptTechnicalCookies: function() {
+        this.setCookie(this.cookieTechnicalAccepted, "true", 99999);
     },
-    acceptedAllCookies: function () {
-        cookiesHelper.acceptTechnicalCookies()
-        cookiesHelper.acceptThirdCookies(true)
-        if (typeof (cookiesInfo) != 'undefined') {
-            cookiesInfo.initTechnicalBox(true)
-            cookiesInfo.initThirdBox(true)
+
+    acceptAllCookies: function() {
+        this.setCookie(this.cookieTechnicalAccepted, "true", 99999);
+        this.setCookie(this.cookieThirdAccepted, "true", 99999);
+        const grantedConsent = this.updateAllConsent(this.defaultCookieConsent, 'granted');
+        gtag('consent', 'update', grantedConsent);
+        this.setCookie(this.cookieV2Name, grantedConsent, 99999);
+        this.hideCookiesPolitics();
+        loadGoogleTagManager(true)
+        if (typeof(cookiesInfo) !== 'undefined') {
+            cookiesInfo.initTechnicalBox(true);
         }
     },
-    acceptTechnicalCookies: function () {
-        cookiesHelper.setCookie(this.cookieTechnicalAccepted, "true", 99999);
+
+    rejectAllCookies: function() {
+        this.setCookie(this.cookieTechnicalAccepted, "true", 99999);
+        this.removeCookie(this.cookieThirdAccepted);
+        const deniedConsent = this.updateAllConsent(this.defaultCookieConsent, 'denied');
+        gtag('consent', 'update', deniedConsent);
+        this.setCookie(this.cookieV2Name, deniedConsent, 99999);
+        this.hideCookiesPolitics();
     },
-    acceptThirdCookies: function (value) {
-        if (value) {
-            cookiesHelper.setCookie(this.cookieThirdAccepted, "true", 99999);
-            loadGoogleTagManager(true);
-        } else {
-            cookiesHelper.removeCookie(this.cookieThirdAccepted)
+
+
+    updateSpecificConsent: function(currentConsent, consentType, status) {
+        const newConsent = { ...currentConsent };
+        if (newConsent.hasOwnProperty(consentType)) {
+            newConsent[consentType] = status;
         }
+        return newConsent;
+    },
+
+    updateAllConsent: function(currentConsent, status) {
+        const newConsent = { ...currentConsent };
+        for (const key in newConsent) {
+            if (newConsent.hasOwnProperty(key)) {
+                newConsent[key] = status;
+            }
+        }
+        return newConsent;
     }
-}
+};

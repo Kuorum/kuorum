@@ -3,10 +3,8 @@ package kuorum.domain
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.async.Promise
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.util.Environment
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.LessCompilerService
-import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.domain.*
@@ -23,6 +21,15 @@ import java.util.regex.Pattern
 
 class DomainService {
 
+    public static final String ROBOTS_DISALLOW = """
+User-agent: *
+Disallow: /
+        """
+    public static final String ROBOTS_ALLOW = """
+User-agent: *
+Allow: /
+        """
+    def grailsApplication
     RestKuorumApiService restKuorumApiService
 
     LessCompilerService lessCompilerService
@@ -256,48 +263,19 @@ class DomainService {
         return CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() == DomainTypeRSDTO.SURVEY
     }
 
+    String getRobotsDefault() {
+        log.info("Crafting robots.txt rules")
+        String robots
+        if (isPublicPlatform()){ // Cinfa needs robots to show campaign preview when sharing
+            robots = ROBOTS_ALLOW
+        }else{
+            robots = ROBOTS_DISALLOW
+        }
+        return robots
+    }
+
     Boolean isPublicPlatform(){
-        return CustomDomainResolver.domainRSDTO.domainPrivacy == DomainPrivacyRDTO.PUBLIC
-    }
-
-    Boolean isRegularPlatform(){ //Its url follows structure xxxxx.kuorum.org
-        String domainName = CustomDomainResolver.domainRSDTO.domain
-        String defaultDomainNameRegex = ".+\\.kuorum\\.org"
-        def defaultDomainPattern = Pattern.compile(defaultDomainNameRegex)
-
-        return defaultDomainPattern.matcher(domainName).matches()
-    }
-
-    String getRobotsEnableCrawlingBody(){
-        log.info("Using enable robots.txt rules")
-        return """
-# robots.txt for https://www.kuorum.org
-
-User-agent: *
-Allow: /
-Allow: /*
-Disallow: /login/auth
-Disallow: /ajax/*
-#Disallow: /admin/*
-Disallow: /editor/*
-Disallow: /sec/*
-Disallow: /dashboard/*
-Disallow: /account/*
-Disallow: /edit-profile/*
-Disallow: /config/*
-Disallow: /oauth/*
-        """
-    }
-
-    String getRobotsDisableCrawlingBody() {
-        log.info("Using disable robots.txt rules")
-        return """
-# robots.txt for https://www.kuorum.org
-
-User-agent: *
-Disallow: /
-Disallow: /*
-        """
+        return grailsApplication.config.kuorum.robots.publicDomains.contains(CustomDomainResolver.getBaseUrlAbsolute())
     }
 
     NewDomainDataRSDTO createNewDomain(String prefixDomain) {
