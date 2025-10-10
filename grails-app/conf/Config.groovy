@@ -405,7 +405,7 @@ kuorum {
     }
     robots{
         publicDomains = [
-                "https://lavozdelpaciente.cinfa.com", "https://cinfa.dev.kuorum.org", "https://local.kuorum.org/kuorum"
+                "https://lavozdelpaciente.cinfa.com", "https://local.kuorum.org/kuorum"
         ]
     }
 }
