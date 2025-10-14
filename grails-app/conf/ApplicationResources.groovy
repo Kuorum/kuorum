@@ -21,7 +21,7 @@ modules = {
         // Fin soporte HTML5
         resource url:'js/basic.js'
         resource url:'css/custom.css'
-        resource url: 'https://website-widgets.pages.dev/dist/sienna.min.js' // Accessibility widget
+        resource url: 'js/accessibility/sienna-accessibility-widget.js' // Sienna Accessibility widget https://github.com/bennyluk/Sienna-Accessibility-Widget
     }
 
     recaptcha{
