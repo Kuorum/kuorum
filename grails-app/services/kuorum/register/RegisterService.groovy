@@ -270,7 +270,7 @@ class RegisterService {
                 params: linkParams)
     }
 
-    void logout(HttpServletRequest request, HttpServletResponse response){
+    void logout(HttpServletRequest request, HttpServletResponse response, Boolean createNewSession){
         if (springSecurityService.isLoggedIn()){
             KuorumUserSession userSession = springSecurityService.principal
             List<PersistentLoginToken> rememberMeTokens = PersistentLoginToken.findAllByUsername(userSession.username)
@@ -282,11 +282,13 @@ class RegisterService {
                 new SecurityContextLogoutHandler().logout(request, response, auth);
             }
             SecurityContextHolder.getContext().setAuthentication(null);
-            HttpSession session = request.getSession();
+            HttpSession session = request.getSession(createNewSession);
             session.invalidate();
             SecurityContextHolder.clearContext();
             //CREATING A NEW EMPTY SESSION
-            request.getSession(true)
+            if(createNewSession){
+                request.getSession(createNewSession)
+            }
         }
     }
 }

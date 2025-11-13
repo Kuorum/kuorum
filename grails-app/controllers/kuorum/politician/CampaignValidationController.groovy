@@ -186,7 +186,7 @@ class CampaignValidationController {
             KuorumUserSession userSession = springSecurityService.principal
             if (userSession.email != contact.email) {
                 log.info("VALIDATION: censusOrExternalIdLogion: ${censusLogin ?: userSession.name} -> Logging out user (${userSession.email}) because it is using a censusLogin of different contact (${contact.email}")
-                registerService.logout(request, response)
+                registerService.logout(request, response, true)
             }
         }
     }

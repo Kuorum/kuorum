@@ -14,6 +14,7 @@ import org.kuorum.rest.model.communication.contest.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.search.DirectionDTO
+import kuorum.register.RegisterService
 
 import java.lang.reflect.UndeclaredThrowableException
 
@@ -23,6 +24,8 @@ class ContestController extends CampaignController {
 
     // Grails renderer -> For CSV hack
     grails.gsp.PageRenderer groovyPageRenderer
+
+    RegisterService registerService
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
     def create() {
@@ -408,7 +411,9 @@ class ContestController extends CampaignController {
             }
             render([success: false, message: msgError, vote: null] as JSON)
         } finally {
+            // Cinfa needs to log out user to allow several voter in same device
             cookieUUIDService.removeUserUUID();
+            registerService.logout(request, response, false)
         }
     }
 
