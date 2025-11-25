@@ -73,7 +73,6 @@ var cookiesHelper = {
         gtag('consent', 'update', grantedConsent);
         this.setCookie(this.cookieV2Name, grantedConsent, 99999);
         this.hideCookiesPolitics();
-        loadGoogleTagManager(true)
         if (typeof(cookiesInfo) !== 'undefined') {
             cookiesInfo.initTechnicalBox(true);
         }
