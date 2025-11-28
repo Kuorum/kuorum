@@ -1,17 +1,16 @@
 $(document).ready(handleCookieWindow);
 
 function handleCookieWindow() {
-    gtag('consent', 'default', cookiesHelper.defaultCookieConsent);
+    // Default consent is already defined in <head>.
     const currentCookie = cookiesHelper.getV2Cookie();
-    gtag('consent', 'update', currentCookie);
-
     const isThirdCookiesAccepted = cookiesHelper.getCookie(cookiesHelper.cookieThirdAccepted) !== '';
-    if (typeof cookiesInfo === 'undefined' || !isThirdCookiesAccepted) {
-        cookiesHelper.displayCookiesPolitics();
-    }
 
     if (isThirdCookiesAccepted) {
-        loadGoogleTagManager(true);
+        gtag('consent', 'update', currentCookie);
+    }
+
+    if (typeof cookiesInfo === 'undefined') {
+        cookiesHelper.displayCookiesPolitics();
     }
 
     hideCookieWindow();
@@ -64,7 +63,6 @@ function setupCookieV2Config() {
         cookiesHelper.setCookie(cookiesHelper.cookieV2Name, updatedConsent, 99999);
 
         if (thirdCookiesAcceptedCheckbox.checked) {
-            loadGoogleTagManager(true);
             cookiesHelper.setCookie(cookiesHelper.cookieThirdAccepted, "true", 99999);
         } else {
             cookiesHelper.removeCookie(cookiesHelper.cookieThirdAccepted);

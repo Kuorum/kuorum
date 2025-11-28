@@ -199,7 +199,21 @@ class KuorumUser {
                 .addProtocols("a", "href", "ftp", "http", "https", "mailto");
         str = Jsoup.clean(str, whitelist);
         str = str.replaceAll("\\n", "")
+        str = removeEmptyParagraphs(str)
         return str;
+    }
+
+    private static removeEmptyParagraphs(String str) {
+        Document doc = Jsoup.parseBodyFragment(str)
+        doc.select("p").each { p ->
+            String pText = p.text()
+            String normalizedText = pText.replace('\u00A0', ' ').trim()
+            if (normalizedText.isEmpty()) {
+                p.remove()
+            }
+        }
+        String strRemovedEmptyParagraphs = doc.body().html()
+        return strRemovedEmptyParagraphs
     }
 
     int hashCode() {
