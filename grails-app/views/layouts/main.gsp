@@ -21,6 +21,7 @@
 
     <domain:metaRobots/>
     <domain:favicon domainResourcesPath="${_domainResourcesPath}"/>
+    <domain:gtmScript/>
 
     %{--This line wirtes the goole verification code. It is a meta tag with its code--}%
     ${raw(kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.googleSiteVerification)}
