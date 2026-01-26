@@ -33,6 +33,7 @@ class CodecSpec extends Specification {
         "Aa Ha ÄÁa"         |"aa-ha-aaa"
         "-1-2-3"            |"1-2-3"
         "---1-2-3"          |"1-2-3"
+        "1--2"              |"1-2"
     }
 
     @Unroll
