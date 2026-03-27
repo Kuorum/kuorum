@@ -1,25 +1,26 @@
 $(document).ready(function () {
     domainValidationFunctions.checkSmsFieldsVisibility();
     domainValidationFunctions.checkExternalIdFieldsVisibility();
-
-    if ($("#validationPhone").click(function () {
+    $("#validationPhone").change(function () {
         domainValidationFunctions.checkSmsFieldsVisibility();
-    })) ;
-    if ($('input[name=firstFactorValidation]').click(function () {
+    });
+    $('input[name=firstFactorValidation]').change(function () {
         domainValidationFunctions.checkExternalIdFieldsVisibility();
-    })) ;
+    });
 });
 
 var domainValidationFunctions = {
     smsName:$("#smsDomainName").val(),
     phonePrefix:$("#defaultPhonePrefix").val(),
     externalIdName:$("#externalIdName").val(),
-    toogleInputVisibility: function (disableFields = false) {
+    toggleInputVisibility: function (disableFields = false) {
         $("#smsDomainName").prop('disabled', disableFields);
         $("#defaultPhonePrefix").prop('disabled', disableFields);
+        $("#validationWhatsApp").prop('disabled', disableFields);
         if (disableFields) {
             domainValidationFunctions.getVariableValueFromInput();
             domainValidationFunctions.setInputValuesToBlank([$("#smsDomainName"), $("#defaultPhonePrefix")]);
+            $("#validationWhatsApp").prop('checked', false);
         } else {
             domainValidationFunctions.setVariablesValuesOnInput();
         }
@@ -38,7 +39,7 @@ var domainValidationFunctions = {
         console.log("Disabled: " + validationPhoneDisabled)
         console.log("Checked: " + isValidationPhoneChecked)
         console.log("Visibility:" + (!validationPhoneDisabled && !isValidationPhoneChecked));
-        domainValidationFunctions.toogleInputVisibility(validationPhoneDisabled || !isValidationPhoneChecked);
+        domainValidationFunctions.toggleInputVisibility(validationPhoneDisabled || !isValidationPhoneChecked);
     },
     checkExternalIdFieldsVisibility: function () {
         var firstFactorDisabled = $("#firstFactor").attr("disabled") == 'disabled';
@@ -46,9 +47,9 @@ var domainValidationFunctions = {
         console.log("Disabled: " + firstFactorDisabled)
         console.log("Checked: " + isQRFirstFactorSelected)
         console.log("Visibility:" + (!firstFactorDisabled && !isQRFirstFactorSelected));
-        domainValidationFunctions.toogleInputVisibilityExternalIdName(firstFactorDisabled || !isQRFirstFactorSelected);
+        domainValidationFunctions.toggleInputVisibilityExternalIdName(firstFactorDisabled || !isQRFirstFactorSelected);
     },
-    toogleInputVisibilityExternalIdName: function (disableFields = false) {
+    toggleInputVisibilityExternalIdName: function (disableFields = false) {
         $("#externalIdName").prop('disabled', disableFields);
         if (disableFields) {
             domainValidationFunctions.getVariableValueFromInputExternalIdName();

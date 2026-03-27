@@ -39,6 +39,13 @@ var userValidatedByDomain={
     urlAnonymousValidation: undefined,
     successFunctionCallback: undefined,
     are2ndPhoneFieldsHidden: false,
+    currentChannel : '',
+    resendTimers: {
+        whatsapp: undefined,
+        sms: undefined
+    },
+    lastValidatedPhone: '',   // <-- NUEVO
+    lastValidatedPrefix: '',  // <-- NUEVO
 
     initVariables: function () {
         if (!userValidatedByDomain.binded) {
@@ -51,12 +58,347 @@ var userValidatedByDomain={
                 e.preventDefault();
                 $("#domain-validation").modal("hide");
             });
+
+            // BINDS PARA EL PANEL DE AYUDA Y REENVÍO (WhatsApp y SMS)
+            $(document).on("click", "#whatsAppNotReceived", userValidatedByDomain.toggleWhatsAppHelpPanel);
+            $(document).on("click", "#btn-resend-whatsapp-action, #btn-resend-sms-action, #btn-resend-sms-action-fallback", userValidatedByDomain.handleResendCodeAction);
+
             userValidatedByDomain.binded = true
             userValidatedByDomain.modal = $("#domain-validation")
             userValidatedByDomain.modalNotifications = $("#domain-validation .modal-domain-validation-notifications")
         }
     },
+    // ==========================================
+    // ANTI-SPAM: CUENTA ATRÁS DE REENVÍO
+    // ==========================================
+    startResendCountdown: function(channel) {
+        var isWa = (channel === 'WHATSAPP');
+        var $btn = isWa ? $("#btn-resend-whatsapp-action") : $("#btn-resend-sms-action");
+        var $btnFallback = isWa ? null : $("#btn-resend-sms-action-fallback"); // Fallback solo para SMS
+        var timeLeft = 60; // Segundos de espera
 
+        // 1. Limpiamos si ya había un temporizador corriendo para este canal
+        if (userValidatedByDomain.resendTimers[channel]) {
+            clearInterval(userValidatedByDomain.resendTimers[channel]);
+        }
+
+        // 2. Deshabilitamos SOLO el botón de este canal
+        $btn.prop('disabled', true).addClass('disabled');
+        if ($btnFallback && $btnFallback.length) {
+            $btnFallback.addClass('disabled').css('pointer-events', 'none');
+        }
+
+        // 3. Función interna para pintar los segundos
+        function updateText(time) {
+            var suffix = time > 0 ? " (" + time + "s)" : "";
+
+            // Apuntamos al span interior usando .find('.btn-text')
+            $btn.find('.btn-text').text($btn.attr('data-original-text') + suffix);
+
+            if ($btnFallback && $btnFallback.length) {
+                $btnFallback.find('.btn-text').text($btnFallback.attr('data-original-text') + suffix);
+            }
+        }
+
+        // 4. Arrancamos el contador
+        updateText(timeLeft);
+        userValidatedByDomain.resendTimers[channel] = setInterval(function() {
+            timeLeft--;
+            updateText(timeLeft);
+
+            if (timeLeft <= 0) {
+                clearInterval(userValidatedByDomain.resendTimers[channel]);
+                userValidatedByDomain.resendTimers[channel] = undefined;
+                $btn.prop('disabled', false).removeClass('disabled');
+                if ($btnFallback && $btnFallback.length) {
+                    $btnFallback.removeClass('disabled').css('pointer-events', 'auto');
+                }
+            }
+        }, 1000);
+    },
+
+    // ==========================================
+    // LÓGICA DE INTERFAZ DEL PANEL
+    // ==========================================
+    toggleWhatsAppHelpPanel: function(e) {
+        if (e != undefined) { e.preventDefault(); }
+        $("#kuorum-whatsapp-help-panel").slideToggle(250);
+    },
+
+    // ==========================================
+    // ESTRATEGIAS DE COMUNICACIÓN (SOLID: OCP)
+    // ==========================================
+    communicationStrategies: {
+        SMS: function(requestData, formUrl) {
+            console.log("-> Ejecutando estrategia: SMS CLÁSICO");
+            return $.ajax({
+                type: "POST",
+                url: formUrl, // Usa la URL nativa del action del formulario
+                data: requestData
+            });
+        },
+        WHATSAPP: function(requestData, formUrl) {
+            console.log("-> Ejecutando estrategia: WHATSAPP");
+
+            // Usamos EXACTAMENTE LA MISMA URL (formUrl), pero le inyectamos el parámetro channel='WHATSAPP'
+            var whatsappData = $.extend({}, requestData, { channel: 'WHATSAPP' });
+
+            return $.ajax({
+                type: "POST",
+                url: formUrl,
+                data: whatsappData
+            });
+        }
+    },
+
+    // ==========================================
+    // CONSTRUCCIÓN DE DATOS (SOLID: SRP)
+    // ==========================================
+    buildValidationRequestData: function() {
+        return {
+            campaignId: userValidatedByDomain.dataValidation.campaignId,
+            phoneNumberPrefix: $("#phoneNumberPrefix").val(),
+            phoneNumber: $("#phoneNumber").val(),
+            'g-recaptcha-response': captcha.grecaptchaResponse,
+            'allowAnonymousAction': userValidatedByDomain.dataValidation.allowAnonymousAction
+        };
+    },
+
+    // ==========================================
+    // MANEJADORES DE RESPUESTA (SOLID: SRP)
+    // ==========================================
+    handleSendCodeSuccess: function(dataResponse) {
+        console.log(dataResponse);
+        if (dataResponse.success) {
+            captcha.clearCaptcha();
+            $("#phoneHash").val(dataResponse.hash);
+            $("#validationPhoneNumber").val(dataResponse.validationPhoneNumber);
+            $("#validationPhoneNumberPrefix").val(dataResponse.validationPhoneNumberPrefix);
+
+            // =========================================================
+            // LÓGICA DE UX: ACTUALIZAR TEXTOS Y ERRORES SEGÚN EL CANAL
+            // =========================================================
+            var isWhatsApp = userValidatedByDomain.currentChannel === 'WHATSAPP';
+            var $step2Container = $(".modal-domain-validation-phone-step2");
+
+            // --- NUEVO: LÓGICA DE REINICIO POR CAMBIO DE TELÉFONO ---
+            var currentPhone = dataResponse.validationPhoneNumber;
+            var currentPrefix = dataResponse.validationPhoneNumberPrefix;
+
+            var isSamePhone = (currentPhone === userValidatedByDomain.lastValidatedPhone &&
+                currentPrefix === userValidatedByDomain.lastValidatedPrefix);
+
+            if (!isSamePhone) {
+                console.log("-> Nuevo teléfono detectado. Reseteando temporizadores antiguos.");
+                ['WHATSAPP', 'SMS'].forEach(function(ch) {
+                    if (userValidatedByDomain.resendTimers[ch]) {
+                        clearInterval(userValidatedByDomain.resendTimers[ch]);
+                        userValidatedByDomain.resendTimers[ch] = undefined;
+
+                        // Restaurar los botones visualmente para que no se queden bloqueados
+                        var isWa = (ch === 'WHATSAPP');
+                        var $btn = isWa ? $("#btn-resend-whatsapp-action") : $("#btn-resend-sms-action");
+                        var $btnFallback = isWa ? null : $("#btn-resend-sms-action-fallback");
+
+                        $btn.prop('disabled', false).removeClass('disabled');
+                        if ($btnFallback && $btnFallback.length) {
+                            $btnFallback.removeClass('disabled').css('pointer-events', 'auto');
+                        }
+                    }
+                });
+
+                // Guardamos el nuevo teléfono en memoria
+                userValidatedByDomain.lastValidatedPhone = currentPhone;
+                userValidatedByDomain.lastValidatedPrefix = currentPrefix;
+            }
+            // ---------------------------------------------------------
+
+            // 1. Leemos los textos localizados generados por Grails en el GSP
+            var helpText = isWhatsApp ? $step2Container.attr("data-msg-help-whatsapp") : $step2Container.attr("data-msg-help-sms");
+            var linkText = isWhatsApp ? $step2Container.attr("data-msg-link-whatsapp") : $step2Container.attr("data-msg-link-sms");
+            var errorText = isWhatsApp ? $step2Container.attr("data-msg-error-whatsapp") : $step2Container.attr("data-msg-error-sms");
+
+            var txtSendWa = $step2Container.attr("data-msg-send-whatsapp");
+            var txtResendWa = $step2Container.attr("data-msg-resend-whatsapp");
+            var txtSendSms = $step2Container.attr("data-msg-send-sms");
+            var txtResendSms = $step2Container.attr("data-msg-resend-sms");
+
+
+            // 2 y 3. Aplicamos textos generales (CORRECCIÓN A11Y)
+            var $helpBlock = $step2Container.find(".help-block");
+
+            // Le ponemos un ID dinámico al bloque de ayuda si no lo tiene
+            var helpBlockId = "help-text-phoneCode";
+            $helpBlock.attr("id", helpBlockId).text(helpText);
+
+            // Vinculamos el input con el texto de ayuda en lugar de sobreescribir su aria-label
+            $("#phoneCode").attr("aria-describedby", helpBlockId);
+
+            $("#whatsAppNotReceived").text(linkText);
+
+            if (isWhatsApp) {
+                $(".whatsapp-only-help").show();
+            } else {
+                $(".whatsapp-only-help").hide();
+            }
+
+            // 4. Cambiamos textos y los guardamos como base (data-original-text)
+            if (isWhatsApp) {
+                $("#btn-resend-whatsapp-action").attr('data-original-text', txtResendWa).find('.btn-text').text(txtResendWa);
+                $("#btn-resend-sms-action").attr('data-original-text', txtSendSms).find('.btn-text').text(txtSendSms);
+            } else {
+                $("#btn-resend-whatsapp-action").attr('data-original-text', txtSendWa).find('.btn-text').text(txtSendWa);
+                $("#btn-resend-sms-action").attr('data-original-text', txtResendSms).find('.btn-text').text(txtResendSms);
+            }
+
+            var $fallback = $("#btn-resend-sms-action-fallback");
+            if ($fallback.length && !$fallback.attr('data-original-text')) {
+                // Guardamos el texto limpio original (sin el icono) sacándolo del span
+                $fallback.attr('data-original-text', $fallback.find('.btn-text').text());
+            }
+
+            // 5. INICIAMOS O MANTENEMOS EL CONTADOR
+            var channelUsed = isWhatsApp ? 'WHATSAPP' : 'SMS';
+
+            if (!userValidatedByDomain.resendTimers[channelUsed]) {
+                // No había temporizador activo, lo iniciamos fresco de 60s
+                userValidatedByDomain.startResendCountdown(channelUsed);
+            } else {
+                // Ya había temporizador (el usuario puso el mismo número y reenvió desde el Paso 1).
+                // Mantenemos el estado 'disabled' visualmente para que no haya parpadeos,
+                // el setInterval en segundo plano le pondrá los (Segundos) exactos en el siguiente "tick".
+                var $activeBtn = isWhatsApp ? $("#btn-resend-whatsapp-action") : $("#btn-resend-sms-action");
+                $activeBtn.prop('disabled', true).addClass('disabled');
+            }
+
+            // (Opcional) Si el OTRO canal tiene su cuenta atrás activa en segundo plano, mantenemos su estilo bloqueado
+            var otherChannel = isWhatsApp ? 'SMS' : 'WHATSAPP';
+            if (userValidatedByDomain.resendTimers[otherChannel]) {
+                var $otherBtn = isWhatsApp ? $("#btn-resend-sms-action") : $("#btn-resend-whatsapp-action");
+                $otherBtn.prop('disabled', true).addClass('disabled');
+            }
+
+            // 6. ACTUALIZAMOS EL MENSAJE DE ERROR DEL VALIDADOR
+            $("#phoneCode").rules("add", {
+                messages: { required: errorText }
+            });
+
+            if ($("#phoneCode-error").length) {
+                $("#phoneCode-error").text(errorText);
+            }
+            // =========================================================
+
+            if (dataResponse.validated) {
+                userValidatedByDomain.nextValidationStep(dataResponse);
+            } else {
+                userValidatedByDomain.showPhoneValidationStep2();
+            }
+        } else {
+            userValidatedByDomain.showErrorModal(dataResponse.msg);
+        }
+    },
+
+    handleSendCodeError: function() {
+        display.error("There was an error sending a validation code to your phone number");
+    },
+
+    // ==========================================
+    // ORQUESTADOR PRINCIPAL DEL ENVÍO
+    // ==========================================
+    sendValidationCode: function($button, channel) {
+        var $form = $button.closest("form");
+
+        function successCaptchaCallback() {
+            if (!userValidatedByDomain.arePhonesAndPrefixEquals()) {
+                userValidatedByDomain.showErrorModal(i18n.inputs.errors.nonMatchingPhones);
+                captcha.clearCaptcha();
+            } else if ($form.valid() && captcha.isRecaptchaSolved) {
+                userValidatedByDomain.modalNotifications.find(".text-danger").hide();
+                userValidatedByDomain.showModalLoading();
+
+                var requestData = userValidatedByDomain.buildValidationRequestData();
+                var formUrl = $form.attr("action");
+
+                // Inyección de dependencia: Seleccionamos la estrategia (por defecto sms si no existe)
+                var senderStrategy = userValidatedByDomain.communicationStrategies[channel] || userValidatedByDomain.communicationStrategies.sms;
+
+                // Ejecutamos la promesa delegando responsabilidades
+                senderStrategy(requestData, formUrl)
+                    .done(userValidatedByDomain.handleSendCodeSuccess)
+                    .fail(userValidatedByDomain.handleSendCodeError)
+                    .always(function() {
+                        pageLoadingOff();
+                    });
+            }
+        }
+
+        captcha.showCaptcha(successCaptchaCallback);
+    },
+
+    // ==========================================
+    // CONTROLADORES DE EVENTOS
+    // ==========================================
+    sendSMSForPhoneValidation: function(e) {
+        if (e != undefined) { e.preventDefault(); }
+        var $button = $(this);
+
+        // Leemos el flag del GSP mediante el data-attribute
+        var isWhatsAppActive = $button.attr('data-whatsapp-enabled') === 'true';
+
+        // CORRECCIÓN: Asignamos el valor directamente a la memoria del objeto
+        userValidatedByDomain.currentChannel = isWhatsAppActive ? 'WHATSAPP' : 'SMS';
+
+        console.log("Paso 1 (Envío) -> Canal guardado en memoria: " + userValidatedByDomain.currentChannel);
+
+        userValidatedByDomain.sendValidationCode($button, userValidatedByDomain.currentChannel);
+    },
+
+    handleResendCodeAction: function(e) {
+        if (e != undefined) { e.preventDefault(); }
+        var $clickedButton = $(this);
+
+        // 1. Identificamos qué botón se ha pulsado por su ID
+        var channel = $clickedButton.attr('id') === 'btn-resend-whatsapp-action' ? 'WHATSAPP' : 'SMS';
+
+        // 2. Actualizamos nuestra memoria. ¡Súper importante para la validación posterior!
+        userValidatedByDomain.currentChannel = channel;
+        console.log("-> Reenvío solicitado. Canal en memoria actualizado a: " + userValidatedByDomain.currentChannel);
+
+        // 3. Ocultamos el panel de ayuda (si estaba abierto) con una animación suave
+        if ($("#kuorum-whatsapp-help-panel").length) {
+            $("#kuorum-whatsapp-help-panel").slideUp(200);
+        }
+
+        // 4. Limpiamos el input del código anterior para que el usuario escriba el nuevo
+        $("#phoneCode").val('');
+
+        // =========================================================
+        // 5. MEJORA UX: Vaciamos el texto de instrucciones anterior
+        // para no confundir al usuario en conexiones lentas.
+        // =========================================================
+        $(".modal-domain-validation-phone-step2 .help-block").empty();
+
+        // =========================================================
+        // 6. MEJORA UX (NUEVO): Limpiamos los mensajes de error de
+        // validación (jQuery Validate) y el error global del modal.
+        // =========================================================
+        $("#phoneCode").removeClass("error"); // Quitamos el borde rojo
+
+        // Buscamos específicamente el label local que crea jQuery Validate sin usar el ID conflictivo
+        $("label.error[for='phoneCode']").hide().empty();
+
+        // Limpiamos correctamente el error global de arriba (el del iconito rojo)
+        userValidatedByDomain.hideErrorModal();
+
+        // 7. ¡LA MAGIA DE LA REUTILIZACIÓN!
+        // Usamos el botón original del Paso 1 ("Enviar código") como "ancla".
+        var $originalButton = $("#validatePhoneDomain-modal-form-button-id");
+        userValidatedByDomain.sendValidationCode($originalButton, channel);
+    },
+
+    // ==========================================
+    // RESTO DE MÉTODOS ORIGINALES
+    // ==========================================
     handleLoginAndValidationUser: function ($button, callbackNameAfterLogin, clickButtonOnSuccess) {
         var loggedUserAlias = $button.attr("data-loggedUser");
         var noLoggedUser = loggedUserAlias == undefined || loggedUserAlias == "";
@@ -81,7 +423,7 @@ var userValidatedByDomain={
 
     openAndPrepareValidationModal: function () {
         if (!userValidatedByDomain.dataValidation.allowAnonymousAction){
-          this.hide2ndPhoneFields()
+            this.hide2ndPhoneFields()
 
         }
         // Open validation modal
@@ -244,9 +586,6 @@ var userValidatedByDomain={
             url: url,
             data: userValidatedByDomain.dataValidation,
             success: function (dataCheckGroupValidation) {
-                // console.log(dataCheckGroupValidation)
-                // var jsonValidation = JSON.parse(dataCheckGroupValidation);
-                // console.log(dataCheckGroupValidation.belongsToCampaignGroup)
                 if (dataCheckGroupValidation.belongsToCampaignGroup){
                     console.log("Validation Group :: Ok");
                     executableFunctionCallback.exec()
@@ -258,9 +597,6 @@ var userValidatedByDomain={
                 }
             },
             error:function(){
-                // User is no logged or is not validated
-                // Showing modal validation process
-                // pageLoadingOff();
                 display.error(i18n.kuorum.session.validation.groupError)
             },
             complete: function () {
@@ -299,6 +635,19 @@ var userValidatedByDomain={
         if (e != undefined) {
             e.preventDefault();
         }
+        // Clean fields at the beginning of validation
+
+        $("#validationPhoneNumber").val('');
+        $("#phoneCode").val('');
+        $("#phoneHash").val('');
+
+        userValidatedByDomain.currentChannel = '';
+
+        // Asegurarse de que el panel de ayuda está cerrado si el usuario vuelve atrás
+        if ($("#kuorum-whatsapp-help-panel").length) {
+            $("#kuorum-whatsapp-help-panel").hide();
+        }
+
         if (userValidatedByDomain.dataValidation.predefinedPhone) {
             $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-predefinedPhone").show();
             $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-inputPhone").hide();
@@ -310,77 +659,28 @@ var userValidatedByDomain={
         userValidatedByDomain.hideModalLoading();
         userValidatedByDomain.hideErrorModal();
     },
-    showPhoneValidationStep2:function(e){
-        if (e != undefined){e.preventDefault();}
+    showPhoneValidationStep2: function(e) {
+        if (e != undefined) { e.preventDefault(); }
         $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1").hide();
         $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2").show();
         $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
         $("#domain-validation .modal-domain-validation-step-tabs li.modal-domain-validation-step-tabs-phoneCode").addClass("active");
-        $("#phoneCode").val("");
+
+        var $phoneCodeInput = $("#phoneCode");
+        $phoneCodeInput.val("");
+
         userValidatedByDomain.hideModalLoading();
         userValidatedByDomain.hideErrorModal();
+
+        setTimeout(function() {
+            $phoneCodeInput.focus();
+        }, 100);
     },
 
     showWarnGroupValidation:function(){
         $("#domain-validation .modal-domain-validation").hide();
         userValidatedByDomain.hideErrorModal();
         $("#domain-validation .modal-domain-validation-groupCampaign").show();
-    },
-
-    sendSMSForPhoneValidation:function(e) {
-        e.preventDefault();
-        var $button = $(this);
-        var $form = $button.closest("form");
-
-        function successCaptchaCallback() {
-            if (!userValidatedByDomain.arePhonesAndPrefixEquals()) {
-                userValidatedByDomain.showErrorModal(i18n.inputs.errors.nonMatchingPhones);
-                captcha.clearCaptcha()
-            } else if ($form.valid() && captcha.isRecaptchaSolved) {
-                userValidatedByDomain.modalNotifications.find(".text-danger").hide();
-                userValidatedByDomain.showModalLoading();
-                var url = $form.attr("action");
-                console.log("CampaignID: " + userValidatedByDomain.dataValidation.campaignId);
-                var data = {
-                    campaignId: userValidatedByDomain.dataValidation.campaignId,
-                    phoneNumberPrefix: $("#phoneNumberPrefix").val(),
-                    phoneNumber: $("#phoneNumber").val(),
-                    'g-recaptcha-response': captcha.grecaptchaResponse,
-                    'allowAnonymousAction':userValidatedByDomain.dataValidation.allowAnonymousAction
-                };
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    success: function (dataSms) {
-                        console.log(dataSms)
-                        if (dataSms.success) {
-                            captcha.clearCaptcha()
-                            $("#phoneHash").val(dataSms.hash)
-                            $("#validationPhoneNumber").val(dataSms.validationPhoneNumber)
-                            $("#validationPhoneNumberPrefix").val(dataSms.validationPhoneNumberPrefix)
-                            if (dataSms.validated) {
-                                // This phone is already validated
-                                userValidatedByDomain.nextValidationStep(dataSms);
-                            } else {
-                                userValidatedByDomain.showPhoneValidationStep2();
-                            }
-                        } else {
-                            userValidatedByDomain.showErrorModal(dataSms.msg)
-                        }
-                    },
-                    error: function (dataError) {
-                        display.error("There was an error sending a sms validation to your phone number")
-                    },
-                    complete: function () {
-                        pageLoadingOff();
-                        // userValidatedByDomain.hideModalLoading()
-                    }
-                });
-            }
-        }
-
-        captcha.showCaptcha(successCaptchaCallback)
     },
 
     handleSubmitValidationPhone:function(e){
@@ -390,13 +690,19 @@ var userValidatedByDomain={
         if ($form.valid()) {
             userValidatedByDomain.showModalLoading();
             var url = $form.attr("action");
+
+            // CORRECCIÓN: Limpiamos basura del DOM y leemos directo de memoria (con un fallback de seguridad a 'SMS')
             var data = {
                 campaignId:userValidatedByDomain.dataValidation.campaignId,
                 validationPhoneNumber: $("#validationPhoneNumber").val(),
                 validationPhoneNumberPrefix: $("#validationPhoneNumberPrefix").val(),
                 phoneHash: $("#phoneHash").val(),
-                phoneCode: $("#phoneCode").val()
+                phoneCode: $("#phoneCode").val(),
+                channel: userValidatedByDomain.currentChannel || 'SMS'
             };
+
+            console.log("Paso 2 (Validación) -> Enviando código usando canal: " + data.channel);
+
             $.ajax({
                 type: "POST",
                 url: url,
@@ -469,7 +775,6 @@ var userValidatedByDomain={
                 },
                 complete: function () {
                     userValidatedByDomain.hideModalLoading()
-                    // pageLoadingOff();
                 }
             });
         }
@@ -507,7 +812,6 @@ var userValidatedByDomain={
     },
 
     nextValidationStep: function(callbackData){
-        // Success is 200 code No
         console.log("Next step :: init");
         if (callbackData.validated) {
             console.log("Next step :: Validated")
@@ -515,13 +819,14 @@ var userValidatedByDomain={
             userValidatedByDomain.validated = true;
             $("#validateDomain-modal-form-button-id").find(".text-success").show();
             userValidatedByDomain.checkGroupValidation(userValidatedByDomain.successFunctionCallback, function () {
+                $("#validationPhoneNumber").val('')
+                $("#validationPhoneNumberPrefix").val('')
                 setTimeout(function () {
                     console.log("Closing modal")
                     $("#domain-validation").modal("hide")
                 }, 1000);
             });
-        }else if (!callbackData.success){ // ERRORS ON AJAX CALL
-            // RESTORE STATUS
+        }else if (!callbackData.success){
             console.log("Next step :: Not validation success");
             userValidatedByDomain.showErrorModal(callbackData.msg)
         }else {
@@ -545,11 +850,3 @@ var userValidatedByDomain={
         }
     }
 };
-
-
-// function test(args){
-//     console.log(args)
-// }
-// var executable = new userValidatedByDomain.ExcutableFunctionCallback(test, {var1:"hola"})
-//
-// executable.exec()

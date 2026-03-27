@@ -540,13 +540,16 @@ class CampaignController {
         }
         KuorumUserSession votingUser = cookieUUIDService.buildAnonymousUser();
         Long campaignId = Long.parseLong(params.campaignId)
+
+        String channelStr = (params.channel ?: 'SMS').toUpperCase()
         try {
             UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(
                     votingUser,
                     campaignId,
                     domainUserPhoneValidationCommand.phoneNumber.toString(),
                     domainUserPhoneValidationCommand.phoneNumberPrefix,
-                    cookieUUIDService.getBrowserId()
+                    cookieUUIDService.getBrowserId(),
+                    channelStr
             )
             cookieUUIDService.buildAnonymousUser(userPhoneValidationRDTO.getUserId());
             render([
@@ -583,8 +586,9 @@ class CampaignController {
         }
         Long campaignId = Long.parseLong(params.campaignId)
         KuorumUserSession userSession = cookieUUIDService.buildAnonymousUser();
+        String channelStr = (params.channel ?: 'SMS').toUpperCase()
         Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaignId, domainUserPhoneValidationCommand.validationPhoneNumberPrefix, domainUserPhoneValidationCommand.validationPhoneNumber, domainUserPhoneValidationCommand.phoneHash, domainUserPhoneValidationCommand.phoneCode)
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaignId, domainUserPhoneValidationCommand.validationPhoneNumberPrefix, domainUserPhoneValidationCommand.validationPhoneNumber, domainUserPhoneValidationCommand.phoneHash, domainUserPhoneValidationCommand.phoneCode, channelStr)
         render([
                 success           : userValidationRSDTO.phoneStatus.isGranted(),
                 validated         : userValidationRSDTO.isGranted(),

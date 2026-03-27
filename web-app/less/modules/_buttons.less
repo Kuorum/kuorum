@@ -84,3 +84,40 @@
   opacity: 1 !important;
 }
 
+/* Custom SMS button uses secondary color */
+button#btn-resend-sms-action.btn {
+  background-color: @secondColor !important;
+  border-color: @secondColor !important;
+  color: #ffffff !important;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  &:active:focus {
+    background-color: @secondColor !important;
+    border-color: @secondColor !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+/* Custom WhatsApp button */
+button#btn-resend-whatsapp-action.btn {
+  background-color: #25D366 !important;
+  border-color: #25D366 !important;
+  color: #ffffff !important;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  &:active:focus {
+    background-color: #25D366 !important;
+    border-color: #25D366 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}

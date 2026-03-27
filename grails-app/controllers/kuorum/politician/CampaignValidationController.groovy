@@ -314,13 +314,16 @@ class CampaignValidationController {
         }
 //        KuorumUserSession userSession = springSecurityService.principal
         KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
+        String channel = params.channel ?: 'SMS'
         try {
             UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(
                     userSession,
                     campaign.getId(),
                     command.phoneNumber.toString(),
                     command.phoneNumberPrefix,
-                    cookieUUIDService.getBrowserId())
+                    cookieUUIDService.getBrowserId(),
+                    channel
+            )
             [command : new DomainUserPhoneCodeValidationCommand(
                     phoneHash: userPhoneValidationRDTO.getHash(),
                     validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(),
@@ -353,6 +356,13 @@ class CampaignValidationController {
     def stepCampaignValidationPhoneCodeSave(DomainUserPhoneCodeValidationCommand command) {
         log.info("VALIDATION: Phone -> Saving form of validation via PHONE [checking code]")
         CampaignRSDTO campaign = getCampaignRSDTO(params)
+
+        // 1. NUEVO: Extraemos el canal de los parámetros de la petición.
+        // Si por algún motivo no llega, nos aseguramos de que sea 'sms' por defecto.
+        String channel = params.channel ?: 'sms'
+        log.info(">>> CANAL RECIBIDO EN CAMPAIGN CONTROLLER: ${channel}")
+        log.info(">>> request params ${params}")
+
         if (command.hasErrors()) {
             render view: "stepCampaignValidationPhoneCode", model: [command: command, campaign: campaign]
             return
@@ -360,7 +370,19 @@ class CampaignValidationController {
 //        KuorumUserSession userSession = springSecurityService.principal
         KuorumUserSession userSession = recoverUserSessionDependingOnCookieOrSession();
         Evidences evidences = new HttpRequestRecoverEvidences(request, cookieUUIDService.getBrowserId());
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaign.getId(), command.validationPhoneNumberPrefix, command.validationPhoneNumber, command.phoneHash, command.phoneCode)
+
+        // 2. NUEVO: Añadimos la variable 'channel' al final de los parámetros
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(
+                userSession,
+                evidences,
+                campaign.getId(),
+                command.validationPhoneNumberPrefix,
+                command.validationPhoneNumber,
+                command.phoneHash,
+                command.phoneCode,
+                channel
+        )
+
         if (userValidationRSDTO.phoneStatus.isGranted()) {
             redirect uri: calcNextStepMappingNameWithUsersSession(campaign, userSession, ValidationStep.PHONE_SAVE, userValidationRSDTO)
         } else {

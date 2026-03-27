@@ -4612,6 +4612,58 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2{display:none;}
 .modal-domain-validation .loading {background: none;font-size: 30px;    height: auto;}
 
+/* Especificidad requerida para el enlace de despliegue */
+.modal-domain-validation-phone-step2 fieldset:has(> #whatsAppNotReceived) {
+    font-size: 15px;
+    margin-top: 30px;
+}
+
+/* Panel principal aislado por ID */
+.modal-domain-validation-phone-step2 #kuorum-whatsapp-help-panel {
+    display: none;
+    background-color: #fcfcfc;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    margin-top: 20px;
+    clear: both;
+    text-align: left;
+}
+
+.modal-domain-validation-phone-step2 #kuorum-whatsapp-help-panel p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    color: #545454;
+}
+
+.modal-domain-validation-phone-step2 #kuorum-whatsapp-help-panel p strong {
+    color: #333;
+}
+
+/* Botones específicos de acción */
+.modal-domain-validation-phone-step2 .kuorum-whatsapp-help-actions {
+    margin-top: 15px;
+}
+
+.modal-domain-validation-phone-step2 #btn-resend-whatsapp-action {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+
+.modal-domain-validation-phone-step2 #btn-resend-sms-action {
+    color: #666;
+    border: 1px solid #ccc;
+    font-weight: bold;
+}
+
+/*Remove hover ONLY for this buttons */
+.modal-domain-validation-phone-step2 #btn-resend-sms-action:focus,
+.modal-domain-validation-phone-step2 #btn-resend-whatsapp-action:focus {
+    background-color: initial !important;
+}
 
 
 .modal .input-group-addon,
@@ -10616,4 +10668,9 @@ div.horizontal-scroll-cookies {
 
 table.table-cookies td {
     white-space: break-spaces;
+}
+
+fieldset:has(> #whatsAppNotReceived) {
+    font-size: 15px;
+    margin-top: 30px;
 }

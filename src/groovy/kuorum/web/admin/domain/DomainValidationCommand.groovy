@@ -14,6 +14,7 @@ class DomainValidationCommand {
     Boolean validationPhone
     Boolean validationCode
     Boolean validationTokenMail
+    Boolean validationWhatsApp
     String smsDomainName
     String defaultPhonePrefix
 
@@ -33,6 +34,7 @@ class DomainValidationCommand {
         validationCensus nullable: true
         validationPhone nullable: true
         validationCode nullable: true
+        validationWhatsApp nullable: true
         validationTokenMail nullable: true
         isSocialNetwork nullable: true
         isUserProfileExtended nullable: true
