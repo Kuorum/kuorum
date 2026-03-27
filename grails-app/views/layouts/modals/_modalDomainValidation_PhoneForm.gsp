@@ -115,6 +115,7 @@
                 <p><strong><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.coverage"/>:</strong> <g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.coverageDesc"/></p>
 
                 <p class="whatsapp-only-help"><strong><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.reviewWhatsApp"/>:</strong> <g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.reviewWhatsAppDesc"/></p>
+                <p class="whatsapp-only-help"><strong><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.sendSMS"/>:</strong> <g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.sendSMSDesc"/></p>
 
                 <div class="kuorum-whatsapp-help-actions">
                     <%-- Botón WhatsApp con icono --%>
