@@ -506,12 +506,14 @@ class KuorumUserService {
         }
     }
 
-    UserPhoneValidationRDTO sendSMSWithValidationCode(KuorumUserSession user, Long campaignId, String phoneNumber, String phoneNumberPrefix, String browserId) {
+    UserPhoneValidationRDTO sendSMSWithValidationCode(KuorumUserSession user, Long campaignId, String phoneNumber, String phoneNumberPrefix, String browserId, String channel) {
+        println ">>>>>> GRAILS SERVICE: Intentando enviar código. Canal recibido: " + channel
         Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [
                 phoneNumber      : phoneNumber,
                 phoneNumberPrefix: phoneNumberPrefix,
-                browserId        : browserId
+                browserId        : browserId,
+                channel          : channel
         ]
         try {
             def apiResponse = restKuorumApiService.post(
@@ -533,7 +535,7 @@ class KuorumUserService {
         }
     }
 
-    UserValidationRSDTO userPhoneDomainValidation(KuorumUserSession user, Evidences evidences, Long campaignId, String phoneNumberPrefix, String phoneNumber, String hash, String code){
+    UserValidationRSDTO userPhoneDomainValidation(KuorumUserSession user, Evidences evidences, Long campaignId, String phoneNumberPrefix, String phoneNumber, String hash, String code, String channel){
         Map<String, String> params = [userId: user.getId().toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [:]
         UserPhoneValidationDTO userPhoneValidationDTO = new UserPhoneValidationDTO(
@@ -543,8 +545,10 @@ class KuorumUserService {
                 phoneNumberPrefix: phoneNumberPrefix,
                 phoneNumber: phoneNumber,
                 code: code,
-                hash: hash
+                hash: hash,
+                channel: channel
         )
+        println "DEBUG GRAILS PUT BODY: " + userPhoneValidationDTO.getChannel()
         try{
             def apiResponse= restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.USER_VALIDATION_PHONE,
