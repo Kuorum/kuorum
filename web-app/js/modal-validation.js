@@ -126,21 +126,20 @@ var userValidatedByDomain={
     },
 
     // ==========================================
-    // ESTRATEGIAS DE COMUNICACIÓN (SOLID: OCP)
+    // COMMUNICATION STRATEGIES (SOLID: OCP)
     // ==========================================
     communicationStrategies: {
         SMS: function(requestData, formUrl) {
-            console.log("-> Ejecutando estrategia: SMS CLÁSICO");
+            // Explicitly inject SMS channel
+            var smsData = $.extend({}, requestData, { channel: 'SMS' });
             return $.ajax({
                 type: "POST",
-                url: formUrl, // Usa la URL nativa del action del formulario
-                data: requestData
+                url: formUrl,
+                data: smsData
             });
         },
         WHATSAPP: function(requestData, formUrl) {
-            console.log("-> Ejecutando estrategia: WHATSAPP");
-
-            // Usamos EXACTAMENTE LA MISMA URL (formUrl), pero le inyectamos el parámetro channel='WHATSAPP'
+            // Explicitly inject WHATSAPP channel
             var whatsappData = $.extend({}, requestData, { channel: 'WHATSAPP' });
 
             return $.ajax({
@@ -148,6 +147,10 @@ var userValidatedByDomain={
                 url: formUrl,
                 data: whatsappData
             });
+        },
+        AUTO: function(requestData, formUrl) {
+            var autoData = $.extend({}, requestData, { channel: 'AUTO' });
+            return $.ajax({ type: "POST", url: formUrl, data: autoData });
         }
     },
 
