@@ -393,41 +393,37 @@ var userValidatedByDomain={
         if (e != undefined) { e.preventDefault(); }
         var $clickedButton = $(this);
 
-        // 1. Identificamos qué botón se ha pulsado por su ID
+        // 1. Identify which button was clicked by ID
         var channel = $clickedButton.attr('id') === 'btn-resend-whatsapp-action' ? 'WHATSAPP' : 'SMS';
 
-        // 2. Actualizamos nuestra memoria. ¡Súper importante para la validación posterior!
+        // 2. Update memory channel
         userValidatedByDomain.currentChannel = channel;
-        console.log("-> Reenvío solicitado. Canal en memoria actualizado a: " + userValidatedByDomain.currentChannel);
 
-        // 3. Ocultamos el panel de ayuda (si estaba abierto) con una animación suave
+        // 3. Hide help panel smoothly
         if ($("#kuorum-whatsapp-help-panel").length) {
             $("#kuorum-whatsapp-help-panel").slideUp(200);
         }
 
-        // 4. Limpiamos el input del código anterior para que el usuario escriba el nuevo
+        // 4. Clear previous code input
         $("#phoneCode").val('');
 
         // =========================================================
-        // 5. MEJORA UX: Vaciamos el texto de instrucciones anterior
-        // para no confundir al usuario en conexiones lentas.
+        // 5. UX: Clear previous instruction text to avoid confusion.
         // =========================================================
         $(".modal-domain-validation-phone-step2 .help-block").empty();
 
         // =========================================================
-        // 6. MEJORA UX (NUEVO): Limpiamos los mensajes de error de
-        // validación (jQuery Validate) y el error global del modal.
+        // 6. UX: Clear validation error messages and global error.
         // =========================================================
-        $("#phoneCode").removeClass("error"); // Quitamos el borde rojo
+        $("#phoneCode").removeClass("error");
 
-        // Buscamos específicamente el label local que crea jQuery Validate sin usar el ID conflictivo
+        // Target specific jQuery Validate label avoiding conflicting ID
         $("label.error[for='phoneCode']").hide().empty();
 
-        // Limpiamos correctamente el error global de arriba (el del iconito rojo)
+        // Clear global modal error
         userValidatedByDomain.hideErrorModal();
 
-        // 7. ¡LA MAGIA DE LA REUTILIZACIÓN!
-        // Usamos el botón original del Paso 1 ("Enviar código") como "ancla".
+        // 7. REUSE MAGIC: Use original Step 1 button as anchor
         var $originalButton = $("#validatePhoneDomain-modal-form-button-id");
         userValidatedByDomain.sendValidationCode($originalButton, channel);
     },
