@@ -253,10 +253,26 @@ var userValidatedByDomain={
             $("#phoneCode").attr("aria-describedby", helpBlockId);
             $("#whatsAppNotReceived").text(linkText);
 
-            if (isWhatsApp) {
-                $(".whatsapp-only-help").show();
+            // Read attribute ensuring no case sensitivity issues
+            var waAttr = $("#validatePhoneDomain-modal-form-button-id").attr('data-whatsapp-enabled');
+            var isWhatsAppGloballyEnabled = (waAttr && waAttr.toLowerCase() === 'true');
+
+            // Show/Hide panels based on absolute truth
+            if (isWhatsAppGloballyEnabled) {
+                // ALWAYS show full panel if globally enabled
+                $("#ui-block-whatsapp").show();
+                $("#ui-block-sms-only").hide();
+
+                // Show specific instructions only in WhatsApp mode
+                if (isWhatsApp) {
+                    $(".whatsapp-only-help").show();
+                } else {
+                    $(".whatsapp-only-help").hide();
+                }
             } else {
-                $(".whatsapp-only-help").hide();
+                // Show simple SMS view if globally disabled
+                $("#ui-block-whatsapp").hide();
+                $("#ui-block-sms-only").show();
             }
 
             // 4. Change texts and save them as base
