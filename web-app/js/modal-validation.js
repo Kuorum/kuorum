@@ -44,8 +44,8 @@ var userValidatedByDomain={
         whatsapp: undefined,
         sms: undefined
     },
-    lastValidatedPhone: '',   // <-- NUEVO
-    lastValidatedPrefix: '',  // <-- NUEVO
+    lastValidatedPhone: '',
+    lastValidatedPrefix: '',
 
     initVariables: function () {
         if (!userValidatedByDomain.binded) {
@@ -74,25 +74,23 @@ var userValidatedByDomain={
     startResendCountdown: function(channel) {
         var isWa = (channel === 'WHATSAPP');
         var $btn = isWa ? $("#btn-resend-whatsapp-action") : $("#btn-resend-sms-action");
-        var $btnFallback = isWa ? null : $("#btn-resend-sms-action-fallback"); // Fallback solo para SMS
-        var timeLeft = 60; // Segundos de espera
+        var $btnFallback = isWa ? null : $("#btn-resend-sms-action-fallback"); // Fallback only for SMS
+        var TIMELEFT = 60; // Wait time in seconds
 
-        // 1. Limpiamos si ya había un temporizador corriendo para este canal
+        // 1. Clear existing timer for this channel
         if (userValidatedByDomain.resendTimers[channel]) {
             clearInterval(userValidatedByDomain.resendTimers[channel]);
         }
 
-        // 2. Deshabilitamos SOLO el botón de este canal
+        // 2. Disable ONLY the button for this channel
         $btn.prop('disabled', true).addClass('disabled');
         if ($btnFallback && $btnFallback.length) {
             $btnFallback.addClass('disabled').css('pointer-events', 'none');
         }
 
-        // 3. Función interna para pintar los segundos
+        // 3. Internal function to render seconds
         function updateText(time) {
             var suffix = time > 0 ? " (" + time + "s)" : "";
-
-            // Apuntamos al span interior usando .find('.btn-text')
             $btn.find('.btn-text').text($btn.attr('data-original-text') + suffix);
 
             if ($btnFallback && $btnFallback.length) {
@@ -100,13 +98,13 @@ var userValidatedByDomain={
             }
         }
 
-        // 4. Arrancamos el contador
-        updateText(timeLeft);
+        // 4. Start countdown
+        updateText(TIMELEFT);
         userValidatedByDomain.resendTimers[channel] = setInterval(function() {
-            timeLeft--;
-            updateText(timeLeft);
+            TIMELEFT--;
+            updateText(TIMELEFT);
 
-            if (timeLeft <= 0) {
+            if (TIMELEFT <= 0) {
                 clearInterval(userValidatedByDomain.resendTimers[channel]);
                 userValidatedByDomain.resendTimers[channel] = undefined;
                 $btn.prop('disabled', false).removeClass('disabled');
@@ -192,13 +190,12 @@ var userValidatedByDomain={
                 currentPrefix === userValidatedByDomain.lastValidatedPrefix);
 
             if (!isSamePhone) {
-                console.log("-> Nuevo teléfono detectado. Reseteando temporizadores antiguos.");
                 ['WHATSAPP', 'SMS'].forEach(function(ch) {
                     if (userValidatedByDomain.resendTimers[ch]) {
                         clearInterval(userValidatedByDomain.resendTimers[ch]);
                         userValidatedByDomain.resendTimers[ch] = undefined;
 
-                        // Restaurar los botones visualmente para que no se queden bloqueados
+                        // Visually restore buttons to prevent them from locking
                         var isWa = (ch === 'WHATSAPP');
                         var $btn = isWa ? $("#btn-resend-whatsapp-action") : $("#btn-resend-sms-action");
                         var $btnFallback = isWa ? null : $("#btn-resend-sms-action-fallback");
