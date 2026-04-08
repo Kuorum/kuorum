@@ -166,19 +166,42 @@ var userValidatedByDomain={
     },
 
     // ==========================================
-    // MANEJADORES DE RESPUESTA (SOLID: SRP)
+    // RESPONSE HANDLERS (SOLID: SRP)
     // ==========================================
     handleSendCodeSuccess: function(dataResponse) {
-        console.log(dataResponse);
         if (dataResponse.success) {
             captcha.clearCaptcha();
             $("#phoneHash").val(dataResponse.hash);
             $("#validationPhoneNumber").val(dataResponse.validationPhoneNumber);
             $("#validationPhoneNumberPrefix").val(dataResponse.validationPhoneNumberPrefix);
 
-            // =========================================================
-            // LÓGICA DE UX: ACTUALIZAR TEXTOS Y ERRORES SEGÚN EL CANAL
-            // =========================================================
+            // Update HTML in real time if server provides global state
+            if (dataResponse.hasOwnProperty('isWhatsAppEnabled')) {
+                var isEnabledStr = dataResponse.isWhatsAppEnabled ? 'true' : 'false';
+                $("#validatePhoneDomain-modal-form-button-id").attr('data-whatsapp-enabled', isEnabledStr);
+            } else {
+                // Deductive fallback
+                if (dataResponse.actualChannel === 'WHATSAPP') {
+                    $("#validatePhoneDomain-modal-form-button-id").attr('data-whatsapp-enabled', 'true');
+                } else if (dataResponse.actualChannel === 'SMS' && userValidatedByDomain.currentChannel === 'WHATSAPP') {
+                    $("#validatePhoneDomain-modal-form-button-id").attr('data-whatsapp-enabled', 'false');
+                }
+            }
+
+            if (userValidatedByDomain.currentChannel === 'AUTO') {
+                userValidatedByDomain.currentChannel = dataResponse.actualChannel;
+            }
+
+            if (dataResponse.actualChannel === 'WHATSAPP') {
+                // If server sends a WhatsApp, it is definitively enabled
+                userValidatedByDomain.currentChannel = 'WHATSAPP';
+                $("#validatePhoneDomain-modal-form-button-id").attr('data-whatsapp-enabled', 'true');
+            } else if (dataResponse.actualChannel === 'SMS' && userValidatedByDomain.currentChannel === 'WHATSAPP') {
+                // Fallback detected
+                userValidatedByDomain.currentChannel = 'SMS';
+                $("#validatePhoneDomain-modal-form-button-id").attr('data-whatsapp-enabled', 'false');
+            }
+
             var isWhatsApp = userValidatedByDomain.currentChannel === 'WHATSAPP';
             var $step2Container = $(".modal-domain-validation-phone-step2");
 
