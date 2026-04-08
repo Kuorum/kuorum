@@ -342,15 +342,28 @@ var userValidatedByDomain={
         if (e != undefined) { e.preventDefault(); }
         var $button = $(this);
 
-        // Leemos el flag del GSP mediante el data-attribute
-        var isWhatsAppActive = $button.attr('data-whatsapp-enabled') === 'true';
+        // --- ANTI-SPAM PREVENTION FROM STEP 1 ---
+        // 1. Clean spaces in case user writes the number differently
+        var currentPhone = ($("#phoneNumber").val() || '').replace(/\s/g, '');
+        var currentPrefix = ($("#phoneNumberPrefix").val() || '').replace(/\s/g, '');
+        var lastPhone = (userValidatedByDomain.lastValidatedPhone || '').replace(/\s/g, '');
+        var lastPrefix = (userValidatedByDomain.lastValidatedPrefix || '').replace(/\s/g, '');
 
-        // CORRECCIÓN: Asignamos el valor directamente a la memoria del objeto
-        userValidatedByDomain.currentChannel = isWhatsAppActive ? 'WHATSAPP' : 'SMS';
+        // 2. Check if it's the exact same phone we just verified
+        var isSamePhone = (currentPhone === lastPhone && currentPrefix === lastPrefix);
 
-        console.log("Paso 1 (Envío) -> Canal guardado en memoria: " + userValidatedByDomain.currentChannel);
+        // 3. Check if there's any active timer
+        var isTimerRunning = (userValidatedByDomain.resendTimers['WHATSAPP'] !== undefined ||
+            userValidatedByDomain.resendTimers['SMS'] !== undefined);
 
-        userValidatedByDomain.sendValidationCode($button, userValidatedByDomain.currentChannel);
+        // 4. If same number and timer is running, prevent request
+        if (isSamePhone && isTimerRunning) {
+            userValidatedByDomain.showPhoneValidationStep2(); // Return user to Step 2
+            return; // Stop execution here to prevent sending
+        }
+
+        userValidatedByDomain.currentChannel = 'AUTO';
+        userValidatedByDomain.sendValidationCode($button, 'AUTO');
     },
 
     handleResendCodeAction: function(e) {
