@@ -104,9 +104,8 @@
             </button>
         </fieldset>
 
-        <g:if test="${isWhatsAppSendingEnabled}">
+        <div id="ui-block-whatsapp" style="${isWhatsAppSendingEnabled ? '' : 'display: none;'}">
             <fieldset aria-live="polite" class="center modal-login-action-buttons" style="clear: both;">
-                
                 <a href="#" id="whatsAppNotReceived" role="button" aria-controls="kuorum-whatsapp-help-panel" aria-expanded="false" class="grey"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.whatsAppNotReceived"/></a>
             </fieldset>
 
@@ -118,29 +117,27 @@
                 <p class="whatsapp-only-help"><strong><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.sendSMS"/>:</strong> <g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.sendSMSDesc"/></p>
 
                 <div class="kuorum-whatsapp-help-actions">
-                    <%-- Botón WhatsApp con icono --%>
                     <button type="button" class="btn btn-block" id="btn-resend-whatsapp-action" data-original-text="${message(code: 'kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.resendWhatsApp')}">
                         <span class="fab fa-whatsapp fa-inverse" aria-hidden="true" style="margin-right: 5px; font-size: 1.2em; position: relative; top: 2px;"></span>
                         <span class="btn-text"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.resendWhatsApp"/></span>
                     </button>
 
-                    <%-- Botón SMS con icono --%>
                     <button type="button" class="btn btn-block" id="btn-resend-sms-action" data-original-text="${message(code: 'kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.sendSms')}">
                         <span class="fas fa-envelope-open fa-inverse" aria-hidden="true" style="margin-right: 5px; font-size: 1.2em; position: relative; top: 2px;"></span>
                         <span class="btn-text"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.sendSms"/></span>
                     </button>
                 </div>
             </div>
-        </g:if>
+        </div>
 
-        <g:else>
-            <fieldset aria-live="polite" class="center modal-login-action-buttons" style="clear: both; margin-top: 15px;">
+        <div id="ui-block-sms-only" style="clear: both; margin-top: 15px; ${isWhatsAppSendingEnabled ? 'display: none;' : ''}">
+            <fieldset aria-live="polite" class="center modal-login-action-buttons">
                 <a href="#" id="btn-resend-sms-action-fallback" role="button" data-original-text="${message(code: 'kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.resendSms')}" class="grey" style="text-decoration: underline;">
                     <span class="fas fa-envelope-open" aria-hidden="true" style="margin-right: 3px; position: relative; top: 1px;"></span>
                     <span class="btn-text"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.resendSms"/></span>
                 </a>
             </fieldset>
-        </g:else>
+        </div>
 
     </g:form>
 </div>

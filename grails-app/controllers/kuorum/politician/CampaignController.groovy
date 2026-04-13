@@ -540,8 +540,14 @@ class CampaignController {
         }
         KuorumUserSession votingUser = cookieUUIDService.buildAnonymousUser();
         Long campaignId = Long.parseLong(params.campaignId)
+        String requestedChannel = params.channel?.toUpperCase()
+        String channelStr = requestedChannel
 
-        String channelStr = (params.channel ?: 'SMS').toUpperCase()
+        if (requestedChannel == 'AUTO' || !requestedChannel) {
+            Boolean domainChannel = CustomDomainResolver.domainRSDTO?.validationWhatsApp ?: false
+            channelStr = domainChannel ? 'WHATSAPP' : 'SMS'
+            log.info("AUTO channel requested. Server channel: " + channelStr)
+        }
         try {
             UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(
                     votingUser,
@@ -558,7 +564,9 @@ class CampaignController {
                     success                    : true,
                     hash                       : userPhoneValidationRDTO.getHash(),
                     validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(),
-                    validationPhoneNumber      : userPhoneValidationRDTO.getPhoneNumber()] as JSON)
+                    validationPhoneNumber      : userPhoneValidationRDTO.getPhoneNumber(),
+                    actualChannel              : userPhoneValidationRDTO.getChannel(),
+                    isWhatsAppEnabled          : CustomDomainResolver.domainRSDTO.getValidationWhatsApp()] as JSON)
         } catch (KuorumException e) {
             renderErrorMessage(e)
         } catch (Exception e) {
