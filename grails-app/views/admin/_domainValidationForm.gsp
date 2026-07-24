@@ -98,6 +98,12 @@
             <formUtil:checkBox command="${command}" field="providerAoc" showLabel="true" disabled="${!disabledForAdmins}"/>
         </div>
     </fieldset>
+    <h4 class="box-ppal-section-title"><g:message code="org.kuorum.rest.model.domain.DomainValidationRDTO.pharmaciesLabel"/></h4>
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-md-12">
+            <formUtil:checkBox command="${command}" field="pharmacyPlattform" showLabel="true" disabled="${!disabledForAdmins}"/>
+        </div>
+    </fieldset>
 </div>
 
 <div class="box-ppal-section">

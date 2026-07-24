@@ -127,6 +127,7 @@ class AdminController {
         domainValidationCommand.validationCensus = domainRSDTO.validationCensus
         domainValidationCommand.validationPhone = domainRSDTO.validationPhone
         domainValidationCommand.validationWhatsApp = domainRSDTO.validationWhatsApp
+        domainValidationCommand.pharmacyPlattform = domainRSDTO.pharmacyPlattform
         domainValidationCommand.validationCode = domainRSDTO.validationCode
         domainValidationCommand.smsDomainName = domainRSDTO.smsDomainName
         domainValidationCommand.defaultPhonePrefix = domainRSDTO.defaultPhonePrefix
@@ -156,6 +157,7 @@ class AdminController {
         domainRDTO.validationCode = command.validationCode ?: false
         domainRDTO.validationPhone = command.validationPhone ?: false
         domainRDTO.validationWhatsApp = command.validationWhatsApp ?:false
+        domainRDTO.pharmacyPlattform = command.pharmacyPlattform ?: false
         domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
         domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
         domainRDTO.tourEnabled = command.tourEnabled != null && command.tourEnabled
