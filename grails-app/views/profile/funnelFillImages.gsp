@@ -1,4 +1,4 @@
-<%@ page import="kuorum.core.model.UserType" %>
+<%@ page import="kuorum.core.FileGroup; kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.login"
@@ -29,9 +29,10 @@
         <fieldset aria-live="polite" class="row">
             <fieldset aria-live="polite" class="form-group image perfil center" data-multimedia-switch="on"
                       data-multimedia-type="IMAGE">
-                <label><g:message code="register.funnel.association.images.label"/></label>
+                <label><formUtil:domainMessage code="register.funnel.association.images.label"/></label>
+
                 <formUtil:editImage command="${command}" field="photoId"
-                                    fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
+                                    fileGroup="${FileGroup.USER_AVATAR}"/>
             </fieldset>
         </fieldset>
         <fieldset aria-live="polite" class="row">
