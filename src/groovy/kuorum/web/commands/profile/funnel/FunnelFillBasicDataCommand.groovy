@@ -43,19 +43,42 @@ class FunnelFillBasicDataCommand {
         phonePrefix nullable: false
         phone nullable: false, matches: "^[0-9]{9}\$"
         nid nullable: false, validator: { val, obj ->
+            boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
+            if (isPharma) {
+                if (!val.matches(/^[A-Za-z0-9\-]{4,15}$/)) {
+                    return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.pharmacy.invalid"
+                }
+                return true
+            }
+
             CalculaNif calculaNif = new CalculaNif(val)
-            def error;
+            def error
             if (!calculaNif.isAsociacion()) {
                 error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
-            }else if (!val.matches(/^(?![0-9]{8}[A-Z]$)(?:[${ALLOWED_LETTERS}][0-9]{7}[A-Z]|[${ALLOWED_LETTERS}][0-9]{8}$)/)){
+            } else if (!val.matches("^(?![0-9]{8}[A-Z]\$)(?:[${ALLOWED_LETTERS}][0-9]{7}[A-Z]|[${ALLOWED_LETTERS}][0-9]{8}\$)")){
                 error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.matches.error"
-            }else if (!calculaNif.isValid()) {
-                error =  "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
+            } else if (!calculaNif.isValid()) {
+                error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
             }
-            return (error != null) ? error : true;
+            return (error != null) ? error : true
         }
-        bio nullable: false, maxCharsHtml: 500
-        bio2 nullable: false, maxCharsHtml: 800
+        bio nullable: true, blank: true, maxCharsHtml: 500, validator: { val, obj ->
+            boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
+            if (!val || Jsoup.parse(val).text().trim() == '') {
+                return isPharma ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio.blank.pharmacy"
+                        : "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio.blank"
+            }
+            return true
+        }
+
+        bio2 nullable: true, blank: true, maxCharsHtml: 800, validator: { val, obj ->
+            boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
+            if (!val || Jsoup.parse(val).text().trim() == '') {
+                return isPharma ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio2.blank.pharmacy"
+                        : "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio2.blank"
+            }
+            return true
+        }
         contactName nullable: false, maxSize: 70
     }
 

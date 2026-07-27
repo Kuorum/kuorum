@@ -24,8 +24,8 @@
     </ol>
     <formUtil:validateForm bean="${command}" form="stepFillSocial" autocomplete="off"/>
     <form name="stepFillSocial" role="form" method="POST" autocomplete="off"
-          class="signup step2">
-
+          class="signup step2"><br>
+    <formUtil:domainSocialHeader />
         <g:render template="formSocialNetworks" model="[command: command, showPoliticianFields: showPoliticianFields]"/>
 
         <fieldset aria-live="polite" class="row">

@@ -540,7 +540,12 @@ class ProfileController {
         if (user.personalData == null) {
             user.personalData = new PersonalData()
         }
-        user.bio = command.getCompleteBio(g.message(code: 'asoc.bio.title1'), g.message(code: 'asoc.bio.title2'))
+
+        boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
+        String title1Code = isPharma ? 'pharma.bio.title1' : 'asoc.bio.title1'
+        String title2Code = isPharma ? 'pharma.bio.title2' : 'asoc.bio.title2'
+
+        user.bio = command.getCompleteBio(g.message(code: title1Code) as String, g.message(code: title2Code) as String)
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.name = command.name
@@ -624,7 +629,9 @@ class ProfileController {
     def saveFunnelFillFiles() {
         ContactRSDTO adminContact = getAdminContact()
         List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
-        if (contactFiles.size() < WebConstants.MIN_FILES_PER_DOC_IN_CONTEST) {
+        Integer minFiles = CustomDomainResolver.domainRSDTO.pharmacyPlattform ? WebConstants.MIN_FILES_PER_DOC_IN_CONTEST_FOR_PHARMACIES : WebConstants.MIN_FILES_PER_DOC_IN_CONTEST
+
+        if (contactFiles.size() < minFiles) {
             flash.error = g.message(code: "kuorum.web.commands.profile.funnel.files.minFiles")
             render view: "funnelFillFiles", model: [contact: adminContact]
             return;

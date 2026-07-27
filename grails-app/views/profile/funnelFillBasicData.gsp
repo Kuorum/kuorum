@@ -1,8 +1,7 @@
-<%@ page import="kuorum.core.model.UserType" %>
+<%@ page import="kuorum.core.customDomain.CustomDomainResolver; kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.login"
-                      args="[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"/></title>
+    <title><g:message code="page.title.login" args="[CustomDomainResolver.domainRSDTO.name]"/></title>
     <meta name="layout" content="centerColumn1Layout">
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="showNavBar" value="false"/>
@@ -26,21 +25,11 @@
     <form name="stepBasicData" role="form" method="POST" autocomplete="off" class="signup">
         <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-6">
-                <formUtil:input
-                        command="${command}"
-                        field="name"
-                        cssClass="form-control input-lg"
-                        showLabel="true"
-                        showCharCounter="false"/>
+                <formUtil:domainInput command="${command}" field="name" cssClass="form-control input-lg" showLabel="true" showCharCounter="false"/>
             </div>
 
             <div class="form-group col-md-6">
-                <formUtil:input
-                        command="${command}"
-                        field="nid"
-                        cssClass="form-control input-lg"
-                        showLabel="true"
-                        showCharCounter="false"/>
+                <formUtil:domainInput command="${command}" field="nid" cssClass="form-control input-lg" showLabel="true" showCharCounter="false"/>
             </div>
 
         </fieldset>
@@ -74,13 +63,13 @@
     </fieldset>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-xs-12">
-            <formUtil:textArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
+            <formUtil:domainTextArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
         </div>
 
-        <div class="form-group col-xs-12">
-            <formUtil:textArea command="${command}" field="bio2" showLabel="true" texteditor="texteditor"/>
-        </div>
-    </fieldset>
+            <div class="form-group col-xs-12">
+                <formUtil:domainTextArea command="${command}" field="bio2" showLabel="true" texteditor="texteditor"/>
+            </div>
+        </fieldset>
 
     <fieldset aria-live="polite" class="row">
         <div class="form-group text-center option-buttons">
