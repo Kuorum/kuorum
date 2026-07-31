@@ -15,7 +15,7 @@ class DomainValidationCommand {
     Boolean validationCode
     Boolean validationTokenMail
     Boolean validationWhatsApp
-    Boolean pharmacyPlattform
+    Boolean contestApplicationWithCollaborator
     String smsDomainName
     String defaultPhonePrefix
 
@@ -39,7 +39,7 @@ class DomainValidationCommand {
         validationTokenMail nullable: true
         isSocialNetwork nullable: true
         isUserProfileExtended nullable: true
-        pharmacyPlattform nullable: true
+        contestApplicationWithCollaborator nullable: true
         tourEnabled nullable: true
         smsDomainName nullable: true, matches: '[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*', maxSize: 11
         defaultPhonePrefix nullable: true
