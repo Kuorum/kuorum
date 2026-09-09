@@ -349,12 +349,12 @@ class ProfileController {
         KuorumUserSession loggedUser = springSecurityService.principal
         KuorumUserRSDTO user = kuorumUserService.findUserRSDTO(loggedUser)
         SocialNetworkCommand command = new SocialNetworkCommand(user)
-        [command: command]
+        [command: command, isPharma: false]
     }
 
     def socialNetworksSave(SocialNetworkCommand command) {
         if (command.hasErrors()) {
-            render(view: 'socialNetworks', model: [command: command])
+            render(view: 'socialNetworks', model: [command: command, isPharma: false])
             return
         }
         kuorumUserService.updateSocialNetworkLoggedUser(command);
@@ -541,7 +541,7 @@ class ProfileController {
             user.personalData = new PersonalData()
         }
 
-        boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
+        boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
         String title1Code = isPharma ? 'pharma.bio.title1' : 'asoc.bio.title1'
         String title2Code = isPharma ? 'pharma.bio.title2' : 'asoc.bio.title2'
 
@@ -629,7 +629,7 @@ class ProfileController {
     def saveFunnelFillFiles() {
         ContactRSDTO adminContact = getAdminContact()
         List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
-        Integer minFiles = CustomDomainResolver.domainRSDTO.pharmacyPlattform ? WebConstants.MIN_FILES_PER_DOC_IN_CONTEST_FOR_PHARMACIES : WebConstants.MIN_FILES_PER_DOC_IN_CONTEST
+        Integer minFiles = CustomDomainResolver.minFilesPerDocInContest
 
         if (contactFiles.size() < minFiles) {
             flash.error = g.message(code: "kuorum.web.commands.profile.funnel.files.minFiles")
@@ -641,13 +641,12 @@ class ProfileController {
 
     def funnelFillSocial() {
         def model = socialNetworks()
-        model + [campaignId: params.campaignId]
-        model
+        model + [campaignId: params.campaignId, isPharma: CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false]
     }
 
     def saveFunnelFillSocial(SocialNetworkCommand command) {
         if (command.hasErrors()) {
-            render(view: 'funnelFillSocial', model: [command: command])
+            render(view: 'funnelFillSocial', model: [command: command, isPharma: CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false])
             return
         }
         kuorumUserService.updateSocialNetworkLoggedUser(command);

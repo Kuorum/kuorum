@@ -29,9 +29,9 @@
         <fieldset aria-live="polite" class="row">
             <fieldset aria-live="polite" class="form-group image perfil center" data-multimedia-switch="on"
                       data-multimedia-type="IMAGE">
-                <label><formUtil:domainMessage code="register.funnel.association.images.label"/></label>
+                <label><contestApplication:domainMessage code="register.funnel.association.images.label"/></label>
 
-                <formUtil:editImage command="${command}" field="photoId"
+                <contestApplication:domainEditImage command="${command}" field="photoId"
                                     fileGroup="${FileGroup.USER_AVATAR}"/>
             </fieldset>
         </fieldset>

@@ -25,8 +25,8 @@
     <formUtil:validateForm bean="${command}" form="stepFillSocial" autocomplete="off"/>
     <form name="stepFillSocial" role="form" method="POST" autocomplete="off"
           class="signup step2"><br>
-    <formUtil:domainSocialHeader />
-        <g:render template="formSocialNetworks" model="[command: command, showPoliticianFields: showPoliticianFields]"/>
+    <contestApplication:domainSocialHeader />
+        <g:render template="formSocialNetworks" model="[command: command, showPoliticianFields: showPoliticianFields, isPharma: isPharma]"/>
 
         <fieldset aria-live="polite" class="row">
             <div class="form-group text-center option-buttons">

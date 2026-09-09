@@ -25,11 +25,11 @@
     <form name="stepBasicData" role="form" method="POST" autocomplete="off" class="signup">
         <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-6">
-                <formUtil:domainInput command="${command}" field="name" cssClass="form-control input-lg" showLabel="true" showCharCounter="false"/>
+                <contestApplication:domainInput command="${command}" field="name" cssClass="form-control input-lg" showLabel="true" showCharCounter="false"/>
             </div>
 
             <div class="form-group col-md-6">
-                <formUtil:domainInput command="${command}" field="nid" cssClass="form-control input-lg" showLabel="true" showCharCounter="false"/>
+                <contestApplication:domainInput command="${command}" field="nid" cssClass="form-control input-lg" showLabel="true" showCharCounter="false"/>
             </div>
 
         </fieldset>
@@ -63,11 +63,11 @@
     </fieldset>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-xs-12">
-            <formUtil:domainTextArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
+            <contestApplication:domainTextArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
         </div>
 
             <div class="form-group col-xs-12">
-                <formUtil:domainTextArea command="${command}" field="bio2" showLabel="true" texteditor="texteditor"/>
+                <contestApplication:domainTextArea command="${command}" field="bio2" showLabel="true" texteditor="texteditor"/>
             </div>
         </fieldset>
 
