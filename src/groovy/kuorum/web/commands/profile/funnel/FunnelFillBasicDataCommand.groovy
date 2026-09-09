@@ -43,27 +43,41 @@ class FunnelFillBasicDataCommand {
         phonePrefix nullable: false
         phone nullable: false, matches: "^[0-9]{9}\$"
         nid nullable: false, validator: { val, obj ->
-            boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
-            if (isPharma) {
-                if (!val.matches(/^[A-Za-z0-9\-]{4,15}$/)) {
-                    return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.pharmacy.invalid"
-                }
-                return true
+            CalculaNif calculaNif = new CalculaNif(val)
+
+            // 1. BASE CHECK: is it a structurally and mathematically valid NIF/CIF?
+            // If the format is a mess or the control digit doesn't match, stop here.
+            if (!calculaNif.isValid()) {
+                return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
             }
 
-            CalculaNif calculaNif = new CalculaNif(val)
-            def error
-            if (!calculaNif.isAsociacion()) {
-                error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
-            } else if (!val.matches("^(?![0-9]{8}[A-Z]\$)(?:[${ALLOWED_LETTERS}][0-9]{7}[A-Z]|[${ALLOWED_LETTERS}][0-9]{8}\$)")){
-                error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.matches.error"
-            } else if (!calculaNif.isValid()) {
-                error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
+            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+
+            if (isPharma) {
+                // 2A. PHARMACY RULES (autonomous pharmacist DNI, or CIF S.A. 'A', S.L. 'B', C.B. 'E', S.C. 'J')
+                boolean isDni = val ==~ /^[0-9]{8}[A-Za-z]$/
+                boolean isAllowedPharmacyCif = val ==~ /^[ABEJabej][0-9]{7}[0-9A-Za-z]$/
+
+                if (!isDni && !isAllowedPharmacyCif) {
+                    // It's a valid CIF, but not an entity type allowed for pharmacies
+                    return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.pharmacy.notPharmacy"
+                }
+            } else {
+                // 2B. ASSOCIATION RULES (in Spain, Associations = letter G)
+                if (!calculaNif.isAsociacion()) {
+                    // It's a valid CIF, but the letter doesn't correspond to an association
+                    return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
+                }
+
+                if (!val.matches("^(?![0-9]{8}[A-Z]\$)(?:[${ALLOWED_LETTERS}][0-9]{7}[A-Z]|[${ALLOWED_LETTERS}][0-9]{8}\$)")){
+                    return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.matches.error"
+                }
             }
-            return (error != null) ? error : true
+
+            return true
         }
         bio nullable: true, blank: true, maxCharsHtml: 500, validator: { val, obj ->
-            boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
+            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
             if (!val || Jsoup.parse(val).text().trim() == '') {
                 return isPharma ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio.blank.pharmacy"
                         : "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio.blank"
@@ -72,7 +86,7 @@ class FunnelFillBasicDataCommand {
         }
 
         bio2 nullable: true, blank: true, maxCharsHtml: 800, validator: { val, obj ->
-            boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
+            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
             if (!val || Jsoup.parse(val).text().trim() == '') {
                 return isPharma ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio2.blank.pharmacy"
                         : "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio2.blank"
