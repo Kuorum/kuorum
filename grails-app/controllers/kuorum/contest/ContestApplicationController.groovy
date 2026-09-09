@@ -2,6 +2,8 @@ package kuorum.contest
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.KuorumFile
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
@@ -12,8 +14,10 @@ import kuorum.web.commands.payment.contest.NewContestApplicationCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
+import org.kuorum.rest.model.communication.contest.ContestApplicationTypeDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignCreatorService
@@ -41,6 +45,7 @@ class ContestApplicationController extends CampaignController {
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveNewApplication(ContestApplicationScopeCommand command) {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
+        command.isPharmacyApplication = resolveContestApplicationType(null) == ContestApplicationTypeDTO.PHARMACY
         if (!command.validate()) {
             ContestRSDTO contest = getContest(contestId)
             render view: 'create', model: contestApplicationModelEditScope(command, null, contest)
@@ -83,6 +88,10 @@ class ContestApplicationController extends CampaignController {
         Long contestApplicationId = params.campaignId ? Long.parseLong(params.campaignId) : null
         ContestApplicationRSDTO contestApplication = contestApplicationService.find(user.id.toString(), contestApplicationId)
         def nextStep = updateEnvironmentByCommand(command, contestApplication);
+        if (!nextStep) {
+            // Validation failed: updateEnvironmentByCommand already rendered the form with errors
+            return
+        }
         redirect mapping: nextStep.mapping, params: nextStep.params
     }
 
@@ -145,7 +154,7 @@ class ContestApplicationController extends CampaignController {
             }
             ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(loggedUser, Long.parseLong((String) params.campaignId))
             ContestRSDTO contest = getContest(contestApplicationRSDTO.getContest().getId())
-            render view: 'contestApplicationEditAuthorizations', model: contestApplicationModelEditAuthorizations(command, contestApplicationRSDTO, contest)
+            render view: 'editAuthorizationsStep', model: contestApplicationModelEditAuthorizations(command, contestApplicationRSDTO, contest)
             return
         }
         ContestApplicationRDTO contestApplicationRSDTO = createRDTO(loggedUser, campaignId, contestApplicationService)
@@ -189,12 +198,19 @@ class ContestApplicationController extends CampaignController {
             command.activityType = contestApplicationRSDTO.activityType
             command.numBenefitedPacients = contestApplicationRSDTO.numBenefitedPacients
             command.numBenefitedCaregivers = contestApplicationRSDTO.numBenefitedCaregivers
+            command.numBeneficiaries = contestApplicationRSDTO.numBeneficiaries
+            command.associationName = contestApplicationRSDTO.associationName
+            if (contestApplicationRSDTO.associationImage) {
+                KuorumFile associationImageFile = KuorumFile.findByUrl(contestApplicationRSDTO.associationImage)
+                command.associationImage = associationImageFile?.id?.toString()
+            }
         }
         def model = [
                 campaign: contestApplicationRSDTO,
                 contest : contestRSDTO,
                 status  : contestApplicationRSDTO?.campaignStatusRSDTO ?: CampaignStatusRSDTO.DRAFT,
-                command : command
+                command : command,
+                isPharma: resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.PHARMACY
         ]
         return model
     }
@@ -209,6 +225,7 @@ class ContestApplicationController extends CampaignController {
         def model = [
                 campaign: contestApplicationRSDTO,
                 contest : contestRSDTO,
+                isPharma: resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.PHARMACY,
                 status  : contestApplicationRSDTO?.campaignStatusRSDTO ?: CampaignStatusRSDTO.DRAFT,
                 command : command
         ]
@@ -226,6 +243,11 @@ class ContestApplicationController extends CampaignController {
         campaignRDTO.activityType = command.activityType
         campaignRDTO.numBenefitedCaregivers = command.numBenefitedCaregivers
         campaignRDTO.numBenefitedPacients = command.numBenefitedPacients
+        campaignRDTO.numBeneficiaries = command.numBeneficiaries
+        campaignRDTO.associationName = command.associationName
+        campaignRDTO.associationImage = resolveAssociationImageUrl(command.associationImage, null, user)
+        campaignRDTO.contestApplicationType = resolveContestApplicationType(null)
+
         return campaignRDTO
     }
 
@@ -241,9 +263,11 @@ class ContestApplicationController extends CampaignController {
         Long contestId = params.contestId ? Long.parseLong(params.contestId) : null
         BasicDataKuorumUserRSDTO contestApplicationUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ContestRSDTO contestRSDTO = contestService.find(contestApplicationUser.id.toString(), contestId)
+        command.isPharmacyApplication = resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.PHARMACY
+        command.validate()
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
-            render view: 'editEnvironmentStep', model: contestApplicationModelEditScope(command, contestApplicationRSDTO, contestRSDTO)
+            render view: 'editScopeStep', model: contestApplicationModelEditScope(command, contestApplicationRSDTO, contestRSDTO)
             return
         }
         ContestApplicationRDTO rdto = contestApplicationService.map(contestApplicationRSDTO)
@@ -252,9 +276,51 @@ class ContestApplicationController extends CampaignController {
         rdto.activityType = command.activityType
         rdto.numBenefitedPacients = command.numBenefitedPacients
         rdto.numBenefitedCaregivers = command.numBenefitedCaregivers
+        rdto.numBeneficiaries = command.numBeneficiaries
+        rdto.associationName = command.associationName
+        rdto.associationImage = resolveAssociationImageUrl(command.associationImage, contestApplicationRSDTO?.associationImage, user)
+        rdto.contestApplicationType = resolveContestApplicationType(contestApplicationRSDTO)
+
         contestApplicationRSDTO = contestApplicationService.save(user, rdto, contestApplicationRSDTO.getId())
         def nextStep = processNextStep(user, contestApplicationRSDTO, false)
         return nextStep
+    }
+
+    // Pharmacy domains require fewer supporting files than the default contest application
+    @Override
+    protected boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {
+        List<String> files = contactService.getFiles(campaignOwner.getId().toString(), ownerContact)
+        return files.size() >= CustomDomainResolver.minFilesPerDocInContest
+    }
+
+    // Persisted contestApplicationType wins over the domain's live flag; the flag only decides for a new application
+    private ContestApplicationTypeDTO resolveContestApplicationType(ContestApplicationRSDTO existing) {
+        if (existing?.contestApplicationType) {
+            return existing.contestApplicationType
+        }
+        return CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?
+                ContestApplicationTypeDTO.PHARMACY : ContestApplicationTypeDTO.ASSOCIATION
+    }
+
+    // Converts a newly uploaded temporal KuorumFile id to its final URL, cleaning up the previous image; keeps the existing URL if nothing new was uploaded
+    private String resolveAssociationImageUrl(String commandAssociationImage, String previousAssociationImageUrl, KuorumUserSession user) {
+        if (!commandAssociationImage) {
+            return previousAssociationImageUrl
+        }
+        KuorumFile previousImage = previousAssociationImageUrl ? KuorumFile.findByUrl(previousAssociationImageUrl) : null
+        if (previousImage && previousImage.id.toString() == commandAssociationImage) {
+            return previousAssociationImageUrl
+        }
+        KuorumFile picture = KuorumFile.get(commandAssociationImage)
+        if (!picture) {
+            return previousAssociationImageUrl
+        }
+        if (previousImage) {
+            fileService.deleteKuorumFile(previousImage)
+        }
+        picture = fileService.convertTemporalToFinalFile(picture)
+        fileService.deleteTemporalFiles(user)
+        return picture.getUrl()
     }
 
     private ContestRSDTO getContest(long contestId) {

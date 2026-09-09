@@ -509,7 +509,7 @@ class CampaignController {
         return user.getAvatarUrl()
     }
 
-    private boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {
+    protected boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {
         List<String> files = contactService.getFiles(campaignOwner.getId().toString(), ownerContact)
         return files.size() >= WebConstants.MIN_FILES_PER_DOC_IN_CONTEST
     }

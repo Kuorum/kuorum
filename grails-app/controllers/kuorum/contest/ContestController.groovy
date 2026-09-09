@@ -2,6 +2,7 @@ package kuorum.contest
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
@@ -398,7 +399,13 @@ class ContestController extends CampaignController {
         KuorumUserSession loggedUser = cookieUUIDService.buildAnonymousUser()
         try {
             ContestApplicationVoteRSDTO vote = contestApplicationService.vote(command.userAlias, command.contestId, command.campaignId, loggedUser.getId().toString());
-            render([success: true, message: g.message(code: 'contestApplication.callToAction.VOTING.success'), vote: vote] as JSON)
+            String domainName = CustomDomainResolver.getDomain()
+
+            boolean isCustomDomain = isCustomDomain(domainName)
+            String voteMessage = isCustomDomain ?
+                    g.message(code: 'contestApplication.callToAction.VOTING.success.customDomain', args: [domainName, contestRSDTO.title]) :
+                    g.message(code: 'contestApplication.callToAction.VOTING.success')
+            render([success: true, message: voteMessage, vote: vote] as JSON)
         } catch (Exception e) {
             String msgError = "Error updating saving your vote"
             if (e.undeclaredThrowable.cause instanceof KuorumException) {
@@ -410,6 +417,11 @@ class ContestController extends CampaignController {
         } finally {
             cookieUUIDService.removeUserUUID();
         }
+    }
+
+    boolean isCustomDomain(String domainName) {
+        List<String> customDomains = ["cinfa", "farmacia"]
+        return customDomains.any { domainName?.toLowerCase()?.contains(it) }
     }
 
     def anonymousVote(ContestApplicationVoteCommand) {

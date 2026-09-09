@@ -153,6 +153,10 @@ class ContestApplicationService extends AbstractCampaignCreatorService<ContestAp
             contestApplicationRDTO.imageRights = contestApplicationRSDTO.imageRights
             contestApplicationRDTO.numBenefitedCaregivers = contestApplicationRSDTO.numBenefitedCaregivers
             contestApplicationRDTO.numBenefitedPacients = contestApplicationRSDTO.numBenefitedPacients
+            contestApplicationRDTO.numBeneficiaries = contestApplicationRSDTO.numBeneficiaries
+            contestApplicationRDTO.associationName = contestApplicationRSDTO.associationName
+            contestApplicationRDTO.associationImage = contestApplicationRSDTO.associationImage
+            contestApplicationRDTO.contestApplicationType = contestApplicationRSDTO.contestApplicationType
         }
         return contestApplicationRDTO
     }
