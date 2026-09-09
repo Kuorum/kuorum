@@ -33,7 +33,8 @@
     <g:render template="/contestApplication/editModules/editContestApplicationEnvironment" model="[
             command : command,
             contest : contest,
-            mappings: mappings
+            mappings: mappings,
+            isPharma: isPharma
     ]"/>
 
     <g:render template="/newsletter/timeZoneSelectorPopUp"/>

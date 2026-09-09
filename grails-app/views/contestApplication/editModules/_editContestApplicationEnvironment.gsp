@@ -1,6 +1,5 @@
 <r:require modules="datepicker, campaignForm"/>
 
-
 <div class="box-steps container-fluid campaign-steps">
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
 </div>
@@ -23,10 +22,12 @@
         <g:else>
             <input type="hidden" name="name" value="${campaign.title}"/>
         </g:else>
+
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-sm-8">
-                <label for="cause"><g:message
-                        code="kuorum.web.commands.payment.contest.contestApplicationEditScopeCommand.cause.label"/>:</label>
+                <label for="cause">
+                    <contestApplication:domainMessage code="kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.cause.label" isPharma="${isPharma}"/>
+                </label>
                 <select class="form-control input-lg" name="cause">
                     <option value="">---</option>
                     <g:each in="${contest.causes.sort { it.toLowerCase() }}" var="cause">
@@ -35,23 +36,21 @@
                 </select>
             </div>
         </fieldset>
+
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-sm-4 col-xs-12">
-                <formUtil:selectEnum command="${command}" field="activityType" showLabel="true" defaultEmpty="true"/>
+                <contestApplication:domainSelectEnum command="${command}" field="activityType" showLabel="true" defaultEmpty="true" isPharma="${isPharma}"/>
             </div>
 
             <div class="col-sm-4 col-xs-12">
-                <formUtil:selectEnum command="${command}" field="focusType" showLabel="true" defaultEmpty="true"/>
-            </div>
-        </fieldset><fieldset aria-live="polite" class="form-group">
-            <div class="col-sm-offset-1 col-sm-4 col-xs-12">
-                <formUtil:input type="number" command="${command}" field="numBenefitedCaregivers" showLabel="true" minValue="0"/>
-            </div>
-
-            <div class="col-sm-4 col-xs-12">
-                <formUtil:input type="number" command="${command}" field="numBenefitedPacients" showLabel="true" minValue="0"/>
+                <contestApplication:domainSelectEnum command="${command}" field="focusType" showLabel="true" defaultEmpty="true" isPharma="${isPharma}"/>
             </div>
         </fieldset>
+
+        <fieldset aria-live="polite" class="form-group">
+            <contestApplication:handlePharmaFields command="${command}" isPharma="${isPharma}"/>
+        </fieldset>
+
         <g:render template="/campaigns/edit/stepButtons"
                   model="[mappings: mappings, status: status, command: command, numberRecipients: numberRecipients]"/>
     </form>

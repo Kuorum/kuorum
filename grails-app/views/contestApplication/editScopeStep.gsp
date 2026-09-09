@@ -19,6 +19,7 @@
             command         : command,
             numberRecipients: numberRecipients,
             status          : status,
+            isPharma        : isPharma,
             mappings        : [
                     saveAndSentButtons: false,
                     step              : 'environment',
