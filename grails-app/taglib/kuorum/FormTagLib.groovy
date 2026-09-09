@@ -946,60 +946,6 @@ class FormTagLib {
         }
     }
 
-    private void injectPharmacyI18n(Map attrs) {
-        boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
-        if (!isPharma) return
-
-        String baseCode = "${attrs.command.getClass().name}.${attrs.field}"
-        String pharmaLabel = g.message(code: "${baseCode}.label.pharmacy", default: '')
-        String pharmaPlaceholder = g.message(code: "${baseCode}.placeHolder.pharmacy", default: '')
-        if (pharmaLabel) { attrs.label = pharmaLabel }
-        if (pharmaPlaceholder) { attrs.placeholder = pharmaPlaceholder }
-    }
-
-    def domainInput = { attrs ->
-        injectPharmacyI18n(attrs)
-        out << input(attrs)
-    }
-
-    def domainTextArea = { attrs ->
-        injectPharmacyI18n(attrs)
-        out << textArea(attrs)
-    }
-
-    def domainUploadContactFiles = { attrs ->
-        boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
-        String labelCode = isPharma ? 'customRegister.fillProfile.files.uploadContactFiles.label.pharmacy' : 'customRegister.fillProfile.files.uploadContactFiles.label'
-
-        attrs.label = message(code: labelCode)
-        attrs.adminContact = "true"
-
-        out << uploadContactFiles(attrs)
-    }
-
-    def domainSocialHeader = { attrs ->
-        boolean isPharma = CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
-        if (isPharma) {
-            String text = message(code: 'customRegister.fillProfile.social.pharmacy.label')
-            out << "<label>${text}</label>"
-        }
-    }
-
-
-    def domainMessage = { attrs ->
-        boolean isPharma = kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.pharmacyPlattform ?: false
-        String baseCode = attrs.code
-
-        if (isPharma && baseCode) {
-            String pharmaMsg = g.message(code: baseCode + ".pharmacy", default: '')
-            if (pharmaMsg) {
-                out << pharmaMsg
-                return
-            }
-        }
-        out << g.message(attrs)
-    }
-
     private def eventSelectKeyValue(){
         KuorumUserSession user = springSecurityService.principal
         List<EventRSDTO> events = eventService.findEvents(user)
