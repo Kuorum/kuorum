@@ -28,6 +28,34 @@ class ContestApplicationTagLib {
         return CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
     }
 
+    /**
+     * Renders the collaborating association's avatar + name next to the contest application
+     * owner's own entry, when the domain is configured for the pharmacy variant AND this specific
+     * application actually has collaborator data - the domain flag alone doesn't mean every
+     * application has an associationName (e.g. non-collaborator applications, or ones from before
+     * this field existed), and rendering unconditionally on the flag alone was printing a literal
+     * "null" (Groovy's GString rendering of a null value) plus a broken image icon.
+     *
+     * attrs.tag picks the wrapper element - "li" (default) for the card footer's <ul>, "div" for
+     * standalone contexts like the contest application show page's header (next to userUtil:showUser).
+     */
+    def collaboratorAvatar = { attrs ->
+        def contestApplication = attrs.contestApplication
+        String name = contestApplication?.associationName?.encodeAsHTML()
+        String wrapperTag = attrs.tag ?: 'li'
+        if (resolveIsPharma(attrs) && name) {
+            String imgSrc = contestApplication?.associationImage
+            out << "<${wrapperTag} class=\"association\">"
+            out << "<span class=\"association-inline\" title=\"${name}\">"
+            if (imgSrc) {
+                out << "<img src=\"${imgSrc}\" alt=\"${name}\" class=\"user-img\"/>"
+            }
+            out << "<span>${name}</span>"
+            out << "</span>"
+            out << "</${wrapperTag}>"
+        }
+    }
+
     def domainInput = { attrs ->
         // Clonamos para evitar el bloqueo de GroovyPageAttributes
         def newAttrs = new HashMap(attrs)

@@ -1,5 +1,7 @@
+<g:set var="hasCollaborator"
+       value="${(kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false) && contestApplication?.associationName}"/>
 <article role="article" class="box-ppal clearfix ${highlighted ? 'highlighted' : ''}">
-    <div class="link-wrapper" id="contestApplication-${contestApplication.id}"
+    <div class="link-wrapper ${hasCollaborator ? 'has-collaborator' : ''}" id="contestApplication-${contestApplication.id}"
          data-datepublished="${contestApplication.datePublished.time}">
         <g:set var="campaignLink"
                value="${g.createLink(mapping: 'contestApplicationShow', params: contestApplication.encodeAsLinkProperties())}"/>
@@ -8,7 +10,7 @@
         <g:render template="/campaigns/cards/campaignBodyCard"
                   model="[campaign: contestApplication, campaignLink: campaignLink]"/>
 
-        <div class="card-footer">
+        <div class="card-footer ${hasCollaborator ? 'has-collaborator' : ''}">
             <ul>
                 <g:if test="${showAuthor}">
                     <li class="owner">
@@ -25,6 +27,7 @@
                     <g:render template="/contestApplication/showModules/mainContent/contestApplicationDataIconButton"
                               model="[contestApplication: contestApplication]"/>
                 </li>
+                <contestApplication:collaboratorAvatar contestApplication="${contestApplication}"/>
             </ul>
         </div>
     </div>
