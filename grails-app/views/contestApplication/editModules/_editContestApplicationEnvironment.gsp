@@ -23,6 +23,12 @@
             <input type="hidden" name="name" value="${campaign.title}"/>
         </g:else>
 
+        <g:if test="${isPharma}">
+            <fieldset aria-live="polite" class="form-group">
+                <h2 class="col-sm-offset-1"><g:message code="kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.entityData.title"/></h2>
+            </fieldset>
+        </g:if>
+
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-sm-8">
                 <label for="cause">
