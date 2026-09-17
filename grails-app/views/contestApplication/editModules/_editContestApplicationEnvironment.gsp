@@ -48,7 +48,7 @@
                 <contestApplication:domainSelectEnum command="${command}" field="activityType" showLabel="true" defaultEmpty="true" isPharma="${isPharma}"/>
             </div>
 
-            <div class="col-sm-4 col-xs-12">
+            <div class="col-sm-4 col-xs-12 stacked-field-gap">
                 <contestApplication:domainSelectEnum command="${command}" field="focusType" showLabel="true" defaultEmpty="true" isPharma="${isPharma}"/>
             </div>
         </fieldset>

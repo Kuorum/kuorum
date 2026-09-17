@@ -4455,6 +4455,11 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
     padding-top: 30%
 }
 .associationImage-label {display: block; text-align: left; margin-top: 20px;}
+@media only screen and (max-width: 767px) {
+    /* col-sm-4 pairs sit side by side from 768px up with no vertical gap needed;
+       below that they stack full-width, so the second one needs its own top margin. */
+    #contestApplicationEditScope .stacked-field-gap {margin-top: 20px;}
+}
 .uploaderImageContainer.ASSOCIATION_IMAGE_PROFILE .qq-upload-drop-area {padding-top: 30%;}
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding-top: 15%}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {padding-top: 1%;}
@@ -6752,6 +6757,16 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .modal-register.modal .modal-body #pass-forget {text-align: center;}
 
     .comment-box .actions {width: 100%; text-align: center;}
+}
+
+/* Below the sm breakpoint (768px), col-sm-offset-1 doesn't apply and this form gets no
+   left/right breathing room from anywhere else - use padding (not margin) on the form itself
+   so 100%-width children aren't pushed past their container's right edge. */
+@media only screen and (max-width: 767px) {
+    #contestApplicationEditScope {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
 }
 
 /* Very small devices (mobile, 480px and up) */
