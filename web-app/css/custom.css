@@ -2126,6 +2126,12 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     text-align: center
 }
 
+/* Pharma domains hide the Perfil/Ámbito columns, leaving only Región + Votos: narrow the
+   fixed-width extra-info column so the remaining two don't leave a blank gap behind them. */
+#rankingListCampaigns.is-pharma .box-order-options .ranking-extra-info ul {
+    width: 200px;
+}
+
 #rankingList {
 }
 
@@ -2133,7 +2139,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     padding: 10px 0px 0px 0px;
     border-bottom: 1px solid #e5e5e5;
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
 }
 
 #rankingList > li > .ranking-pos {
@@ -2141,7 +2148,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     display: inline-block;
     font-size: 20px;
     max-width: 50px;
-    vertical-align: top;
+    align-self: flex-start;
     padding-top: 5px;
     text-align: center;
 }
@@ -2183,7 +2190,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     text-align: center;
     font-size: 15px;
     font-size: 1.5rem;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 #rankingList > li > ul.list-campaign-extra-data > li span {
@@ -2193,6 +2200,10 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     font-size: 1.6rem;
     display: block;
     margin-bottom: 2px;
+}
+
+#rankingListCampaigns.is-pharma #rankingList > li > ul.list-campaign-extra-data {
+    width: 200px;
 }
 
 
@@ -7268,6 +7279,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
         width: calc(90% - 400px);
     }
 
+    #rankingListCampaigns.is-pharma #rankingList > li .ranking-campaign-info {
+        width: calc(90% - 200px);
+    }
+
     #rankingListCampaigns .box-order-options {
         margin-top: 10px;
         padding-bottom: 10px;
@@ -7293,14 +7308,24 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
         margin: 0
     }
 
+    #rankingListCampaigns.is-pharma .box-order-options .ranking-extra-info,
+    #rankingListCampaigns.is-pharma #rankingList > li > ul.list-campaign-extra-data {
+        width: 200px;
+    }
+
     #rankingListCampaigns #campaignsOrderOptions.box-order-options .sort-options {
         width: 100%;
-        display: block;
+        display: flex;
+        align-items: center;
     }
 
     #rankingListCampaigns .box-order-options .ranking-title-author-header {
         width: calc(90% - 400px);
         display: inline-block;
+    }
+
+    #rankingListCampaigns.is-pharma .box-order-options .ranking-title-author-header {
+        width: calc(90% - 200px);
     }
 
     #rankingListCampaigns .ranking-total-votes {

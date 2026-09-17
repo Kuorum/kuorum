@@ -1,3 +1,4 @@
+<g:set var="isPharma" value="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}" />
 <g:each in="${contestApplications}" var="campaign" status="pos">
     <li id="campaignRanking_${campaign.id}">
         <div class="id sr-only">${campaign.id}</div>
@@ -23,19 +24,22 @@
                     <span class="fal fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
                 </g:link>
             </h4>
+            <contestApplication:collaboratorAvatar contestApplication="${campaign}" tag="div" showImage="false"/>
         </div>
         <ul class="list-campaign-extra-data">
             <li class="ranking-cause">
                 ${campaign.causes[0]}
             </li>
-            <li class="ranking-contest-focusType">
-                <g:message
-                        code="org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO.${campaign.focusType}"/>
-            </li>
-            <li class="ranking-contest-activityType">
-                <g:message
-                        code="org.kuorum.rest.model.communication.contest.ContestApplicationActivityTypeDTO.${campaign.activityType}"/>
-            </li>
+            <g:if test="${!isPharma}">
+                <li class="ranking-contest-focusType">
+                    <g:message
+                            code="org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO.${campaign.focusType}"/>
+                </li>
+                <li class="ranking-contest-activityType">
+                    <g:message
+                            code="org.kuorum.rest.model.communication.contest.ContestApplicationActivityTypeDTO.${campaign.activityType}"/>
+                </li>
+            </g:if>
             <li class="ranking-numVotes">
                 ${campaign.votes}
             </li>
