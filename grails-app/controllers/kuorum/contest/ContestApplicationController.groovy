@@ -302,20 +302,23 @@ class ContestApplicationController extends CampaignController {
                 ContestApplicationTypeDTO.PHARMACY : ContestApplicationTypeDTO.ASSOCIATION
     }
 
-    // Converts a newly uploaded temporal KuorumFile id to its final URL, cleaning up the previous image; keeps the existing URL if nothing new was uploaded
+    // Converts a newly uploaded temporal KuorumFile id to its final URL, cleaning up the previous image; keeps the existing URL if nothing new was uploaded.
+    // If the same image id was never actually consolidated (still temporal, e.g. a prior failed/skipped consolidation), it is consolidated now instead of
+    // being silently re-saved as a broken tmp URL forever.
     private String resolveAssociationImageUrl(String commandAssociationImage, String previousAssociationImageUrl, KuorumUserSession user) {
         if (!commandAssociationImage) {
             return previousAssociationImageUrl
         }
         KuorumFile previousImage = previousAssociationImageUrl ? KuorumFile.findByUrl(previousAssociationImageUrl) : null
-        if (previousImage && previousImage.id.toString() == commandAssociationImage) {
+        boolean sameImage = previousImage && previousImage.id.toString() == commandAssociationImage
+        if (sameImage && !previousImage.temporal) {
             return previousAssociationImageUrl
         }
-        KuorumFile picture = KuorumFile.get(commandAssociationImage)
+        KuorumFile picture = sameImage ? previousImage : KuorumFile.get(commandAssociationImage)
         if (!picture) {
             return previousAssociationImageUrl
         }
-        if (previousImage) {
+        if (previousImage && !sameImage) {
             fileService.deleteKuorumFile(previousImage)
         }
         picture = fileService.convertTemporalToFinalFile(picture)
