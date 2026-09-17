@@ -230,18 +230,24 @@ class ContestApplicationTagLib {
             out << "<input type='hidden' name='numBenefitedPacients' value='1' />"
             out << "</div>"
 
-            // Fila 1: Campos (offset-1 y 4 columnas cada uno)
+            // Fila 1: número de beneficiarios (columna izquierda)
             out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
             out << domainInput([type: 'number', command: command, field: 'numBeneficiaries', showLabel: 'true', minValue: '1', isPharma: isPharma])
             out << "</div>"
 
-            out << """<div class="col-sm-4 col-xs-12">"""
+            // Datos de la asociación: título en su propio fieldset (mismo patrón que "Datos de la entidad"),
+            // campos en la columna izquierda en el fieldset siguiente
+            out << """</fieldset><fieldset aria-live="polite" class="form-group">"""
+            out << """<h2 class="col-sm-offset-1">${message(code: 'kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.associationData.title')}</h2>"""
+            out << """</fieldset><fieldset aria-live="polite" class="form-group">"""
+
+            out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
             out << domainInput([type: 'text', command: command, field: 'associationName', showLabel: 'true', isPharma: isPharma])
             out << "</div>"
 
             out << """<div class="clearfix"></div>"""
 
-            out << """<div class="col-sm-offset-3 col-sm-4 col-xs-12" style="margin-top: 15px;">"""
+            out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
             out << domainEditImage([
                     command: command,
                     field: 'associationImage',

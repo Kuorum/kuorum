@@ -4454,7 +4454,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 .uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {
     padding-top: 30%
 }
-.associationImage-label {display: block; text-align: center; margin-top: 20px;}
+.associationImage-label {display: block; text-align: left; margin-top: 20px;}
 .uploaderImageContainer.ASSOCIATION_IMAGE_PROFILE .qq-upload-drop-area {padding-top: 30%;}
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding-top: 15%}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {padding-top: 1%;}
