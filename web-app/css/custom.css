@@ -4461,6 +4461,15 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
     #contestApplicationEditScope .stacked-field-gap {margin-top: 20px;}
 }
 .uploaderImageContainer.ASSOCIATION_IMAGE_PROFILE .qq-upload-drop-area {padding-top: 30%;}
+/* changeImageBackground() (shared by every upload widget on the site) sets background-size:100%
+   auto inline, which only matches the box's aspect ratio if the uploaded photo happens to be
+   square - otherwise it under-fills the (square, aspectRatio:1) box and the .qq-upload-drop-area
+   border shows empty space below the photo. Override just for this field (!important beats the
+   inline style) rather than touching the shared JS used by every other upload widget on the site. */
+.uploaderImageContainer.ASSOCIATION_IMAGE_PROFILE .qq-upload-drop-area {
+    background-size: cover !important;
+    background-position: center !important;
+}
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding-top: 15%}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {padding-top: 1%;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {padding-top: 20%}
