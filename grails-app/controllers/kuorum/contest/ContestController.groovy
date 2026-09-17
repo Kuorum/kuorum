@@ -403,7 +403,7 @@ class ContestController extends CampaignController {
 
             boolean isCustomDomain = isCustomDomain(domainName)
             String voteMessage = isCustomDomain ?
-                    g.message(code: 'contestApplication.callToAction.VOTING.success.customDomain', args: [domainName, contestRSDTO.title]) :
+                    g.message(code: 'contestApplication.callToAction.VOTING.success.customDomain', args: [contestRSDTO.user.fullName, contestRSDTO.title]) :
                     g.message(code: 'contestApplication.callToAction.VOTING.success')
             render([success: true, message: voteMessage, vote: vote] as JSON)
         } catch (Exception e) {
@@ -420,7 +420,7 @@ class ContestController extends CampaignController {
     }
 
     boolean isCustomDomain(String domainName) {
-        List<String> customDomains = ["cinfa", "farmacia"]
+        List<String> customDomains = ["cinfa", "farmacia", "local.kuorum.org"]
         return customDomains.any { domainName?.toLowerCase()?.contains(it) }
     }
 
