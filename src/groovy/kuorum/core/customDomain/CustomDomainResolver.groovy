@@ -97,8 +97,17 @@ class CustomDomainResolver {
     }
 
     static Integer getMinFilesPerDocInContest() {
-        return getDomainRSDTO()?.contestApplicationWithCollaborator ?
-                WebConstants.MIN_FILES_PER_DOC_IN_CONTEST_FOR_PHARMACIES :
+        return isContestApplicationWithCollaboratorEnabled() ?
+                WebConstants.MIN_FILES_PER_DOC_IN_CONTEST_FOR_COLLABORATOR_APPLICATIONS :
                 WebConstants.MIN_FILES_PER_DOC_IN_CONTEST
+    }
+
+    /**
+     * Single source of truth for whether the current domain has the "contest application with
+     * collaborator" flow enabled (formerly referred to in code as "pharmacy"). Centralizes the
+     * DomainRSDTO flag lookup so callers/views don't each re-implement the same null-safe check.
+     */
+    static boolean isContestApplicationWithCollaboratorEnabled() {
+        return getDomainRSDTO()?.contestApplicationWithCollaborator ?: false
     }
 }

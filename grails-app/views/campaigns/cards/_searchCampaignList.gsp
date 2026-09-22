@@ -1,7 +1,9 @@
 <%@ page import="org.kuorum.rest.model.search.kuorumElement.SearchDistrictProposalRSDTO" %>
 
-<g:set var="hasCollaborator"
-       value="${(campaign.type == org.kuorum.rest.model.search.SearchTypeRSDTO.CONTEST_APPLICATION) && (kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false) && campaign.associationName}"/>
+<g:set var="hasCollaborator" value="${false}"/>
+<g:if test="${campaign.type == org.kuorum.rest.model.search.SearchTypeRSDTO.CONTEST_APPLICATION}">
+    <contestApplication:showsCollaboratorInfo associationName="${campaign.associationName}" var="hasCollaborator"/>
+</g:if>
 <article role="article" class="box-ppal ${highlighted?'highlighted':''}">
     <div class="link-wrapper ${hasCollaborator ? 'has-collaborator' : ''}" id="campaign-${campaign.id}" data-datepublished="${campaign.dateCreated.time}">
         <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" class="hidden"></g:link>

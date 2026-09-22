@@ -19,7 +19,7 @@
             command         : command,
             numberRecipients: numberRecipients,
             status          : status,
-            isPharma        : isPharma,
+            hasCollaborator : hasCollaborator,
             mappings        : [
                     saveAndSentButtons: true,
                     hideScheduler     : true,

@@ -349,12 +349,12 @@ class ProfileController {
         KuorumUserSession loggedUser = springSecurityService.principal
         KuorumUserRSDTO user = kuorumUserService.findUserRSDTO(loggedUser)
         SocialNetworkCommand command = new SocialNetworkCommand(user)
-        [command: command, isPharma: false]
+        [command: command, hasCollaborator: false]
     }
 
     def socialNetworksSave(SocialNetworkCommand command) {
         if (command.hasErrors()) {
-            render(view: 'socialNetworks', model: [command: command, isPharma: false])
+            render(view: 'socialNetworks', model: [command: command, hasCollaborator: false])
             return
         }
         kuorumUserService.updateSocialNetworkLoggedUser(command);
@@ -541,9 +541,9 @@ class ProfileController {
             user.personalData = new PersonalData()
         }
 
-        boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
-        String title1Code = isPharma ? 'pharma.bio.title1' : 'asoc.bio.title1'
-        String title2Code = isPharma ? 'pharma.bio.title2' : 'asoc.bio.title2'
+        boolean hasCollaborator = CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()
+        String title1Code = hasCollaborator ? 'withCollaborator.bio.title1' : 'asoc.bio.title1'
+        String title2Code = hasCollaborator ? 'withCollaborator.bio.title2' : 'asoc.bio.title2'
 
         user.bio = command.getCompleteBio(g.message(code: title1Code) as String, g.message(code: title2Code) as String)
         user.personalData.phonePrefix = command.phonePrefix
@@ -641,12 +641,12 @@ class ProfileController {
 
     def funnelFillSocial() {
         def model = socialNetworks()
-        model + [campaignId: params.campaignId, isPharma: CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false]
+        model + [campaignId: params.campaignId, hasCollaborator: CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()]
     }
 
     def saveFunnelFillSocial(SocialNetworkCommand command) {
         if (command.hasErrors()) {
-            render(view: 'funnelFillSocial', model: [command: command, isPharma: CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false])
+            render(view: 'funnelFillSocial', model: [command: command, hasCollaborator: CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()])
             return
         }
         kuorumUserService.updateSocialNetworkLoggedUser(command);

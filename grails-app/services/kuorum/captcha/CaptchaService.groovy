@@ -1,7 +1,6 @@
 package kuorum.captcha
 
 import grails.transaction.Transactional
-import grails.util.Environment
 import groovyx.net.http.RESTClient
 import kuorum.core.customDomain.CustomDomainResolver
 import org.springframework.beans.factory.annotation.Value
@@ -9,13 +8,15 @@ import org.springframework.beans.factory.annotation.Value
 
 class CaptchaService {
 
+    def grailsApplication
+
     @Value('${recaptcha.providers.google.secretKey}')
     String RECAPTCHA_SECRET
 
     def verifyCaptcha(String responseCaptcha) {
         def isCaptchaVerified = false
-        if (Environment.current == Environment.DEVELOPMENT) {
-            log.info("Skipping CAPTCHA verification :: DEVELOPMENT environment")
+        if (isCaptchaDisabledByConfig()) {
+            log.info("Skipping CAPTCHA verification :: kuorum.captcha.enabled=false")
             return true
         }
         if (!responseCaptcha) {
@@ -39,5 +40,15 @@ class CaptchaService {
         }
         return isCaptchaVerified
 
+    }
+
+    /**
+     * Only skips CAPTCHA when kuorum.captcha.enabled is explicitly set to false.
+     * Any other value - unset, or explicitly true - requires the real
+     * Google verification below, so a missing property never silently disables CAPTCHA.
+     */
+    private boolean isCaptchaDisabledByConfig() {
+        def enabled = grailsApplication.config.kuorum.captcha.enabled
+        return enabled instanceof Boolean && !enabled
     }
 }

@@ -34,7 +34,7 @@
             command : command,
             contest : contest,
             mappings: mappings,
-            isPharma: isPharma
+            hasCollaborator: hasCollaborator
     ]"/>
 
     <g:render template="/newsletter/timeZoneSelectorPopUp"/>

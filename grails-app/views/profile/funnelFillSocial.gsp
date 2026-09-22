@@ -26,7 +26,7 @@
     <form name="stepFillSocial" role="form" method="POST" autocomplete="off"
           class="signup step2"><br>
     <contestApplication:domainSocialHeader />
-        <g:render template="formSocialNetworks" model="[command: command, showPoliticianFields: showPoliticianFields, isPharma: isPharma]"/>
+        <g:render template="formSocialNetworks" model="[command: command, showPoliticianFields: showPoliticianFields, hasCollaborator: hasCollaborator]"/>
 
         <fieldset aria-live="polite" class="row">
             <div class="form-group text-center option-buttons">
