@@ -60,7 +60,8 @@
             <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
         </div>
 
-        <g:if test="${CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator}">
+        <g:set var="hasCollaborator" value="${CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}"/>
+        <g:if test="${hasCollaborator}">
             <div class="form-group col-md-6">
                 <formUtil:input command="${command}" field="cinfaCode" cssClass="form-control input-lg"
                                 showLabel="true" showCharCounter="false"/>
@@ -68,7 +69,7 @@
         </g:if>
     </fieldset>
 
-    <g:if test="${CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator}">
+    <g:if test="${hasCollaborator}">
         <fieldset aria-live="polite" class="row">
             <div class="form-group col-xs-12">
                 <formUtil:input command="${command}" field="address" cssClass="form-control input-lg"

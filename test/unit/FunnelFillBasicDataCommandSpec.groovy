@@ -18,9 +18,9 @@ class FunnelFillBasicDataCommandSpec extends Specification {
         GroovySystem.metaClassRegistry.removeMetaClass(CustomDomainResolver)
     }
 
-    private void mockDomain(boolean isPharma) {
+    private void mockDomain(boolean hasCollaborator) {
         DomainRSDTO domainRSDTO = new DomainRSDTO()
-        domainRSDTO.contestApplicationWithCollaborator = isPharma
+        domainRSDTO.contestApplicationWithCollaborator = hasCollaborator
         CustomDomainResolver.metaClass.static.getDomainRSDTO = { -> domainRSDTO }
     }
 
@@ -128,7 +128,7 @@ class FunnelFillBasicDataCommandSpec extends Specification {
 
     // ---------------------------------------------------------------------
     // KPV-8589: address / cinfaCode — pharmacy-exclusive, required only when
-    // contestApplicationWithCollaborator (isPharma) is true
+    // contestApplicationWithCollaborator (hasCollaborator) is true
     // ---------------------------------------------------------------------
 
     @Unroll
@@ -154,7 +154,7 @@ class FunnelFillBasicDataCommandSpec extends Specification {
         "   "                   | false
     }
 
-    void "address is not required when isPharma is false"() {
+    void "address is not required when hasCollaborator is false"() {
         given:
         mockDomain(false)
         FunnelFillBasicDataCommand command = buildCommandWithAddressAndCinfaCode(null, null)
@@ -192,7 +192,7 @@ class FunnelFillBasicDataCommandSpec extends Specification {
         "12a45"   | false         | "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.cinfaCode.matches.error" | "contains a letter"
     }
 
-    void "cinfaCode is not required when isPharma is false"() {
+    void "cinfaCode is not required when hasCollaborator is false"() {
         given:
         mockDomain(false)
         FunnelFillBasicDataCommand command = buildCommandWithAddressAndCinfaCode(null, null)
