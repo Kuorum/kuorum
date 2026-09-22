@@ -1,5 +1,5 @@
-<g:set var="isPharma" value="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}" />
-<div id="rankingListCampaigns" class="${isPharma ? 'is-pharma' : ''}"
+<g:set var="hasCollaborator" value="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}" />
+<div id="rankingListCampaigns" class="${hasCollaborator ? 'has-collaborator' : ''}"
      data-autoRelaod="${contest.status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING}">
     <g:render template="ranking/rankingFilter"/>
     <!-- LISTADO DE CAMPAÑAS -->
@@ -35,7 +35,7 @@
                     <li class="ranking-cause-header"><a href="#" role="button" class="sort"
                                                         data-sort="ranking-cause"><g:message
                                     code="contest.ranking.list.header.order.cause"/></a></li>
-                    <g:if test="${!isPharma}">
+                    <g:if test="${!hasCollaborator}">
                         <li class="ranking-contest-focusType-header"><a href="#" role="button"
                                                                         class="sort"
                                                                         data-sort="ranking-contest-focusType"><g:message

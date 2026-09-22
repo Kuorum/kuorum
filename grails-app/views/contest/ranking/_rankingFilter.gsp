@@ -1,9 +1,9 @@
 <%@ page import="org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO" %>
-<g:set var="isPharma" value="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}" />
+<g:set var="hasCollaborator" value="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}" />
 <div class="box-ppal filterbox">
     <form class="form-horizontal" id="search-form-campaign">
         <fieldset aria-live="polite" class="form-group">
-            <div class="col-sm-${isPharma ? 6 : 3} col-xs-12">
+            <div class="col-sm-${hasCollaborator ? 6 : 3} col-xs-12">
                 <label for="filterCampaignsByCause"><g:message code="contest.ranking.filter.quickSearch"/></label>
 
                 <div class="searchContainer">
@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-${isPharma ? 6 : 3} col-xs-12">
+            <div class="col-sm-${hasCollaborator ? 6 : 3} col-xs-12">
                 <label for="filterCampaignsByCause"><g:message code="contest.ranking.filter.byCause"/></label>
                 <select name="filterCampaignsByCause" class="form-control rankingFilter" id="filterCampaignsByCause"
                         data-filter="ranking-cause">
@@ -25,7 +25,7 @@
                 </select>
             </div>
 
-            <g:if test="${!isPharma}">
+            <g:if test="${!hasCollaborator}">
                 <div class="col-sm-3 col-xs-12">
                     <label for="filterCampaignsByFocusType"><g:message
                             code="org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO.label"/></label>
