@@ -18,7 +18,7 @@ class ContestApplicationScopeCommand {
     String associationImage
 
     // Not bound from the request: set server-side by ContestApplicationController, never trusted from the client
-    Boolean isPharmacyApplication
+    Boolean hasCollaborator
 
     static constraints = {
         name nullable: false
@@ -28,21 +28,21 @@ class ContestApplicationScopeCommand {
         numBenefitedCaregivers nullable: false
         numBenefitedPacients nullable: false
         numBeneficiaries nullable: true, validator: { val, obj ->
-            if (obj.isPharmacyApplication && (val == null || val <= 0)) {
+            if (obj.hasCollaborator && (val == null || val <= 0)) {
                 return 'nullable'
             }
         }
         associationName nullable: true, validator: { val, obj ->
-            if (obj.isPharmacyApplication && !val) {
+            if (obj.hasCollaborator && !val) {
                 return 'nullable'
             }
         }
         associationImage nullable: true, validator: { val, obj ->
-            if (obj.isPharmacyApplication && !val) {
+            if (obj.hasCollaborator && !val) {
                 return 'nullable'
             }
         }
-        isPharmacyApplication nullable: true
+        hasCollaborator nullable: true
     }
 
 }

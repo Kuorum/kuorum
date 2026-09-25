@@ -11,6 +11,7 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.*
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.contest.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -399,10 +400,9 @@ class ContestController extends CampaignController {
         KuorumUserSession loggedUser = cookieUUIDService.buildAnonymousUser()
         try {
             ContestApplicationVoteRSDTO vote = contestApplicationService.vote(command.userAlias, command.contestId, command.campaignId, loggedUser.getId().toString());
-            String domainName = CustomDomainResolver.getDomain()
 
-            boolean isCustomDomain = isCustomDomain(domainName)
-            String voteMessage = isCustomDomain ?
+            boolean isContestOrContestApplication = isContestOrContestApplication(contestRSDTO.campaignType)
+            String voteMessage = isContestOrContestApplication ?
                     g.message(code: 'contestApplication.callToAction.VOTING.success.customDomain', args: [contestRSDTO.user.fullName, contestRSDTO.title]) :
                     g.message(code: 'contestApplication.callToAction.VOTING.success')
             render([success: true, message: voteMessage, vote: vote] as JSON)
@@ -419,9 +419,8 @@ class ContestController extends CampaignController {
         }
     }
 
-    boolean isCustomDomain(String domainName) {
-        List<String> customDomains = ["cinfa", "farmacia", "local.kuorum.org"]
-        return customDomains.any { domainName?.toLowerCase()?.contains(it) }
+    boolean isContestOrContestApplication(CampaignTypeRSDTO campaignType) {
+        return campaignType == CampaignTypeRSDTO.CONTEST || campaignType == CampaignTypeRSDTO.CONTEST_APPLICATION
     }
 
     def anonymousVote(ContestApplicationVoteCommand) {

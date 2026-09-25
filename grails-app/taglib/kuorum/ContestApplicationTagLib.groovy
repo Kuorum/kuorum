@@ -16,25 +16,26 @@ class ContestApplicationTagLib {
     // -----------------------------------------------------------------------
 
     /**
-     * Resolves whether the pharmacy variant applies for this render. Callers editing an existing
-     * ContestApplication should pass the persisted type explicitly via attrs.isPharma (it must win
-     * over the domain's live flag - see ContestApplicationController#resolveContestApplicationType).
-     * Callers with no specific entity in mind (e.g. the profile funnel) fall back to the domain flag.
+     * Resolves whether the collaborator (pharmacy/association) variant applies for this render.
+     * Callers editing an existing ContestApplication should pass the persisted type explicitly via
+     * attrs.hasCollaborator (it must win over the domain's live flag - see
+     * ContestApplicationController#resolveContestApplicationType). Callers with no specific entity
+     * in mind (e.g. the profile funnel) fall back to the domain flag via CustomDomainResolver.
      */
-    private boolean resolveIsPharma(Map attrs) {
-        if (attrs.containsKey('isPharma') && attrs.isPharma != null) {
-            return Boolean.parseBoolean(attrs.isPharma.toString())
+    private boolean resolveHasCollaborator(Map attrs) {
+        if (attrs.containsKey('hasCollaborator') && attrs.hasCollaborator != null) {
+            return Boolean.parseBoolean(attrs.hasCollaborator.toString())
         }
-        return CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+        return CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()
     }
 
     /**
      * Renders the collaborating association's avatar + name next to the contest application
-     * owner's own entry, when the domain is configured for the pharmacy variant AND this specific
-     * application actually has collaborator data - the domain flag alone doesn't mean every
-     * application has an associationName (e.g. non-collaborator applications, or ones from before
-     * this field existed), and rendering unconditionally on the flag alone was printing a literal
-     * "null" (Groovy's GString rendering of a null value) plus a broken image icon.
+     * owner's own entry, when the domain is configured for the collaborator variant AND this
+     * specific application actually has collaborator data - the domain flag alone doesn't mean
+     * every application has an associationName (e.g. non-collaborator applications, or ones from
+     * before this field existed), and rendering unconditionally on the flag alone was printing a
+     * literal "null" (Groovy's GString rendering of a null value) plus a broken image icon.
      *
      * attrs.tag picks the wrapper element - "li" (default) for the card footer's <ul>, "div" for
      * standalone contexts like the contest application show page's header (next to userUtil:showUser).
@@ -46,7 +47,7 @@ class ContestApplicationTagLib {
         String name = contestApplication?.associationName?.encodeAsHTML()
         String wrapperTag = attrs.tag ?: 'li'
         boolean showImage = attrs.containsKey('showImage') ? Boolean.parseBoolean(attrs.showImage.toString()) : true
-        if (resolveIsPharma(attrs) && name) {
+        if (resolveHasCollaborator(attrs) && name) {
             // Only touch associationImage when actually needed: callers like the ranking list pass a
             // slimmer DTO (ContestApplicationRankingRSDTO) that has no associationImage property at all,
             // and Groovy's ?. only guards a null receiver, not a missing property on a non-null one.
@@ -62,19 +63,40 @@ class ContestApplicationTagLib {
         }
     }
 
+    /**
+     * Writes whether the collaborator variant applies into a page-scope variable (attrs.var,
+     * defaults to "hasCollaborator"). Called via the <contestApplication:hasCollaborator/> tag
+     * syntax rather than as a property/method on a "contestApplication" variable - most callers
+     * (card templates, ranking rows) already bind their own model variable named
+     * "contestApplication", which would shadow the taglib namespace and silently resolve the call
+     * against that model object instead.
+     */
+    def hasCollaborator = { attrs ->
+        pageScope."${attrs.var ?: 'hasCollaborator'}" = resolveHasCollaborator(attrs)
+    }
+
+    /**
+     * Same as hasCollaborator, but also requires attrs.associationName to be present - the same
+     * combined condition collaboratorAvatar uses to decide whether to render, exposed here for
+     * callers that only need the boolean (e.g. to toggle a CSS class).
+     */
+    def showsCollaboratorInfo = { attrs ->
+        pageScope."${attrs.var ?: 'hasCollaborator'}" = resolveHasCollaborator(attrs) && attrs.associationName
+    }
+
     def domainInput = { attrs ->
         // Clonamos para evitar el bloqueo de GroovyPageAttributes
         def newAttrs = new HashMap(attrs)
-        boolean isPharma = resolveIsPharma(attrs)
+        boolean hasCollaborator = resolveHasCollaborator(attrs)
 
-        if (isPharma) {
+        if (hasCollaborator) {
             String baseCode = "${newAttrs.command.getClass().name}.${newAttrs.field}"
             // Usamos message() nativo del taglib
-            String pharmaLabel = message(code: "${baseCode}.label.pharmacy", default: '')
-            String pharmaPlaceholder = message(code: "${baseCode}.placeHolder.pharmacy", default: '')
+            String collaboratorLabel = message(code: "${baseCode}.label.withCollaborator", default: '')
+            String collaboratorPlaceholder = message(code: "${baseCode}.placeHolder.withCollaborator", default: '')
 
-            if (pharmaLabel) newAttrs.label = pharmaLabel
-            if (pharmaPlaceholder) newAttrs.placeholder = pharmaPlaceholder
+            if (collaboratorLabel) newAttrs.label = collaboratorLabel
+            if (collaboratorPlaceholder) newAttrs.placeholder = collaboratorPlaceholder
         }
 
         out << formUtil.input(newAttrs)
@@ -82,16 +104,16 @@ class ContestApplicationTagLib {
 
     def domainTextArea = { attrs ->
         def newAttrs = new HashMap(attrs)
-        boolean isPharma = resolveIsPharma(attrs)
+        boolean hasCollaborator = resolveHasCollaborator(attrs)
 
-        if (isPharma) {
+        if (hasCollaborator) {
             String baseCode = "${newAttrs.command.getClass().name}.${newAttrs.field}"
 
-            String pharmaLabel = message(code: "${baseCode}.label.pharmacy", default: '')
-            String pharmaPlaceholder = message(code: "${baseCode}.placeHolder.pharmacy", default: '')
+            String collaboratorLabel = message(code: "${baseCode}.label.withCollaborator", default: '')
+            String collaboratorPlaceholder = message(code: "${baseCode}.placeHolder.withCollaborator", default: '')
 
-            if (pharmaLabel) newAttrs.label = pharmaLabel
-            if (pharmaPlaceholder) newAttrs.placeholder = pharmaPlaceholder
+            if (collaboratorLabel) newAttrs.label = collaboratorLabel
+            if (collaboratorPlaceholder) newAttrs.placeholder = collaboratorPlaceholder
         }
 
         out << formUtil.textArea(newAttrs)
@@ -99,12 +121,12 @@ class ContestApplicationTagLib {
 
     def domainEditImage = { attrs ->
         def newAttrs = new HashMap(attrs)
-        boolean isPharma = resolveIsPharma(attrs)
+        boolean hasCollaborator = resolveHasCollaborator(attrs)
 
-        if (isPharma) {
+        if (hasCollaborator) {
             String baseCode = "${newAttrs.command.getClass().name}.${newAttrs.field}"
-            String pharmaLabel = message(code: "${baseCode}.label.pharmacy", default: '')
-            if (pharmaLabel) newAttrs.label = pharmaLabel
+            String collaboratorLabel = message(code: "${baseCode}.label.withCollaborator", default: '')
+            if (collaboratorLabel) newAttrs.label = collaboratorLabel
         }
 
         def showLabel = newAttrs.showLabel ? Boolean.parseBoolean(newAttrs.showLabel.toString()) : false
@@ -128,14 +150,14 @@ class ContestApplicationTagLib {
         def command = attrs.command
         def field = attrs.field
         def cssIcon = attrs.cssIcon
-        boolean isPharma = resolveIsPharma(attrs)
+        boolean hasCollaborator = resolveHasCollaborator(attrs)
 
         String baseCode = "${command.getClass().name}.${field}"
-        String label = isPharma ? message(code: "${baseCode}.label.pharmacy", default: '') : ''
+        String label = hasCollaborator ? message(code: "${baseCode}.label.withCollaborator", default: '') : ''
         if (!label) {
             label = message(code: "${baseCode}.label")
         }
-        String placeHolder = isPharma ? message(code: "${baseCode}.placeHolder.pharmacy", default: '') : ''
+        String placeHolder = hasCollaborator ? message(code: "${baseCode}.placeHolder.withCollaborator", default: '') : ''
         if (!placeHolder) {
             placeHolder = message(code: "${baseCode}.placeHolder", default: '')
         }
@@ -155,9 +177,9 @@ class ContestApplicationTagLib {
     }
 
     def domainUploadContactFiles = { attrs ->
-        // 1. Comprobamos si es farmacia para cambiar la etiqueta
-        boolean isPharma = resolveIsPharma(attrs)
-        String labelCode = isPharma ? 'customRegister.fillProfile.files.uploadContactFiles.label.pharmacy' : 'customRegister.fillProfile.files.uploadContactFiles.label'
+        // 1. Comprobamos si es farmacia/colaborador para cambiar la etiqueta
+        boolean hasCollaborator = resolveHasCollaborator(attrs)
+        String labelCode = hasCollaborator ? 'customRegister.fillProfile.files.uploadContactFiles.label.withCollaborator' : 'customRegister.fillProfile.files.uploadContactFiles.label'
 
         ContactRSDTO contact = attrs.contact
         String label = message(code: labelCode)
@@ -187,21 +209,21 @@ class ContestApplicationTagLib {
     }
 
     def domainSocialHeader = { attrs ->
-        boolean isPharma = resolveIsPharma(attrs)
-        if (isPharma) {
-            String text = message(code: 'customRegister.fillProfile.social.pharmacy.label')
+        boolean hasCollaborator = resolveHasCollaborator(attrs)
+        if (hasCollaborator) {
+            String text = message(code: 'customRegister.fillProfile.social.withCollaborator.label')
             out << "<label>${text}</label>"
         }
     }
 
     def domainMessage = { attrs ->
-        boolean isPharma = resolveIsPharma(attrs)
+        boolean hasCollaborator = resolveHasCollaborator(attrs)
         String baseCode = attrs.code
 
-        if (isPharma && baseCode) {
-            String pharmaMsg = message(code: baseCode + ".pharmacy", default: '')
-            if (pharmaMsg) {
-                out << pharmaMsg
+        if (hasCollaborator && baseCode) {
+            String collaboratorMsg = message(code: baseCode + ".withCollaborator", default: '')
+            if (collaboratorMsg) {
+                out << collaboratorMsg
                 return
             }
         }
@@ -210,26 +232,26 @@ class ContestApplicationTagLib {
 
     def domainSelectEnum = { attrs ->
         def newAttrs = new HashMap(attrs)
-        boolean isPharma = resolveIsPharma(attrs)
+        boolean hasCollaborator = resolveHasCollaborator(attrs)
 
-        if (isPharma) {
+        if (hasCollaborator) {
             def command = newAttrs.command
             def field = newAttrs.field
             def clazz = newAttrs.enumClass ?: command.metaClass.properties.find{it.name == field}.type
 
-            String enumPharmaLabel = message(code: "${clazz.name}.label.pharmacy", default: '')
-            if (enumPharmaLabel) {
-                newAttrs.label = enumPharmaLabel
+            String enumCollaboratorLabel = message(code: "${clazz.name}.label.withCollaborator", default: '')
+            if (enumCollaboratorLabel) {
+                newAttrs.label = enumCollaboratorLabel
             }
         }
         out << formUtil.selectEnum(newAttrs)
     }
 
-    def handlePharmaFields = { attrs ->
+    def handleCollaboratorFields = { attrs ->
         def command = attrs.command
-        boolean isPharma = resolveIsPharma(attrs)
+        boolean hasCollaborator = resolveHasCollaborator(attrs)
 
-        if (isPharma) {
+        if (hasCollaborator) {
             // ---- LÓGICA FARMACIAS (Campo unificado) ----
             out << "<div class='hidden'>"
             out << "<input type='hidden' name='numBenefitedCaregivers' value='1' />"
@@ -238,7 +260,7 @@ class ContestApplicationTagLib {
 
             // Fila 1: número de beneficiarios (columna izquierda)
             out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
-            out << domainInput([type: 'number', command: command, field: 'numBeneficiaries', showLabel: 'true', minValue: '1', isPharma: isPharma])
+            out << domainInput([type: 'number', command: command, field: 'numBeneficiaries', showLabel: 'true', minValue: '1', hasCollaborator: hasCollaborator])
             out << "</div>"
 
             // Datos de la asociación: título en su propio fieldset (mismo patrón que "Datos de la entidad"),
@@ -248,7 +270,7 @@ class ContestApplicationTagLib {
             out << """</fieldset><fieldset aria-live="polite" class="form-group">"""
 
             out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
-            out << domainInput([type: 'text', command: command, field: 'associationName', showLabel: 'true', isPharma: isPharma])
+            out << domainInput([type: 'text', command: command, field: 'associationName', showLabel: 'true', hasCollaborator: hasCollaborator])
             out << "</div>"
 
             out << """<div class="clearfix"></div>"""
@@ -260,13 +282,13 @@ class ContestApplicationTagLib {
                     fileGroup: kuorum.core.FileGroup.ASSOCIATION_IMAGE_PROFILE,
                     showLabel: 'true',
                     labelCssClass: 'associationImage-label',
-                    isPharma: isPharma
+                    hasCollaborator: hasCollaborator
             ])
             out << "</div>"
 
         } else {
             // ---- LÓGICA ASOCIACIONES (Clásica) ----
-            // associationName/associationImage/numBeneficiaries only apply to PHARMACY applications:
+            // associationName/associationImage/numBeneficiaries only apply to collaborator applications:
             // they are nullable and not required here, so no placeholder values need to be submitted.
             out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
             out << formUtil.input([type: 'number', command: command, field: 'numBenefitedPacients', showLabel: 'true', minValue: '1'])

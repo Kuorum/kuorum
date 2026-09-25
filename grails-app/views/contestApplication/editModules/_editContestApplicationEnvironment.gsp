@@ -23,7 +23,7 @@
             <input type="hidden" name="name" value="${campaign.title}"/>
         </g:else>
 
-        <g:if test="${isPharma}">
+        <g:if test="${hasCollaborator}">
             <fieldset aria-live="polite" class="form-group">
                 <h2 class="col-sm-offset-1"><g:message code="kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.entityData.title"/></h2>
             </fieldset>
@@ -32,7 +32,7 @@
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-sm-8">
                 <label for="cause">
-                    <contestApplication:domainMessage code="kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.cause.label" isPharma="${isPharma}"/>
+                    <contestApplication:domainMessage code="kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.cause.label" hasCollaborator="${hasCollaborator}"/>
                 </label>
                 <select class="form-control input-lg" name="cause">
                     <option value="">---</option>
@@ -45,16 +45,16 @@
 
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-sm-4 col-xs-12">
-                <contestApplication:domainSelectEnum command="${command}" field="activityType" showLabel="true" defaultEmpty="true" isPharma="${isPharma}"/>
+                <contestApplication:domainSelectEnum command="${command}" field="activityType" showLabel="true" defaultEmpty="true" hasCollaborator="${hasCollaborator}"/>
             </div>
 
             <div class="col-sm-4 col-xs-12 stacked-field-gap">
-                <contestApplication:domainSelectEnum command="${command}" field="focusType" showLabel="true" defaultEmpty="true" isPharma="${isPharma}"/>
+                <contestApplication:domainSelectEnum command="${command}" field="focusType" showLabel="true" defaultEmpty="true" hasCollaborator="${hasCollaborator}"/>
             </div>
         </fieldset>
 
         <fieldset aria-live="polite" class="form-group">
-            <contestApplication:handlePharmaFields command="${command}" isPharma="${isPharma}"/>
+            <contestApplication:handleCollaboratorFields command="${command}" hasCollaborator="${hasCollaborator}"/>
         </fieldset>
 
         <g:render template="/campaigns/edit/stepButtons"

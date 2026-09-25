@@ -45,7 +45,7 @@ class ContestApplicationController extends CampaignController {
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveNewApplication(ContestApplicationScopeCommand command) {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
-        command.isPharmacyApplication = resolveContestApplicationType(null) == ContestApplicationTypeDTO.PHARMACY
+        command.hasCollaborator = resolveContestApplicationType(null) == ContestApplicationTypeDTO.COLLABORATOR
         if (!command.validate()) {
             ContestRSDTO contest = getContest(contestId)
             render view: 'create', model: contestApplicationModelEditScope(command, null, contest)
@@ -210,7 +210,7 @@ class ContestApplicationController extends CampaignController {
                 contest : contestRSDTO,
                 status  : contestApplicationRSDTO?.campaignStatusRSDTO ?: CampaignStatusRSDTO.DRAFT,
                 command : command,
-                isPharma: resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.PHARMACY
+                hasCollaborator: resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.COLLABORATOR
         ]
         return model
     }
@@ -225,7 +225,7 @@ class ContestApplicationController extends CampaignController {
         def model = [
                 campaign: contestApplicationRSDTO,
                 contest : contestRSDTO,
-                isPharma: resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.PHARMACY,
+                hasCollaborator: resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.COLLABORATOR,
                 status  : contestApplicationRSDTO?.campaignStatusRSDTO ?: CampaignStatusRSDTO.DRAFT,
                 command : command
         ]
@@ -263,7 +263,7 @@ class ContestApplicationController extends CampaignController {
         Long contestId = params.contestId ? Long.parseLong(params.contestId) : null
         BasicDataKuorumUserRSDTO contestApplicationUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ContestRSDTO contestRSDTO = contestService.find(contestApplicationUser.id.toString(), contestId)
-        command.isPharmacyApplication = resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.PHARMACY
+        command.hasCollaborator = resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.COLLABORATOR
         command.validate()
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
@@ -286,7 +286,7 @@ class ContestApplicationController extends CampaignController {
         return nextStep
     }
 
-    // Pharmacy domains require fewer supporting files than the default contest application
+    // Domains with the collaborator flag enabled (pharmacy variant) require fewer supporting files than the default contest application
     @Override
     protected boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {
         List<String> files = contactService.getFiles(campaignOwner.getId().toString(), ownerContact)
@@ -298,8 +298,8 @@ class ContestApplicationController extends CampaignController {
         if (existing?.contestApplicationType) {
             return existing.contestApplicationType
         }
-        return CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?
-                ContestApplicationTypeDTO.PHARMACY : ContestApplicationTypeDTO.ASSOCIATION
+        return CustomDomainResolver.isContestApplicationWithCollaboratorEnabled() ?
+                ContestApplicationTypeDTO.COLLABORATOR : ContestApplicationTypeDTO.ASSOCIATION
     }
 
     // Converts a newly uploaded temporal KuorumFile id to its final URL, cleaning up the previous image; keeps the existing URL if nothing new was uploaded.

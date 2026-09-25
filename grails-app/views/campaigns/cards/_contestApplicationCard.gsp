@@ -1,5 +1,4 @@
-<g:set var="hasCollaborator"
-       value="${(kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false) && contestApplication?.associationName}"/>
+<contestApplication:showsCollaboratorInfo associationName="${contestApplication?.associationName}" var="hasCollaborator"/>
 <article role="article" class="box-ppal clearfix ${highlighted ? 'highlighted' : ''}">
     <div class="link-wrapper ${hasCollaborator ? 'has-collaborator' : ''}" id="contestApplication-${contestApplication.id}"
          data-datepublished="${contestApplication.datePublished.time}">

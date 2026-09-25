@@ -24,7 +24,7 @@
         </sec:ifAnyGranted>
         <div class="box-ppal-section">
             <g:render template="formSocialNetworks"
-                      model="[command: command, showPoliticianFields: showPoliticianFields, isPharma: isPharma]"/>
+                      model="[command: command, showPoliticianFields: showPoliticianFields, hasCollaborator: hasCollaborator]"/>
         </div>
 
         <div class="box-ppal-section">
