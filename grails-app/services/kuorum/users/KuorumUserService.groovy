@@ -92,6 +92,8 @@ class KuorumUserService {
         userDataRDTO.bio = kuorumUserRSDTO.bio
         userDataRDTO.timeZoneId = kuorumUserRSDTO.timeZoneId
         userDataRDTO.nid = kuorumUserRSDTO.nid
+        userDataRDTO.address = kuorumUserRSDTO.address
+        userDataRDTO.cinfaCode = kuorumUserRSDTO.cinfaCode
         return userDataRDTO
     }
 
@@ -138,6 +140,8 @@ class KuorumUserService {
         userDataRDTO.phoneNumberPrefix = user.getPersonalData().getPhonePrefix()
         userDataRDTO.language = org.kuorum.rest.model.kuorumUser.LanguageRSDTO.valueOf(user.language.toString())
         userDataRDTO.nid = user.nid
+        userDataRDTO.address = user.address
+        userDataRDTO.cinfaCode = user.cinfaCode
         return updateKuorumUser(user.id.toString(), userDataRDTO)
     }
 

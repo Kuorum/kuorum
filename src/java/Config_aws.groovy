@@ -6,10 +6,6 @@ mail.mandrillapp.key=System.getenv("MANDRILLAPP_KEY")
 recaptcha.providers.google.siteKey=System.getenv("GOOGLE_RECAPTCHA_SITE_KEY")
 recaptcha.providers.google.secretKey=System.getenv("GOOGLE_RECAPTCHA_SECRET_KEY")
 
-// Explicit here so it's never accidentally left unenforced; CaptchaService only skips
-// verification when this is explicitly false (e.g. a developer's local Config_development.groovy).
-kuorum.captcha.enabled = true
-
 kuorum.keys.google.api.js=System.getenv("GOOGLE_API_JS")
 
 kuorum.upload.serverPath="/tmp"

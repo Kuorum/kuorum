@@ -1,4 +1,5 @@
-<div id="rankingListCampaigns"
+<g:set var="hasCollaborator" value="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}" />
+<div id="rankingListCampaigns" class="${hasCollaborator ? 'has-collaborator' : ''}"
      data-autoRelaod="${contest.status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING}">
     <g:render template="ranking/rankingFilter"/>
     <!-- LISTADO DE CAMPAÑAS -->
@@ -34,14 +35,16 @@
                     <li class="ranking-cause-header"><a href="#" role="button" class="sort"
                                                         data-sort="ranking-cause"><g:message
                                     code="contest.ranking.list.header.order.cause"/></a></li>
-                    <li class="ranking-contest-focusType-header"><a href="#" role="button"
-                                                                    class="sort"
-                                                                    data-sort="ranking-contest-focusType"><g:message
-                                    code="contest.ranking.list.header.order.focusType"/></a></li>
-                    <li class="ranking-contest-activityType-header"><a href="#" role="button"
-                                                                       class="sort"
-                                                                       data-sort="ranking-contest-activityType"><g:message
-                                    code="contest.ranking.list.header.order.activityType"/></a></li>
+                    <g:if test="${!hasCollaborator}">
+                        <li class="ranking-contest-focusType-header"><a href="#" role="button"
+                                                                        class="sort"
+                                                                        data-sort="ranking-contest-focusType"><g:message
+                                        code="contest.ranking.list.header.order.focusType"/></a></li>
+                        <li class="ranking-contest-activityType-header"><a href="#" role="button"
+                                                                           class="sort"
+                                                                           data-sort="ranking-contest-activityType"><g:message
+                                        code="contest.ranking.list.header.order.activityType"/></a></li>
+                    </g:if>
                     <li class="ranking-numVotes-header"><a href="#" role="button" class="sort"
                                                            data-sort="ranking-numVotes"><g:message
                                     code="contest.ranking.list.header.order.votes"/></a></li>

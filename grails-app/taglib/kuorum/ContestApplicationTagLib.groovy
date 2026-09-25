@@ -39,16 +39,22 @@ class ContestApplicationTagLib {
      *
      * attrs.tag picks the wrapper element - "li" (default) for the card footer's <ul>, "div" for
      * standalone contexts like the contest application show page's header (next to userUtil:showUser).
+     * attrs.showImage (default true) lets callers with no room/need for the avatar image, like the
+     * ranking list, render the name only.
      */
     def collaboratorAvatar = { attrs ->
         def contestApplication = attrs.contestApplication
         String name = contestApplication?.associationName?.encodeAsHTML()
         String wrapperTag = attrs.tag ?: 'li'
+        boolean showImage = attrs.containsKey('showImage') ? Boolean.parseBoolean(attrs.showImage.toString()) : true
         if (resolveHasCollaborator(attrs) && name) {
-            String imgSrc = contestApplication?.associationImage
+            // Only touch associationImage when actually needed: callers like the ranking list pass a
+            // slimmer DTO (ContestApplicationRankingRSDTO) that has no associationImage property at all,
+            // and Groovy's ?. only guards a null receiver, not a missing property on a non-null one.
+            String imgSrc = showImage ? contestApplication?.associationImage?.encodeAsHTML() : null
             out << "<${wrapperTag} class=\"association\">"
             out << "<span class=\"association-inline\" title=\"${name}\">"
-            if (imgSrc) {
+            if (showImage && imgSrc) {
                 out << "<img src=\"${imgSrc}\" alt=\"${name}\" class=\"user-img\"/>"
             }
             out << "<span>${name}</span>"
