@@ -60,22 +60,38 @@
             <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
         </div>
 
+        <g:set var="hasCollaborator" value="${CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}"/>
+        <g:if test="${hasCollaborator}">
+            <div class="form-group col-md-6">
+                <formUtil:input command="${command}" field="cinfaCode" cssClass="form-control input-lg"
+                                showLabel="true" showCharCounter="false"/>
+            </div>
+        </g:if>
     </fieldset>
+
+    <g:if test="${hasCollaborator}">
+        <fieldset aria-live="polite" class="row">
+            <div class="form-group col-xs-12">
+                <formUtil:input command="${command}" field="address" cssClass="form-control input-lg"
+                                showLabel="true" showCharCounter="false"/>
+            </div>
+        </fieldset>
+    </g:if>
+
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-xs-12">
             <contestApplication:domainTextArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
         </div>
 
-            <div class="form-group col-xs-12">
-                <contestApplication:domainTextArea command="${command}" field="bio2" showLabel="true" texteditor="texteditor"/>
-            </div>
-        </fieldset>
+        <div class="form-group col-xs-12">
+            <contestApplication:domainTextArea command="${command}" field="bio2" showLabel="true" texteditor="texteditor"/>
+        </div>
+    </fieldset>
 
     <fieldset aria-live="polite" class="row">
         <div class="form-group text-center option-buttons">
             <input type="submit" value="${g.message(code: 'customRegister.step2.submit')}" class="btn btn-lg">
         </div>
     </fieldset>
-    </form>
+</form>
 </content>
-
