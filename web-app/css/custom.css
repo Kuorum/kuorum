@@ -3847,7 +3847,8 @@ ul.search-list > li.search-article .box-ppal .card-body .card-text{margin:0;padd
 ul.search-list > li.search-article .box-ppal .card-body .card-text a{color: #ec931f;}
 ul.search-list > li.search-article .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
 
-ul.search-list > li.search-article .box-ppal .card-footer{width:100%; height:40px;display:block; padding: 0 1em 0.5em; text-align: right; margin-top: 12px;}
+ul.search-list > li.search-article .box-ppal .card-footer{width:100%; height:40px;display:block; padding: 0 1em 0.5em; text-align: right; margin-top: 12px; position: relative;}
+ul.search-list > li.search-article .box-ppal .card-footer.has-collaborator{height:78px;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.search-list > li.search-article .box-ppal .card-footer:after {clear:both; content: " "}
@@ -3880,6 +3881,46 @@ ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.c
 }
 ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner .user .popover.bottom>.arrow{
     margin-left: -100px;
+}
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.association {
+    position: relative;
+    display: block;
+    clear: both;
+    bottom: 7px;
+    max-width: 77%;
+    text-align: left;
+    margin-top: 4px;
+    padding-left: 0;
+    margin-left: 8px;
+}
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.association .association-inline{
+    display: flex;
+    align-items: center;
+    max-width:100%;
+    font-size: 11px;
+    font-size: 1.1rem;
+    color: #A8A8A8;
+}
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.association .association-inline span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.association .user-img {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.association + li {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 div.info-campaigns-empty  p{margin:auto; padding:40px;text-align: center;color: #a8a8a8;font-size: 2rem;}
 div.info-campaigns-empty .text-empty-campaignList {width: 90%;}
@@ -4412,6 +4453,22 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 
 .uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {
     padding-top: 30%
+}
+.associationImage-label {display: block; text-align: left; margin-top: 20px;}
+@media only screen and (max-width: 767px) {
+    /* col-sm-4 pairs sit side by side from 768px up with no vertical gap needed;
+       below that they stack full-width, so the second one needs its own top margin. */
+    #contestApplicationEditScope .stacked-field-gap {margin-top: 20px;}
+}
+.uploaderImageContainer.ASSOCIATION_IMAGE_PROFILE .qq-upload-drop-area {padding-top: 30%;}
+/* changeImageBackground() (shared by every upload widget on the site) sets background-size:100%
+   auto inline, which only matches the box's aspect ratio if the uploaded photo happens to be
+   square - otherwise it under-fills the (square, aspectRatio:1) box and the .qq-upload-drop-area
+   border shows empty space below the photo. Override just for this field (!important beats the
+   inline style) rather than touching the shared JS used by every other upload widget on the site. */
+.uploaderImageContainer.ASSOCIATION_IMAGE_PROFILE .qq-upload-drop-area {
+    background-size: cover !important;
+    background-position: center !important;
 }
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding-top: 15%}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {padding-top: 1%;}
@@ -6711,6 +6768,16 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .comment-box .actions {width: 100%; text-align: center;}
 }
 
+/* Below the sm breakpoint (768px), col-sm-offset-1 doesn't apply and this form gets no
+   left/right breathing room from anywhere else - use padding (not margin) on the form itself
+   so 100%-width children aren't pushed past their container's right edge. */
+@media only screen and (max-width: 767px) {
+    #contestApplicationEditScope {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
 /* Very small devices (mobile, 480px and up) */
 @media only screen and (min-width: 480px) {
 
@@ -7480,6 +7547,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 13em; height: 20px;}
 
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper {height: 375px;}
+    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper.has-collaborator {height: 415px;}
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {bottom: 7px;}
 
@@ -8724,6 +8792,36 @@ button.btn-see-more {
     margin: 30px 0 10px 0;
 }
 
+.leader-post .header .association {
+    margin: 0 0 10px 8px;
+}
+
+.leader-post .header .association .association-inline {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    font-size: 1.1rem;
+    color: #A8A8A8;
+}
+
+.leader-post .header .association .association-inline span {
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.leader-post .header .association .user-img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
 .leader-post .header .popover .user {
     margin: 0px;
 }
@@ -9711,6 +9809,7 @@ ul.globus li img {
     }
 
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {bottom: 9px;}
+    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.association {bottom: 9px;}
 
     .guide-card > .box-ppal {width: 100%}
 }

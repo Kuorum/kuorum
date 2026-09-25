@@ -13,7 +13,7 @@ public class CalculaNif {
     private final String letrasNie = "XYZ";
     private final String digitoControlCif = "JABCDEFGHI";
     private final String cifLetra = "KPQRSNW";
-    private final String letrasInicioAutorizadas = "CDEFGHJKLMNPQRSUVW"
+    private final String letrasInicioAutorizadas = "ABCDEFGHJKLMNPQRSUVW"
 
     private boolean isValidFormat = false;
 
@@ -21,7 +21,7 @@ public class CalculaNif {
 
     public CalculaNif(String nif) {
         this.nif = nif.toUpperCase();
-        this.isValidFormat = this.nif ==~ "^(?:[" + letrasInicioAutorizadas + "][0-9]{7}[A-Z]|[" + letrasInicioAutorizadas + "][0-9]{8})\$"
+        this.isValidFormat = this.nif ==~ "^(?:[" + letrasInicioAutorizadas + "][0-9]{7}[A-Z]|[" + letrasInicioAutorizadas + "][0-9]{8}|[0-9]{8}[A-Z])\$"
     }
 
     def getNif() {
@@ -72,7 +72,13 @@ public class CalculaNif {
 
 
     boolean isAsociacion() {
-        return nif &&letrasCifNoAutorizadasAsociaciones.indexOf(nif.substring(0, 1)) < 0;
+        if (!nif) {
+            return false;
+        }
+        String primeraLetra = nif.substring(0, 1);
+        // Must actually be a CIF (letter-prefixed) start letter, not just "any character other
+        // than A/B" - otherwise a DNI or garbage input would wrongly be reported as an association.
+        return letrasInicioAutorizadas.contains(primeraLetra) && letrasCifNoAutorizadasAsociaciones.indexOf(primeraLetra) < 0;
     }
 
     private String calculaDni(String dni) {

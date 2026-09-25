@@ -44,18 +44,55 @@ class FunnelFillBasicDataCommand {
         phone nullable: false, matches: "^[0-9]{9}\$"
         nid nullable: false, validator: { val, obj ->
             CalculaNif calculaNif = new CalculaNif(val)
-            def error;
-            if (!calculaNif.isAsociacion()) {
-                error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
-            }else if (!val.matches(/^(?![0-9]{8}[A-Z]$)(?:[${ALLOWED_LETTERS}][0-9]{7}[A-Z]|[${ALLOWED_LETTERS}][0-9]{8}$)/)){
-                error = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.matches.error"
-            }else if (!calculaNif.isValid()) {
-                error =  "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
+
+            // 1. BASE CHECK: is it a structurally and mathematically valid NIF/CIF?
+            // If the format is a mess or the control digit doesn't match, stop here.
+            if (!calculaNif.isValid()) {
+                return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
             }
-            return (error != null) ? error : true;
+
+            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+
+            if (isPharma) {
+                // 2A. PHARMACY RULES (autonomous pharmacist DNI, or CIF S.A. 'A', S.L. 'B', C.B. 'E', S.C. 'J')
+                boolean isDni = val ==~ /^[0-9]{8}[A-Za-z]$/
+                boolean isAllowedPharmacyCif = val ==~ /^[ABEJabej][0-9]{7}[0-9A-Za-z]$/
+
+                if (!isDni && !isAllowedPharmacyCif) {
+                    // It's a valid CIF, but not an entity type allowed for pharmacies
+                    return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.pharmacy.notPharmacy"
+                }
+            } else {
+                // 2B. ASSOCIATION RULES (in Spain, Associations = letter G)
+                if (!calculaNif.isAsociacion()) {
+                    // It's a valid CIF, but the letter doesn't correspond to an association
+                    return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
+                }
+
+                if (!val.matches("^(?![0-9]{8}[A-Z]\$)(?:[${ALLOWED_LETTERS}][0-9]{7}[A-Z]|[${ALLOWED_LETTERS}][0-9]{8}\$)")){
+                    return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.matches.error"
+                }
+            }
+
+            return true
         }
-        bio nullable: false, maxCharsHtml: 500
-        bio2 nullable: false, maxCharsHtml: 800
+        bio nullable: true, blank: true, maxCharsHtml: 500, validator: { val, obj ->
+            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+            if (!val || Jsoup.parse(val).text().trim() == '') {
+                return isPharma ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio.blank.pharmacy"
+                        : "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio.blank"
+            }
+            return true
+        }
+
+        bio2 nullable: true, blank: true, maxCharsHtml: 800, validator: { val, obj ->
+            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+            if (!val || Jsoup.parse(val).text().trim() == '') {
+                return isPharma ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio2.blank.pharmacy"
+                        : "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio2.blank"
+            }
+            return true
+        }
         contactName nullable: false, maxSize: 70
     }
 

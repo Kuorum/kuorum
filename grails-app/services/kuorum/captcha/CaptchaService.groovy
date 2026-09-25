@@ -1,6 +1,7 @@
 package kuorum.captcha
 
 import grails.transaction.Transactional
+import grails.util.Environment
 import groovyx.net.http.RESTClient
 import kuorum.core.customDomain.CustomDomainResolver
 import org.springframework.beans.factory.annotation.Value
@@ -13,6 +14,10 @@ class CaptchaService {
 
     def verifyCaptcha(String responseCaptcha) {
         def isCaptchaVerified = false
+        if (Environment.current == Environment.DEVELOPMENT) {
+            log.info("Skipping CAPTCHA verification :: DEVELOPMENT environment")
+            return true
+        }
         if (!responseCaptcha) {
             return isCaptchaVerified
         }

@@ -3,6 +3,7 @@ package kuorum
 import constraints.MaxCharsHtmlConstraint
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.survey.QuestionOptionCommand
