@@ -81,6 +81,17 @@ public class CalculaNif {
         return letrasInicioAutorizadas.contains(primeraLetra) && letrasCifNoAutorizadasAsociaciones.indexOf(primeraLetra) < 0;
     }
 
+    // Broader check: is this CIF a legal entity at all (any authorized start letter), regardless
+    // of whether it's specifically an association. A legal entity that isn't an association
+    // (e.g. a Sociedad Anónima, letter A) is isLegalEntity() == true but isAsociacion() == false.
+    boolean isLegalEntity() {
+        if (!nif) {
+            return false;
+        }
+        String primeraLetra = nif.substring(0, 1);
+        return letrasInicioAutorizadas.contains(primeraLetra);
+    }
+
     private String calculaDni(String dni) {
         String str = completaCeros(dni, 8);
 
