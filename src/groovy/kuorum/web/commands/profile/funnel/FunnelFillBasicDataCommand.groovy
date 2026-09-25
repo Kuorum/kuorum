@@ -45,15 +45,15 @@ class FunnelFillBasicDataCommand {
         phonePrefix nullable: false
         phone nullable: false, matches: "^[0-9]{9}\$"
         address nullable: true, maxSize: 255, validator: { val, obj ->
-            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
-            if (isPharma && !val?.trim()) {
+            boolean hasCollaborator = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+            if (hasCollaborator && !val?.trim()) {
                 return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.address.blank"
             }
             return true
         }
         cinfaCode nullable: true, validator: { val, obj ->
-            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
-            if (!isPharma) {
+            boolean hasCollaborator = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+            if (!hasCollaborator) {
                 return true
             }
             if (!val?.trim()) {
@@ -65,9 +65,9 @@ class FunnelFillBasicDataCommand {
             return true
         }
         nid nullable: false, validator: { val, obj ->
-            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+            boolean hasCollaborator = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
 
-            if (isPharma) {
+            if (hasCollaborator) {
                 // PHARMACY RULES: format-only check, no checksum and no entity-type restriction
                 // (NIF of a natural person, foreign NIE, or company CIF all pass as long as the
                 // shape matches what Cinfa's own systems check: 9 characters, 8 digits + 1 letter
@@ -103,18 +103,18 @@ class FunnelFillBasicDataCommand {
             return true
         }
         bio nullable: true, blank: true, maxCharsHtml: 500, validator: { val, obj ->
-            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+            boolean hasCollaborator = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
             if (!val || Jsoup.parse(val).text().trim() == '') {
-                return isPharma ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio.blank.pharmacy"
+                return hasCollaborator ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio.blank.withCollaborator"
                         : "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio.blank"
             }
             return true
         }
 
         bio2 nullable: true, blank: true, maxCharsHtml: 800, validator: { val, obj ->
-            boolean isPharma = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
+            boolean hasCollaborator = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
             if (!val || Jsoup.parse(val).text().trim() == '') {
-                return isPharma ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio2.blank.pharmacy"
+                return hasCollaborator ? "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio2.blank.withCollaborator"
                         : "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.bio2.blank"
             }
             return true
