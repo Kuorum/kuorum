@@ -83,8 +83,8 @@ class FunnelFillBasicDataCommand {
                 return true
             }
 
-            // ASSOCIATION RULES (in Spain, Associations = letter G): still require a real,
-            // checksum-valid CIF belonging to an association.
+            // ASSOCIATION RULES: still require a real, checksum-valid CIF whose letter is not a
+            // Sociedad Anónima/Limitada (A/B) - see CalculaNif.isAsociacion().
             CalculaNif calculaNif = new CalculaNif(val)
 
             if (!calculaNif.isValid()) {
