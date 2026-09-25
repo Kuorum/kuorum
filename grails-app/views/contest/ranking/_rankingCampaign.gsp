@@ -1,4 +1,4 @@
-<g:set var="isPharma" value="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}" />
+<g:set var="hasCollaborator" value="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}" />
 <g:each in="${contestApplications}" var="campaign" status="pos">
     <li id="campaignRanking_${campaign.id}">
         <div class="id sr-only">${campaign.id}</div>
@@ -30,7 +30,7 @@
             <li class="ranking-cause">
                 ${campaign.causes[0]}
             </li>
-            <g:if test="${!isPharma}">
+            <g:if test="${!hasCollaborator}">
                 <li class="ranking-contest-focusType">
                     <g:message
                             code="org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO.${campaign.focusType}"/>

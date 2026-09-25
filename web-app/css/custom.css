@@ -2128,7 +2128,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 /* Pharma domains hide the Perfil/Ámbito columns, leaving only Región + Votos: narrow the
    fixed-width extra-info column so the remaining two don't leave a blank gap behind them. */
-#rankingListCampaigns.is-pharma .box-order-options .ranking-extra-info ul {
+#rankingListCampaigns.has-collaborator .box-order-options .ranking-extra-info ul {
     width: 200px;
 }
 
@@ -2202,7 +2202,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     margin-bottom: 2px;
 }
 
-#rankingListCampaigns.is-pharma #rankingList > li > ul.list-campaign-extra-data {
+#rankingListCampaigns.has-collaborator #rankingList > li > ul.list-campaign-extra-data {
     width: 200px;
 }
 
@@ -7279,7 +7279,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
         width: calc(90% - 400px);
     }
 
-    #rankingListCampaigns.is-pharma #rankingList > li .ranking-campaign-info {
+    #rankingListCampaigns.has-collaborator #rankingList > li .ranking-campaign-info {
         width: calc(90% - 200px);
     }
 
@@ -7308,8 +7308,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
         margin: 0
     }
 
-    #rankingListCampaigns.is-pharma .box-order-options .ranking-extra-info,
-    #rankingListCampaigns.is-pharma #rankingList > li > ul.list-campaign-extra-data {
+    #rankingListCampaigns.has-collaborator .box-order-options .ranking-extra-info,
+    #rankingListCampaigns.has-collaborator #rankingList > li > ul.list-campaign-extra-data {
         width: 200px;
     }
 
@@ -7324,7 +7324,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
         display: inline-block;
     }
 
-    #rankingListCampaigns.is-pharma .box-order-options .ranking-title-author-header {
+    #rankingListCampaigns.has-collaborator .box-order-options .ranking-title-author-header {
         width: calc(90% - 200px);
     }
 
