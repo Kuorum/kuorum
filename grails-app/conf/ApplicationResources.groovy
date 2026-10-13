@@ -343,7 +343,7 @@ modules = {
 
     loginApi{
         dependsOn 'basic'
-        resource url: "${Holders.getGrailsApplication().config.kuorum.rest.url}${Holders.getGrailsApplication().config.kuorum.rest.apiPath}/login/social/socialLogin.js", disposition: "defer"
+        resource url: "${Holders.getGrailsApplication().config.kuorum.rest.apiPath}/login/social/socialLogin.js", disposition: "defer"
         resource url: "js/social/loginApi.js", disposition: "defer"
     }
 
