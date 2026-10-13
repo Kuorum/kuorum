@@ -349,12 +349,12 @@ class ProfileController {
         KuorumUserSession loggedUser = springSecurityService.principal
         KuorumUserRSDTO user = kuorumUserService.findUserRSDTO(loggedUser)
         SocialNetworkCommand command = new SocialNetworkCommand(user)
-        [command: command]
+        [command: command, hasCollaborator: false]
     }
 
     def socialNetworksSave(SocialNetworkCommand command) {
         if (command.hasErrors()) {
-            render(view: 'socialNetworks', model: [command: command])
+            render(view: 'socialNetworks', model: [command: command, hasCollaborator: false])
             return
         }
         kuorumUserService.updateSocialNetworkLoggedUser(command);
@@ -517,6 +517,8 @@ class ProfileController {
         command.email = user.email
         command.fillBioParts(user.bio)
         command.nid = user.nid
+        command.address = user.address
+        command.cinfaCode = user.cinfaCode
         return [command: command]
     }
 
@@ -540,12 +542,19 @@ class ProfileController {
         if (user.personalData == null) {
             user.personalData = new PersonalData()
         }
-        user.bio = command.getCompleteBio(g.message(code: 'asoc.bio.title1'), g.message(code: 'asoc.bio.title2'))
+
+        boolean hasCollaborator = CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()
+        String title1Code = hasCollaborator ? 'withCollaborator.bio.title1' : 'asoc.bio.title1'
+        String title2Code = hasCollaborator ? 'withCollaborator.bio.title2' : 'asoc.bio.title2'
+
+        user.bio = command.getCompleteBio(g.message(code: title1Code) as String, g.message(code: title2Code) as String)
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.name = command.name
         user.surname = "" // RESET SURNAME => His name will be overwritten with the association name
         user.nid = command.nid
+        user.address = command.address
+        user.cinfaCode = command.cinfaCode
         kuorumUserService.updateUser(user)
 
         ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
@@ -624,7 +633,9 @@ class ProfileController {
     def saveFunnelFillFiles() {
         ContactRSDTO adminContact = getAdminContact()
         List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
-        if (contactFiles.size() < WebConstants.MIN_FILES_PER_DOC_IN_CONTEST) {
+        Integer minFiles = CustomDomainResolver.minFilesPerDocInContest
+
+        if (contactFiles.size() < minFiles) {
             flash.error = g.message(code: "kuorum.web.commands.profile.funnel.files.minFiles")
             render view: "funnelFillFiles", model: [contact: adminContact]
             return;
@@ -634,13 +645,12 @@ class ProfileController {
 
     def funnelFillSocial() {
         def model = socialNetworks()
-        model + [campaignId: params.campaignId]
-        model
+        model + [campaignId: params.campaignId, hasCollaborator: CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()]
     }
 
     def saveFunnelFillSocial(SocialNetworkCommand command) {
         if (command.hasErrors()) {
-            render(view: 'funnelFillSocial', model: [command: command])
+            render(view: 'funnelFillSocial', model: [command: command, hasCollaborator: CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()])
             return
         }
         kuorumUserService.updateSocialNetworkLoggedUser(command);

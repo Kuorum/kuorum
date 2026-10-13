@@ -166,7 +166,7 @@
         $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image",'url('+timestampedUrlImage+')');
         $("#au-uploaderImageId_" + imageId + " .qq-upload-drop-area").css("background-size", "100% auto");
         $("#au-uploaderImageId_" + imageId + " .qq-upload-drop-area").css("background-position", "0 0");
-        $("#au-uploaderImageId_" + imageId +" .button-container").css("background-color","rgba(0, 0, 0, 0.7)");
+        $("#au-uploaderImageId_" + imageId +" .button-container").css("background-color","rgba(0, 0, 0, 0.9)");
         $image = $("#au-uploaderImageId_" + imageId +" .qq-upload-drop-area");
         console.log("Param Aspect:"+aspectRatio);
         console.log("width:"+$image.outerWidth());

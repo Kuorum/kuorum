@@ -19,7 +19,8 @@
 
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-xs-10">
-                <formUtil:checkBox command="${command}" field="authorizedAgent" showLabel="true" defaultEmpty="true"/>
+                <formUtil:checkBox command="${command}" field="authorizedAgent" showLabel="true" defaultEmpty="true"
+                                   label="${contestApplication.domainMessage(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.authorizedAgent.label', hasCollaborator: hasCollaborator)}"/>
             </div>
         </fieldset>
         <fieldset aria-live="polite" class="form-group">

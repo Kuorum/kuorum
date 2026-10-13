@@ -1,8 +1,7 @@
-<%@ page import="kuorum.core.model.UserType" %>
+<%@ page import="kuorum.core.customDomain.CustomDomainResolver; kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.login"
-                      args="[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"/></title>
+    <title><g:message code="page.title.login" args="[CustomDomainResolver.domainRSDTO.name]"/></title>
     <meta name="layout" content="centerColumn1Layout">
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="showNavBar" value="false"/>
@@ -26,21 +25,11 @@
     <form name="stepBasicData" role="form" method="POST" autocomplete="off" class="signup">
         <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-6">
-                <formUtil:input
-                        command="${command}"
-                        field="name"
-                        cssClass="form-control input-lg"
-                        showLabel="true"
-                        showCharCounter="false"/>
+                <contestApplication:domainInput command="${command}" field="name" cssClass="form-control input-lg" showLabel="true" showCharCounter="false"/>
             </div>
 
             <div class="form-group col-md-6">
-                <formUtil:input
-                        command="${command}"
-                        field="nid"
-                        cssClass="form-control input-lg"
-                        showLabel="true"
-                        showCharCounter="false"/>
+                <contestApplication:domainInput command="${command}" field="nid" cssClass="form-control input-lg" showLabel="true" showCharCounter="false"/>
             </div>
 
         </fieldset>
@@ -71,14 +60,31 @@
             <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
         </div>
 
+        <g:set var="hasCollaborator" value="${CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}"/>
+        <g:if test="${hasCollaborator}">
+            <div class="form-group col-md-6">
+                <formUtil:input command="${command}" field="cinfaCode" cssClass="form-control input-lg"
+                                showLabel="true" showCharCounter="false"/>
+            </div>
+        </g:if>
     </fieldset>
+
+    <g:if test="${hasCollaborator}">
+        <fieldset aria-live="polite" class="row">
+            <div class="form-group col-xs-12">
+                <formUtil:input command="${command}" field="address" cssClass="form-control input-lg"
+                                showLabel="true" showCharCounter="false"/>
+            </div>
+        </fieldset>
+    </g:if>
+
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-xs-12">
-            <formUtil:textArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
+            <contestApplication:domainTextArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
         </div>
 
         <div class="form-group col-xs-12">
-            <formUtil:textArea command="${command}" field="bio2" showLabel="true" texteditor="texteditor"/>
+            <contestApplication:domainTextArea command="${command}" field="bio2" showLabel="true" texteditor="texteditor"/>
         </div>
     </fieldset>
 
@@ -87,6 +93,5 @@
             <input type="submit" value="${g.message(code: 'customRegister.step2.submit')}" class="btn btn-lg">
         </div>
     </fieldset>
-    </form>
+</form>
 </content>
-

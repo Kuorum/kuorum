@@ -13,6 +13,12 @@ class ContestApplicationScopeCommand {
     ContestApplicationFocusTypeDTO focusType
     Integer numBenefitedCaregivers
     Integer numBenefitedPacients
+    Integer numBeneficiaries
+    String associationName
+    String associationImage
+
+    // Not bound from the request: set server-side by ContestApplicationController, never trusted from the client
+    Boolean hasCollaborator
 
     static constraints = {
         name nullable: false
@@ -21,6 +27,22 @@ class ContestApplicationScopeCommand {
         focusType nullable: false
         numBenefitedCaregivers nullable: false
         numBenefitedPacients nullable: false
+        numBeneficiaries nullable: true, validator: { val, obj ->
+            if (obj.hasCollaborator && (val == null || val <= 0)) {
+                return 'nullable'
+            }
+        }
+        associationName nullable: true, validator: { val, obj ->
+            if (obj.hasCollaborator && !val) {
+                return 'nullable'
+            }
+        }
+        associationImage nullable: true, validator: { val, obj ->
+            if (obj.hasCollaborator && !val) {
+                return 'nullable'
+            }
+        }
+        hasCollaborator nullable: true
     }
 
 }

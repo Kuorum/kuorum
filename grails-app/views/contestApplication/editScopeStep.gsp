@@ -19,6 +19,7 @@
             command         : command,
             numberRecipients: numberRecipients,
             status          : status,
+            hasCollaborator : hasCollaborator,
             mappings        : [
                     saveAndSentButtons: false,
                     step              : 'environment',
