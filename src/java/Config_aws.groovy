@@ -17,8 +17,6 @@ kuorum.keys.favicon=System.getenv("FAVICON_KEY")
 
 
 kuorum.rest.url="https://${System.getenv("API_DOMAIN")}"
-/*kuorum.rest.publicUrl="https://${System.getenv()}"*/
-kuorum.rest.publicUrl="https://api.dev.kuorum.org"
 kuorum.rest.apiPath="/api"
 kuorum.rest.authPath="/oauth/token"
 kuorum.rest.client_id=System.getenv("KUORUM_OAUTH_CLIENT_ID")
