@@ -33,15 +33,18 @@
     a value 5 times as high: 51200. -->
     <Resources cacheMaxSize="51200"/>
 
-    <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
-             sticky="true"
-             lockingMode="all"
-             sessionBackupAsync="false"
-             sessionBackupTimeout="100"
-             memcachedNodes="n1:${MEMCACHED_END_POINT}:${MEMCACHED_PORT}"
-             requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
-             transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"/>
-
+    <!-- memcached-session-manager (msm) desactivado: el MEMCACHED_END_POINT apunta al
+         Configuration Endpoint de Auto Discovery de ElastiCache, que msm/spymemcached
+         no soportan de forma nativa (requeriria forkear msm para inyectar ClientMode.Dynamic
+         del cliente de AWS). Con lockingMode="all" + sticky="true", el backup/lock contra ese
+         endpoint fallaba de forma intermitente y corrompia el SecurityContext de la sesion en
+         segundos (condicion de carrera visible en peticiones AJAX casi simultaneas a la carga
+         del dashboard: la sesion aparecia como Anonymous durante una ventana de milisegundos).
+         Volvemos al Manager por defecto de Tomcat (sesion en memoria local de cada tarea),
+         apoyandonos en el sticky session del ALB (cf-templates/EC2-applicationloadbalancer_Internal.yaml)
+         para la afinidad de sesion. Limitacion aceptada: si una tarea ECS se recicla, se pierden
+         sus sesiones activas (no hay backup/failover). Revisar de nuevo si se decide migrar a
+         Redis/Redisson-tomcat (mantenido activamente) o apuntar un nodo fijo de Memcache. -->
 
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
