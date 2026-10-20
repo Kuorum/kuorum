@@ -38,6 +38,8 @@ class FunnelFillBasicDataCommand {
     String cinfaCode;
     static constraints = {
         String ALLOWED_LETTERS = "CDEFGHJKLMNPQRSUVW"
+        // CIFs starting with G are associations: an association can't register as a pharmacy
+        String ASSOCIATION_CIF_FIRST_LETTER = "G"
         importFrom KuorumUser, include: ["alias"]
         name nullable: false, maxSize: 70
         // WILL BE IGNORED. IS ONLY FOR VIEW
@@ -68,23 +70,25 @@ class FunnelFillBasicDataCommand {
             boolean hasCollaborator = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
 
             if (hasCollaborator) {
-                // PHARMACY RULES: format-only check, no checksum and no entity-type restriction
-                // (NIF of a natural person, foreign NIE, or company CIF all pass as long as the
-                // shape matches what Cinfa's own systems check: 9 characters, 8 digits + 1 letter
-                // anywhere in the string).
+                // PHARMACY RULES: format-only check, no checksum (NIF of a natural person, foreign
+                // NIE, or company CIF all pass as long as the shape matches what Cinfa's own systems
+                // check: 9 characters, 8 digits + 1 letter anywhere in the string), except that a
+                // CIF of an association (first letter G) is rejected.
                 int letterCount = val ? val.findAll(/[A-Za-z]/).size() : 0
                 int digitCount = val ? val.findAll(/[0-9]/).size() : 0
                 boolean isValidFormat = val?.length() == 9 && letterCount == 1 && digitCount == 8
+                // Only a CIF that STARTS with G is an association; a DNI/NIE whose control letter is G is fine
+                boolean isAssociationCif = val?.toUpperCase()?.startsWith(ASSOCIATION_CIF_FIRST_LETTER)
 
-                if (!isValidFormat) {
+                if (!isValidFormat || isAssociationCif) {
                     return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.pharmacy.notPharmacy"
                 }
 
                 return true
             }
 
-            // ASSOCIATION RULES (in Spain, Associations = letter G): still require a real,
-            // checksum-valid CIF belonging to an association.
+            // ASSOCIATION RULES: still require a real, checksum-valid CIF whose letter is not a
+            // Sociedad Anónima/Limitada (A/B) - see CalculaNif.isAsociacion().
             CalculaNif calculaNif = new CalculaNif(val)
 
             if (!calculaNif.isValid()) {

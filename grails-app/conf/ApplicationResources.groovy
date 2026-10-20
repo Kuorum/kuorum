@@ -343,7 +343,18 @@ modules = {
 
     loginApi{
         dependsOn 'basic'
-        resource url: "${Holders.getGrailsApplication().config.kuorum.rest.url}${Holders.getGrailsApplication().config.kuorum.rest.apiPath}/login/social/socialLogin.js", disposition: "defer"
+        // PROBLEM: socialLogin.js is not in this project. kuorumRest serves it at ${apiPath}/login/social/socialLogin.js
+        //   and, behind the shared domain (CloudFront -> ALB rule /api*), the browser must request it with a relative
+        //   path. The resources plugin resolves any non-http url as a local file and fails at startup (file not found),
+        //   and for relative links it always prepends the static prefix (/static), so a plain relative url or a
+        //   linkOverride would render /static/api/... (404).
+        // SOLUTION: declare the resource with a placeholder external url (http/https urls skip the local lookup; the
+        //   placeholder is never rendered in the html) and use wrapper to emit the real relative <script> tag.
+        //   It stays a deferred resource of this module, so the load order before loginApi.js is preserved.
+        //   This replaces kuorum.rest.publicUrl (removed from Config_aws.groovy), which pointed to an absolute api host.
+        resource url: "http://localhost/socialLogin.js",
+                wrapper: { s -> "<script src=\"${Holders.getGrailsApplication().config.kuorum.rest.apiPath}/login/social/socialLogin.js\" type=\"text/javascript\"></script>" },
+                disposition: "defer"
         resource url: "js/social/loginApi.js", disposition: "defer"
     }
 
