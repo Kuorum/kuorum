@@ -33,14 +33,6 @@
     a value 5 times as high: 51200. -->
     <Resources cacheMaxSize="51200"/>
 
-    <!-- sticky="false": con varias tareas ECS detras del ALB, el enrutado "pegajoso"
-         (cookie AWSALB) no es una garantia absoluta (reciclado de tareas, deploys,
-         fallos de health check). En sticky="true" Memcache solo se usaba como backup
-         de failover, no como fuente de verdad en cada peticion, asi que una peticion
-         que caia en otra tarea no recuperaba la sesion autenticada (login "funcionaba"
-         pero la siguiente peticion protegida volvia a pedir credenciales). En
-         sticky="false" cada tarea lee/escribe la sesion en Memcache en cada peticion,
-         haciendola independiente de a que tarea llegue la peticion. -->
     <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
              sticky="true"
              lockingMode="all"
