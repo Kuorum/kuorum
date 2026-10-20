@@ -24,10 +24,20 @@ class PersistentLoginToken implements Serializable {
     String token
     Date lastUsed
 
+    // Token anterior a la ultima rotacion + cuando se roto. Usado por RememberMeTokenRepository
+    // para tolerar un breve reuse del token viejo (peticiones concurrentes del navegador que
+    // llegan con la cookie aun no actualizada), sin perder la deteccion real de robo de cookie
+    // (reuse fuera de la ventana de gracia, o reuse del token anterior a ese). Ver GRACE_PERIOD_MS
+    // en RememberMeTokenRepository.
+    String previousToken
+    Date previousTokenRotatedAt
+
     static constraints = {
         username maxSize: 64
         token maxSize: 64
         id maxSize: 64
+        previousToken nullable: true, maxSize: 64
+        previousTokenRotatedAt nullable: true
     }
 
     static transients = ['series']

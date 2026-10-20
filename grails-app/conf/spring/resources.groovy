@@ -7,6 +7,7 @@ import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
 import kuorum.files.AmazonFileService
 import kuorum.register.MongoUserDetailsService
 import kuorum.security.permission.KuorumPermissionEvaluator
+import kuorum.security.rememberMe.GracePeriodRememberMeServices
 import kuorum.security.rememberMe.RememberMeTokenRepository
 import kuorum.web.constants.WebConstants
 import net.spy.memcached.AddrUtil
@@ -48,6 +49,27 @@ beans = {
 
     tokenRepository(RememberMeTokenRepository) {
         grailsApplication = ref("grailsApplication")
+    }
+
+    // Sobreescribe el rememberMeServices que registra automaticamente el plugin
+    // spring-security-core (PersistentTokenBasedRememberMeServices por tener
+    // rememberMe.persistent=true en Config.groovy) por una version que tolera un unico
+    // reuse del token inmediatamente anterior a la ultima rotacion, dentro de una ventana
+    // de gracia corta -- ver GracePeriodRememberMeServices y RememberMeTokenRepository
+    // para el detalle y motivo (condicion de carrera con varias tareas ECS detras del ALB).
+    // IMPORTANTE: pendiente de compilar y verificar contra el jar real de
+    // spring-security-core:2.0-RC5 antes de desplegar (ver notas de la clase).
+    def secConf = SpringSecurityUtils.securityConfig
+    rememberMeServices(GracePeriodRememberMeServices) {
+        rememberMeTokenRepository = ref('tokenRepository')
+        tokenRepository = ref('tokenRepository')
+        userDetailsService = ref('userDetailsService')
+        key = secConf.rememberMe.key
+        cookieName = secConf.rememberMe.cookieName
+        alwaysRemember = secConf.rememberMe.alwaysRemember
+        tokenValiditySeconds = secConf.rememberMe.tokenValiditySeconds
+        parameter = secConf.rememberMe.parameter
+        useSecureCookie = secConf.rememberMe.useSecureCookie
     }
 
     switch (Environment.current) {
