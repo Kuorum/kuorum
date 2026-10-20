@@ -42,7 +42,7 @@
          sticky="false" cada tarea lee/escribe la sesion en Memcache en cada peticion,
          haciendola independiente de a que tarea llegue la peticion. -->
     <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
-             sticky="false"
+             sticky="true"
              lockingMode="all"
              sessionBackupAsync="false"
              sessionBackupTimeout="100"
