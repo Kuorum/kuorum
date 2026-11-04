@@ -121,15 +121,13 @@ var contestApplicationFunctions = {
                     display.error(contestApplicationVote.message)
 
                 }
-                cookiesHelper.removeCookie("KUORUM_USER_UUID")
             },
             error: function () {
                 display.error("Error saving vote")
-                cookiesHelper.removeCookie("KUORUM_USER_UUID")
             },
             complete: function () {
                 pageLoadingOff();
-                cookiesHelper.removeCookie("KUORUM_USER_UUID")
+                userValidatedByDomain.silentLogout();
             }
         });
     },
