@@ -64,8 +64,27 @@ class AmazonFileService extends LocalFileService {
         return files
     }
 
+    /**
+     * FileGroups promoted by a dedicated backend endpoint, which stores the file and returns its final URL.
+     * Any other FileGroup is promoted with an S3 copy out of the "tmp" folder (see copyAmazonFileFromTemporal).
+     */
+    private static final List<FileGroup> GROUPS_PROMOTED_BY_BACKEND = [
+            FileGroup.USER_AVATAR, FileGroup.USER_PROFILE, FileGroup.PROJECT_IMAGE, FileGroup.MASS_MAIL_IMAGE
+    ]
+
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile) {
         if (kuorumFile?.temporal) {
+            if (!GROUPS_PROMOTED_BY_BACKEND.contains(kuorumFile.fileGroup)) {
+                // e.g. FileGroup.ASSOCIATION_IMAGE_PROFILE (ContestApplication's collaborating association logo).
+                // The backend only offers the "tmp" upload for them, so re-uploading would leave the file in "tmp" again.
+                if (!copyAmazonFileFromTemporal(kuorumFile, generateFinalAmazonKey(kuorumFile))) {
+                    throw new KuorumException("The temporal file can not be moved to its final path", "error.file.empty")
+                }
+                File localFile = new File("${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}")
+                localFile.delete()
+                deleteParentIfEmpty(localFile)
+                return kuorumFile
+            }
             String localTempPath = calculateLocalStoragePath(kuorumFile)
             File org = new File("${localTempPath}/${kuorumFile.fileName}")
             if (!org.exists()) {
@@ -84,12 +103,6 @@ class AmazonFileService extends LocalFileService {
             } else if (kuorumFile.fileGroup == FileGroup.MASS_MAIL_IMAGE) {
                 String fileUrl = uploadNewsletterImage(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
-            } else {
-                // Generic fallback for any FileGroup without a dedicated branch above -
-                // e.g. FileGroup.ASSOCIATION_IMAGE_PROFILE (ContestApplication's collaborating
-                // association logo). Relies on the uploadAmazonFile fix above to actually
-                // promote the file out of its temporal path.
-                uploadAmazonFile(kuorumFile, Boolean.FALSE)
             }
 
             org.delete();
@@ -240,6 +253,14 @@ class AmazonFileService extends LocalFileService {
         log.info("Copy Amazon file success")
         deleteAmazonKeyQuietly(sourceKey)
         return true
+    }
+
+    /**
+     * Key of a file once it has left the "tmp" folder. It is unique per KuorumFile (its id) and deterministic:
+     * two users uploading "logo.png" can not collide, and a retry copies onto the same key instead of creating another object.
+     */
+    protected String generateFinalAmazonKey(KuorumFile file) {
+        return "${file.fileGroup.folderPath}/${file.userId}/${file.id}/${file.fileName}"
     }
 
     /** Best effort delete of an S3 object. Never throws; a failure is logged. @return true if it has been deleted */

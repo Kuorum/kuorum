@@ -64,10 +64,142 @@ class AmazonFileServiceSpec extends Specification {
                 relativePath: "/user", temporal: true, local: false, fileType: FileType.AMAZON_IMAGE,
                 storagePath: "/${TMP_KEY}", url: "https://cdn.test/${TMP_KEY}", urlThumb: "https://cdn.test/${TMP_KEY}"
         )
+        file.id = new ObjectId() // the map constructor does not bind the id of a domain class
         // there is no GORM here: a successful save returns the instance (called with and without arguments)
         file.metaClass.save = { Map args -> delegate }
         file.metaClass.save = { -> delegate }
         return file
+    }
+
+    void "a group without dedicated endpoint is moved out of tmp with an S3 copy to its own final key"() {
+        given:
+        KuorumFile file = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+        String expectedKey = "ProjectFiles/${file.userId}/${file.id}/logo.png"
+
+        when:
+        KuorumFile result = service.convertTemporalToFinalFile(file)
+
+        then:
+        1 * s3.doesObjectExist("bucket", expectedKey)
+        1 * s3.copyObject({ CopyObjectRequest r -> r.sourceKey == TMP_KEY && r.destinationKey == expectedKey })
+
+        then: "the tmp object is deleted only after the copy and the save"
+        1 * s3.deleteObject({ DeleteObjectRequest r -> r.key == TMP_KEY })
+        0 * s3._
+        0 * restKuorumApiService._
+
+        and:
+        result.url == "https://cdn.test/${expectedKey}"
+        result.urlThumb == result.url
+        !result.url.contains("/tmp/")
+        result.storagePath == expectedKey
+        result.temporal == false
+        result.local == false
+        result.fileType == FileType.AMAZON_IMAGE
+    }
+
+    void "the final key is different for two users uploading a file with the same name"() {
+        given:
+        KuorumFile fileUser1 = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+        KuorumFile fileUser2 = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+
+        expect:
+        fileUser1.fileName == fileUser2.fileName
+        service.generateFinalAmazonKey(fileUser1) != service.generateFinalAmazonKey(fileUser2)
+    }
+
+    void "the final key is deterministic and built with the id of the file, so a retry copies onto the same key"() {
+        given:
+        KuorumFile file = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+
+        expect:
+        file.id != null
+        service.generateFinalAmazonKey(file) == service.generateFinalAmazonKey(file)
+        service.generateFinalAmazonKey(file) == "ProjectFiles/${file.userId}/${file.id}/logo.png"
+    }
+
+    void "two files of the same user and name get different final keys"() {
+        given:
+        ObjectId userId = new ObjectId()
+        KuorumFile file1 = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE, userId)
+        KuorumFile file2 = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE, userId)
+
+        expect:
+        service.generateFinalAmazonKey(file1) != service.generateFinalAmazonKey(file2)
+    }
+
+    void "if the S3 copy fails the file stays temporal and the tmp object is not deleted"() {
+        given:
+        KuorumFile file = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+        boolean saved = false
+        file.metaClass.save = { Map args -> saved = true; delegate }
+
+        when:
+        service.convertTemporalToFinalFile(file)
+
+        then:
+        1 * s3.copyObject(_ as CopyObjectRequest) >> { throw new AmazonClientException("S3 is down") }
+        0 * s3.deleteObject(_)
+        thrown(KuorumException)
+
+        and:
+        file.temporal == true
+        file.url == "https://cdn.test/${TMP_KEY}"
+        file.storagePath == "/${TMP_KEY}"
+        !saved
+    }
+
+    void "if the save returns null (validation error) the final copy is rolled back and the file keeps its temporal state"() {
+        given:
+        KuorumFile file = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+        file.metaClass.save = { Map args -> null }
+        String expectedKey = "ProjectFiles/${file.userId}/${file.id}/logo.png"
+
+        when:
+        service.convertTemporalToFinalFile(file)
+
+        then:
+        1 * s3.copyObject(_ as CopyObjectRequest)
+        1 * s3.deleteObject({ DeleteObjectRequest r -> r.key == expectedKey })
+        0 * s3.deleteObject({ DeleteObjectRequest r -> r.key == TMP_KEY })
+        thrown(KuorumException)
+
+        and:
+        file.temporal == true
+        file.url == "https://cdn.test/${TMP_KEY}"
+        file.storagePath == "/${TMP_KEY}"
+    }
+
+    void "if the save throws the final copy is rolled back too"() {
+        given:
+        KuorumFile file = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+        file.metaClass.save = { Map args -> throw new RuntimeException("Mongo is down") }
+        String expectedKey = "ProjectFiles/${file.userId}/${file.id}/logo.png"
+
+        when:
+        service.convertTemporalToFinalFile(file)
+
+        then:
+        1 * s3.copyObject(_ as CopyObjectRequest)
+        1 * s3.deleteObject({ DeleteObjectRequest r -> r.key == expectedKey })
+        0 * s3.deleteObject({ DeleteObjectRequest r -> r.key == TMP_KEY })
+        thrown(KuorumException)
+        file.temporal == true
+    }
+
+    void "a failing delete of the tmp object does not fail a promotion that already succeeded"() {
+        given:
+        KuorumFile file = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+
+        when:
+        KuorumFile result = service.convertTemporalToFinalFile(file)
+
+        then:
+        1 * s3.copyObject(_ as CopyObjectRequest)
+        1 * s3.deleteObject({ DeleteObjectRequest r -> r.key == TMP_KEY }) >> { throw new AmazonClientException("gone") }
+        notThrown(Exception)
+        result.temporal == false
+        !result.url.contains("/tmp/")
     }
 
     void "a key that already existed (a slide being replaced) is never deleted when the save fails"() {
@@ -100,6 +232,38 @@ class AmazonFileServiceSpec extends Specification {
         moved
         file.storagePath == "domains/demo/slide1.png"
         file.temporal == false
+    }
+
+    void "a file that is not temporal is returned untouched"() {
+        given:
+        KuorumFile file = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+        file.temporal = false
+
+        when:
+        KuorumFile result = service.convertTemporalToFinalFile(file)
+
+        then:
+        0 * s3._
+        0 * restKuorumApiService._
+        result.url == "https://cdn.test/${TMP_KEY}"
+    }
+
+    void "a group with a dedicated endpoint is still promoted by the backend, not by an S3 copy"() {
+        given:
+        KuorumFile file = temporalFile(FileGroup.USER_AVATAR)
+        file.metaClass.getUser = { -> [id: file.userId] }
+        File local = new File("${service.calculateLocalStoragePath(file)}/${file.fileName}")
+        local.parentFile.mkdirs()
+        local.text = "image"
+
+        when:
+        KuorumFile result = service.convertTemporalToFinalFile(file)
+
+        then:
+        1 * restKuorumApiService.putFile(RestKuorumApiService.ApiMethod.USER_IMG_AVATAR, [userId: file.userId.toString()], [:], _ as File, "logo.png") >> "https://cdn.test/UsersFiles/final.png"
+        0 * s3.copyObject(_)
+        result.url == "https://cdn.test/UsersFiles/final.png"
+        result.temporal == false
     }
 
 }
