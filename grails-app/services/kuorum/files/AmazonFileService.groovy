@@ -1,5 +1,6 @@
 package kuorum.files
 
+import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.auth.*
 import com.amazonaws.regions.Regions
@@ -184,39 +185,72 @@ class AmazonFileService extends LocalFileService {
     }
 
 
-    protected void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey, Boolean attachTimestamp = false) {
+    /**
+     * Moves a temporal file out of the "tmp" folder with a server side S3 copy and points the KuorumFile to destinationKey.
+     * S3 and Mongo can not share a transaction, so the order is compensating: copy, save, and only then delete the tmp object.
+     * If the copy or the save fails the file keeps its temporal state and the tmp object is kept. A final object created by
+     * this call is deleted on a failed save, but never one that already existed in destinationKey (e.g. a domain carousel
+     * slide that is being replaced).
+     * @return true if the file has been moved
+     */
+    protected boolean copyAmazonFileFromTemporal(KuorumFile file, String destinationKey, Boolean attachTimestamp = false) {
         String sourceKey = file.storagePath.encodeAsAmazonS3Key();
-        if (sourceKey != destinationKey) {
-            KuorumFile oldFile = KuorumFile.findByStoragePath(destinationKey);
-            if (oldFile) {
-                oldFile.delete()
-            }
-            String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-            AmazonS3 s3Client = buildAmazonClient()
+        if (sourceKey == destinationKey) {
+            return false
+        }
+        KuorumFile oldFile = KuorumFile.findByStoragePath(destinationKey);
+        if (oldFile && oldFile.id != file.id) {
+            oldFile.delete()
+        }
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        AmazonS3 s3Client = buildAmazonClient()
 
-            try {
-                // Copy the object into a new object in the same bucket.
-                CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey);
-                s3Client.copyObject(copyObjRequest);
-                String finalUrl = buildAmazonUrl(destinationKey, attachTimestamp)
-                file.temporal = false
-                file.url = finalUrl
-                file.urlThumb = finalUrl
-                file.fileType = FileType.AMAZON_IMAGE
-                file.local = false
-                file.storagePath = destinationKey
-                file.save(flush: true)
-                log.info("Copy Amazon file success")
+        boolean destinationExisted
+        try {
+            destinationExisted = s3Client.doesObjectExist(bucketName, destinationKey)
+            // Copy the object into a new object in the same bucket.
+            s3Client.copyObject(new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey));
+        } catch (AmazonClientException e) {
+            log.error("Error copying from '" + sourceKey + "' to '" + destinationKey + "'", e)
+            return false
+        }
 
-                DeleteObjectRequest deleteTemporalFileAmazonRequest = new DeleteObjectRequest(bucketName, sourceKey)
-                s3Client.deleteObject(deleteTemporalFileAmazonRequest)
+        Map previousState = [temporal: file.temporal, url: file.url, urlThumb: file.urlThumb,
+                             fileType: file.fileType, local: file.local, storagePath: file.storagePath]
+        String finalUrl = buildAmazonUrl(destinationKey, attachTimestamp)
+        boolean saved = false
+        try {
+            file.temporal = false
+            file.url = finalUrl
+            file.urlThumb = finalUrl
+            file.fileType = FileType.AMAZON_IMAGE
+            file.local = false
+            file.storagePath = destinationKey
+            saved = file.save(flush: true) != null // save() returns null on a validation error, it does not throw
+        } catch (Exception e) {
+            log.error("KuorumFile ${file.id} could not be saved after copying it to '${destinationKey}'", e)
+        }
+        if (!saved) {
+            previousState.each { String property, value -> file."${property}" = value }
+            if (!destinationExisted && !deleteAmazonKeyQuietly(destinationKey)) {
+                log.error("ORPHAN_S3_KEY ${destinationKey} (KuorumFile ${file.id}) could not be rolled back")
+            }
+            return false
+        }
+        log.info("Copy Amazon file success")
+        deleteAmazonKeyQuietly(sourceKey)
+        return true
+    }
 
-            }
-            catch (AmazonServiceException e) {
-                // The call was transmitted successfully, but Amazon S3 couldn't process
-                // it, so it returned an error response.
-                log.error("Error copying from '"+sourceKey+"' to '"+destinationKey+"'", e)
-            }
+    /** Best effort delete of an S3 object. Never throws; a failure is logged. @return true if it has been deleted */
+    protected boolean deleteAmazonKeyQuietly(String key) {
+        try {
+            String bucketName = grailsApplication.config.kuorum.amazon.bucketName
+            buildAmazonClient().deleteObject(new DeleteObjectRequest(bucketName, key))
+            return true
+        } catch (Exception e) {
+            log.warn("Amazon object '${key}' could not be deleted", e)
+            return false
         }
     }
 
@@ -421,7 +455,7 @@ class AmazonFileService extends LocalFileService {
         }
     }
 
-    private AmazonS3 buildAmazonClient() {
+    protected AmazonS3 buildAmazonClient() {
         // Login with credentials
         String accessKey = grailsApplication.config.kuorum?.amazon?.accessKey
         String secretKey = grailsApplication.config.kuorum?.amazon?.secretKey
