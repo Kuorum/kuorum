@@ -407,7 +407,9 @@ class AmazonFileService extends LocalFileService {
         if (file && file.fileType == FileType.AMAZON_IMAGE) {
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
             AmazonS3 s3client = buildAmazonClient()
-            s3client.deleteObject(new DeleteObjectRequest(bucketName, generateAmazonKey(file, temporal)));
+            // A file promoted with promoteTemporalToFinalKey lives in its own final key, not in the folder/relativePath one
+            String key = (!temporal && file.storagePath == generateFinalAmazonKey(file)) ? file.storagePath : generateAmazonKey(file, temporal)
+            s3client.deleteObject(new DeleteObjectRequest(bucketName, key));
 //            s3client.deleteObject(new DeleteObjectRequest(bucketName, file.storagePath)); //OLD IMAGES NOT HAS storagePath
         }
     }

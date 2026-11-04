@@ -266,4 +266,16 @@ class AmazonFileServiceSpec extends Specification {
         result.temporal == false
     }
 
+    void "deleting a promoted file deletes its final key"() {
+        given:
+        KuorumFile file = temporalFile(FileGroup.ASSOCIATION_IMAGE_PROFILE)
+        service.convertTemporalToFinalFile(file)
+        String finalKey = file.storagePath
+
+        when:
+        service.deleteKuorumFile(file)
+
+        then:
+        1 * s3.deleteObject({ DeleteObjectRequest r -> r.key == finalKey })
+    }
 }
