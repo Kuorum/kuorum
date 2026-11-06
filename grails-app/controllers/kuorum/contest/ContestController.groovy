@@ -390,6 +390,7 @@ class ContestController extends CampaignController {
     def vote(ContestApplicationVoteCommand command) {
         if (command.hasErrors()) {
             render([success: false, message: "There are errors on the data"] as JSON)
+            return
         }
         ContestRSDTO contestRSDTO = contestService.find(command.userAlias, command.contestId)
         if (!springSecurityService.isLoggedIn() && !contestRSDTO.allowAnonymousAction) {
