@@ -1,6 +1,5 @@
 package kuorum.files
 
-import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.auth.*
 import com.amazonaws.regions.Regions
@@ -64,27 +63,8 @@ class AmazonFileService extends LocalFileService {
         return files
     }
 
-    /**
-     * FileGroups promoted by a dedicated backend endpoint, which stores the file and returns its final URL.
-     * Any other FileGroup is promoted with an S3 copy out of the "tmp" folder (see copyAmazonFileFromTemporal).
-     */
-    private static final List<FileGroup> GROUPS_PROMOTED_BY_BACKEND = [
-            FileGroup.USER_AVATAR, FileGroup.USER_PROFILE, FileGroup.PROJECT_IMAGE, FileGroup.MASS_MAIL_IMAGE
-    ]
-
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile) {
         if (kuorumFile?.temporal) {
-            if (!GROUPS_PROMOTED_BY_BACKEND.contains(kuorumFile.fileGroup)) {
-                // e.g. FileGroup.ASSOCIATION_IMAGE_PROFILE (ContestApplication's collaborating association logo).
-                // The backend only offers the "tmp" upload for them, so re-uploading would leave the file in "tmp" again.
-                if (!copyAmazonFileFromTemporal(kuorumFile, generateFinalAmazonKey(kuorumFile))) {
-                    throw new KuorumException("The temporal file can not be moved to its final path", "error.file.empty")
-                }
-                File localFile = new File("${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}")
-                localFile.delete()
-                deleteParentIfEmpty(localFile)
-                return kuorumFile
-            }
             String localTempPath = calculateLocalStoragePath(kuorumFile)
             File org = new File("${localTempPath}/${kuorumFile.fileName}")
             if (!org.exists()) {
@@ -103,6 +83,12 @@ class AmazonFileService extends LocalFileService {
             } else if (kuorumFile.fileGroup == FileGroup.MASS_MAIL_IMAGE) {
                 String fileUrl = uploadNewsletterImage(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
+            } else {
+                // Generic fallback for any FileGroup without a dedicated branch above -
+                // e.g. FileGroup.ASSOCIATION_IMAGE_PROFILE (ContestApplication's collaborating
+                // association logo). Relies on the uploadAmazonFile fix above to actually
+                // promote the file out of its temporal path.
+                uploadAmazonFile(kuorumFile, Boolean.FALSE)
             }
 
             org.delete();
@@ -198,80 +184,39 @@ class AmazonFileService extends LocalFileService {
     }
 
 
-    /**
-     * Moves a temporal file out of the "tmp" folder with a server side S3 copy and points the KuorumFile to destinationKey.
-     * S3 and Mongo can not share a transaction, so the order is compensating: copy, save, and only then delete the tmp object.
-     * If the copy or the save fails the file keeps its temporal state and the tmp object is kept. A final object created by
-     * this call is deleted on a failed save, but never one that already existed in destinationKey (e.g. a domain carousel
-     * slide that is being replaced).
-     * @return true if the file has been moved
-     */
-    protected boolean copyAmazonFileFromTemporal(KuorumFile file, String destinationKey, Boolean attachTimestamp = false) {
+    protected void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey, Boolean attachTimestamp = false) {
         String sourceKey = file.storagePath.encodeAsAmazonS3Key();
-        if (sourceKey == destinationKey) {
-            return false
-        }
-        KuorumFile oldFile = KuorumFile.findByStoragePath(destinationKey);
-        if (oldFile && oldFile.id != file.id) {
-            oldFile.delete()
-        }
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        AmazonS3 s3Client = buildAmazonClient()
-
-        boolean destinationExisted
-        try {
-            destinationExisted = s3Client.doesObjectExist(bucketName, destinationKey)
-            // Copy the object into a new object in the same bucket.
-            s3Client.copyObject(new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey));
-        } catch (AmazonClientException e) {
-            log.error("Error copying from '" + sourceKey + "' to '" + destinationKey + "'", e)
-            return false
-        }
-
-        Map previousState = [temporal: file.temporal, url: file.url, urlThumb: file.urlThumb,
-                             fileType: file.fileType, local: file.local, storagePath: file.storagePath]
-        String finalUrl = buildAmazonUrl(destinationKey, attachTimestamp)
-        boolean saved = false
-        try {
-            file.temporal = false
-            file.url = finalUrl
-            file.urlThumb = finalUrl
-            file.fileType = FileType.AMAZON_IMAGE
-            file.local = false
-            file.storagePath = destinationKey
-            saved = file.save(flush: true) != null // save() returns null on a validation error, it does not throw
-        } catch (Exception e) {
-            log.error("KuorumFile ${file.id} could not be saved after copying it to '${destinationKey}'", e)
-        }
-        if (!saved) {
-            previousState.each { String property, value -> file."${property}" = value }
-            if (!destinationExisted && !deleteAmazonKeyQuietly(destinationKey)) {
-                log.error("ORPHAN_S3_KEY ${destinationKey} (KuorumFile ${file.id}) could not be rolled back")
+        if (sourceKey != destinationKey) {
+            KuorumFile oldFile = KuorumFile.findByStoragePath(destinationKey);
+            if (oldFile) {
+                oldFile.delete()
             }
-            return false
-        }
-        log.info("Copy Amazon file success")
-        deleteAmazonKeyQuietly(sourceKey)
-        return true
-    }
+            String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+            AmazonS3 s3Client = buildAmazonClient()
 
-    /**
-     * Key of a file once it has left the "tmp" folder. It is unique per KuorumFile (its id) and deterministic:
-     * two users uploading "logo.png" can not collide, and a retry copies onto the same key instead of creating another object.
-     */
-    protected String generateFinalAmazonKey(KuorumFile file) {
-        return "${file.fileGroup.folderPath}/${file.userId}/${file.id}/${file.fileName}"
-    }
+            try {
+                // Copy the object into a new object in the same bucket.
+                CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey);
+                s3Client.copyObject(copyObjRequest);
+                String finalUrl = buildAmazonUrl(destinationKey, attachTimestamp)
+                file.temporal = false
+                file.url = finalUrl
+                file.urlThumb = finalUrl
+                file.fileType = FileType.AMAZON_IMAGE
+                file.local = false
+                file.storagePath = destinationKey
+                file.save(flush: true)
+                log.info("Copy Amazon file success")
 
-    /** Best effort delete of an S3 object. Never throws; a failure is logged. @return true if it has been deleted */
-    protected boolean deleteAmazonKeyQuietly(String key) {
-        try {
-            String bucketName = grailsApplication.config.kuorum.amazon.bucketName
-            buildAmazonClient().deleteObject(new DeleteObjectRequest(bucketName, key))
-            return true
-        } catch (Exception e) {
-            log.warn("Amazon object '${key}' could not be deleted", e)
-            return false
+                DeleteObjectRequest deleteTemporalFileAmazonRequest = new DeleteObjectRequest(bucketName, sourceKey)
+                s3Client.deleteObject(deleteTemporalFileAmazonRequest)
+
+            }
+            catch (AmazonServiceException e) {
+                // The call was transmitted successfully, but Amazon S3 couldn't process
+                // it, so it returned an error response.
+                log.error("Error copying from '"+sourceKey+"' to '"+destinationKey+"'", e)
+            }
         }
     }
 
@@ -407,9 +352,7 @@ class AmazonFileService extends LocalFileService {
         if (file && file.fileType == FileType.AMAZON_IMAGE) {
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
             AmazonS3 s3client = buildAmazonClient()
-            // A file promoted with promoteTemporalToFinalKey lives in its own final key, not in the folder/relativePath one
-            String key = (!temporal && file.storagePath == generateFinalAmazonKey(file)) ? file.storagePath : generateAmazonKey(file, temporal)
-            s3client.deleteObject(new DeleteObjectRequest(bucketName, key));
+            s3client.deleteObject(new DeleteObjectRequest(bucketName, generateAmazonKey(file, temporal)));
 //            s3client.deleteObject(new DeleteObjectRequest(bucketName, file.storagePath)); //OLD IMAGES NOT HAS storagePath
         }
     }
@@ -478,7 +421,7 @@ class AmazonFileService extends LocalFileService {
         }
     }
 
-    protected AmazonS3 buildAmazonClient() {
+    private AmazonS3 buildAmazonClient() {
         // Login with credentials
         String accessKey = grailsApplication.config.kuorum?.amazon?.accessKey
         String secretKey = grailsApplication.config.kuorum?.amazon?.secretKey
