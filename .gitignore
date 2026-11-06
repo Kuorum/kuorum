@@ -74,3 +74,6 @@ covertura.ser
 
 # Ignore Gradle build output directory
 build
+
+# JS tests dependencies (test/js)
+test/js/node_modules/

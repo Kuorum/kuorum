@@ -54,6 +54,7 @@ class ContestApplicationController extends CampaignController {
         KuorumUserSession loggedUser = springSecurityService.principal
         CampaignRDTO campaignRDTO = convertCommandContentToRDTO(command, loggedUser, null, contestApplicationService)
         Map<String, Object> result = saveAndSendCampaign(loggedUser, campaignRDTO, null, null, CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT, contestApplicationService)
+        updateAssociationImageFile(command.associationImage, result.campaign?.associationImage, loggedUser)
         def nextStep = result.nextStep
         redirect mapping: nextStep.mapping, params: nextStep.params
 
@@ -282,6 +283,7 @@ class ContestApplicationController extends CampaignController {
         rdto.contestApplicationType = resolveContestApplicationType(contestApplicationRSDTO)
 
         contestApplicationRSDTO = contestApplicationService.save(user, rdto, contestApplicationRSDTO.getId())
+        updateAssociationImageFile(command.associationImage, contestApplicationRSDTO.associationImage, user)
         def nextStep = processNextStep(user, contestApplicationRSDTO, false)
         return nextStep
     }
@@ -302,9 +304,9 @@ class ContestApplicationController extends CampaignController {
                 ContestApplicationTypeDTO.COLLABORATOR : ContestApplicationTypeDTO.ASSOCIATION
     }
 
-    // Converts a newly uploaded temporal KuorumFile id to its final URL, cleaning up the previous image; keeps the existing URL if nothing new was uploaded.
-    // If the same image id was never actually consolidated (still temporal, e.g. a prior failed/skipped consolidation), it is consolidated now instead of
-    // being silently re-saved as a broken tmp URL forever.
+    // Returns the URL to send to the backend for a newly uploaded KuorumFile id (still the temporal one: the backend moves it to its final path
+    // when it saves the application), cleaning up the previous image; keeps the existing URL if nothing new was uploaded.
+    // If the same image id is still temporal (e.g. a prior save failed), its temporal URL is sent again so the backend moves it now.
     private String resolveAssociationImageUrl(String commandAssociationImage, String previousAssociationImageUrl, KuorumUserSession user) {
         if (!commandAssociationImage) {
             return previousAssociationImageUrl
@@ -321,9 +323,19 @@ class ContestApplicationController extends CampaignController {
         if (previousImage && !sameImage) {
             fileService.deleteKuorumFile(previousImage)
         }
-        picture = fileService.convertTemporalToFinalFile(picture)
-        fileService.deleteTemporalFiles(user)
         return picture.getUrl()
+    }
+
+    // The backend moved the image and returned its final URL: the KuorumFile has to keep it, because edit-scope finds the image by that URL
+    private void updateAssociationImageFile(String commandAssociationImage, String savedAssociationImageUrl, KuorumUserSession user) {
+        KuorumFile picture = commandAssociationImage ? KuorumFile.get(commandAssociationImage) : null
+        if (picture?.temporal && savedAssociationImageUrl) {
+            picture.url = savedAssociationImageUrl
+            picture.urlThumb = savedAssociationImageUrl
+            picture.temporal = Boolean.FALSE
+            picture.save()
+            fileService.deleteTemporalFiles(user)
+        }
     }
 
     private ContestRSDTO getContest(long contestId) {

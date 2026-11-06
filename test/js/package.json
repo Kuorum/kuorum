@@ -1,0 +1,11 @@
+{
+  "name": "kuorum-js-tests",
+  "private": true,
+  "description": "Tests for the front's JS logic (validation modal and contest application voting). Isolated from the Grails build.",
+  "scripts": {
+    "test": "node --test --test-reporter=spec ."
+  },
+  "devDependencies": {
+    "jsdom": "^22.1.0"
+  }
+}
