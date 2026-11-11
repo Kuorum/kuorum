@@ -518,7 +518,6 @@ class ProfileController {
         command.fillBioParts(user.bio)
         command.nid = user.nid
         command.address = user.address
-        command.cinfaCode = user.cinfaCode
         return [command: command]
     }
 
@@ -554,7 +553,6 @@ class ProfileController {
         user.surname = "" // RESET SURNAME => His name will be overwritten with the association name
         user.nid = command.nid
         user.address = command.address
-        user.cinfaCode = command.cinfaCode
         kuorumUserService.updateUser(user)
 
         ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);

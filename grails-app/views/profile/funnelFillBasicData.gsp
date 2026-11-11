@@ -59,15 +59,9 @@
                                         label="${g.message(code: 'kuorum.web.commands.payment.contact.ContactCommand.phone.label')}"/>
             <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
         </div>
-
-        <g:set var="hasCollaborator" value="${CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}"/>
-        <g:if test="${hasCollaborator}">
-            <div class="form-group col-md-6">
-                <formUtil:input command="${command}" field="cinfaCode" cssClass="form-control input-lg"
-                                showLabel="true" showCharCounter="false"/>
-            </div>
-        </g:if>
     </fieldset>
+
+    <g:set var="hasCollaborator" value="${CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}"/>
 
     <g:if test="${hasCollaborator}">
         <fieldset aria-live="polite" class="row">
