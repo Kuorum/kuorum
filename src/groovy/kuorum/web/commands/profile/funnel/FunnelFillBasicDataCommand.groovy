@@ -35,7 +35,6 @@ class FunnelFillBasicDataCommand {
     String bio2;
     String contactName;
     String address;
-    String cinfaCode;
     static constraints = {
         String ALLOWED_LETTERS = "CDEFGHJKLMNPQRSUVW"
         // CIFs starting with G are associations: an association can't register as a pharmacy
@@ -50,19 +49,6 @@ class FunnelFillBasicDataCommand {
             boolean hasCollaborator = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
             if (hasCollaborator && !val?.trim()) {
                 return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.address.blank"
-            }
-            return true
-        }
-        cinfaCode nullable: true, validator: { val, obj ->
-            boolean hasCollaborator = CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false
-            if (!hasCollaborator) {
-                return true
-            }
-            if (!val?.trim()) {
-                return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.cinfaCode.blank"
-            }
-            if (!(val ==~ /^[0-9]{5,6}$/)) {
-                return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.cinfaCode.matches.error"
             }
             return true
         }

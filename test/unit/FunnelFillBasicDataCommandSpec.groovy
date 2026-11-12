@@ -46,8 +46,6 @@ class FunnelFillBasicDataCommandSpec extends Specification {
     private static final String notAPharmacyError = NID_ERROR_PREFIX + "pharmacy.notPharmacy"
     private static final String notAsocError = NID_ERROR_PREFIX + "notAsoc"
     private static final String invalidError = NID_ERROR_PREFIX + "invalid"
-    private static final String cinfaCodeBlankError = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.cinfaCode.blank"
-    private static final String cinfaCodeError = "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.cinfaCode.matches.error"
 
     // "OK" si el nid es válido; si no, el sufijo del código de error (invalid, notAsoc, pharmacy.notPharmacy, ...)
     // o el código de la restricción (nullable)
@@ -65,15 +63,14 @@ class FunnelFillBasicDataCommandSpec extends Specification {
         return fieldError != null && fieldError.codes.contains(expectedCode)
     }
 
-    private FunnelFillBasicDataCommand buildCommandWithAddressAndCinfaCode(String address, String cinfaCode) {
+    private FunnelFillBasicDataCommand buildCommandWithAddress(String address) {
         new FunnelFillBasicDataCommand(
                 name: "Test",
                 phonePrefix: "34",
                 phone: "600000000",
                 contactName: "Test",
                 nid: "K12345670",
-                address: address,
-                cinfaCode: cinfaCode
+                address: address
         )
     }
 
@@ -149,7 +146,7 @@ class FunnelFillBasicDataCommandSpec extends Specification {
     }
 
     // ---------------------------------------------------------------------
-    // KPV-8589: address / cinfaCode — pharmacy-exclusive, required only when
+    // KPV-8589: address — pharmacy-exclusive, required only when
     // contestApplicationWithCollaborator (hasCollaborator) is true
     // ---------------------------------------------------------------------
 
@@ -157,7 +154,7 @@ class FunnelFillBasicDataCommandSpec extends Specification {
     void "pharmacy address '#address' should be valid=#expectedValid"() {
         given:
         mockDomain(true)
-        FunnelFillBasicDataCommand command = buildCommandWithAddressAndCinfaCode(address, "12345")
+        FunnelFillBasicDataCommand command = buildCommandWithAddress(address)
 
         when:
         command.validate()
@@ -179,51 +176,13 @@ class FunnelFillBasicDataCommandSpec extends Specification {
     void "address is not required when hasCollaborator is false"() {
         given:
         mockDomain(false)
-        FunnelFillBasicDataCommand command = buildCommandWithAddressAndCinfaCode(null, null)
+        FunnelFillBasicDataCommand command = buildCommandWithAddress(null)
 
         when:
         command.validate()
 
         then:
         !command.errors.hasFieldErrors('address')
-    }
-
-    @Unroll
-    void "pharmacy cinfaCode '#cinfaCode' (#description) should be valid=#expectedValid"() {
-        given:
-        mockDomain(true)
-        FunnelFillBasicDataCommand command = buildCommandWithAddressAndCinfaCode("Calle Mayor 1, Madrid", cinfaCode)
-
-        when:
-        command.validate()
-
-        then:
-        !command.errors.hasFieldErrors('cinfaCode') == expectedValid
-
-        and:
-        expectedValid || fieldHasErrorCode(command, 'cinfaCode', expectedErrorCode)
-
-        where:
-        cinfaCode | expectedValid | expectedErrorCode    | description
-        "12345"   | true          | null                 | "5 digits, minimum allowed"
-        "123456"  | true          | null                 | "6 digits, maximum allowed"
-        null      | false         | cinfaCodeBlankError  | "missing"
-        ""        | false         | cinfaCodeBlankError  | "blank"
-        "1234"    | false         | cinfaCodeError       | "only 4 digits"
-        "1234567" | false         | cinfaCodeError       | "7 digits, too many"
-        "12a45"   | false         | cinfaCodeError       | "contains a letter"
-    }
-
-    void "cinfaCode is not required when hasCollaborator is false"() {
-        given:
-        mockDomain(false)
-        FunnelFillBasicDataCommand command = buildCommandWithAddressAndCinfaCode(null, null)
-
-        when:
-        command.validate()
-
-        then:
-        !command.errors.hasFieldErrors('cinfaCode')
     }
 
     // ---------------------------------------------------------------------
