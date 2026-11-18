@@ -10,6 +10,7 @@ class DomainValidationCommand {
     DomainPrivacyRDTO domainPrivacy
     DomainValidationRDTO firstFactorValidation
     String externalIdName
+    String sponsor
     Boolean validationCensus
     Boolean validationPhone
     Boolean validationCode
@@ -32,6 +33,7 @@ class DomainValidationCommand {
         domainPrivacy nullable: false
         firstFactorValidation nullable: false
         externalIdName nullable: true
+        sponsor nullable: true, maxSize: 255
         validationCensus nullable: true
         validationPhone nullable: true
         validationCode nullable: true
