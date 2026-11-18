@@ -1,5 +1,8 @@
 <r:require modules="datepicker, campaignForm"/>
 
+<%-- Domain sponsor (null if none). It goes into labels that FormTagLib prints raw, so it is HTML-encoded here --%>
+<g:set var="sponsor" value="${kuorum.core.customDomain.CustomDomainResolver.sponsor?.encodeAsHTML()}"/>
+
 
 <div class="box-steps container-fluid campaign-steps">
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
@@ -28,13 +31,17 @@
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-xs-10">
                 <formUtil:checkBox command="${command}" field="acceptedLegalBases" showLabel="true" defaultEmpty="true"
-                                   label="${g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.acceptedLegalBases.label', args: [contest.getTitle()])}"/>
+                                   label="${sponsor ?
+                                           g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.acceptedLegalBases.label.withSponsor', args: [sponsor]) :
+                                           g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.acceptedLegalBases.label', args: [contest.getTitle()])}"/>
             </div>
         </fieldset>
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-xs-10">
                 <formUtil:checkBox command="${command}" field="imageRights" showLabel="true" defaultEmpty="true"
-                                   label="${g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.imageRights.label', args: [_domainName, contest.getTitle()])}"/>
+                                   label="${sponsor ?
+                                           g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.imageRights.label.withSponsor', args: [_domainName, sponsor]) :
+                                           g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.imageRights.label', args: [_domainName, contest.getTitle()])}"/>
             </div>
         </fieldset>
         <g:render template="/campaigns/edit/stepButtons"

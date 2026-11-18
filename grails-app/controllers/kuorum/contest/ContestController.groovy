@@ -402,11 +402,7 @@ class ContestController extends CampaignController {
         try {
             ContestApplicationVoteRSDTO vote = contestApplicationService.vote(command.userAlias, command.contestId, command.campaignId, loggedUser.getId().toString());
 
-            boolean isContestOrContestApplication = isContestOrContestApplication(contestRSDTO.campaignType)
-            String voteMessage = isContestOrContestApplication ?
-                    g.message(code: 'contestApplication.callToAction.VOTING.success.customDomain', args: [contestRSDTO.user.fullName, contestRSDTO.title]) :
-                    g.message(code: 'contestApplication.callToAction.VOTING.success')
-            render([success: true, message: voteMessage, vote: vote] as JSON)
+            render([success: true, message: buildVoteSuccessMessage(contestRSDTO), vote: vote] as JSON)
         } catch (Exception e) {
             String msgError = "Error updating saving your vote"
             if (e.undeclaredThrowable.cause instanceof KuorumException) {
@@ -422,6 +418,18 @@ class ContestController extends CampaignController {
 
     boolean isContestOrContestApplication(CampaignTypeRSDTO campaignType) {
         return campaignType == CampaignTypeRSDTO.CONTEST || campaignType == CampaignTypeRSDTO.CONTEST_APPLICATION
+    }
+
+    // The domain sponsor (if any) is the one thanking for the vote; it is shown as HTML in the noty, so it is encoded
+    private String buildVoteSuccessMessage(ContestRSDTO contestRSDTO) {
+        if (!isContestOrContestApplication(contestRSDTO.campaignType)) {
+            return message(code: 'contestApplication.callToAction.VOTING.success')
+        }
+        String sponsor = CustomDomainResolver.sponsor
+        if (sponsor) {
+            return message(code: 'contestApplication.callToAction.VOTING.success.sponsor', args: [sponsor.encodeAsHTML()])
+        }
+        return message(code: 'contestApplication.callToAction.VOTING.success.customDomain', args: [contestRSDTO.user.fullName, contestRSDTO.title])
     }
 
     def anonymousVote(ContestApplicationVoteCommand) {

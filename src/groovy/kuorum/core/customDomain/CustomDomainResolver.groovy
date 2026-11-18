@@ -96,6 +96,19 @@ class CustomDomainResolver {
         CONTEXT.get().put(PARAM_DOMAIN_CONFIG, domainConfig)
     }
 
+    /**
+     * Sponsor configured for the current domain, or null when there is none (or it is blank).
+     * The property only exists in the kuorumRestModel versions that include it, so it is read defensively: a front running against an older
+     * model/back (wrong deploy order, rollback) behaves as "no sponsor" instead of failing with MissingPropertyException.
+     */
+    static String getSponsor() {
+        DomainRSDTO domain = getDomainRSDTO()
+        if (domain == null || !domain.hasProperty('sponsor')) {
+            return null
+        }
+        return domain.sponsor?.toString()?.trim() ?: null
+    }
+
     static Integer getMinFilesPerDocInContest() {
         return isContestApplicationWithCollaboratorEnabled() ?
                 WebConstants.MIN_FILES_PER_DOC_IN_CONTEST_FOR_COLLABORATOR_APPLICATIONS :
