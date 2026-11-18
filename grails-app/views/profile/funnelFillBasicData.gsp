@@ -15,10 +15,13 @@
 </content>
 
 <content tag="mainContent">
+    <contestApplication:hasCollaborator/>
     <ol class="stepsSign">
         <li class="active"><div class="step-label"><g:message code="customRegister.fillProfile.basicData"/></div></li>
         <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.images"/></div></li>
-        <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.files"/></div></li>
+        <g:if test="${!hasCollaborator}">
+            <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.files"/></div></li>
+        </g:if>
         <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.social"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepBasicData" autocomplete="off"/>
@@ -59,15 +62,9 @@
                                         label="${g.message(code: 'kuorum.web.commands.payment.contact.ContactCommand.phone.label')}"/>
             <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
         </div>
-
-        <g:set var="hasCollaborator" value="${CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}"/>
-        <g:if test="${hasCollaborator}">
-            <div class="form-group col-md-6">
-                <formUtil:input command="${command}" field="cinfaCode" cssClass="form-control input-lg"
-                                showLabel="true" showCharCounter="false"/>
-            </div>
-        </g:if>
     </fieldset>
+
+    <g:set var="hasCollaborator" value="${CustomDomainResolver.domainRSDTO?.contestApplicationWithCollaborator ?: false}"/>
 
     <g:if test="${hasCollaborator}">
         <fieldset aria-live="polite" class="row">

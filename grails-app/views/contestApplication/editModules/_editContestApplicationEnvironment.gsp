@@ -25,7 +25,7 @@
 
         <g:if test="${hasCollaborator}">
             <fieldset aria-live="polite" class="form-group">
-                <h2 class="col-sm-offset-1"><g:message code="kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.entityData.title"/></h2>
+                <h2 class="col-sm-offset-1"><g:message code="kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.projectData.title"/></h2>
             </fieldset>
         </g:if>
 
@@ -54,7 +54,7 @@
         </fieldset>
 
         <fieldset aria-live="polite" class="form-group">
-            <contestApplication:handleCollaboratorFields command="${command}" hasCollaborator="${hasCollaborator}"/>
+            <contestApplication:beneficiaryFields command="${command}" hasCollaborator="${hasCollaborator}"/>
         </fieldset>
 
         <g:render template="/campaigns/edit/stepButtons"

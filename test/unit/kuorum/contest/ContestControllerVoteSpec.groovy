@@ -1,9 +1,12 @@
 package kuorum.contest
 
 import grails.test.mixin.TestFor
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.users.CookieUUIDService
 import kuorum.web.commands.payment.contest.ContestApplicationVoteCommand
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import payment.campaign.ContestApplicationService
 import payment.campaign.ContestService
 import spock.lang.Specification
@@ -56,5 +59,69 @@ class ContestControllerVoteSpec extends Specification {
         0 * controller.cookieUUIDService._
         response.json.success == false
         response.json.message == "You are unauthorized"
+    }
+
+    // --- confirmation message: the domain sponsor (if any) is the one thanking for the vote ---
+
+    def owner = Stub(BasicDataKuorumUserRSDTO) { getFullName() >> "Owner name" }
+
+    private void messages() {
+        // Unit tests use a static message source: register the texts with their {n} arguments
+        messageSource.addMessage("contestApplication.callToAction.VOTING.success", request.locale, "Saved. Thank you")
+        messageSource.addMessage("contestApplication.callToAction.VOTING.success.customDomain", request.locale, "Registered. On behalf of {0}, thanks for {1}.")
+        messageSource.addMessage("contestApplication.callToAction.VOTING.success.sponsor", request.locale, "Registered. On behalf of {0}, thanks for this initiative.")
+    }
+
+    private ContestRSDTO contest(CampaignTypeRSDTO type) {
+        return new ContestRSDTO(campaignType: type, title: "Contest title", user: owner)
+    }
+
+    private void sponsor(String sponsor) {
+        CustomDomainResolver.metaClass.static.getSponsor = { -> sponsor }
+    }
+
+    def cleanup() {
+        GroovySystem.metaClassRegistry.removeMetaClass(CustomDomainResolver)
+    }
+
+    void "vote confirmation of a contest application in a domain with sponsor thanks on behalf of the sponsor"() {
+        given:
+        messages()
+        sponsor("Sponsor name")
+
+        expect:
+        controller.buildVoteSuccessMessage(contest(CampaignTypeRSDTO.CONTEST_APPLICATION)) == "Registered. On behalf of Sponsor name, thanks for this initiative."
+        controller.buildVoteSuccessMessage(contest(CampaignTypeRSDTO.CONTEST)) == "Registered. On behalf of Sponsor name, thanks for this initiative."
+    }
+
+    void "the sponsor is HTML encoded in the confirmation (the noty prints HTML)"() {
+        given:
+        messages()
+        sponsor("<b>Acme</b> & \"Co\"")
+
+        when:
+        String message = controller.buildVoteSuccessMessage(contest(CampaignTypeRSDTO.CONTEST_APPLICATION))
+
+        then:
+        message.contains("&lt;b&gt;Acme&lt;/b&gt;")
+        !message.contains("<b>")
+    }
+
+    void "without sponsor the confirmation is the previous one (contest owner and contest title)"() {
+        given:
+        messages()
+        sponsor(null)
+
+        expect:
+        controller.buildVoteSuccessMessage(contest(CampaignTypeRSDTO.CONTEST_APPLICATION)) == "Registered. On behalf of Owner name, thanks for Contest title."
+    }
+
+    void "campaigns that are not contests keep the generic confirmation even if the domain has a sponsor"() {
+        given:
+        messages()
+        sponsor("Sponsor name")
+
+        expect:
+        controller.buildVoteSuccessMessage(contest(CampaignTypeRSDTO.DEBATE)) == "Saved. Thank you"
     }
 }

@@ -35,6 +35,13 @@
             label        : g.message(code: 'tools.campaign.new.steps.environment')
     ]"/>
     <g:render template="/campaigns/steps/campaignStepActionButton" model="[
+            show         : mappings.association,
+            currentActive: mappings.step == 'association',
+            link         : mappings.association,
+            faIcon       : 'fa-hand-holding-heart',
+            label        : g.message(code: 'tools.campaign.new.steps.association')
+    ]"/>
+    <g:render template="/campaigns/steps/campaignStepActionButton" model="[
             show         : mappings.content,
             currentActive: mappings.step == 'content',
             link         : mappings.content,

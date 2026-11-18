@@ -14,8 +14,6 @@ class ContestApplicationScopeCommand {
     Integer numBenefitedCaregivers
     Integer numBenefitedPacients
     Integer numBeneficiaries
-    String associationName
-    String associationImage
 
     // Not bound from the request: set server-side by ContestApplicationController, never trusted from the client
     Boolean hasCollaborator
@@ -27,18 +25,9 @@ class ContestApplicationScopeCommand {
         focusType nullable: false
         numBenefitedCaregivers nullable: false
         numBenefitedPacients nullable: false
+        // Only collaborator applications ask for it. Error code 'nullable' for empty/zero values so the "...cannot be empty or zero" message applies
         numBeneficiaries nullable: true, validator: { val, obj ->
             if (obj.hasCollaborator && (val == null || val <= 0)) {
-                return 'nullable'
-            }
-        }
-        associationName nullable: true, validator: { val, obj ->
-            if (obj.hasCollaborator && !val) {
-                return 'nullable'
-            }
-        }
-        associationImage nullable: true, validator: { val, obj ->
-            if (obj.hasCollaborator && !val) {
                 return 'nullable'
             }
         }

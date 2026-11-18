@@ -518,7 +518,6 @@ class ProfileController {
         command.fillBioParts(user.bio)
         command.nid = user.nid
         command.address = user.address
-        command.cinfaCode = user.cinfaCode
         return [command: command]
     }
 
@@ -554,7 +553,6 @@ class ProfileController {
         user.surname = "" // RESET SURNAME => His name will be overwritten with the association name
         user.nid = command.nid
         user.address = command.address
-        user.cinfaCode = command.cinfaCode
         kuorumUserService.updateUser(user)
 
         ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
@@ -622,15 +620,28 @@ class ProfileController {
         }
         prepareUserImages(user, command, fileService)
         kuorumUserService.updateUser(user)
-        redirect mapping: 'funnelFillFiles', params: [campaignId: params.campaignId]
+        redirect mapping: nextFunnelStepAfterImages(), params: [campaignId: params.campaignId]
+    }
+
+    // The collaborator variant has no profile files step: its documents are uploaded in the Association step of the contest application
+    private String nextFunnelStepAfterImages() {
+        return CustomDomainResolver.isContestApplicationWithCollaboratorEnabled() ? 'funnelFillSocial' : 'funnelFillFiles'
     }
 
     def funnelFillFiles() {
+        if (CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()) {
+            redirect mapping: 'funnelFillSocial', params: [campaignId: params.campaignId]
+            return
+        }
         ContactRSDTO contactRSDTO = getAdminContact()
         [contact: contactRSDTO, campaignId: params.campaignId]
     }
 
     def saveFunnelFillFiles() {
+        if (CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()) {
+            redirect mapping: 'funnelFillSocial', params: [campaignId: params.campaignId]
+            return
+        }
         ContactRSDTO adminContact = getAdminContact()
         List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
         Integer minFiles = CustomDomainResolver.minFilesPerDocInContest

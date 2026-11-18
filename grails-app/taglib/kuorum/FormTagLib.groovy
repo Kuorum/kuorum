@@ -201,7 +201,13 @@ class FormTagLib {
         def actionDelete
         List<String> alreadyUploadedFiles
         if (campaignRSDTO.campaignType != CampaignTypeRSDTO.BULLETIN){
-            alreadyUploadedFiles = campaignService.getFiles(campaignRSDTO)
+            try {
+                alreadyUploadedFiles = campaignService.getFiles(campaignRSDTO)
+            } catch (Exception e) {
+                // The uploader must still render (and the form be savable) if the files list cannot be loaded
+                log.error("Error loading the files of the campaign ${campaignRSDTO.id}", e)
+                alreadyUploadedFiles = []
+            }
             actionUpload = g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties())
             actionDelete = g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties())
 
@@ -240,11 +246,11 @@ class FormTagLib {
         alreadyUploadedFiles = alreadyUploadedFiles.collect { it.split('\\?').first() }
         def model = [
                 alreadyUploadedFiles: alreadyUploadedFiles,
-                elementId           : contact.id,
+                elementId           : contact?.id,
                 disabled            : false,
                 confirmRemoveFile   : true,
-                actionUpload        : g.createLink(mapping: 'ajaxUploadContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
-                actionDelete        : g.createLink(mapping: 'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
+                actionUpload        : g.createLink(mapping: 'ajaxUploadContactFile', params: [contactId: contact?.id, userAlias: contactOwnerId, adminContact: adminContact]),
+                actionDelete        : g.createLink(mapping: 'ajaxDeleteContactFile', params: [contactId: contact?.id, userAlias: contactOwnerId, adminContact: adminContact]),
                 label               : label,
                 hideLinkIcon        : true
         ]
@@ -1069,8 +1075,23 @@ class FormTagLib {
             </label>
             """
         if (error) {
-            out << "<span class='error' id='${elementId}-error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error' id='${elementId}-error'>${fieldErrorText(command, field, attrs.messageVariant)}</span>"
         }
+    }
+
+    /**
+     * Error text of a command field. With a variant (e.g. "withCollaborator") the message
+     * "<command class>.<field>.<error code>.<variant>" is used when it exists, falling back to the default one.
+     */
+    private String fieldErrorText(def command, String field, String variant) {
+        if (variant) {
+            def fieldError = command.errors.getFieldError(field)
+            String variantMessage = fieldError ? g.message(code: "${command.class.name}.${field}.${fieldError.code}.${variant}", default: '') : ''
+            if (variantMessage) {
+                return variantMessage
+            }
+        }
+        return g.fieldError(bean: command, field: field)
     }
 
     def checkBoxDomainList = {attrs->
@@ -1229,14 +1250,14 @@ class FormTagLib {
             messages.append("number: '${text}',")
         }
     }
-    private void printValidation (restrictions, messages,constraint,filedName){
+    private void printValidation (restrictions, messages,constraint,filedName, String messageVariant = null){
         String prefixMessage = constraint.constraintOwningClass.name
 
         if (constraint instanceof NullableConstraint){
             restrictions.append("required: ${!constraint.nullable} ,")
 //            restrictions.append("blank: ${constraint.nullable},")
             String code = prefixMessage + ".${filedName}.nullable"
-            String text = g.message(code:code)
+            String text = validationMessage(code, messageVariant)
             messages.append("required: \"${text}\",")
 //            messages.append("blank: '${text}',")
 //        }else if (constraint instanceof BlankConstraint){
@@ -1247,12 +1268,12 @@ class FormTagLib {
         }else if (constraint instanceof MinConstraint && !(constraint.minValue instanceof Date)){
             restrictions.append("min: ${constraint.minValue},")
             String code = prefixMessage + ".${filedName}.min"
-            String text = g.message(code:code,args:[constraint.minValue])
+            String text = validationMessage(code, messageVariant, [constraint.minValue])
             messages.append("min: \"${text}\",")
         }else if (constraint instanceof MinSizeConstraint){
             restrictions.append("minlength: ${constraint.minSize},")
             String code = prefixMessage + ".${filedName}.min.size"
-            String text = g.message(code:code,args:[constraint.minSize])
+            String text = validationMessage(code, messageVariant, [constraint.minSize])
             messages.append("minlength: \"${text}\",")
 //        }else if (constraint instanceof MatchesConstraint){
 //            restrictions.append("regex: /${constraint.regex}/,")
@@ -1262,19 +1283,31 @@ class FormTagLib {
         }else if (constraint instanceof MaxSizeConstraint){
             restrictions.append("maxlength: ${constraint.maxSize},")
             String code = prefixMessage + ".${filedName}.max.size"
-            String text = g.message(code:code,args:[constraint.maxSize])
+            String text = validationMessage(code, messageVariant, [constraint.maxSize])
             messages.append("maxlength: \"${text}\",")
         }else if (constraint instanceof EmailConstraint){
             restrictions.append("email: true,")
             String code = prefixMessage + ".${filedName}.wrongFormat"
-            String text = g.message(code:code)
+            String text = validationMessage(code, messageVariant)
             messages.append("email: \"${text}\",")
         }else if (constraint instanceof UrlConstraint && constraint.url){
             restrictions.append("url: true,")
             String code = prefixMessage + ".${filedName}.wrongFormat"
-            String text = g.message(code:code)
+            String text = validationMessage(code, messageVariant)
             messages.append("url: \"${text}\",")
         }
+    }
+
+
+    private String validationMessage(String code, String variant, List args = null) {
+        Map attrs = args ? [args: args] : [:]
+        if (variant) {
+            String variantMessage = g.message(attrs + [code: "${code}.${variant}", default: ''])
+            if (variantMessage) {
+                return variantMessage
+            }
+        }
+        return g.message(attrs + [code: code])
     }
 
 
@@ -1323,6 +1356,10 @@ class FormTagLib {
         def className = attrs.command
         def bean = attrs.bean
         def dirtyControl = Boolean.parseBoolean(attrs.dirtyControl)
+        // Optional (e.g. "withCollaborator"): validation messages "<code>.<variant>" win over the default ones when they exist
+        String messageVariant = attrs.messageVariant
+        // Optional: also validate hidden inputs (jquery-validate ignores them by default), e.g. the id of an uploaded image
+        boolean validateHidden = Boolean.parseBoolean(attrs.validateHidden?.toString())
         def obj
 
         if (!bean)
@@ -1338,6 +1375,7 @@ class FormTagLib {
 			\$(function (){
 				\$("#${formId}").validate({
                 errorClass:'error',
+                ${validateHidden ? 'ignore: "",' : ''}
                 errorPlacement: function(error, element) {
                     if(element.attr('id') == 'deadline'){
                         error.appendTo(element.parent("div").parent("div"));
@@ -1358,7 +1396,7 @@ class FormTagLib {
                   },
                 errorElement:'span',
         """
-        def rulesAndMessages = generateRulesAndMessages(obj)
+        def rulesAndMessages = generateRulesAndMessages(obj, messageVariant)
         scriptValidation = scriptValidation +
             """
                  ${rulesAndMessages.rules} , ${rulesAndMessages.message}
@@ -1375,7 +1413,7 @@ class FormTagLib {
         }
     }
 
-    private Map generateRulesAndMessages(def obj){
+    private Map generateRulesAndMessages(def obj, String messageVariant = null){
         def rules = new StringBuffer("rules: {")
         def message = new StringBuffer(" messages: {")
         obj.constraints.each{fields ->
@@ -1389,7 +1427,7 @@ class FormTagLib {
                 rules.append("\"${fieldName}\":{")
                 message.append("\"${fieldName}\":{")
                 constraint.appliedConstraints.each{c ->
-                    printValidation(rules, message,c,fieldName)
+                    printValidation(rules, message,c,fieldName, messageVariant)
                     printValidationType(rules, message,c, fieldName)
                 }
                 rules.deleteCharAt(rules.length() - 1)
