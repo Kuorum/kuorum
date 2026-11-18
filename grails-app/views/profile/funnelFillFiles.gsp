@@ -26,7 +26,8 @@
     <form name="stepFillFiles" role="form" method="POST" autocomplete="off"  class="col-lg-10 col-lg-offset-1 m-top-10">
         <fieldset aria-live="polite" class="row">
             <div class="form-group form-group-files">
-                <contestApplication:domainUploadContactFiles contact="${contact}" />
+                <formUtil:uploadContactFiles contact="${contact}" adminContact="true"
+                                             label="${g.message(code: 'customRegister.fillProfile.files.uploadContactFiles.label')}"/>
             </div>
         </fieldset>
         <fieldset aria-live="polite" class="row">

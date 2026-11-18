@@ -25,8 +25,9 @@
         step: 'environment' ,
         content: 'contestApplicationEditContent',
         environment: 'contestApplicationCreate' ,
+        association: hasCollaborator ? 'contestApplicationEditAssociation' : null,
         showResult: 'campaignShow',
-        next: 'contestApplicationEditContent',
+        next: hasCollaborator ? 'contestApplicationEditAssociation' : 'contestApplicationEditContent',
         hideDraftButton: true
         ]}"/>
 

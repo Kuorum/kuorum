@@ -16,10 +16,13 @@
 </content>
 
 <content tag="mainContent">
+    <contestApplication:hasCollaborator/>
     <ol class="stepsSign">
         <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.basicData"/></div></li>
         <li class="active"><div class="step-label"><g:message code="customRegister.fillProfile.images"/></div></li>
-        <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.files"/></div></li>
+        <g:if test="${!hasCollaborator}">
+            <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.files"/></div></li>
+        </g:if>
         <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.social"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepFillImages" autocomplete="off"/>

@@ -620,15 +620,28 @@ class ProfileController {
         }
         prepareUserImages(user, command, fileService)
         kuorumUserService.updateUser(user)
-        redirect mapping: 'funnelFillFiles', params: [campaignId: params.campaignId]
+        redirect mapping: nextFunnelStepAfterImages(), params: [campaignId: params.campaignId]
+    }
+
+    // The collaborator variant has no profile files step: its documents are uploaded in the Association step of the contest application
+    private String nextFunnelStepAfterImages() {
+        return CustomDomainResolver.isContestApplicationWithCollaboratorEnabled() ? 'funnelFillSocial' : 'funnelFillFiles'
     }
 
     def funnelFillFiles() {
+        if (CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()) {
+            redirect mapping: 'funnelFillSocial', params: [campaignId: params.campaignId]
+            return
+        }
         ContactRSDTO contactRSDTO = getAdminContact()
         [contact: contactRSDTO, campaignId: params.campaignId]
     }
 
     def saveFunnelFillFiles() {
+        if (CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()) {
+            redirect mapping: 'funnelFillSocial', params: [campaignId: params.campaignId]
+            return
+        }
         ContactRSDTO adminContact = getAdminContact()
         List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
         Integer minFiles = CustomDomainResolver.minFilesPerDocInContest

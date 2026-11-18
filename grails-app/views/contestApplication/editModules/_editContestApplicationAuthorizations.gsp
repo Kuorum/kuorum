@@ -8,7 +8,8 @@
 <div class="box-ppal campaign-new">
     <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 
-    <formUtil:validateForm bean="${command}" form="contestApplicationEditScope" dirtyControl="true"/>
+    <formUtil:validateForm bean="${command}" form="contestApplicationEditScope" dirtyControl="true"
+                          messageVariant="${hasCollaborator ? 'withCollaborator' : ''}"/>
     <form action="#" class="form-horizontal campaign-form" id="contestApplicationEditScope" method="POST"
           data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
         <input type="hidden" name="sendType"
@@ -20,6 +21,7 @@
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-xs-10">
                 <formUtil:checkBox command="${command}" field="authorizedAgent" showLabel="true" defaultEmpty="true"
+                                   messageVariant="${hasCollaborator ? 'withCollaborator' : ''}"
                                    label="${contestApplication.domainMessage(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.authorizedAgent.label', hasCollaborator: hasCollaborator)}"/>
             </div>
         </fieldset>
