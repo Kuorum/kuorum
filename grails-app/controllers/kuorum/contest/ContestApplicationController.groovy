@@ -105,7 +105,8 @@ class ContestApplicationController extends CampaignController {
         return contestApplicationModelEditAssociation(null, contestApplicationRSDTO, contest)
     }
 
-    // Saves the association data in the draft and goes on to the next step
+    // The text data is always saved as a draft (even if the registration sheet is missing or the files service is down), but the user can
+    // only go on to the next step with at least one verified file. It is checked again when the application is sent (see saveAuthorizations).
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveAssociation(ContestApplicationAssociationCommand command) {
         KuorumUserSession user = springSecurityService.principal
@@ -123,6 +124,13 @@ class ContestApplicationController extends CampaignController {
         contestApplicationRSDTO = contestApplicationService.save(user, rdto, contestApplicationRSDTO.getId())
         updateAssociationImageFile(command.associationImage, contestApplicationRSDTO.associationImage, user)
 
+        Boolean hasFiles = hasMinAssociationFiles(contestApplicationRSDTO)
+        if (!hasFiles) {
+            // The text data is already saved, but the registration sheet is mandatory to go on: stay in this step
+            flash.error = message(code: hasFiles == null ? 'contestApplication.association.files.checkFailed' : 'contestApplication.association.files.missing')
+            redirect mapping: 'contestApplicationEditAssociation', params: contestApplicationRSDTO.encodeAsLinkProperties()
+            return
+        }
         def nextStep = processNextStep(user, contestApplicationRSDTO, false)
         redirect mapping: nextStep.mapping, params: nextStep.params
     }
@@ -187,6 +195,9 @@ class ContestApplicationController extends CampaignController {
             ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(loggedUser, Long.parseLong((String) params.campaignId))
             ContestRSDTO contest = getContest(contestApplicationRSDTO.getContest().getId())
             render view: 'editAuthorizationsStep', model: contestApplicationModelEditAuthorizations(command, contestApplicationRSDTO, contest)
+            return
+        }
+        if (command.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT && !isAssociationStepCompleted(loggedUser, campaignId)) {
             return
         }
         ContestApplicationRDTO contestApplicationRSDTO = createRDTO(loggedUser, campaignId, contestApplicationService)
@@ -339,6 +350,38 @@ class ContestApplicationController extends CampaignController {
     protected boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {
         List<String> files = contactService.getFiles(campaignOwner.getId().toString(), ownerContact)
         return files.size() >= CustomDomainResolver.minFilesPerDocInContest
+    }
+
+    // true/false when the files service answered; null when the check could not be done (network error, API down)
+    private Boolean hasMinAssociationFiles(ContestApplicationRSDTO contestApplicationRSDTO) {
+        try {
+            return campaignService.getFiles(contestApplicationRSDTO).size() >= CustomDomainResolver.minFilesPerDocInContest
+        } catch (Exception e) {
+            log.error("Error checking the association files of the contest application ${contestApplicationRSDTO?.id}", e)
+            return null
+        }
+    }
+
+    // Hard requirement before sending a collaborator application: the Association step must have been completed (the image is only saved
+    // there) and it must have its registration sheet. If not, it redirects (and returns false) so the caller must stop.
+    private boolean isAssociationStepCompleted(KuorumUserSession loggedUser, Long campaignId) {
+        ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(loggedUser, campaignId)
+        if (resolveContestApplicationType(contestApplicationRSDTO) != ContestApplicationTypeDTO.COLLABORATOR) {
+            return true
+        }
+        if (!contestApplicationRSDTO.associationImage) {
+            flash.error = message(code: 'contestApplication.association.sendMissingLogo')
+            redirect mapping: 'contestApplicationEditAssociation', params: contestApplicationRSDTO.encodeAsLinkProperties()
+            return false
+        }
+        Boolean hasFiles = hasMinAssociationFiles(contestApplicationRSDTO)
+        if (hasFiles) {
+            return true
+        }
+        flash.error = message(code: hasFiles == null ? 'contestApplication.association.files.sendCheckFailed' : 'contestApplication.association.files.sendMissing')
+        redirect mapping: hasFiles == null ? 'contestApplicationEditAuthorizations' : 'contestApplicationEditAssociation',
+                params: contestApplicationRSDTO.encodeAsLinkProperties()
+        return false
     }
 
     // Persisted contestApplicationType wins over the domain's live flag; the flag only decides for a new application
