@@ -30,6 +30,25 @@ class ContestApplicationTagLib {
     }
 
     /**
+     * Copy of attrs where the label (and, unless withPlaceholder is false, the placeholder) are replaced by the
+     * "<command class>.<field>.label|placeHolder.withCollaborator" messages when the collaborator variant applies and
+     * those messages exist. Copying avoids GroovyPageAttributes being read-only.
+     */
+    private Map collaboratorOverrides(Map attrs, boolean withPlaceholder = true) {
+        Map newAttrs = new HashMap(attrs)
+        if (resolveHasCollaborator(attrs)) {
+            String baseCode = "${newAttrs.command.getClass().name}.${newAttrs.field}"
+            String label = message(code: "${baseCode}.label.withCollaborator", default: '')
+            if (label) newAttrs.label = label
+            if (withPlaceholder) {
+                String placeholder = message(code: "${baseCode}.placeHolder.withCollaborator", default: '')
+                if (placeholder) newAttrs.placeholder = placeholder
+            }
+        }
+        return newAttrs
+    }
+
+    /**
      * Renders the collaborating association's avatar + name next to the contest application
      * owner's own entry, when the domain is configured for the collaborator variant AND this
      * specific application actually has collaborator data - the domain flag alone doesn't mean
@@ -85,49 +104,15 @@ class ContestApplicationTagLib {
     }
 
     def domainInput = { attrs ->
-        // Clonamos para evitar el bloqueo de GroovyPageAttributes
-        def newAttrs = new HashMap(attrs)
-        boolean hasCollaborator = resolveHasCollaborator(attrs)
-
-        if (hasCollaborator) {
-            String baseCode = "${newAttrs.command.getClass().name}.${newAttrs.field}"
-            // Usamos message() nativo del taglib
-            String collaboratorLabel = message(code: "${baseCode}.label.withCollaborator", default: '')
-            String collaboratorPlaceholder = message(code: "${baseCode}.placeHolder.withCollaborator", default: '')
-
-            if (collaboratorLabel) newAttrs.label = collaboratorLabel
-            if (collaboratorPlaceholder) newAttrs.placeholder = collaboratorPlaceholder
-        }
-
-        out << formUtil.input(newAttrs)
+        out << formUtil.input(collaboratorOverrides(attrs))
     }
 
     def domainTextArea = { attrs ->
-        def newAttrs = new HashMap(attrs)
-        boolean hasCollaborator = resolveHasCollaborator(attrs)
-
-        if (hasCollaborator) {
-            String baseCode = "${newAttrs.command.getClass().name}.${newAttrs.field}"
-
-            String collaboratorLabel = message(code: "${baseCode}.label.withCollaborator", default: '')
-            String collaboratorPlaceholder = message(code: "${baseCode}.placeHolder.withCollaborator", default: '')
-
-            if (collaboratorLabel) newAttrs.label = collaboratorLabel
-            if (collaboratorPlaceholder) newAttrs.placeholder = collaboratorPlaceholder
-        }
-
-        out << formUtil.textArea(newAttrs)
+        out << formUtil.textArea(collaboratorOverrides(attrs))
     }
 
     def domainEditImage = { attrs ->
-        def newAttrs = new HashMap(attrs)
-        boolean hasCollaborator = resolveHasCollaborator(attrs)
-
-        if (hasCollaborator) {
-            String baseCode = "${newAttrs.command.getClass().name}.${newAttrs.field}"
-            String collaboratorLabel = message(code: "${baseCode}.label.withCollaborator", default: '')
-            if (collaboratorLabel) newAttrs.label = collaboratorLabel
-        }
+        Map newAttrs = collaboratorOverrides(attrs, false)
 
         def showLabel = newAttrs.showLabel ? Boolean.parseBoolean(newAttrs.showLabel.toString()) : false
         if (showLabel) {
