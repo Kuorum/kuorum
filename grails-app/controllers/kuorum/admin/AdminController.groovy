@@ -135,6 +135,7 @@ class AdminController {
         domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
         domainValidationCommand.tourEnabled = domainRSDTO.tourEnabled
         domainValidationCommand.externalIdName = domainRSDTO.externalIdName
+        domainValidationCommand.sponsor = domainRSDTO.sponsor
 
         domainValidationCommand.providerBasicEmailForm = domainRSDTO.loginSettings.providerBasicEmailForm
         domainValidationCommand.providerGoogle = domainRSDTO.loginSettings.providerGoogle
@@ -165,6 +166,9 @@ class AdminController {
         domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
         domainRDTO.firstFactorValidation = command.firstFactorValidation
         domainRDTO.externalIdName = command.externalIdName
+        if (SpringSecurityUtils.ifAnyGranted('ROLE_SUPER_ADMIN')) {
+            domainRDTO.sponsor = command.sponsor
+        }
         domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
         domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
         domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false
