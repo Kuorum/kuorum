@@ -135,7 +135,8 @@ class AdminController {
         domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
         domainValidationCommand.tourEnabled = domainRSDTO.tourEnabled
         domainValidationCommand.externalIdName = domainRSDTO.externalIdName
-        domainValidationCommand.sponsor = domainRSDTO.sponsor
+        // The sponsor only exists in the kuorumRestModel versions that include it: with an older model the screen still loads, without sponsor
+        domainValidationCommand.sponsor = domainRSDTO.hasProperty('sponsor') ? domainRSDTO.sponsor : null
 
         domainValidationCommand.providerBasicEmailForm = domainRSDTO.loginSettings.providerBasicEmailForm
         domainValidationCommand.providerGoogle = domainRSDTO.loginSettings.providerGoogle
@@ -166,7 +167,7 @@ class AdminController {
         domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
         domainRDTO.firstFactorValidation = command.firstFactorValidation
         domainRDTO.externalIdName = command.externalIdName
-        if (SpringSecurityUtils.ifAnyGranted('ROLE_SUPER_ADMIN')) {
+        if (SpringSecurityUtils.ifAnyGranted('ROLE_SUPER_ADMIN') && domainRDTO.hasProperty('sponsor')) {
             domainRDTO.sponsor = command.sponsor
         }
         domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
