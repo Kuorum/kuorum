@@ -345,9 +345,13 @@ class ContestApplicationController extends CampaignController {
         return nextStep
     }
 
-    // Domains with the collaborator flag enabled (pharmacy variant) require fewer supporting files than the default contest application
+    // The collaborator variant does not require profile files to start an application: its files are campaign files, uploaded in the
+    // Association step and required when the application is sent. The default variant keeps requiring the profile files.
     @Override
     protected boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {
+        if (CustomDomainResolver.isContestApplicationWithCollaboratorEnabled()) {
+            return true
+        }
         List<String> files = contactService.getFiles(campaignOwner.getId().toString(), ownerContact)
         return files.size() >= CustomDomainResolver.minFilesPerDocInContest
     }

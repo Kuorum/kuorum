@@ -1,19 +1,11 @@
 package kuorum
 
 import kuorum.core.customDomain.CustomDomainResolver
-import kuorum.register.KuorumUserSession
-import org.kuorum.rest.model.contact.ContactRSDTO
-import kuorum.web.constants.WebConstants
 
 class ContestApplicationTagLib {
 
     static defaultEncodeAs = 'raw'
     static namespace = "contestApplication"
-
-    // --- INYECCIÓN DE SERVICIOS (Necesarios para la subida de archivos) ---
-    def springSecurityService
-    def contactService
-    // -----------------------------------------------------------------------
 
     /**
      * Resolves whether the collaborator (pharmacy/association) variant applies for this render.
@@ -129,7 +121,7 @@ class ContestApplicationTagLib {
     /**
      * Reimplements FormTagLib#socialInput's HTML (rather than delegating to it) because that tag
      * always resolves its own label/placeholder from the generic message code, with no way to pass
-     * an override via attrs - same reasoning as domainUploadContactFiles above.
+     * an override via attrs.
      */
     def domainSocialInput = { attrs ->
         def command = attrs.command
@@ -159,38 +151,6 @@ class ContestApplicationTagLib {
         if (error) {
             out << "<span class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
-    }
-
-    def domainUploadContactFiles = { attrs ->
-        // 1. Comprobamos si es farmacia/colaborador para cambiar la etiqueta
-        boolean hasCollaborator = resolveHasCollaborator(attrs)
-        String labelCode = hasCollaborator ? 'customRegister.fillProfile.files.uploadContactFiles.label.withCollaborator' : 'customRegister.fillProfile.files.uploadContactFiles.label'
-
-        ContactRSDTO contact = attrs.contact
-        String label = message(code: labelCode)
-
-        // 2. Forzamos adminContact o leemos el de attrs
-        Boolean adminContact = attrs.adminContact ? Boolean.parseBoolean(attrs.adminContact.toString()) : true
-
-        KuorumUserSession userSession = springSecurityService.principal
-        String contactOwnerId = adminContact ? WebConstants.FAKE_LANDING_ALIAS_USER : userSession.id.toString()
-
-        List<String> alreadyUploadedFiles = contactService.getFiles(contactOwnerId, contact)
-        alreadyUploadedFiles = alreadyUploadedFiles.collect { it.split('\\?').first() }
-
-        def model = [
-                alreadyUploadedFiles: alreadyUploadedFiles,
-                elementId           : contact?.id,
-                disabled            : false,
-                confirmRemoveFile   : true,
-                actionUpload        : g.createLink(mapping: 'ajaxUploadContactFile', params: [contactId: contact?.id, userAlias: contactOwnerId, adminContact: adminContact]),
-                actionDelete        : g.createLink(mapping: 'ajaxDeleteContactFile', params: [contactId: contact?.id, userAlias: contactOwnerId, adminContact: adminContact]),
-                label               : label,
-                hideLinkIcon        : true
-        ]
-
-        // 3. Renderizamos directamente la plantilla esquivando a formUtil
-        out << g.render(template: '/layouts/form/uploadMultipleFiles', model: model)
     }
 
     def domainSocialHeader = { attrs ->

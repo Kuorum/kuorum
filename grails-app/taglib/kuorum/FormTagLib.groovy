@@ -246,11 +246,11 @@ class FormTagLib {
         alreadyUploadedFiles = alreadyUploadedFiles.collect { it.split('\\?').first() }
         def model = [
                 alreadyUploadedFiles: alreadyUploadedFiles,
-                elementId           : contact.id,
+                elementId           : contact?.id,
                 disabled            : false,
                 confirmRemoveFile   : true,
-                actionUpload        : g.createLink(mapping: 'ajaxUploadContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
-                actionDelete        : g.createLink(mapping: 'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
+                actionUpload        : g.createLink(mapping: 'ajaxUploadContactFile', params: [contactId: contact?.id, userAlias: contactOwnerId, adminContact: adminContact]),
+                actionDelete        : g.createLink(mapping: 'ajaxDeleteContactFile', params: [contactId: contact?.id, userAlias: contactOwnerId, adminContact: adminContact]),
                 label               : label,
                 hideLinkIcon        : true
         ]
