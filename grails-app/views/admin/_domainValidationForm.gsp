@@ -98,6 +98,13 @@
             <formUtil:checkBox command="${command}" field="providerAoc" showLabel="true" disabled="${!disabledForAdmins}"/>
         </div>
     </fieldset>
+    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.sponsor.label"/></h4>
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-md-6">
+            <formUtil:input command="${command}" field="sponsor" showLabel="true"
+                            disabled="${!disabledForAdmins}"/>
+        </div>
+    </fieldset>
     <h4 class="box-ppal-section-title"><g:message code="org.kuorum.rest.model.domain.DomainValidationRDTO.contestApplicationWithCollaboratorLabel"/></h4>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-12">
