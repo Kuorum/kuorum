@@ -8,6 +8,7 @@ import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
+import kuorum.web.commands.payment.contest.ContestApplicationAssociationCommand
 import kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
 import kuorum.web.commands.payment.contest.NewContestApplicationCommand
@@ -23,6 +24,7 @@ import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignCreatorService
 
 class ContestApplicationController extends CampaignController {
+
 
     // Grails renderer -> For CSV hack
     grails.gsp.PageRenderer groovyPageRenderer
@@ -54,7 +56,6 @@ class ContestApplicationController extends CampaignController {
         KuorumUserSession loggedUser = springSecurityService.principal
         CampaignRDTO campaignRDTO = convertCommandContentToRDTO(command, loggedUser, null, contestApplicationService)
         Map<String, Object> result = saveAndSendCampaign(loggedUser, campaignRDTO, null, null, CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT, contestApplicationService)
-        updateAssociationImageFile(command.associationImage, result.campaign?.associationImage, loggedUser)
         def nextStep = result.nextStep
         redirect mapping: nextStep.mapping, params: nextStep.params
 
@@ -93,6 +94,36 @@ class ContestApplicationController extends CampaignController {
             // Validation failed: updateEnvironmentByCommand already rendered the form with errors
             return
         }
+        redirect mapping: nextStep.mapping, params: nextStep.params
+    }
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
+    def editAssociationStep() {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(loggedUser, Long.parseLong((String) params.campaignId))
+        ContestRSDTO contest = getContest(contestApplicationRSDTO.getContest().getId())
+        return contestApplicationModelEditAssociation(null, contestApplicationRSDTO, contest)
+    }
+
+    // Saves the association data in the draft and goes on to the next step
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
+    def saveAssociation(ContestApplicationAssociationCommand command) {
+        KuorumUserSession user = springSecurityService.principal
+        Long contestApplicationId = params.campaignId ? Long.parseLong(params.campaignId) : null
+        ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(user.id.toString(), contestApplicationId)
+        if (command.hasErrors()) {
+            flash.error = message(error: command.errors.getFieldError())
+            ContestRSDTO contest = getContest(contestApplicationRSDTO.getContest().getId())
+            render view: 'editAssociationStep', model: contestApplicationModelEditAssociation(command, contestApplicationRSDTO, contest)
+            return
+        }
+        ContestApplicationRDTO rdto = contestApplicationService.map(contestApplicationRSDTO)
+        rdto.associationName = command.associationName
+        rdto.associationImage = resolveAssociationImageUrl(command.associationImage, contestApplicationRSDTO.associationImage, user)
+        contestApplicationRSDTO = contestApplicationService.save(user, rdto, contestApplicationRSDTO.getId())
+        updateAssociationImageFile(command.associationImage, contestApplicationRSDTO.associationImage, user)
+
+        def nextStep = processNextStep(user, contestApplicationRSDTO, false)
         redirect mapping: nextStep.mapping, params: nextStep.params
     }
 
@@ -200,11 +231,6 @@ class ContestApplicationController extends CampaignController {
             command.numBenefitedPacients = contestApplicationRSDTO.numBenefitedPacients
             command.numBenefitedCaregivers = contestApplicationRSDTO.numBenefitedCaregivers
             command.numBeneficiaries = contestApplicationRSDTO.numBeneficiaries
-            command.associationName = contestApplicationRSDTO.associationName
-            if (contestApplicationRSDTO.associationImage) {
-                KuorumFile associationImageFile = KuorumFile.findByUrl(contestApplicationRSDTO.associationImage)
-                command.associationImage = associationImageFile?.id?.toString()
-            }
         }
         def model = [
                 campaign: contestApplicationRSDTO,
@@ -214,6 +240,25 @@ class ContestApplicationController extends CampaignController {
                 hasCollaborator: resolveContestApplicationType(contestApplicationRSDTO) == ContestApplicationTypeDTO.COLLABORATOR
         ]
         return model
+    }
+
+    private def contestApplicationModelEditAssociation(ContestApplicationAssociationCommand command, ContestApplicationRSDTO contestApplicationRSDTO, ContestRSDTO contestRSDTO) {
+        if (!command && contestApplicationRSDTO) {
+            command = new ContestApplicationAssociationCommand()
+            // Until the association image is saved, the name is the provisional value set at creation: show the form empty
+            if (contestApplicationRSDTO.associationImage) {
+                command.associationName = contestApplicationRSDTO.associationName
+                KuorumFile associationImageFile = KuorumFile.findByUrl(contestApplicationRSDTO.associationImage)
+                command.associationImage = associationImageFile?.id?.toString()
+            }
+        }
+        return [
+                campaign: contestApplicationRSDTO,
+                contest : contestRSDTO,
+                status  : contestApplicationRSDTO?.campaignStatusRSDTO ?: CampaignStatusRSDTO.DRAFT,
+                command : command,
+                hasCollaborator: true
+        ]
     }
 
     private def contestApplicationModelEditAuthorizations(ContestApplicationAuthorizationsCommand command, ContestApplicationRSDTO contestApplicationRSDTO, ContestRSDTO contestRSDTO) {
@@ -245,9 +290,12 @@ class ContestApplicationController extends CampaignController {
         campaignRDTO.numBenefitedCaregivers = command.numBenefitedCaregivers
         campaignRDTO.numBenefitedPacients = command.numBenefitedPacients
         campaignRDTO.numBeneficiaries = command.numBeneficiaries
-        campaignRDTO.associationName = command.associationName
-        campaignRDTO.associationImage = resolveAssociationImageUrl(command.associationImage, null, user)
         campaignRDTO.contestApplicationType = resolveContestApplicationType(null)
+        if (campaignRDTO.contestApplicationType == ContestApplicationTypeDTO.COLLABORATOR) {
+            // kuorumServices rejects creating a COLLABORATOR application without association name, which is asked in the Association step:
+            // the draft starts with the application name as provisional value. A completed Association step always has associationImage.
+            campaignRDTO.associationName = command.name
+        }
 
         return campaignRDTO
     }
@@ -278,12 +326,10 @@ class ContestApplicationController extends CampaignController {
         rdto.numBenefitedPacients = command.numBenefitedPacients
         rdto.numBenefitedCaregivers = command.numBenefitedCaregivers
         rdto.numBeneficiaries = command.numBeneficiaries
-        rdto.associationName = command.associationName
-        rdto.associationImage = resolveAssociationImageUrl(command.associationImage, contestApplicationRSDTO?.associationImage, user)
+        // associationName/associationImage are edited in the Association step: contestApplicationService.map keeps the saved values
         rdto.contestApplicationType = resolveContestApplicationType(contestApplicationRSDTO)
 
         contestApplicationRSDTO = contestApplicationService.save(user, rdto, contestApplicationRSDTO.getId())
-        updateAssociationImageFile(command.associationImage, contestApplicationRSDTO.associationImage, user)
         def nextStep = processNextStep(user, contestApplicationRSDTO, false)
         return nextStep
     }

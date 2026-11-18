@@ -14,6 +14,8 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
+    <%-- A persisted application type wins over the domain flag (null -> the tag falls back to the domain flag) --%>
+    <contestApplication:hasCollaborator var="hasCollaborator" hasCollaborator="${campaign.contestApplicationType ? campaign.contestApplicationType.name() == 'COLLABORATOR' : null}"/>
     <g:render template="/campaigns/edit/contentStep" model="[
             attachEvent     : false,
             command         : command,
@@ -26,6 +28,7 @@
 //                    settings          : 'contestApplicationEditSettings',
                     content           : 'contestApplicationEditContent',
                     environment       : 'contestApplicationEditScope',
+                    association       : hasCollaborator ? 'contestApplicationEditAssociation' : null,
                     showResult        : 'contestApplicationShow',
                     authorizations    : 'contestApplicationEditAuthorizations',
                     next              : 'contestApplicationEditAuthorizations']]"/>

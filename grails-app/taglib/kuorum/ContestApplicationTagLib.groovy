@@ -232,49 +232,23 @@ class ContestApplicationTagLib {
         out << formUtil.selectEnum(newAttrs)
     }
 
-    def handleCollaboratorFields = { attrs ->
+    /**
+     * Beneficiaries fields of the Scope step. The collaborator variant asks for a single beneficiaries number (patients and
+     * caregivers are sent as a fixed 1); the default variant asks for patients and caregivers.
+     */
+    def beneficiaryFields = { attrs ->
         def command = attrs.command
-        boolean hasCollaborator = resolveHasCollaborator(attrs)
 
-        if (hasCollaborator) {
-            // ---- LÓGICA FARMACIAS (Campo unificado) ----
+        if (resolveHasCollaborator(attrs)) {
             out << "<div class='hidden'>"
             out << "<input type='hidden' name='numBenefitedCaregivers' value='1' />"
             out << "<input type='hidden' name='numBenefitedPacients' value='1' />"
             out << "</div>"
 
-            // Fila 1: número de beneficiarios (columna izquierda)
             out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
-            out << domainInput([type: 'number', command: command, field: 'numBeneficiaries', showLabel: 'true', minValue: '1', hasCollaborator: hasCollaborator])
+            out << domainInput([type: 'number', command: command, field: 'numBeneficiaries', showLabel: 'true', minValue: '1', hasCollaborator: true])
             out << "</div>"
-
-            // Datos de la asociación: título en su propio fieldset (mismo patrón que "Datos de la entidad"),
-            // campos en la columna izquierda en el fieldset siguiente
-            out << """</fieldset><fieldset aria-live="polite" class="form-group">"""
-            out << """<h2 class="col-sm-offset-1">${message(code: 'kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.associationData.title')}</h2>"""
-            out << """</fieldset><fieldset aria-live="polite" class="form-group">"""
-
-            out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
-            out << domainInput([type: 'text', command: command, field: 'associationName', showLabel: 'true', hasCollaborator: hasCollaborator])
-            out << "</div>"
-
-            out << """<div class="clearfix"></div>"""
-
-            out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
-            out << domainEditImage([
-                    command: command,
-                    field: 'associationImage',
-                    fileGroup: kuorum.core.FileGroup.ASSOCIATION_IMAGE_PROFILE,
-                    showLabel: 'true',
-                    labelCssClass: 'associationImage-label',
-                    hasCollaborator: hasCollaborator
-            ])
-            out << "</div>"
-
         } else {
-            // ---- LÓGICA ASOCIACIONES (Clásica) ----
-            // associationName/associationImage/numBeneficiaries only apply to collaborator applications:
-            // they are nullable and not required here, so no placeholder values need to be submitted.
             out << """<div class="col-sm-offset-1 col-sm-4 col-xs-12">"""
             out << formUtil.input([type: 'number', command: command, field: 'numBenefitedPacients', showLabel: 'true', minValue: '1'])
             out << "</div>"
