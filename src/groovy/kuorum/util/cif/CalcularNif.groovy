@@ -1,180 +1,241 @@
 package kuorum.util.cif
 
+import java.util.regex.Pattern
+
 /**
- * Clase que calcula o valida un documento de identificación del reino de España. (DNI,NIE,CIF).
- * @author Agárimo
- *
- * https://github.com/agarimo/Validador/blob/master/src/principal/CalculaNif.java
+ * Clase que calcula o valida un documento de identificación del reino de España. (DNI, NIE, CIF).
  */
 public class CalculaNif {
 
-    private final String letrasNif = "TRWAGMYFPDXBNJZSQVHLCKE";
-    private final String letrasCifNoAutorizadasAsociaciones = "AB";
-    private final String letrasNie = "XYZ";
-    private final String digitoControlCif = "JABCDEFGHI";
-    private final String cifLetra = "KPQRSNW";
-    private final String letrasInicioAutorizadas = "CDEFGHJKLMNPQRSUVW"
+    private static final String LETRAS_NIF = "TRWAGMYFPDXBNJZSQVHLCKE"
+    private static final String LETRAS_NIE = "XYZ"
+    private static final String LETRAS_CIF = "ABCDEFGHJKLMNPQRSUVW"
+    private static final String DIGITO_CONTROL_CIF = "JABCDEFGHI"
 
-    private boolean isValidFormat = false;
+    private static final String CIF_LETRAS_OBLIGATORIAS = "KPQRSNW"
+    private static final String CIF_NUMEROS_OBLIGATORIOS = "ABEH"
 
-    private String nif;
+    // Personas jurídicas que NO se consideran asociaciones: A = Sociedad Anónima, B = Sociedad Limitada.
+    // Cualquier otra letra de CIF válido cuenta como asociación.
+    private static final String LETRAS_CIF_NO_AUTORIZADAS_ASOCIACIONES = "AB"
 
-    public CalculaNif(String nif) {
-        this.nif = nif.toUpperCase();
-        this.isValidFormat = this.nif ==~ "^(?:[" + letrasInicioAutorizadas + "][0-9]{7}[A-Z]|[" + letrasInicioAutorizadas + "][0-9]{8})\$"
+    // Estructura de un documento: el tipo de entidad lo da siempre la primera letra (1 carácter) y
+    // los 8 primeros caracteres son la base; el 9º es el dígito o letra de control.
+    private static final int LONGITUD_LETRA_TIPO_ENTIDAD = 1
+    private static final int LONGITUD_BASE_SIN_CONTROL = 8
+
+    // Variables explicativas precompiladas para el validador de formatos
+    private static final Pattern PATRON_DNI = ~/^[0-9]{7,8}[A-Z]$/
+    private static final Pattern PATRON_NIE = ~/^[$LETRAS_NIE][0-9]{7}[A-Z]$/
+    private static final Pattern PATRON_CIF = ~/^[$LETRAS_CIF][0-9]{7}[0-9A-Z]$/
+
+    private boolean isValidFormat = false
+    private String nif
+    private TipoDocumento tipo
+
+    enum TipoDocumento {
+        DNI, NIE, CIF, DESCONOCIDO
+    }
+
+    public CalculaNif(String nifInput) {
+        if (nifInput == null) {
+            this.nif = ""
+        } else {
+            this.nif = nifInput.trim().toUpperCase()
+        }
+        determinarTipoYFormato()
+    }
+
+    /**
+     * Clasifica el NIF usando un switch con constantes explicativas (Patterns).
+     */
+    private void determinarTipoYFormato() {
+        switch (this.nif) {
+            case PATRON_DNI:
+                // Si es un DNI, separamos la letra, completamos con ceros si tiene 7, y reconstruimos
+                String numeros = this.nif.substring(0, this.nif.length() - 1)
+                String letra = this.nif.substring(this.nif.length() - 1)
+
+                this.nif = completaCeros(numeros, LONGITUD_BASE_SIN_CONTROL) + letra
+                this.tipo = TipoDocumento.DNI
+                this.isValidFormat = true
+                break
+
+            case PATRON_NIE:
+                this.tipo = TipoDocumento.NIE
+                this.isValidFormat = true
+                break
+
+            case PATRON_CIF:
+                this.tipo = TipoDocumento.CIF
+                this.isValidFormat = true
+                break
+
+            default:
+                this.tipo = TipoDocumento.DESCONOCIDO
+                this.isValidFormat = false
+                break
+        }
     }
 
     def getNif() {
         return nif
     }
-/**
- * Calcula el dígito o letra de control de un documento de identificación
- * del reino de España
- *
- * @param nif documento a calcular
- * @return devuelve el documento con el dígito o letra de control calculado.
- */
+
+    private String primeraLetra() {
+        if (!isValidFormat) {
+            return ""
+        }
+        return nif.substring(0, LONGITUD_LETRA_TIPO_ENTIDAD)
+    }
+
+    private String baseSinControl(String documento) {
+        return documento.substring(0, LONGITUD_BASE_SIN_CONTROL)
+    }
+
     public String calcControlDigit() {
         if (!isValidFormat) {
-            return null;
+            return null
         }
-        String a = nif.substring(0, 1);
 
-        if (letrasInicioAutorizadas.contains(a)) {
-            return calculaCif(nif);
-        } else if (letrasNie.contains(a)) {
-            return calculaNie(nif);
-        } else {
-            return calculaDni(nif);
+        switch (this.tipo) {
+            case TipoDocumento.DNI:
+                return calculaDni(baseSinControl(nif))
+            case TipoDocumento.NIE:
+                return calculaNie(baseSinControl(nif))
+            case TipoDocumento.CIF:
+                return calculaCif(baseSinControl(nif))
+            default:
+                return null
+        }
+    }
+
+    boolean isValid() {
+        if (!isValidFormat) {
+            return false
+        }
+
+        switch (this.tipo) {
+            case TipoDocumento.DNI:
+                return isDniValido(nif)
+            case TipoDocumento.NIE:
+                return isNieValido(nif)
+            case TipoDocumento.CIF:
+                return isCifValido(nif)
+            default:
+                return false
         }
     }
 
     /**
-     * Valida un documento de identificación del reino de España
-     *
-     * @param nif documento a validar
-     * @return true si es válido, false si no lo es.
+     * Asociación: cualquier CIF válido salvo los de Sociedad Anónima (A) y Sociedad Limitada (B).
      */
-    boolean isValid() {
-        if (!isValidFormat) {
-            return false;
-        }
-        String a = nif.substring(0, 1);
-
-        if (letrasInicioAutorizadas.contains(a)) {
-            return isCifValido(nif);
-        } else if (letrasNie.contains(a)) {
-            return isNieValido(nif);
-        } else {
-            return isDniValido(nif);
-        }
-    }
-
-
     boolean isAsociacion() {
-        return nif &&letrasCifNoAutorizadasAsociaciones.indexOf(nif.substring(0, 1)) < 0;
+        return isValid() && this.tipo == TipoDocumento.CIF &&
+                !LETRAS_CIF_NO_AUTORIZADAS_ASOCIACIONES.contains(primeraLetra())
     }
 
-    private String calculaDni(String dni) {
-        String str = completaCeros(dni, 8);
-
-        if (str.length() == 9) {
-            str = str.substring(0, dni.length() - 1);
-        }
-        return str + calculaLetra(str);
+    /**
+     * Persona jurídica: cualquier CIF válido (incluye A y B, que no son asociaciones).
+     */
+    boolean isLegalEntity() {
+        return isValid() && this.tipo == TipoDocumento.CIF
     }
 
-    private String calculaNie(String nie) {
-        String str = null;
-
-        if (nie.length() == 9) {
-            nie = nie.substring(0, nie.length() - 1);
-        }
-
-        if (nie.startsWith("X")) {
-            str = nie.replace('X', '0');
-        } else if (nie.startsWith("Y")) {
-            str = nie.replace('Y', '1');
-        } else if (nie.startsWith("Z")) {
-            str = nie.replace('Z', '2');
-        }
-
-        return nie + calculaLetra(str);
-    }
-
-    private String calculaCif(String cif) {
-        return cif + calculaDigitoControl(cif);
-    }
-
-    private int posicionImpar(String str) {
-        int aux = Integer.parseInt(str);
-        aux = aux * 2;
-        aux = (aux / 10) + (aux % 10);
-
-        return aux;
-    }
-
-    private boolean isDniValido(String dni) {
-        String aux = dni.substring(0, 8);
-        aux = calculaDni(aux);
-
-        return dni.equals(aux);
-    }
-
-    private boolean isNieValido(String nie) {
-        String aux = nie.substring(0, 8);
-        aux = calculaNie(aux);
-
-        return nie.equals(aux);
-    }
-
-    private boolean isCifValido(String cif) {
-        String aux = cif.substring(0, 8);
-        aux = calculaCif(aux);
-
-        return cif.equals(aux);
-    }
-
-    private char calculaLetra(String aux) {
-        return letrasNif.charAt(Integer.parseInt(aux) % 23);
-    }
-
-    private String calculaDigitoControl(String cif) {
-        String str = cif.substring(1, 8);
-        String cabecera = cif.substring(0, 1);
-        int sumaPar = 0;
-        int sumaImpar = 0;
-        int sumaTotal;
-
-        for (int i = 1; i < str.length(); i += 2) {
-            int aux = Integer.parseInt("" + str.charAt(i));
-            sumaPar += aux;
-        }
-
-        for (int i = 0; i < str.length(); i += 2) {
-            sumaImpar += posicionImpar("" + str.charAt(i));
-        }
-
-        sumaTotal = sumaPar + sumaImpar;
-        sumaTotal = 10 - (sumaTotal % 10);
-
-        if (sumaTotal == 10) {
-            sumaTotal = 0;
-        }
-
-        if (cifLetra.contains(cabecera)) {
-            str = "" + digitoControlCif.charAt(sumaTotal);
-        } else {
-            str = "" + sumaTotal;
-        }
-
-        return str;
-    }
+    // =========================================================
+    // MÉTODOS PRIVADOS DE CÁLCULO MATEMÁTICO
+    // =========================================================
 
     private String completaCeros(String str, int num) {
         while (str.length() < num) {
-            str = "0" + str;
+            str = "0" + str
         }
-        return str;
+        return str
+    }
+
+    private String calculaDni(String dniNum) {
+        return dniNum + calculaLetraPersonal(dniNum)
+    }
+
+    private String calculaNie(String nieNum) {
+        String calcStr = baseSinControl(nieNum)
+                .replace('X', '0')
+                .replace('Y', '1')
+                .replace('Z', '2')
+
+        return nieNum + calculaLetraPersonal(calcStr)
+    }
+
+    private String calculaCif(String cifBase) {
+        return cifBase + calculaDigitoControl(cifBase)
+    }
+
+    private char calculaLetraPersonal(String numStr) {
+        int num = Integer.parseInt(numStr)
+        return LETRAS_NIF.charAt(num % 23)
+    }
+
+    private boolean isDniValido(String dni) {
+        return dni == calculaDni(baseSinControl(dni))
+    }
+
+    private boolean isNieValido(String nie) {
+        return nie == calculaNie(baseSinControl(nie))
+    }
+
+    private boolean isCifValido(String cif) {
+        String base = baseSinControl(cif)
+        String controlProporcionado = cif.substring(LONGITUD_BASE_SIN_CONTROL)
+
+        int sumaTotal = calculaSumaCif(base)
+        String letraEsperada = "" + DIGITO_CONTROL_CIF.charAt(sumaTotal)
+        String numEsperado = "" + sumaTotal
+
+        String cabecera = base.substring(0, LONGITUD_LETRA_TIPO_ENTIDAD)
+
+        if (CIF_LETRAS_OBLIGATORIAS.contains(cabecera)) {
+            return controlProporcionado == letraEsperada
+        }
+
+        if (CIF_NUMEROS_OBLIGATORIOS.contains(cabecera)) {
+            return controlProporcionado == numEsperado
+        }
+
+        return controlProporcionado == letraEsperada || controlProporcionado == numEsperado
+    }
+
+    private int calculaSumaCif(String cifBase) {
+        String digitos = cifBase.substring(LONGITUD_LETRA_TIPO_ENTIDAD, LONGITUD_BASE_SIN_CONTROL)
+        int sumaPar = 0
+        int sumaImpar = 0
+
+        for (int i = 0; i < digitos.length(); i++) {
+            int num = Integer.parseInt("" + digitos.charAt(i))
+            if (i % 2 == 0) {
+                int prod = num * 2
+                sumaImpar += (prod.intdiv(10)) + (prod % 10)
+            } else {
+                sumaPar += num
+            }
+        }
+
+        int sumaTotal = sumaPar + sumaImpar
+        int digito = 10 - (sumaTotal % 10)
+
+        if (digito == 10) {
+            return 0
+        }
+        return digito
+    }
+
+    private String calculaDigitoControl(String cifBase) {
+        int sumaTotal = calculaSumaCif(cifBase)
+        String cabecera = cifBase.substring(0, LONGITUD_LETRA_TIPO_ENTIDAD)
+
+        if (CIF_LETRAS_OBLIGATORIAS.contains(cabecera)) {
+            return "" + DIGITO_CONTROL_CIF.charAt(sumaTotal)
+        }
+
+        return "" + sumaTotal
     }
 }

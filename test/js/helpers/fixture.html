@@ -1,0 +1,62 @@
+<body>
+<header><a id="open-user-options" style="display:none"></a></header>
+<div id="registro" class="modal"><form action="/login"></form></div>
+
+<section id="main"><div class="leader-post">
+  <a id="vote-main" class="contestApplication-vote" href="/ajax/contest/vote" btn-disabled="false"
+     data-loggedUser="" data-allowAnonymousAction="true" data-campaignId="3517" data-campaignValidationActive="true"
+     data-campaignGroupValidationActive="" data-ajaxAnonymousValidationChecker="/anon-check" data-useralias=""
+     data-contestRemainingVotes="0" data-deadLineVotesTimeStamp="99999999999999" data-deadLineVotesErrorMsg="OUT OF TIME"
+     data-disabledText="VOTED"><span class="fa-scroll fal"></span><span class="number">0</span></a>
+</div></section>
+<ul class="leader-post-stats"><li><span class="fa-box-ballot"></span><span class="number">0</span></li></ul>
+
+<div class="modal fade modal-domain-validation" id="domain-validation" data-shown="0">
+ <div class="modal-body">
+  <div class="modal-domain-validation modal-domain-validation-tokenMail" style="display:none"><form id="tokenForm" action="/token"><input id="tokenMail" name="tokenMail"></form></div>
+  <div class="modal-domain-validation modal-domain-validation-census" style="display:none">
+    <ol class="modal-domain-validation-step-tabs stepsSign"><li class="modal-domain-validation-step-tabs-census"></li><li class="modal-domain-validation-step-tabs-phoneNumber"></li><li class="modal-domain-validation-step-tabs-phoneCode"></li></ol>
+    <form id="censusForm" action="/census"><input id="ndi" name="ndi" value=""><input id="postalCode" name="postalCode" value=""><fieldset class="modal-login-action-buttons"><button id="validateDomain-modal-form-button-id">OK <span class="text-success" style="display:none">ok</span></button></fieldset></form>
+  </div>
+  <div class="modal-domain-validation modal-domain-validation-phone" style="display:none">
+    <ol class="modal-domain-validation-step-tabs stepsSign"><li class="modal-domain-validation-step-tabs-census"></li><li class="modal-domain-validation-step-tabs-customCode"></li><li class="modal-domain-validation-step-tabs-phoneNumber"></li><li class="modal-domain-validation-step-tabs-phoneCode"></li></ol>
+    <div class="modal-domain-validation-phone-step1">
+      <form id="phoneForm" action="/sendSms">
+        <div class="form-group modal-domain-validation-phone-step1-predefinedPhone" style="display:none"><p>Tel: <span class="modal-domain-validation-phone-step1-predefinedPhone-phone">*****</span></p></div>
+        <div class="form-group modal-domain-validation-phone-step1-inputPhone">
+          <div class="form-group form-group-phone"><select id="phoneNumberPrefix" name="phoneNumberPrefix"><option value="0034" selected>+34</option><option value="0044">+44</option></select><input id="phoneNumber" name="phoneNumber" value=""></div>
+          <div class="form-group form-group-phone second-phone"><select id="phoneNumberPrefix2" name="phoneNumberPrefix2"><option value="0034" selected>+34</option><option value="0044">+44</option></select><input id="phoneNumber2" name="phoneNumber2" value=""></div>
+        </div>
+        <fieldset class="center modal-login-action-buttons"><button id="validatePhoneDomain-modal-form-button-id" data-recaptcha="1" data-whatsapp-enabled="true">Confirm</button></fieldset>
+      </form>
+    </div>
+    <div class="modal-domain-validation-phone-step2" style="display:none"
+      data-msg-help-whatsapp="HELP-WA" data-msg-help-sms="HELP-SMS" data-msg-link-whatsapp="LINK-WA" data-msg-link-sms="LINK-SMS"
+      data-msg-error-whatsapp="ERR-WA" data-msg-error-sms="ERR-SMS" data-msg-send-whatsapp="SEND-WA" data-msg-resend-whatsapp="RESEND-WA"
+      data-msg-send-sms="SEND-SMS" data-msg-resend-sms="RESEND-SMS">
+      <form id="codeForm" action="/validatePhone">
+        <input type="hidden" id="validationPhoneNumber"><input type="hidden" id="validationPhoneNumberPrefix"><input type="hidden" id="phoneHash">
+        <input id="phoneCode" name="phoneCode" value="" aria-errormessage="phoneCode-error">
+        <span class="help-block">HELP-WA</span>
+        <fieldset class="center modal-login-action-buttons"><a href="#" id="validatePhoneCodeDomain-modal-form-button-back">Back</a><button id="validatePhoneCodeDomain-modal-form-button-id">Validate</button></fieldset>
+      </form>
+      <div id="ui-block-whatsapp"><a href="#" id="whatsAppNotReceived">WA-NOT-RECEIVED</a>
+        <div id="kuorum-whatsapp-help-panel" style="display:none">
+          <p class="whatsapp-only-help" style="font-size:14px">a</p><p class="whatsapp-only-help" style="font-size:14px">b</p>
+          <button type="button" id="btn-resend-whatsapp-action" data-original-text="Resend WhatsApp"><span class="btn-text">Resend WhatsApp</span></button>
+          <button type="button" id="btn-resend-sms-action" data-original-text="Send SMS"><span class="btn-text">Send SMS</span></button>
+        </div>
+      </div>
+      <div id="ui-block-sms-only" style="clear:both;margin-top:15px;display:none"><a href="#" id="btn-resend-sms-action-fallback" data-original-text="Resend SMS"><span class="btn-text">Resend SMS</span></a></div>
+    </div>
+  </div>
+  <div class="modal-domain-validation modal-domain-validation-customCode" style="display:none"><ol class="modal-domain-validation-step-tabs stepsSign"><li class="modal-domain-validation-step-tabs-customCode"></li><li class="modal-domain-validation-step-tabs-phoneNumber"></li></ol>
+    <form id="customForm" action="/customCode"><input id="customCode" name="customCode" value=""><fieldset class="modal-login-action-buttons"><button id="validateCustomCodeDomain-modal-form-button-id">OK</button></fieldset></form></div>
+  <div class="modal-domain-validation modal-domain-validation-groupCampaign" style="display:none"><button id="groupValidationCampaign-modal-button-id">Cerrar</button></div>
+  <fieldset aria-live="polite" class="center modal-domain-validation-notifications">
+    <p class="loading" style="display:none">...</p><p class="text-success" style="display:none">ok</p>
+    <p class="text-danger" style="display:none"><span class="text-error-data">error</span></p>
+  </fieldset>
+ </div>
+</div>
+</body>

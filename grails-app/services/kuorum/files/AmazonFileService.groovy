@@ -84,6 +84,10 @@ class AmazonFileService extends LocalFileService {
                 String fileUrl = uploadNewsletterImage(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
             } else {
+                // Generic fallback for any FileGroup without a dedicated branch above -
+                // e.g. FileGroup.ASSOCIATION_IMAGE_PROFILE (ContestApplication's collaborating
+                // association logo). Relies on the uploadAmazonFile fix above to actually
+                // promote the file out of its temporal path.
                 uploadAmazonFile(kuorumFile, Boolean.FALSE)
             }
 
@@ -220,7 +224,11 @@ class AmazonFileService extends LocalFileService {
         uploadAmazonFile(kuorumFile, asTemporal, springSecurityService.principal)
     }
     protected void uploadAmazonFile(KuorumFile kuorumFile, Boolean asTemporal, KuorumUserSession user) {
-        if (kuorumFile.fileType == FileType.IMAGE) {
+        // Excludes YOUTUBE links (no binary to upload). Cannot require fileType == IMAGE: the very
+        // first call (temp upload) already flips it to AMAZON_IMAGE, so a later re-upload of the same
+        // KuorumFile - e.g. promoting a temporal file to its final URL, or re-uploading after a crop -
+        // would otherwise silently no-op and leave the temporal URL persisted forever.
+        if (kuorumFile.fileType != FileType.YOUTUBE) {
             String filePath = "${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}";
             File file = new File(filePath);
 

@@ -127,6 +127,7 @@ class AdminController {
         domainValidationCommand.validationCensus = domainRSDTO.validationCensus
         domainValidationCommand.validationPhone = domainRSDTO.validationPhone
         domainValidationCommand.validationWhatsApp = domainRSDTO.validationWhatsApp
+        domainValidationCommand.contestApplicationWithCollaborator = domainRSDTO.contestApplicationWithCollaborator
         domainValidationCommand.validationCode = domainRSDTO.validationCode
         domainValidationCommand.smsDomainName = domainRSDTO.smsDomainName
         domainValidationCommand.defaultPhonePrefix = domainRSDTO.defaultPhonePrefix
@@ -134,6 +135,8 @@ class AdminController {
         domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
         domainValidationCommand.tourEnabled = domainRSDTO.tourEnabled
         domainValidationCommand.externalIdName = domainRSDTO.externalIdName
+        // The sponsor only exists in the kuorumRestModel versions that include it: with an older model the screen still loads, without sponsor
+        domainValidationCommand.sponsor = domainRSDTO.hasProperty('sponsor') ? domainRSDTO.sponsor : null
 
         domainValidationCommand.providerBasicEmailForm = domainRSDTO.loginSettings.providerBasicEmailForm
         domainValidationCommand.providerGoogle = domainRSDTO.loginSettings.providerGoogle
@@ -156,6 +159,7 @@ class AdminController {
         domainRDTO.validationCode = command.validationCode ?: false
         domainRDTO.validationPhone = command.validationPhone ?: false
         domainRDTO.validationWhatsApp = command.validationWhatsApp ?:false
+        domainRDTO.contestApplicationWithCollaborator = command.contestApplicationWithCollaborator ?: false
         domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
         domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
         domainRDTO.tourEnabled = command.tourEnabled != null && command.tourEnabled
@@ -163,6 +167,9 @@ class AdminController {
         domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
         domainRDTO.firstFactorValidation = command.firstFactorValidation
         domainRDTO.externalIdName = command.externalIdName
+        if (SpringSecurityUtils.ifAnyGranted('ROLE_SUPER_ADMIN') && domainRDTO.hasProperty('sponsor')) {
+            domainRDTO.sponsor = command.sponsor
+        }
         domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
         domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
         domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false

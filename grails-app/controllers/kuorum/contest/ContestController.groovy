@@ -2,6 +2,7 @@ package kuorum.contest
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
@@ -10,6 +11,7 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.*
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.contest.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -388,6 +390,7 @@ class ContestController extends CampaignController {
     def vote(ContestApplicationVoteCommand command) {
         if (command.hasErrors()) {
             render([success: false, message: "There are errors on the data"] as JSON)
+            return
         }
         ContestRSDTO contestRSDTO = contestService.find(command.userAlias, command.contestId)
         if (!springSecurityService.isLoggedIn() && !contestRSDTO.allowAnonymousAction) {
@@ -398,7 +401,8 @@ class ContestController extends CampaignController {
         KuorumUserSession loggedUser = cookieUUIDService.buildAnonymousUser()
         try {
             ContestApplicationVoteRSDTO vote = contestApplicationService.vote(command.userAlias, command.contestId, command.campaignId, loggedUser.getId().toString());
-            render([success: true, message: g.message(code: 'contestApplication.callToAction.VOTING.success'), vote: vote] as JSON)
+
+            render([success: true, message: buildVoteSuccessMessage(contestRSDTO), vote: vote] as JSON)
         } catch (Exception e) {
             String msgError = "Error updating saving your vote"
             if (e.undeclaredThrowable.cause instanceof KuorumException) {
@@ -410,6 +414,22 @@ class ContestController extends CampaignController {
         } finally {
             cookieUUIDService.removeUserUUID();
         }
+    }
+
+    boolean isContestOrContestApplication(CampaignTypeRSDTO campaignType) {
+        return campaignType == CampaignTypeRSDTO.CONTEST || campaignType == CampaignTypeRSDTO.CONTEST_APPLICATION
+    }
+
+    // The domain sponsor (if any) is the one thanking for the vote; it is shown as HTML in the noty, so it is encoded
+    private String buildVoteSuccessMessage(ContestRSDTO contestRSDTO) {
+        if (!isContestOrContestApplication(contestRSDTO.campaignType)) {
+            return message(code: 'contestApplication.callToAction.VOTING.success')
+        }
+        String sponsor = CustomDomainResolver.sponsor
+        if (sponsor) {
+            return message(code: 'contestApplication.callToAction.VOTING.success.sponsor', args: [sponsor.encodeAsHTML()])
+        }
+        return message(code: 'contestApplication.callToAction.VOTING.success.customDomain', args: [contestRSDTO.user.fullName, contestRSDTO.title])
     }
 
     def anonymousVote(ContestApplicationVoteCommand) {
