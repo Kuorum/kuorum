@@ -19,6 +19,7 @@
             command         : command,
             numberRecipients: numberRecipients,
             status          : status,
+            hasCollaborator : hasCollaborator,
             mappings        : [
                     saveAndSentButtons: true,
                     hideScheduler     : true,
@@ -26,6 +27,7 @@
 //                    settings          : 'contestApplicationEditSettings',
                     content           : 'contestApplicationEditContent',
                     environment       : 'contestApplicationEditScope',
+                    association       : hasCollaborator ? 'contestApplicationEditAssociation' : null,
                     authorizations    : 'contestApplicationEditAuthorizations',
                     showResult        : 'contestApplicationShow',
                     next              : 'contestApplicationEditContent']]"/>

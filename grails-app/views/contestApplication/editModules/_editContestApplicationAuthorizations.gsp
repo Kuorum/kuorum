@@ -1,5 +1,8 @@
 <r:require modules="datepicker, campaignForm"/>
 
+<%-- Domain sponsor (null if none). It goes into labels that FormTagLib prints raw, so it is HTML-encoded here --%>
+<g:set var="sponsor" value="${kuorum.core.customDomain.CustomDomainResolver.sponsor?.encodeAsHTML()}"/>
+
 
 <div class="box-steps container-fluid campaign-steps">
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
@@ -8,7 +11,8 @@
 <div class="box-ppal campaign-new">
     <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 
-    <formUtil:validateForm bean="${command}" form="contestApplicationEditScope" dirtyControl="true"/>
+    <formUtil:validateForm bean="${command}" form="contestApplicationEditScope" dirtyControl="true"
+                          messageVariant="${hasCollaborator ? 'withCollaborator' : ''}"/>
     <form action="#" class="form-horizontal campaign-form" id="contestApplicationEditScope" method="POST"
           data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
         <input type="hidden" name="sendType"
@@ -19,19 +23,25 @@
 
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-xs-10">
-                <formUtil:checkBox command="${command}" field="authorizedAgent" showLabel="true" defaultEmpty="true"/>
+                <formUtil:checkBox command="${command}" field="authorizedAgent" showLabel="true" defaultEmpty="true"
+                                   messageVariant="${hasCollaborator ? 'withCollaborator' : ''}"
+                                   label="${contestApplication.domainMessage(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.authorizedAgent.label', hasCollaborator: hasCollaborator)}"/>
             </div>
         </fieldset>
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-xs-10">
                 <formUtil:checkBox command="${command}" field="acceptedLegalBases" showLabel="true" defaultEmpty="true"
-                                   label="${g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.acceptedLegalBases.label', args: [contest.getTitle()])}"/>
+                                   label="${sponsor ?
+                                           g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.acceptedLegalBases.label.withSponsor', args: [sponsor]) :
+                                           g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.acceptedLegalBases.label', args: [contest.getTitle()])}"/>
             </div>
         </fieldset>
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-xs-10">
                 <formUtil:checkBox command="${command}" field="imageRights" showLabel="true" defaultEmpty="true"
-                                   label="${g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.imageRights.label', args: [_domainName, contest.getTitle()])}"/>
+                                   label="${sponsor ?
+                                           g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.imageRights.label.withSponsor', args: [_domainName, sponsor]) :
+                                           g.message(code: 'kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand.imageRights.label', args: [_domainName, contest.getTitle()])}"/>
             </div>
         </fieldset>
         <g:render template="/campaigns/edit/stepButtons"

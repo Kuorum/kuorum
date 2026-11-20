@@ -220,6 +220,11 @@ class FileController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def cropImage() {
+        if (!params.fileId) {
+            // Avoids a confusing "ambiguous constructor" error from new ObjectId(null) below;
+            // happens if crop is requested before the upload's fileId reached the client.
+            throw new IllegalArgumentException("Missing fileId: image must be uploaded before it can be cropped")
+        }
         KuorumFile kuorumFile = KuorumFile.get(new ObjectId(params.fileId))
         Double x = Double.parseDouble(params.x)
         Double y = Double.parseDouble(params.y)

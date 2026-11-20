@@ -19,18 +19,20 @@
     <ol class="stepsSign">
         <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.basicData"/></div></li>
         <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.images"/></div></li>
-        <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.files"/></div></li>
+        <g:if test="${!hasCollaborator}">
+            <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.files"/></div></li>
+        </g:if>
         <li class="active"><div class="step-label"><g:message code="customRegister.fillProfile.social"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepFillSocial" autocomplete="off"/>
     <form name="stepFillSocial" role="form" method="POST" autocomplete="off"
-          class="signup step2">
-
-        <g:render template="formSocialNetworks" model="[command: command, showPoliticianFields: showPoliticianFields]"/>
+          class="signup step2"><br>
+    <contestApplication:domainSocialHeader />
+        <g:render template="formSocialNetworks" model="[command: command, showPoliticianFields: showPoliticianFields, hasCollaborator: hasCollaborator]"/>
 
         <fieldset aria-live="polite" class="row">
             <div class="form-group text-center option-buttons">
-                <g:link mapping="funnelFillFiles" params="[campaignId: campaignId]"
+                <g:link mapping="${hasCollaborator ? 'funnelFillImages' : 'funnelFillFiles'}" params="[campaignId: campaignId]"
                         class="btn btn-lg btn-grey-light"><g:message code="default.paginate.back"/></g:link>
                 <input type="submit" value="${g.message(code: 'customRegister.step2.submit')}" class="btn btn-lg">
             </div>

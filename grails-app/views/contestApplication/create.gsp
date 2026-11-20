@@ -25,15 +25,17 @@
         step: 'environment' ,
         content: 'contestApplicationEditContent',
         environment: 'contestApplicationCreate' ,
+        association: hasCollaborator ? 'contestApplicationEditAssociation' : null,
         showResult: 'campaignShow',
-        next: 'contestApplicationEditContent',
+        next: hasCollaborator ? 'contestApplicationEditAssociation' : 'contestApplicationEditContent',
         hideDraftButton: true
         ]}"/>
 
     <g:render template="/contestApplication/editModules/editContestApplicationEnvironment" model="[
             command : command,
             contest : contest,
-            mappings: mappings
+            mappings: mappings,
+            hasCollaborator: hasCollaborator
     ]"/>
 
     <g:render template="/newsletter/timeZoneSelectorPopUp"/>

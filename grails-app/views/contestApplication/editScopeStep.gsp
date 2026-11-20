@@ -19,13 +19,15 @@
             command         : command,
             numberRecipients: numberRecipients,
             status          : status,
+            hasCollaborator : hasCollaborator,
             mappings        : [
                     saveAndSentButtons: false,
                     step              : 'environment',
 //                    settings          : 'contestApplicationEditSettings',
                     content           : 'contestApplicationEditContent',
                     environment       : 'contestApplicationEditScope',
+                    association       : hasCollaborator ? 'contestApplicationEditAssociation' : null,
                     authorizations    : 'contestApplicationEditAuthorizations',
                     showResult        : 'campaignShow',
-                    next              : 'contestApplicationEditContent']]"/>
+                    next              : hasCollaborator ? 'contestApplicationEditAssociation' : 'contestApplicationEditContent']]"/>
 </content>

@@ -1,6 +1,7 @@
 package kuorum.core.customDomain
 
 import grails.util.Holders
+import kuorum.web.constants.WebConstants
 import org.apache.commons.collections.map.HashedMap
 import org.apache.jasper.tagplugins.jstl.core.Url
 import org.kuorum.rest.client.KuorumApi
@@ -30,8 +31,6 @@ class CustomDomainResolver {
         cachedData.put(PARAM_URL, URL)
         String domain = url.getHost()
         String port = url.getPort()==80 || url.getPort() <=0 ?'':":${url.getPort()}"
-//        String protocol = url.getProtocol()
-//        String base = "${protocol}://${domain}${port}${contextPath}"
         String base = "https://${domain}${port}${contextPath}" // AWS Sent http protocol instead https
         cachedData.put(PARAM_BASE,base)
         cachedData.put(PARAM_DOMAIN,domain)
@@ -95,5 +94,33 @@ class CustomDomainResolver {
 
     static void setDomainRSDTO(DomainRSDTO domainConfig) {
         CONTEXT.get().put(PARAM_DOMAIN_CONFIG, domainConfig)
+    }
+
+    /**
+     * Sponsor configured for the current domain, or null when there is none (or it is blank).
+     * The property only exists in the kuorumRestModel versions that include it, so it is read defensively: a front running against an older
+     * model/back (wrong deploy order, rollback) behaves as "no sponsor" instead of failing with MissingPropertyException.
+     */
+    static String getSponsor() {
+        DomainRSDTO domain = getDomainRSDTO()
+        if (domain == null || !domain.hasProperty('sponsor')) {
+            return null
+        }
+        return domain.sponsor?.toString()?.trim() ?: null
+    }
+
+    static Integer getMinFilesPerDocInContest() {
+        return isContestApplicationWithCollaboratorEnabled() ?
+                WebConstants.MIN_FILES_PER_DOC_IN_CONTEST_FOR_COLLABORATOR_APPLICATIONS :
+                WebConstants.MIN_FILES_PER_DOC_IN_CONTEST
+    }
+
+    /**
+     * Single source of truth for whether the current domain has the "contest application with
+     * collaborator" flow enabled (formerly referred to in code as "pharmacy"). Centralizes the
+     * DomainRSDTO flag lookup so callers/views don't each re-implement the same null-safe check.
+     */
+    static boolean isContestApplicationWithCollaboratorEnabled() {
+        return getDomainRSDTO()?.contestApplicationWithCollaborator ?: false
     }
 }

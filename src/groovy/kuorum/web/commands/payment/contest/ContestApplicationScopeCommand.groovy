@@ -13,6 +13,10 @@ class ContestApplicationScopeCommand {
     ContestApplicationFocusTypeDTO focusType
     Integer numBenefitedCaregivers
     Integer numBenefitedPacients
+    Integer numBeneficiaries
+
+    // Not bound from the request: set server-side by ContestApplicationController, never trusted from the client
+    Boolean hasCollaborator
 
     static constraints = {
         name nullable: false
@@ -21,6 +25,13 @@ class ContestApplicationScopeCommand {
         focusType nullable: false
         numBenefitedCaregivers nullable: false
         numBenefitedPacients nullable: false
+        // Only collaborator applications ask for it. Error code 'nullable' for empty/zero values so the "...cannot be empty or zero" message applies
+        numBeneficiaries nullable: true, validator: { val, obj ->
+            if (obj.hasCollaborator && (val == null || val <= 0)) {
+                return 'nullable'
+            }
+        }
+        hasCollaborator nullable: true
     }
 
 }
