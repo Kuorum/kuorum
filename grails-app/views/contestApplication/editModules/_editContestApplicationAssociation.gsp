@@ -45,8 +45,9 @@
                 <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
                       title="${g.message(code: 'contestApplication.association.files.label')}"></span></label>
 
+            <%-- Same place as the documents of the registration (files of the admin contact): private, they never show in the Content step --%>
             <div class="textareaContainer col-sm-8 col-md-7">
-                <formUtil:uploadCampaignFiles campaign="${campaign}"/>
+                <formUtil:uploadContactFiles contact="${contact}" adminContact="true"/>
             </div>
         </fieldset>
 
