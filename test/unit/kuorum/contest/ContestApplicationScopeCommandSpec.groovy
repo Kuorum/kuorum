@@ -16,7 +16,7 @@ class ContestApplicationScopeCommandSpec extends Specification {
     }
 
     private ContestApplicationScopeCommand command(Boolean hasCollaborator, Integer numBeneficiaries) {
-        new ContestApplicationScopeCommand(name: "n", cause: "c",
+        new ContestApplicationScopeCommand(cause: "c",
                 activityType: ContestApplicationActivityTypeDTO.values().first(), focusType: ContestApplicationFocusTypeDTO.values().first(),
                 numBenefitedCaregivers: 1, numBenefitedPacients: 1,
                 hasCollaborator: hasCollaborator, numBeneficiaries: numBeneficiaries)

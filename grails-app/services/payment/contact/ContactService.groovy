@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
+import kuorum.web.constants.WebConstants
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
@@ -254,6 +255,19 @@ class ContactService {
             contact = response.data
         }
         contact
+    }
+
+    // The "admin contact" is the contact of the logged user in the domain admin list (WebConstants.FAKE_LANDING_ALIAS_USER). The documents
+    // required to register (and the registration sheet of the Association step) are uploaded as files of this contact; it is created on demand.
+    ContactRSDTO getOrCreateAdminContact(KuorumUserSession loggedUser) {
+        ContactRSDTO adminContact = getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, loggedUser.email)
+        if (adminContact == null) {
+            ContactRDTO newAdminContact = new ContactRDTO()
+            newAdminContact.setEmail(loggedUser.email)
+            newAdminContact.setName(loggedUser.name)
+            adminContact = addContact(WebConstants.FAKE_LANDING_ALIAS_USER, newAdminContact)
+        }
+        return adminContact
     }
 
     ContactRSDTO addContact(KuorumUserSession user, ContactRDTO contactRDTO) {

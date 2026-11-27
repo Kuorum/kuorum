@@ -7,6 +7,8 @@ import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.contest.ContestApplicationAssociationCommand
 import kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand
 import kuorum.web.commands.payment.CampaignContentCommand
+import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
+import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationTypeDTO
@@ -17,13 +19,15 @@ import org.kuorum.rest.model.domain.DomainRSDTO
 import payment.campaign.CampaignService
 import payment.campaign.ContestApplicationService
 import payment.campaign.ContestService
+import payment.contact.ContactService
+import org.kuorum.rest.model.contact.ContactRSDTO
 import spock.lang.Specification
 import spock.lang.Unroll
 
 @TestFor(ContestApplicationController)
 class ContestApplicationControllerAssociationSpec extends Specification {
 
-    KuorumUserSession user = Stub(KuorumUserSession) { getId() >> new org.bson.types.ObjectId() }
+    KuorumUserSession user = Stub(KuorumUserSession) { getId() >> new org.bson.types.ObjectId(); getName() >> "Farmacia Pepe"; getTimeZone() >> TimeZone.getDefault() }
     ContestApplicationRSDTO rsdto
     Map redirectArgs
 
@@ -44,9 +48,11 @@ class ContestApplicationControllerAssociationSpec extends Specification {
         controller.contestApplicationService = Mock(ContestApplicationService)
         controller.contestService = Mock(ContestService)
         controller.campaignService = Mock(CampaignService)
+        controller.contactService = Mock(ContactService)
 
         rsdto = new ContestApplicationRSDTO(id: 5L, contestApplicationType: ContestApplicationTypeDTO.COLLABORATOR,
-                contest: new org.kuorum.rest.model.communication.contest.EmbeddedContestRSDTO(id: 9L), campaignStatusRSDTO: CampaignStatusRSDTO.DRAFT)
+                contest: new org.kuorum.rest.model.communication.contest.EmbeddedContestRSDTO(id: 9L), campaignStatusRSDTO: CampaignStatusRSDTO.DRAFT,
+                title: "Real title", body: "Body", photoUrl: "http://img/p.png")
         params.campaignId = "5"
         params.redirectLink = "contestApplicationEditContent"
     }
@@ -65,7 +71,7 @@ class ContestApplicationControllerAssociationSpec extends Specification {
         1 * controller.contestApplicationService.find(_, 5L) >> rsdto
         1 * controller.contestApplicationService.map(rsdto) >> new ContestApplicationRDTO()
         1 * controller.contestApplicationService.save(_, { ContestApplicationRDTO r -> r.associationName == "Assoc" }, 5L) >> rsdto
-        1 * controller.campaignService.getFiles(_) >> { throw new RuntimeException("API down") }
+        1 * controller.contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, _) >> { throw new RuntimeException("API down") }
         flash.error == "contestApplication.association.files.checkFailed"
         flash.message == null
         redirectArgs.mapping == "contestApplicationEditAssociation"
@@ -84,7 +90,7 @@ class ContestApplicationControllerAssociationSpec extends Specification {
         1 * controller.contestApplicationService.find(_, 5L) >> rsdto
         1 * controller.contestService.find(_, _) >> new ContestRSDTO(id: 9L)
         0 * controller.contestApplicationService.save(*_)
-        0 * controller.campaignService.getFiles(_)
+        0 * controller.contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, _)
         view == "/contestApplication/editAssociationStep" || view == "editAssociationStep"
         flash.error != null
 
@@ -100,7 +106,7 @@ class ContestApplicationControllerAssociationSpec extends Specification {
         1 * controller.contestApplicationService.find(_, 5L) >> rsdto
         1 * controller.contestApplicationService.map(rsdto) >> new ContestApplicationRDTO()
         1 * controller.contestApplicationService.save(*_) >> rsdto
-        1 * controller.campaignService.getFiles(_) >> []
+        1 * controller.contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, _) >> []
         flash.error == "contestApplication.association.files.missing"
         flash.message == null
         redirectArgs.mapping == "contestApplicationEditAssociation"
@@ -114,7 +120,7 @@ class ContestApplicationControllerAssociationSpec extends Specification {
         1 * controller.contestApplicationService.find(_, 5L) >> rsdto
         1 * controller.contestApplicationService.map(rsdto) >> new ContestApplicationRDTO()
         1 * controller.contestApplicationService.save(*_) >> rsdto
-        1 * controller.campaignService.getFiles(_) >> ["http://s3/file.pdf"]
+        1 * controller.contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, _) >> ["http://s3/file.pdf"]
         flash.error == null
         redirectArgs.mapping == "contestApplicationEditContent"
     }
@@ -131,7 +137,7 @@ class ContestApplicationControllerAssociationSpec extends Specification {
         then:
         1 * controller.contestApplicationService.find(_, 5L) >> rsdto
         0 * controller.contestApplicationService.save(*_)
-        0 * controller.campaignService.getFiles(_)
+        0 * controller.contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, _)
         flash.error == "contestApplication.association.sendMissingLogo"
         redirectArgs.mapping == "contestApplicationEditAssociation"
     }
@@ -147,7 +153,7 @@ class ContestApplicationControllerAssociationSpec extends Specification {
 
         then:
         1 * controller.contestApplicationService.find(_, 5L) >> rsdto
-        1 * controller.campaignService.getFiles(_) >> { throw new RuntimeException("API down") }
+        1 * controller.contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, _) >> { throw new RuntimeException("API down") }
         0 * controller.contestApplicationService.save(*_)
         flash.error == "contestApplication.association.files.sendCheckFailed"
         redirectArgs.mapping == "contestApplicationEditAuthorizations"
@@ -164,9 +170,126 @@ class ContestApplicationControllerAssociationSpec extends Specification {
 
         then:
         1 * controller.contestApplicationService.find(_, 5L) >> rsdto
-        1 * controller.campaignService.getFiles(_) >> []
+        1 * controller.contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, _) >> []
         0 * controller.contestApplicationService.save(*_)
         flash.error == "contestApplication.association.files.sendMissing"
         redirectArgs.mapping == "contestApplicationEditAssociation"
+    }
+
+    // ---- The title is only asked in the Content step ----
+
+    void "creating a draft without title uses 'Candidatura sin publicar en <contest>' as provisional name (and association name) and leaves the title empty"() {
+        given:
+        params.campaignId = "9"
+        messageSource.addMessage("contestApplication.provisionalName", request.locale, "Candidatura sin publicar en {0}")
+
+        when:
+        ContestApplicationRDTO rdto = controller.convertCommandContentToRDTO(
+                new ContestApplicationScopeCommand(cause: "c", numBeneficiaries: 3, hasCollaborator: true), user, null, controller.contestApplicationService)
+
+        then:
+        1 * controller.contestApplicationService.find(_, null) >> null
+        1 * controller.contestApplicationService.map(null) >> new ContestApplicationRDTO()
+        1 * controller.contestService.find(_, 9L) >> new ContestRSDTO(id: 9L, title: "Concurso Solidario")
+        rdto.name == "Candidatura sin publicar en Concurso Solidario"
+        !rdto.title
+        rdto.associationName == rdto.name
+        rdto.contestId == 9L
+    }
+
+    void "the scope command does not ask for a title any more"() {
+        expect:
+        !ContestApplicationScopeCommand.declaredFields.any { it.name == "name" }
+    }
+
+    void "re-editing the scope step keeps the title, the name and the association name already saved"() {
+        given:
+        params.contestId = "9"
+        rsdto.name = "Real name"
+        rsdto.title = "Real title"
+        rsdto.associationName = "Real association"
+        rsdto.associationImage = "http://img/a.png"
+        ContestApplicationRDTO sentToBack = null
+        controller.kuorumUserService = Stub(kuorum.users.KuorumUserService) { findBasicUserRSDTO(_) >> new BasicDataKuorumUserRSDTO(id: new org.bson.types.ObjectId()) }
+
+        when:
+        controller.saveScope(new ContestApplicationScopeCommand(cause: "c", numBeneficiaries: 7,
+                activityType: org.kuorum.rest.model.communication.contest.ContestApplicationActivityTypeDTO.values().first(),
+                focusType: org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO.values().first(),
+                numBenefitedCaregivers: 1, numBenefitedPacients: 1))
+
+        then:
+        1 * controller.contestApplicationService.find(_, 5L) >> rsdto
+        1 * controller.contestService.find(_, 9L) >> new ContestRSDTO(id: 9L, title: "Contest")
+        1 * controller.contestApplicationService.map(rsdto) >> new ContestApplicationRDTO(name: "Real name", title: "Real title", associationName: "Real association")
+        1 * controller.contestApplicationService.save(_, { ContestApplicationRDTO r ->
+            r.name == "Real name" && r.title == "Real title" && r.associationName == "Real association" && r.numBeneficiaries == 7
+        }, 5L) >> rsdto
+    }
+
+    void "sending an application whose Content step was never saved (no body or image) is blocked and sent back to Content"() {
+        given:
+        rsdto.body = null
+        def command = new ContestApplicationAuthorizationsCommand(authorizedAgent: true, acceptedLegalBases: true, imageRights: true,
+                sendType: CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND)
+
+        when:
+        controller.saveAuthorizations(command)
+
+        then:
+        1 * controller.contestApplicationService.find(_, 5L) >> rsdto
+        0 * controller.contestApplicationService.save(*_)
+        0 * controller.contactService.getFiles(*_)
+        flash.error == "contestApplication.content.sendMissing"
+        redirectArgs.mapping == "contestApplicationEditContent"
+    }
+
+    void "sending an application whose Content step has no title is blocked and sent back to Content"() {
+        given:
+        rsdto.title = null
+        def command = new ContestApplicationAuthorizationsCommand(authorizedAgent: true, acceptedLegalBases: true, imageRights: true,
+                sendType: CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND)
+
+        when:
+        controller.saveAuthorizations(command)
+
+        then:
+        1 * controller.contestApplicationService.find(_, 5L) >> rsdto
+        0 * controller.contestApplicationService.save(*_)
+        flash.error == "contestApplication.content.sendMissing"
+        redirectArgs.mapping == "contestApplicationEditContent"
+    }
+
+    // ---- The title replaces the provisional name when the application is published ----
+
+    void "publishing copies the title into the name"() {
+        given:
+        rsdto.associationImage = "http://img/a.png"
+        def command = new ContestApplicationAuthorizationsCommand(authorizedAgent: true, acceptedLegalBases: true, imageRights: true,
+                sendType: CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND)
+
+        when:
+        controller.saveAuthorizations(command)
+
+        then:
+        2 * controller.contestApplicationService.find(_, 5L) >> rsdto
+        1 * controller.contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, _) >> ["http://s3/file.pdf"]
+        1 * controller.contestApplicationService.map(rsdto) >> new ContestApplicationRDTO(name: "Candidatura sin publicar en X", title: "Real title")
+        1 * controller.contestApplicationService.save(_, { ContestApplicationRDTO r -> r.name == "Real title" && r.title == "Real title" }, 5L) >> rsdto
+    }
+
+    void "saving the authorizations as draft keeps the provisional name"() {
+        given:
+        def command = new ContestApplicationAuthorizationsCommand(authorizedAgent: true, acceptedLegalBases: true, imageRights: true,
+                sendType: CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT)
+
+        when:
+        controller.saveAuthorizations(command)
+
+        then:
+        1 * controller.contestApplicationService.find(_, 5L) >> rsdto
+        1 * controller.contestApplicationService.map(rsdto) >> new ContestApplicationRDTO(name: "Candidatura sin publicar en X", title: "Real title")
+        0 * controller.contactService.getFiles(*_)
+        1 * controller.contestApplicationService.save(_, { ContestApplicationRDTO r -> r.name == "Candidatura sin publicar en X" && r.title == "Real title" }, 5L) >> rsdto
     }
 }

@@ -12,6 +12,7 @@ import kuorum.web.commands.payment.contest.ContestApplicationAssociationCommand
 import kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
 import kuorum.web.commands.payment.contest.NewContestApplicationCommand
+import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
@@ -124,7 +125,7 @@ class ContestApplicationController extends CampaignController {
         contestApplicationRSDTO = contestApplicationService.save(user, rdto, contestApplicationRSDTO.getId())
         updateAssociationImageFile(command.associationImage, contestApplicationRSDTO.associationImage, user)
 
-        Boolean hasFiles = hasMinAssociationFiles(contestApplicationRSDTO)
+        Boolean hasFiles = hasMinAssociationFiles(user)
         if (!hasFiles) {
             // The text data is already saved, but the registration sheet is mandatory to go on: stay in this step
             flash.error = message(code: hasFiles == null ? 'contestApplication.association.files.checkFailed' : 'contestApplication.association.files.missing')
@@ -178,10 +179,24 @@ class ContestApplicationController extends CampaignController {
         return campaignRDTO
     }
 
+    // Fallback only: the draft is created with a provisional name (see provisionalApplicationName). The title is copied into the name when the
+    // application is published (see saveAuthorizations), not when the Content step is saved.
     private void setCampaignName(ContestApplicationRDTO contestApplicationRDTO, CampaignContentCommand command) {
         if (contestApplicationRDTO.name == null) {
             contestApplicationRDTO.name = command.title
         }
+    }
+
+    private static final int PROVISIONAL_NAME_MAX_LENGTH = 100 // same as CampaignContentCommand.title maxSize
+
+    // The back requires a name to create the draft, and the Scope step no longer asks it: "Candidatura sin publicar en <contest name>" (truncated
+    // so the draft can be edited later) is used as name until the application is published, when the title replaces it. Only the NAME: the title
+    // stays empty for the user to fill in the Content step (until then, links use the name: see LinkPropertiesCodec.getNameTitleUrl).
+    // Only used when creating, never when re-editing a step.
+    private String provisionalApplicationName() {
+        String contestName = params.campaignId ? (getContest(Long.parseLong(params.campaignId))?.title ?: '') : ''
+        String name = message(code: 'contestApplication.provisionalName', args: [contestName])
+        return name.trim().take(PROVISIONAL_NAME_MAX_LENGTH)
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
@@ -197,13 +212,20 @@ class ContestApplicationController extends CampaignController {
             render view: 'editAuthorizationsStep', model: contestApplicationModelEditAuthorizations(command, contestApplicationRSDTO, contest)
             return
         }
-        if (command.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT && !isAssociationStepCompleted(loggedUser, campaignId)) {
-            return
+        if (command.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT) {
+            ContestApplicationRSDTO current = contestApplicationService.find(loggedUser, campaignId)
+            if (!isContentStepCompleted(current) || !isAssociationStepCompleted(loggedUser, current)) {
+                return
+            }
         }
         ContestApplicationRDTO contestApplicationRSDTO = createRDTO(loggedUser, campaignId, contestApplicationService)
         contestApplicationRSDTO.authorizedAgent = command.authorizedAgent
         contestApplicationRSDTO.acceptedLegalBases = command.acceptedLegalBases
         contestApplicationRSDTO.imageRights = command.imageRights
+        if (command.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT) {
+            // Publishing (or scheduling): the title chosen in the Content step replaces the provisional name
+            contestApplicationRSDTO.name = contestApplicationRSDTO.title
+        }
         def result = saveAndSendCampaign(loggedUser, contestApplicationRSDTO, campaignId, command.publishOn, command.sendType, contestApplicationService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
@@ -268,6 +290,7 @@ class ContestApplicationController extends CampaignController {
                 contest : contestRSDTO,
                 status  : contestApplicationRSDTO?.campaignStatusRSDTO ?: CampaignStatusRSDTO.DRAFT,
                 command : command,
+                contact : contactService.getOrCreateAdminContact((KuorumUserSession) springSecurityService.principal),
                 hasCollaborator: true
         ]
     }
@@ -292,8 +315,8 @@ class ContestApplicationController extends CampaignController {
     protected CampaignRDTO convertCommandContentToRDTO(ContestApplicationScopeCommand command, KuorumUserSession user, Long campaignId, CampaignCreatorService campaignService) {
         ContestApplicationRDTO campaignRDTO = (ContestApplicationRDTO) createRDTO(user, campaignId, campaignService)
         campaignRDTO.setCampaignVisibility(CampaignVisibilityRSDTO.VISIBLE)
-        campaignRDTO.setTitle(command.name)
-        campaignRDTO.setName(command.name)
+        String provisionalName = provisionalApplicationName()
+        campaignRDTO.setName(provisionalName)
         setContest(campaignRDTO)
         campaignRDTO.causes = [command.cause]
         campaignRDTO.focusType = command.focusType
@@ -304,8 +327,8 @@ class ContestApplicationController extends CampaignController {
         campaignRDTO.contestApplicationType = resolveContestApplicationType(null)
         if (campaignRDTO.contestApplicationType == ContestApplicationTypeDTO.COLLABORATOR) {
             // kuorumServices rejects creating a COLLABORATOR application without association name, which is asked in the Association step:
-            // the draft starts with the application name as provisional value. A completed Association step always has associationImage.
-            campaignRDTO.associationName = command.name
+            // the draft starts with the provisional application name. A completed Association step always has associationImage.
+            campaignRDTO.associationName = provisionalName
         }
 
         return campaignRDTO
@@ -357,19 +380,20 @@ class ContestApplicationController extends CampaignController {
     }
 
     // true/false when the files service answered; null when the check could not be done (network error, API down)
-    private Boolean hasMinAssociationFiles(ContestApplicationRSDTO contestApplicationRSDTO) {
+    // The registration sheet is uploaded as file of the admin contact of the user (same place as the registration documents), not as campaign file
+    private Boolean hasMinAssociationFiles(KuorumUserSession user) {
         try {
-            return campaignService.getFiles(contestApplicationRSDTO).size() >= CustomDomainResolver.minFilesPerDocInContest
+            ContactRSDTO adminContact = contactService.getOrCreateAdminContact(user)
+            return contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact).size() >= CustomDomainResolver.minFilesPerDocInContest
         } catch (Exception e) {
-            log.error("Error checking the association files of the contest application ${contestApplicationRSDTO?.id}", e)
+            log.error("Error checking the association files of the user ${user?.id}", e)
             return null
         }
     }
 
     // Hard requirement before sending a collaborator application: the Association step must have been completed (the image is only saved
     // there) and it must have its registration sheet. If not, it redirects (and returns false) so the caller must stop.
-    private boolean isAssociationStepCompleted(KuorumUserSession loggedUser, Long campaignId) {
-        ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(loggedUser, campaignId)
+    private boolean isAssociationStepCompleted(KuorumUserSession loggedUser, ContestApplicationRSDTO contestApplicationRSDTO) {
         if (resolveContestApplicationType(contestApplicationRSDTO) != ContestApplicationTypeDTO.COLLABORATOR) {
             return true
         }
@@ -378,13 +402,25 @@ class ContestApplicationController extends CampaignController {
             redirect mapping: 'contestApplicationEditAssociation', params: contestApplicationRSDTO.encodeAsLinkProperties()
             return false
         }
-        Boolean hasFiles = hasMinAssociationFiles(contestApplicationRSDTO)
+        Boolean hasFiles = hasMinAssociationFiles(loggedUser)
         if (hasFiles) {
             return true
         }
         flash.error = message(code: hasFiles == null ? 'contestApplication.association.files.sendCheckFailed' : 'contestApplication.association.files.sendMissing')
         redirect mapping: hasFiles == null ? 'contestApplicationEditAuthorizations' : 'contestApplicationEditAssociation',
                 params: contestApplicationRSDTO.encodeAsLinkProperties()
+        return false
+    }
+
+    // The title is only asked in the Content step (until then the draft has a provisional name and no title): an application can't be sent
+    // without having saved it. The back does not check it, so title, body and header image (all mandatory in that step) are the signal.
+    // Redirects (and returns false) if not, so the caller must stop.
+    private boolean isContentStepCompleted(ContestApplicationRSDTO contestApplicationRSDTO) {
+        if (contestApplicationRSDTO.title?.trim() && contestApplicationRSDTO.body?.trim() && contestApplicationRSDTO.photoUrl) {
+            return true
+        }
+        flash.error = message(code: 'contestApplication.content.sendMissing')
+        redirect mapping: 'contestApplicationEditContent', params: contestApplicationRSDTO.encodeAsLinkProperties()
         return false
     }
 

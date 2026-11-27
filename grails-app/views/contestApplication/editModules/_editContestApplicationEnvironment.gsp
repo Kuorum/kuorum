@@ -12,23 +12,7 @@
           data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
-        <g:if test="${!campaign}">
-            <fieldset aria-live="polite" class="form-group">
-                <div class="col-sm-offset-1 col-sm-8">
-                    <formUtil:input command="${command}" field="name" showLabel="true"/>
-                </div>
-            </fieldset>
-        </g:if>
-        <g:else>
-            <input type="hidden" name="name" value="${campaign.title}"/>
-        </g:else>
-
-        <g:if test="${hasCollaborator}">
-            <fieldset aria-live="polite" class="form-group">
-                <h2 class="col-sm-offset-1"><g:message code="kuorum.web.commands.payment.contest.ContestApplicationScopeCommand.projectData.title"/></h2>
-            </fieldset>
-        </g:if>
-
+        <%-- The title of the application is only asked in the Content step --%>
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-sm-8">
                 <label for="cause">

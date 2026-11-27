@@ -7,7 +7,6 @@ import org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO
 
 @Validateable
 class ContestApplicationScopeCommand {
-    String name
     String cause
     ContestApplicationActivityTypeDTO activityType
     ContestApplicationFocusTypeDTO focusType
@@ -19,7 +18,6 @@ class ContestApplicationScopeCommand {
     Boolean hasCollaborator
 
     static constraints = {
-        name nullable: false
         cause nullable: false
         activityType nullable: false
         focusType nullable: false

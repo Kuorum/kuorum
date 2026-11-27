@@ -19,11 +19,9 @@
     <g:render template="/contestApplication/showModules/cCallToAction"
               model="[contestApplication: contestApplication, campaignUser: campaignUser, hideXs: false]"/>
     <g:render template="/contest/showModules/cContestRanking" model="[contest: contestApplication.contest, campaignUser: campaignUser, hideXs: false, hideXl: false]"/>
-    <%-- The files of the application (association registration sheet...) are only for admins, like the contact files below --%>
-    <sec:ifAllGranted roles="ROLE_ADMIN">
-        <g:render template="/campaigns/columnCModules/campaignFiles"
-                  model="[campaignFiles: campaignFiles, title: g.message(code: 'contestApplication.show.association-files.title'), showSubtitle: false]"/>
-    </sec:ifAllGranted>
+    <%-- Optional files uploaded in the Content step. The internal documents (registration sheet) are files of the admin contact, shown below to admins only --%>
+    <g:render template="/campaigns/columnCModules/campaignFiles"
+              model="[campaignFiles: campaignFiles, title: g.message(code: 'contestApplication.show.additional-files.title'), showSubtitle: false]"/>
     <g:render template="/campaigns/columnCModules/campaignContactFiles"
               model="[contact: contact, contactFiles: contactFiles]"/>
 
